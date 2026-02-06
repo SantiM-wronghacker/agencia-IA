@@ -1,0 +1,37 @@
+{
+  "summary": "Resumen actualizado:\nMe interesa vender automatización mensual a restaurantes\nPaquetes de automatización:\n**Sabor**: Automatización de Inventarios y Pedidos ($500/mes)\n**Fácil**: Automatización de Reservas y Gestión de Horarios ($300/mes)\n**Premium**: Automatización Completa (Inventarios, Pedidos, Reservas y Gestión de Horarios) ($1.500/mes)\n\n¿Qué te parece?",
+  "recent": [
+    {
+      "role": "user",
+      "content": "Me interesa vender automatización mensual a restaurantes"
+    },
+    {
+      "role": "assistant",
+      "content": "Entiendo que estás interesado en vender automatización mensual a restaurantes. ¿Qué tipo de automatización tienes en mente? (por ejemplo, sistemas de gestión de inventarios, reservaciones, etc.) ¿Tienes experiencia previa en este mercado o necesitas ayuda para desarrollar una estrategia efectiva? Estoy aquí para ayudarte a explorar opciones y oportunidades."
+    },
+    {
+      "role": "user",
+      "content": "Hazme 3 paquetes con nombres"
+    },
+    {
+      "role": "assistant",
+      "content": "¡Claro! A continuación, te presento tres paquetes de automatización mensual con nombres que podrían ser atractivos para los restaurantes:\n\n**Paquete \"Sabor\"**\nNombre: Automatización de Inventarios y Pedidos\nDescripción: Este paquete incluye un sistema de gestión de inventarios para controlar los suministros y el stock, así como una aplicación móvil para que los clientes puedan realizar pedidos en línea y fuera del lugar. Costo mensual: $500\n\n**Paquete \"Fácil\"**\nNombre: Automatización de Reservas y Gestión de Horarios\nDescripción: Este paquete se centra en la automatización de reservas y gestión de horarios para restaurantes que necesitan optimizar su capacidad de recepción. Incluye un sistema de reservas en línea, notificaciones automáticas y análisis de tendencias. Costo mensual: $300\n\n**Paquete \"Premium\"**\nNombre: Automatización Completa (Inventarios, Pedidos, Reservas y Gestión de Horarios)\nDescripción: Este paquete es el más completo y incluye todos los elementos mencionados anteriormente, más un sistema de gestión de pedidos en línea para que los clientes puedan realizar pedidos personalizados. Además, incluye análisis de tendencias y recomendaciones para mejorar la eficiencia del restaurante. Costo mensual: $1.500\n\n¿Qué te parece? ¿Te gustaría hacer algún ajuste o agregar algo más a estos paquetes? Estoy aquí para ayudarte a desarrollar una estrategia efectiva."
+    },
+    {
+      "role": "user",
+      "content": "estan en pesos mexicanos o dolares"
+    },
+    {
+      "role": "assistant",
+      "content": "✅ TASK recibido: estan en pesos mexicanos o dolares"
+    },
+    {
+      "role": "user",
+      "content": "los paquetes estan en pesos o dolares ?"
+    },
+    {
+      "role": "assistant",
+      "content": "Los paquetes de automatización que te presenté anteriormente están en dólares estadounidenses (USD). Si deseas, podemos convertir los precios a pesos mexicanos (MXN) para que sean más relevantes para el mercado local. ¿Qué prefieres?"
+    }
+  ]
+}

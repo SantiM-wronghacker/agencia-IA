@@ -1,59 +1,45 @@
 import json
 from pathlib import Path
 import streamlit as st
-import subprocess
-import os
-import sys
 import requests
 
-BASE = Path(".")
-PROJECTS_DIR = BASE / "projects"
-PROJECTS_DIR.mkdir(exist_ok=True)
+from config import PROJECTS_DIR, OLLAMA_TIMEOUT, API_HOST, API_PORT
+from agent_router_projects import ensure_project
 
-DEFAULT_AGENTS = [
-    {"id": "chat", "name": "Chat", "enabled": True},
-    {"id": "rag", "name": "RAG PRO", "enabled": True},
-    {"id": "save", "name": "Save (notes)", "enabled": True},
-    {"id": "task", "name": "Task (Planner+Executor)", "enabled": True},
-    {"id": "router", "name": "Router", "enabled": True},
-]
+API_URL = f"http://{API_HOST}:{API_PORT}"
 
-def ensure_project(company: str, project: str) -> Path:
-    p = PROJECTS_DIR / company / project
-    (p / "kb").mkdir(parents=True, exist_ok=True)
-    (p / "runs").mkdir(parents=True, exist_ok=True)
-    (p / "memory_db").mkdir(parents=True, exist_ok=True)
-    cfg = p / "config.json"
-    if not cfg.exists():
-        cfg.write_text(json.dumps({"agents": DEFAULT_AGENTS}, ensure_ascii=False, indent=2), encoding="utf-8")
-    state = p / "runs" / "state.json"
-    if not state.exists():
-        state.write_text(json.dumps({"summary": "", "recent": []}, ensure_ascii=False, indent=2), encoding="utf-8")
-    return p
 
 def list_companies():
+    if not PROJECTS_DIR.exists():
+        return []
     return sorted([d.name for d in PROJECTS_DIR.iterdir() if d.is_dir()])
+
 
 def list_projects(company: str):
     cdir = PROJECTS_DIR / company
-    if not cdir.exists(): return []
+    if not cdir.exists():
+        return []
     return sorted([d.name for d in cdir.iterdir() if d.is_dir()])
+
 
 def load_config(p: Path):
     return json.loads((p / "config.json").read_text(encoding="utf-8"))
 
+
 def save_config(p: Path, cfg: dict):
     (p / "config.json").write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
 
+
 def read_text_safe(path: Path, max_chars=20000):
-    if not path.exists(): 
+    if not path.exists():
         return ""
     t = path.read_text(encoding="utf-8", errors="ignore")
     return t[:max_chars]
 
+
 st.set_page_config(page_title="Agentes Locales - Panel", layout="wide")
 
-st.title("Panel: Empresas → Proyectos → Agentes (Local)")
+st.title("Panel: Empresas -> Proyectos -> Agentes (Local)")
 
 # Sidebar: Empresa / Proyecto
 st.sidebar.header("Navegación")
@@ -91,9 +77,6 @@ with tab1:
 
     with colB:
         st.markdown("### Acciones")
-        st.info("Este panel es UI. El chat/ejecución se conecta al router en el siguiente paso.")
-        st.write("**Siguiente**: conectar botón 'Abrir chat' al script del router.")
-        st.markdown("---")
         st.write("Config actual:")
         st.json(cfg)
 
@@ -116,7 +99,19 @@ with tab2:
             fpath.write_text(content, encoding="utf-8")
             st.success(f"Guardado: {fname}")
     with c2:
-        st.warning("Indexar aquí requiere conectar tu indexador por proyecto (lo hacemos en el siguiente paso).")
+        if st.button("Indexar KB"):
+            try:
+                r = requests.post(
+                    f"{API_URL}/index",
+                    json={"company": new_company, "project": new_project},
+                    timeout=60,
+                )
+                if r.status_code == 200:
+                    st.success("KB indexada correctamente.")
+                else:
+                    st.error(f"Error al indexar: {r.json().get('detail', r.text)}")
+            except Exception as e:
+                st.error(f"Error conectando al backend: {e}")
 
 # TAB 3: Memoria
 with tab3:
@@ -148,7 +143,6 @@ with tab5:
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
-    # Mostrar historial
     for msg in st.session_state.chat_history:
         st.chat_message(msg["role"]).markdown(msg["content"])
 
@@ -164,12 +158,12 @@ with tab5:
         }
 
         try:
-            res = requests.post("http://127.0.0.1:8000/chat", json=payload, timeout=120)
+            res = requests.post(f"{API_URL}/chat", json=payload, timeout=OLLAMA_TIMEOUT)
             data = res.json()
             answer = data.get("response", "Error: no response")
             route = data.get("route", "CHAT")
         except Exception as e:
-            answer = f"❌ Error llamando al backend: {e}"
+            answer = f"Error llamando al backend: {e}"
             route = "ERROR"
 
         st.chat_message("assistant").markdown(answer)
@@ -182,4 +176,3 @@ with tab5:
     if st.button("Limpiar chat (solo UI)"):
         st.session_state.chat_history = []
         st.success("Chat limpiado.")
-

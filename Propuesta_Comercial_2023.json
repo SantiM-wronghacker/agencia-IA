@@ -1,0 +1,26 @@
+{
+    "nombre": "Propuesta_Comercial_2023",
+    "fecha_creacion": "2026-02-23",
+    "fecha_entrega": "2026-03-04",
+    "monto_inicial": 50000.0,
+    "descuento": 0.09069463523702288,
+    "iva": 0.16,
+    "total": 52739.71115625267,
+    "contactos": [
+        {
+            "nombre": "Juan P\u00e9rez",
+            "puesto": "Gerente de Compras",
+            "telefono": "5512345678"
+        },
+        {
+            "nombre": "Mar\u00eda L\u00f3pez",
+            "puesto": "Directora de Ventas",
+            "telefono": "5587654321"
+        }
+    ],
+    "condiciones": [
+        "Pago al contado 5% de descuento",
+        "Pago en 30 d\u00edas sin descuento",
+        "Garant\u00eda de 1 a\u00f1o"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "anio_fiscal": 2026,
+    "deducciones_detalladas": {
+        "gastos_medicos": 50000.0,
+        "intereses_hipotecarios": 30000.0,
+        "donativos": 15000.0,
+        "gastos_educativos": 25000.0,
+        "ahorro_voluntario": 10000.0
+    },
+    "total_deducciones": 130000.0,
+    "limite_deducciones": 150000.0,
+    "excedente": 0,
+    "fecha_analisis": "2026-02-23 21:32:33"
+}

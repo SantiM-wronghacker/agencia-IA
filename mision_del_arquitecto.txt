@@ -1,0 +1,7 @@
+"MODIFICACIÓN ESTRUCTURAL:
+
+Actualiza root_assistant.py para que use 'from duckduckgo_search import DDGS' y el contexto 'with DDGS() as ddgs: keywords = ddgs.text(tema, max_results=5)'.
+
+Implementa un bloque try/except con decorador de reintento en las llamadas a la API de Gemini para evitar el error 504.
+
+Añade al inicio de root_assistant un verificador que ejecute 'pip install' si detecta que falta alguna librería importada en el código generado."

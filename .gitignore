@@ -50,3 +50,32 @@ desktop.ini
 
 # Pytest
 .pytest_cache/
+
+# Bases de datos y vectores de runtime
+*.db
+*.sqlite3
+vector_db/
+agency_data.db
+
+# Reportes y logs generados
+reporte_*.txt
+reporte_*.csv
+resumen_diario_*.txt
+registro_*.txt
+bus_mensajes.json
+
+# Backups binarios
+*.zip
+backup_recuperado/
+
+# Documentos privados (contratos, cartas poder)
+carta_poder_*.txt
+contrato_*.txt
+convenio_*.txt
+
+# Datos de runtime que cambian constantemente
+inventario.json
+ventas.json
+menu_*.json
+clima_organizacional.json
+procedimientos_sop.json

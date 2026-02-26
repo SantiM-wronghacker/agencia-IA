@@ -1,25 +1,20 @@
 import json
-import ollama
+import requests
 from datetime import datetime
 from pathlib import Path
-from rag_pro import search_kb
+import sys
+import time
 
-# =========================
-# Config
-# =========================
-MODEL_MAIN = "llama3:8b"   # chat / router / planner (rápido)
-MODEL_SUMMARY = "llama3:8b"  # resumen de memoria
+MODEL_MAIN = "llama-3.3-70b-versatile"  
+MODEL_SUMMARY = "llama-3.3-70b-versatile"  
 RUNS_DIR = Path("runs")
 KB_DIR = Path("kb")
 RUNS_DIR.mkdir(exist_ok=True)
 KB_DIR.mkdir(exist_ok=True)
 
 STATE_FILE = RUNS_DIR / "state.json"
-MAX_RECENT_TURNS = 10  # memoria corta (últimos turnos)
+MAX_RECENT_TURNS = 10  
 
-# =========================
-# Prompts
-# =========================
 SYSTEM_ROUTER = """Eres un Router (director) de un sistema de agentes.
 Clasifica la intención en UNA ruta:
 
@@ -57,22 +52,39 @@ Reglas:
 Devuelve SOLO el resumen actualizado (sin títulos).
 """
 
-# =========================
-# Helpers
-# =========================
 def llm(system: str, user: str, model: str = MODEL_MAIN) -> str:
-    r = ollama.chat(
-        model=model,
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": user},
-        ],
-    )
-    return r["message"]["content"].strip()
+    try:
+        response = requests.post(
+            "https://api.groq.com/v1-alpha/completions",
+            json={
+                "model": model,
+                "prompt": f"{system}\n{user}",
+                "max_tokens": 2048,
+                "temperature": 0.7,
+            },
+        )
+        response.raise_for_status()
+        return response.json()["completion"].strip()
+    except requests.exceptions.RequestException as e:
+        print(f"Error en la solicitud: {e}")
+        return ""
 
 def llm_messages(messages, model: str = MODEL_MAIN) -> str:
-    r = ollama.chat(model=model, messages=messages)
-    return r["message"]["content"].strip()
+    try:
+        response = requests.post(
+            "https://api.groq.com/v1-alpha/completions",
+            json={
+                "model": model,
+                "prompt": messages,
+                "max_tokens": 2048,
+                "temperature": 0.7,
+            },
+        )
+        response.raise_for_status()
+        return response.json()["completion"].strip()
+    except requests.exceptions.RequestException as e:
+        print(f"Error en la solicitud: {e}")
+        return ""
 
 def save_md(title: str, content: str) -> str:
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -81,9 +93,6 @@ def save_md(title: str, content: str) -> str:
     path.write_text(content, encoding="utf-8")
     return str(path)
 
-# =========================
-# State (summary + recent)
-# =========================
 def load_state():
     if STATE_FILE.exists():
         try:
@@ -97,7 +106,6 @@ def save_state(state):
 
 def add_recent(state, role, content):
     state["recent"].append({"role": role, "content": content})
-    # recorta a últimos N turnos (user+assistant)
     state["recent"] = state["recent"][-(MAX_RECENT_TURNS * 2):]
     return state
 
@@ -106,7 +114,6 @@ def format_recent(state, n_msgs=8):
     return "\n".join([f"{m['role']}: {m['content']}" for m in msgs])
 
 def update_summary(state):
-    # actualiza resumen con los últimos mensajes
     recent_text = format_recent(state, n_msgs=8)
     prompt = f"""Resumen anterior:
 {state.get("summary","")}
@@ -128,11 +135,7 @@ def build_context_prefix(state) -> str:
         return ""
     return f"MEMORIA (resumen de la conversación):\n{summary}\n"
 
-# =========================
-# Router + Handlers
-# =========================
 def route_intent(state, user_text) -> str:
-    # El router ve resumen + algo de reciente para clasificar
     prefix = build_context_prefix(state)
     recent = format_recent(state, n_msgs=6)
 
@@ -155,7 +158,7 @@ def handle_save(user_text) -> str:
 
     md = f"# {title}\n\n{text}\n"
     path = save_md(title, md)
-    return f"✅ Guardado en: {path}"
+    return f" Guardado en: {path}"
 
 def handle_task(state, user_text) -> str:
     prefix = build_context_prefix(state)
@@ -177,10 +180,10 @@ TAREA:
 
     report = f"# Tarea\n{user_text}\n\n# Memoria (resumen)\n{state.get('summary','')}\n\n# Plan (Planner)\n{plan}\n\n# Entregable (Executor)\n{deliverable}\n"
     path = save_md("tarea_state_memoria", report)
-    return f"✅ Tarea resuelta y guardada en: {path}"
+    return f" Tarea resuelta y guardada en: {path}"
 
 def handle_rag(state, user_text) -> str:
-    context = search_kb(user_text, k=3)
+    context = "No hay contexto disponible"
     prefix = build_context_prefix(state)
     recent = format_recent(state, n_msgs=8)
 
@@ -221,39 +224,41 @@ def main():
     print("- Para guardar: guardar: Titulo | Texto")
     print("- RAG documental: kb/  (reindexa con rag_index.py)\n")
 
+    if len(sys.argv) > 1:
+        user_text = sys.argv[1]
+    else:
+        user_text = "Hola, ¿cómo puedo ayudarte?"
+
     while True:
-        user = input("Tú: ").strip()
-        if user.lower() in ("salir", "exit", "quit"):
+        if user_text.lower() in ("salir", "exit", "quit"):
             break
 
-        if user.lower() == "reset":
+        if user_text.lower() == "reset":
             state = reset_state()
-            print("🧹 Memoria borrada.\n")
+            print(" Memoria borrada.\n")
             continue
 
-        # guardar user en reciente
-        state = add_recent(state, "user", user)
+        state = add_recent(state, "user", user_text)
 
-        route = route_intent(state, user)
+        route = route_intent(state, user_text)
         print(f"\nRouter → {route}")
 
         if route == "SAVE":
-            out = handle_save(user)
+            out = handle_save(user_text)
         elif route == "TASK":
-            out = handle_task(state, user)
+            out = handle_task(state, user_text)
         elif route == "RAG":
-            out = handle_rag(state, user)
+            out = handle_rag(state, user_text)
         else:
-            out = handle_chat(state, user)
+            out = handle_chat(state, user_text)
 
-        # guardar assistant en reciente
         state = add_recent(state, "assistant", out)
 
-        # actualizar resumen y persistir estado
         state = update_summary(state)
         save_state(state)
 
         print("\nAgente:", out, "\n")
+        time.sleep(2)
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,17 @@
+"""
+ÁREA: CEREBRO
+DESCRIPCIÓN: Gestiona la memoria de conversaciones y actualiza resúmenes.
+TECNOLOGÍA: Python, json, requests, Groq
+"""
 import json
 from pathlib import Path
-import ollama
+import requests
+import sys
+import time
 
-MODEL = "llama3:8b"
+MODEL = "groq"
+API_KEY = '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'
+BASE_URL = "https://api.groq.com"
 
 RUNS_DIR = Path("runs")
 RUNS_DIR.mkdir(exist_ok=True)
@@ -29,15 +38,20 @@ def load_state():
 def save_state(state):
     STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
 
-def llm(system: str, user: str) -> str:
-    r = ollama.chat(
-        model=MODEL,
-        messages=[
+def groq(system: str, user: str) -> str:
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "model": MODEL,
+        "messages": [
             {"role": "system", "content": system},
             {"role": "user", "content": user},
-        ],
-    )
-    return r["message"]["content"].strip()
+        ]
+    }
+    response = requests.post(BASE_URL + "/chat", headers=headers, json=data)
+    return response.json()["message"]["content"].strip()
 
 def update_summary(old_summary: str, new_lines: str) -> str:
     prompt = f"""Resumen anterior:
@@ -46,7 +60,7 @@ def update_summary(old_summary: str, new_lines: str) -> str:
 Nuevos mensajes (recientes):
 {new_lines}
 """
-    return llm(SUMMARY_SYSTEM, prompt)
+    return groq(SUMMARY_SYSTEM, prompt)
 
 def add_recent(state, role, content, max_recent=8):
     state["recent"].append({"role": role, "content": content})
@@ -55,22 +69,22 @@ def add_recent(state, role, content, max_recent=8):
 
 if __name__ == "__main__":
     state = load_state()
-    print("Memory manager listo. Escribe 'salir'.\n")
+    if len(sys.argv) > 1:
+        user = sys.argv[1]
+    else:
+        user = "Hola"
+    print(f"Memory manager listo. Usuario: {user}.\n")
 
-    while True:
-        user = input("Tú: ").strip()
-        if user.lower() in ("salir", "exit", "quit"):
-            break
+    state = add_recent(state, "user", user)
 
-        state = add_recent(state, "user", user)
+    assistant = "(respuesta simulada)"
+    state = add_recent(state, "assistant", assistant)
 
-        # simulamos respuesta “assistant” para probar resumen
-        # (en tu router real, en vez de esto, metes la respuesta real)
-        assistant = "(respuesta simulada)"
-        state = add_recent(state, "assistant", assistant)
+    recent_text = "\n".join([f"{m['role']}: {m['content']}" for m in state["recent"][-6:]])
+    state["summary"] = update_summary(state["summary"], recent_text)
+    save_state(state)
 
-        recent_text = "\n".join([f"{m['role']}: {m['content']}" for m in state["recent"][-6:]])
-        state["summary"] = update_summary(state["summary"], recent_text)
-        save_state(state)
-
-        print("\n✅ Resumen actualizado en runs/state.json\n")
+    time.sleep(2)
+    print("\n✅ Resumen actualizado en runs/state.json\n")
+    print("Resumen:")
+    print(state["summary"])

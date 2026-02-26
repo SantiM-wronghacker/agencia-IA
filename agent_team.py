@@ -1,12 +1,39 @@
-import ollama
+"""
+ÁREA: CEREBRO
+DESCRIPCIÓN: Agente de planificación y ejecución de tareas
+TECNOLOGÍA: Python, Groq
+"""
+
+
+from llm_router import completar
+
+def _groq_compat_create(**kwargs):
+    """Compatibilidad con llamadas antiguas a client.chat.completions.create"""
+    messages = kwargs.get('messages', [])
+    temperatura = kwargs.get('temperature', 0.5)
+    max_tokens = kwargs.get('max_tokens', 1000)
+
+    class _Resp:
+        class _Choice:
+            class _Msg:
+                content = ""
+            message = _Msg()
+        choices = [_Choice()]
+
+    resultado = completar(messages, temperatura=temperatura, max_tokens=max_tokens)
+    resp = _Resp()
+    resp.choices[0].message.content = resultado or ""
+    return resp
+
 from datetime import datetime
 from pathlib import Path
+import sys
+import time
 
+API_KEY = "tu_api_key_aquí"
 RUNS_DIR = Path("runs")
 RUNS_DIR.mkdir(exist_ok=True)
-
-PLANNER_MODEL = "llama3:8b"
-EXEC_MODEL = "llama3:8b"   # luego lo puedes subir a gpt-oss:20b
+MODEL = "groq:base"
 
 def save_run(title: str, content: str) -> str:
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
@@ -16,16 +43,20 @@ def save_run(title: str, content: str) -> str:
     return str(filename)
 
 def chat(model: str, system: str, user: str) -> str:
-    r = ollama.chat(
+    r = groq.chat(
+        api_key=API_KEY,
         model=model,
         messages=[
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
     )
+    time.sleep(2)
     return r["message"]["content"].strip()
 
-PLANNER_SYSTEM = """Eres un Planner. Convierte la petición en un plan accionable.
+SYSTEM = """Eres un planificador y ejecutor. Convierte la petición en un plan accionable y produce un primer entregable real en texto.
+Si faltan datos, asume lo mínimo razonable y marca TODO supuesto.
+Entrega en Markdown, con secciones y checklist.
 Devuelve:
 1) Objetivo (1 línea)
 2) Plan (5-10 pasos numerados)
@@ -34,26 +65,20 @@ Devuelve:
 Sé concreto.
 """
 
-EXEC_SYSTEM = """Eres un Executor. Tomas el plan y produces un primer entregable real en texto.
-Si faltan datos, asume lo mínimo razonable y marca TODO supuesto.
-Entrega en Markdown, con secciones y checklist.
-"""
-
 def main():
-    print("Equipo de agentes (Planner + Executor). Escribe 'salir' para terminar.\n")
+    if len(sys.argv) < 2:
+        task = "Planificar y ejecutar una tarea"
+    else:
+        task = sys.argv[1]
 
-    while True:
-        task = input("Tarea: ").strip()
-        if task.lower() in ("salir", "exit", "quit"):
-            break
+    print("Equipo de agentes (Planificador + Ejecutor). Tarea:", task, "\n")
 
-        plan = chat(PLANNER_MODEL, PLANNER_SYSTEM, task)
-        deliverable = chat(EXEC_MODEL, EXEC_SYSTEM, f"Petición:\n{task}\n\nPlan:\n{plan}")
+    result = chat(MODEL, SYSTEM, task)
 
-        report = f"# Tarea\n{task}\n\n# Plan (Planner)\n{plan}\n\n# Entregable (Executor)\n{deliverable}\n"
-        path = save_run("equipo_agentes", report)
+    report = f"# Tarea\n{task}\n\n# Resultado\n{result}\n"
+    path = save_run("equipo_agentes", report)
 
-        print("\n✅ Listo. Guardé el resultado en:", path, "\n")
+    print("\n Listo. Guardé el resultado en:", path, "\n")
 
 if __name__ == "__main__":
     main()

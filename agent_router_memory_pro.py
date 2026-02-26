@@ -1,11 +1,39 @@
+"""
+ÁREA: CEREBRO
+DESCRIPCIÓN: Agente de router con memoria que clasifica intenciones y responde según la ruta seleccionada
+TECNOLOGÍA: Python, Groq, json
+"""
+
+
+from llm_router import completar
+
+def _groq_compat_create(**kwargs):
+    """Compatibilidad con llamadas antiguas a client.chat.completions.create"""
+    messages = kwargs.get('messages', [])
+    temperatura = kwargs.get('temperature', 0.5)
+    max_tokens = kwargs.get('max_tokens', 1000)
+
+    class _Resp:
+        class _Choice:
+            class _Msg:
+                content = ""
+            message = _Msg()
+        choices = [_Choice()]
+
+    resultado = completar(messages, temperatura=temperatura, max_tokens=max_tokens)
+    resp = _Resp()
+    resp.choices[0].message.content = resultado or ""
+    return resp
+
 import json
-import ollama
 from datetime import datetime
 from pathlib import Path
 from rag_pro import search_kb
+import sys
+import time
 
 # === Config ===
-MODEL = "llama3:8b"
+MODEL = "groq3:8b"
 RUNS_DIR = Path("runs")
 KB_DIR = Path("kb")
 RUNS_DIR.mkdir(exist_ok=True)
@@ -60,7 +88,7 @@ def add_turn(history, role, content):
 
 # ---------- LLM helpers ----------
 def llm(messages, model=MODEL) -> str:
-    r = ollama.chat(model=model, messages=messages)
+    r = groq.chat(model=model, messages=messages)
     return r["message"]["content"].strip()
 
 def save_md(title: str, content: str) -> str:
@@ -88,7 +116,7 @@ def handle_save(user_text) -> str:
 
     md = f"# {title}\n\n{text}\n"
     path = save_md(title, md)
-    return f"✅ Guardado en: {path}"
+    return f" Guardado en: {path}"
 
 def handle_task(history, user_text) -> str:
     recent = history[-8:]
@@ -98,7 +126,7 @@ def handle_task(history, user_text) -> str:
 
     report = f"# Tarea\n{user_text}\n\n# Plan (Planner)\n{plan}\n\n# Entregable (Executor)\n{deliverable}\n"
     path = save_md("tarea_router_memoria_ragpro", report)
-    return f"✅ Tarea resuelta y guardada en: {path}"
+    return f" Tarea resuelta y guardada en: {path}"
 
 def handle_rag(history, user_text) -> str:
     context = search_kb(user_text, k=3)
@@ -127,35 +155,29 @@ def main():
     print("- Para guardar: guardar: Titulo | Texto")
     print("- Memoria documental (RAG): kb/  (reindexa con rag_index.py)\n")
 
-    while True:
-        user = input("Tú: ").strip()
-        if user.lower() in ("salir", "exit", "quit"):
-            break
+    if len(sys.argv) > 1:
+        user_text = sys.argv[1]
+    else:
+        user_text = "Hola, ¿cómo puedo ayudarte?"
 
-        if user.lower() == "reset":
-            history = []
-            save_session(history)
-            print("🧹 Memoria de sesión borrada.\n")
-            continue
+    history = add_turn(history, "user", user_text)
 
-        history = add_turn(history, "user", user)
+    route = route_intent(history, user_text)
+    print(f"\nRouter → {route}")
 
-        route = route_intent(history, user)
-        print(f"\nRouter → {route}")
+    if route == "SAVE":
+        out = handle_save(user_text)
+    elif route == "TASK":
+        out = handle_task(history, user_text)
+    elif route == "RAG":
+        out = handle_rag(history, user_text)
+    else:
+        out = handle_chat(history, user_text)
 
-        if route == "SAVE":
-            out = handle_save(user)
-        elif route == "TASK":
-            out = handle_task(history, user)
-        elif route == "RAG":
-            out = handle_rag(history, user)
-        else:
-            out = handle_chat(history, user)
+    history = add_turn(history, "assistant", out)
+    save_session(history)
 
-        history = add_turn(history, "assistant", out)
-        save_session(history)
-
-        print("\nAgente:", out, "\n")
+    print("\nAgente:", out, "\n")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,43 @@
+# Entorno Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# Secretos — NUNCA subir al repo
+.env
+*.env
+*.key
+
+# Backups generados por el sistema
+*.bak
+*.bak.*
+*.bak.mejora_*
+misiones.txt.bak*
+
+# Archivos de runtime
+misiones.txt
+registro_noche.txt
+registro_maestro.txt
+registro_fabrica.txt
+*.log
+
+# Archivos temporales de fabrica
+lote_temporal/
+*.tmp
+
+# Datos de proyectos (pueden tener info sensible)
+projects/*/memory_db/
+projects/*/*.sqlite3
+
+# IDE y OS
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Pytest
+.pytest_cache/

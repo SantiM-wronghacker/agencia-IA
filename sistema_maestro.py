@@ -1,0 +1,532 @@
+"""
+ÁREA: CEREBRO
+DESCRIPCIÓN: Sistema Maestro v1.0 — Integrador total de la Agencia Santi.
+             Arranca automáticamente al iniciar Windows. Gestiona en paralelo:
+             fábrica de agentes, modo noche, monitor de salud, limpieza de logs,
+             y consola central de control. Un solo proceso que hace funcionar todo.
+TECNOLOGÍA: Python estándar, threading, subprocess
+"""
+
+import os
+import sys
+import json
+import time
+import threading
+import subprocess
+import shutil
+import re
+from datetime import datetime
+import io as _io
+
+# Fix Unicode para Windows (cp1252) — hace print() seguro con cualquier caracter
+if hasattr(sys.stdout, 'buffer'):
+    sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'buffer'):
+    sys.stderr = _io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+
+# ---------------------------------------------
+#  CONFIGURACIÓN
+# ---------------------------------------------
+
+BASE_DIR        = os.path.dirname(os.path.abspath(__file__))
+LOG             = os.path.join(BASE_DIR, "registro_noche.txt")
+HABILIDADES     = os.path.join(BASE_DIR, "habilidades.json")
+BUS             = os.path.join(BASE_DIR, "bus_mensajes.json")
+MISIONES        = os.path.join(BASE_DIR, "misiones.txt")
+RUNS_DIR        = os.path.join(BASE_DIR, "runs")
+MAX_LOG_MB      = 5       # Limpiar log si supera este tamaño
+CICLO_MONITOR   = 60      # Segundos entre chequeos de salud
+CICLO_LIMPIEZA  = 300     # Segundos entre limpiezas automáticas
+TIMEOUT_PROCESO = 180     # Timeout para scripts cortos
+TIMEOUT_NOCHE   = 3600    # 1 hora para noche_total
+TIMEOUT_MISIONES = 1800   # 30 min para auto_run (200+ misiones)
+
+os.makedirs(RUNS_DIR, exist_ok=True)
+
+# ---------------------------------------------
+#  ESTADO GLOBAL
+# ---------------------------------------------
+
+estado = {
+    "inicio":           datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    "fabrica_activa":   False,
+    "noche_activa":     False,
+    "lotes_generados":  0,
+    "agentes_total":    0,
+    "ciclos_noche":     0,
+    "errores":          0,
+    "ultimo_ciclo":     "—",
+    "ultimo_agente":    "—",
+    "log_size_mb":      0,
+    "misiones_pendientes": 0,
+}
+
+log_lock = threading.Lock()
+
+# ---------------------------------------------
+#  LOGGING
+# ---------------------------------------------
+
+def log(msg, nivel="INFO"):
+    ts = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    iconos = {"INFO": "[INFO]", "OK": "[OK]", "WARN": "[WARN]", "ERROR": "[ERROR]", "MASTER": "[FABRICA]"}
+    icono = iconos.get(nivel, "[INFO]")
+    linea = f"[{ts}] [{nivel}] {icono} [MAESTRO] {msg}"
+    with log_lock:
+        print(linea)
+        try:
+            with open(LOG, "a", encoding="utf-8") as f:
+                f.write(linea + "\n")
+        except Exception:
+            pass
+
+# ---------------------------------------------
+#  EJECUTOR SEGURO DE SCRIPTS
+# ---------------------------------------------
+
+def ejecutar(script, args=None, timeout=TIMEOUT_PROCESO):
+    ruta = os.path.join(BASE_DIR, script)
+    if not os.path.exists(ruta):
+        return False, f"{script} no encontrado"
+    cmd = [sys.executable, ruta] + (args or [])
+    try:
+        r = subprocess.run(
+            cmd, capture_output=True, text=True,
+            encoding="utf-8", errors="replace",
+            timeout=timeout, cwd=BASE_DIR
+        )
+        return r.returncode == 0, (r.stdout or r.stderr or "")[:300]
+    except subprocess.TimeoutExpired:
+        return False, f"Timeout {timeout}s"
+    except Exception as e:
+        return False, str(e)
+
+# ---------------------------------------------
+#  LECTOR DE HABILIDADES
+# ---------------------------------------------
+
+def contar_agentes():
+    try:
+        with open(HABILIDADES, "r", encoding="utf-8", errors="replace") as f:
+            h = json.load(f)
+        return len(h), sum(1 for v in h.values() if v.get("salud") == "OK")
+    except Exception:
+        return 0, 0
+
+def contar_misiones():
+    try:
+        with open(MISIONES, "r", encoding="utf-8", errors="replace") as f:
+            lineas = [l for l in f.readlines() if l.strip()]
+        return len(lineas)
+    except Exception:
+        return 0
+
+# ---------------------------------------------
+#  LIMPIADOR AUTOMÁTICO
+# ---------------------------------------------
+
+def limpiar_sistema():
+    """Limpia logs pesados, backups viejos y archivos temporales."""
+    log("Iniciando limpieza automática...")
+
+    # Limpiar log si supera MAX_LOG_MB
+    if os.path.exists(LOG):
+        size_mb = os.path.getsize(LOG) / (1024 * 1024)
+        estado["log_size_mb"] = round(size_mb, 2)
+        if size_mb > MAX_LOG_MB:
+            # Archivar últimas 500 líneas
+            try:
+                with open(LOG, "r", encoding="utf-8", errors="replace") as f:
+                    lineas = f.readlines()
+                ultimas = lineas[-500:]
+                ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+                archivo_hist = os.path.join(RUNS_DIR, f"log_historico_{ts}.txt")
+                with open(archivo_hist, "w", encoding="utf-8") as f:
+                    f.writelines(lineas[:-500])
+                with open(LOG, "w", encoding="utf-8") as f:
+                    f.writelines(ultimas)
+                log(f"Log archivado ({size_mb:.1f}MB -> 500 líneas activas)", "OK")
+            except Exception as e:
+                log(f"Error limpiando log: {e}", "WARN")
+
+    # Mover .bak antiguos (más de 3 días) a runs/historico
+    historico = os.path.join(RUNS_DIR, "historico")
+    os.makedirs(historico, exist_ok=True)
+    ahora = time.time()
+    movidos = 0
+    for f in os.listdir(BASE_DIR):
+        if f.endswith(".bak") and not f.startswith("."):
+            ruta = os.path.join(BASE_DIR, f)
+            edad = (ahora - os.path.getmtime(ruta)) / 86400
+            if edad > 3:
+                try:
+                    shutil.move(ruta, os.path.join(historico, f))
+                    movidos += 1
+                except Exception:
+                    pass
+    if movidos:
+        log(f"{movidos} archivos .bak archivados", "OK")
+
+    # Limpiar bus_mensajes.json si supera 500KB
+    if os.path.exists(BUS):
+        size_bus = os.path.getsize(BUS) / 1024
+        if size_bus > 500:
+            try:
+                with open(BUS, "r", encoding="utf-8", errors="replace") as f:
+                    bus_data = json.load(f)
+                # Mantener solo últimos 50 mensajes
+                if isinstance(bus_data, list) and len(bus_data) > 50:
+                    bus_data = bus_data[-50:]
+                    with open(BUS, "w", encoding="utf-8") as f:
+                        json.dump(bus_data, f, indent=2, ensure_ascii=False)
+                    log(f"Bus limpiado ({size_bus:.0f}KB -> 50 mensajes)", "OK")
+            except Exception:
+                pass
+
+    # Limpiar carpeta lote_nuevo si quedó con archivos
+    lote_dir = os.path.join(BASE_DIR, "lote_nuevo")
+    if os.path.exists(lote_dir):
+        for f in os.listdir(lote_dir):
+            try:
+                os.remove(os.path.join(lote_dir, f))
+            except Exception:
+                pass
+
+    log("Limpieza completada", "OK")
+
+
+def hilo_limpieza():
+    """Hilo que limpia el sistema cada CICLO_LIMPIEZA segundos."""
+    while True:
+        try:
+            time.sleep(CICLO_LIMPIEZA)
+            limpiar_sistema()
+        except Exception as e:
+            log(f"Error en limpieza: {e}", "WARN")
+
+# ---------------------------------------------
+#  MONITOR DE SALUD
+# ---------------------------------------------
+
+def hilo_monitor():
+    """Monitorea el estado del sistema cada CICLO_MONITOR segundos."""
+    while True:
+        try:
+            total, ok = contar_agentes()
+            misiones = contar_misiones()
+            estado["agentes_total"]      = total
+            estado["misiones_pendientes"] = misiones
+
+            if os.path.exists(LOG):
+                estado["log_size_mb"] = round(os.path.getsize(LOG) / (1024*1024), 2)
+
+            # Alerta si hay agentes con problemas
+            if total > 0 and ok < total * 0.8:
+                log(f"[WARN] Solo {ok}/{total} agentes saludables", "WARN")
+
+            time.sleep(CICLO_MONITOR)
+        except Exception as e:
+            log(f"Error monitor: {e}", "WARN")
+            time.sleep(CICLO_MONITOR)
+
+# ---------------------------------------------
+#  HILO: MODO NOCHE
+# ---------------------------------------------
+
+def hilo_noche():
+    """
+    Corre noche_total.py como subproceso persistente.
+    noche_total ya tiene su propio bucle infinito interno.
+    """
+    estado["noche_activa"] = True
+    log("Modo Noche activado como proceso persistente", "OK")
+    while True:
+        try:
+            ruta = os.path.join(BASE_DIR, "noche_total.py")
+            if not os.path.exists(ruta):
+                log("noche_total.py no encontrado, esperando 60s...", "WARN")
+                time.sleep(60)
+                continue
+            estado["ultimo_ciclo"] = datetime.now().strftime('%H:%M:%S')
+            proc = subprocess.Popen(
+                [sys.executable, ruta],
+                cwd=BASE_DIR,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True, encoding="utf-8", errors="replace"
+            )
+            for linea in proc.stdout:
+                linea = linea.strip()
+                if linea and any(k in linea for k in ["CICLO", "completado", "ERROR"]):
+                    if "completado" in linea.lower():
+                        estado["ciclos_noche"] += 1
+                    with log_lock:
+                        try:
+                            with open(LOG, "a", encoding="utf-8") as f:
+                                f.write("[NOCHE] " + linea + "\n")
+                        except Exception:
+                            pass
+            proc.wait()
+            log("noche_total.py terminó, reiniciando en 30s...", "WARN")
+            time.sleep(30)
+        except Exception as e:
+            log(f"Error en noche: {e}", "ERROR")
+            time.sleep(30)
+
+# ---------------------------------------------
+#  HILO: FÁBRICA DE AGENTES
+# ---------------------------------------------
+
+def hilo_fabrica():
+    """Corre fabrica_agentes.py como subproceso continuo."""
+    estado["fabrica_activa"] = True
+    log("Fábrica de agentes activada", "OK")
+
+    # La fábrica ya tiene su propio bucle infinito
+    # La corremos como subproceso y la reiniciamos si muere
+    while True:
+        try:
+            ruta = os.path.join(BASE_DIR, "fabrica_agentes.py")
+            if not os.path.exists(ruta):
+                log("fabrica_agentes.py no encontrado, esperando...", "WARN")
+                time.sleep(60)
+                continue
+
+            proc = subprocess.Popen(
+                [sys.executable, ruta],
+                cwd=BASE_DIR,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True, encoding="utf-8", errors="replace"
+            )
+
+            # Leer output de la fábrica y reenviarlo al log
+            for linea in proc.stdout:
+                linea = linea.strip()
+                if linea and "FÁBRICA" in linea:
+                    if "APROBADO" in linea:
+                        estado["lotes_generados"] += 1
+                        match = re.search(r'(\w+\.py)', linea)
+                        if match:
+                            estado["ultimo_agente"] = match.group(1)
+                    # Solo loggear líneas importantes para no saturar
+                    if any(k in linea for k in ["LOTE", "APROBADO", "ERROR", "COMPLETADO", "FÁBRICA"]):
+                        with log_lock:
+                            try:
+                                with open(LOG, "a", encoding="utf-8") as f:
+                                    f.write(linea + "\n")
+                            except Exception:
+                                pass
+
+            proc.wait()
+            log("Fábrica terminó inesperadamente, reiniciando en 10s...", "WARN")
+            time.sleep(10)
+
+        except Exception as e:
+            log(f"Error en fábrica: {e}", "ERROR")
+            time.sleep(30)
+
+# ---------------------------------------------
+#  HILO: EJECUTOR DE MISIONES
+# ---------------------------------------------
+
+def hilo_misiones():
+    """Ejecuta misiones pendientes. Timeout largo para cientos de misiones."""
+    time.sleep(60)  # Esperar que arranquen los otros hilos primero
+    while True:
+        try:
+            misiones = contar_misiones()
+            if misiones > 0:
+                log(f"Ejecutando {misiones} misiones (timeout 30min)...", "INFO")
+                exito, output = ejecutar("auto_run.py", timeout=1800)
+                if exito:
+                    restantes = contar_misiones()
+                    log(f"Misiones OK. Restantes: {restantes}", "OK")
+                    estado["misiones_pendientes"] = restantes
+                else:
+                    log(f"Misiones: {output[:150]}", "WARN")
+            time.sleep(600)  # 10 min entre intentos
+        except Exception as e:
+            log(f"Error misiones: {e}", "WARN")
+            time.sleep(60)
+
+# ---------------------------------------------
+#  CONSOLA CENTRAL
+# ---------------------------------------------
+
+def mostrar_dashboard():
+    total, ok = contar_agentes()
+    print(f"""
++==========================================================+
+|           AGENCIA SANTI — SISTEMA MAESTRO v1.0           |
++==========================================================+
+|  Inicio:        {estado['inicio']:<38}  |
+|  Agentes total: {total:<5}  Saludables: {ok:<5}                    |
+|  Ciclos noche:  {estado['ciclos_noche']:<5}  Errores: {estado['errores']:<5}                    |
+|  Lotes fábrica: {estado['lotes_generados']:<5}  Último: {estado['ultimo_agente']:<20}  |
+|  Misiones:      {estado['misiones_pendientes']:<5}  Log: {estado['log_size_mb']:<5}MB                      |
+|  Último ciclo:  {estado['ultimo_ciclo']:<38}  |
++==========================================================+
+|  PROCESOS ACTIVOS:                                       |
+|  {'[OK]' if estado['fabrica_activa'] else '[ERROR]'} Fábrica de agentes (bucle infinito)              |
+|  {'[OK]' if estado['noche_activa'] else '[ERROR]'} Modo noche (ciclos cada 2 min)                  |
+|  [OK] Monitor de salud (cada 60s)                          |
+|  [OK] Limpieza automática (cada 5 min)                     |
+|  [OK] Ejecutor de misiones (cada 10 min)                   |
++==========================================================+
+|  COMANDOS: 'status' 'agentes' 'limpiar' 'misiones' 'q'  |
++==========================================================+""")
+
+def consola_interactiva():
+    """Consola central para controlar el sistema."""
+    time.sleep(3)  # Esperar que arranquen los hilos
+    mostrar_dashboard()
+
+    while True:
+        try:
+            cmd = input("\n[FABRICA] Maestro> ").strip().lower()
+
+            if cmd in ("q", "quit", "exit", "salir"):
+                log("Sistema maestro detenido manualmente.", "WARN")
+                os._exit(0)
+
+            elif cmd == "status":
+                mostrar_dashboard()
+
+            elif cmd == "agentes":
+                total, ok = contar_agentes()
+                try:
+                    with open(HABILIDADES, "r", encoding="utf-8", errors="replace") as f:
+                        h = json.load(f)
+                    areas = {}
+                    for v in h.values():
+                        area = v.get("categoria", "GENERAL")
+                        areas[area] = areas.get(area, 0) + 1
+                    print(f"\n[STATS] AGENTES POR ÁREA ({total} total, {ok} OK):")
+                    for area, count in sorted(areas.items(), key=lambda x: -x[1]):
+                        print(f"   {area:<25} {count}")
+                except Exception as e:
+                    print(f"Error: {e}")
+
+            elif cmd == "limpiar":
+                limpiar_sistema()
+
+            elif cmd == "misiones":
+                misiones = contar_misiones()
+                print(f"\n[LISTA] {misiones} misiones pendientes en misiones.txt")
+                if misiones > 0:
+                    exito, _ = ejecutar("auto_run.py", timeout=300)
+                    print("[OK] Ejecutadas" if exito else "[ERROR] Error al ejecutar")
+
+            elif cmd == "log":
+                if os.path.exists(LOG):
+                    with open(LOG, "r", encoding="utf-8", errors="replace") as f:
+                        lineas = f.readlines()
+                    print(f"\n[DOC] Últimas 20 líneas del log:")
+                    for l in lineas[-20:]:
+                        print(l.rstrip())
+
+            elif cmd == "help" or cmd == "?":
+                print("""
+Comandos disponibles:
+  status    — Ver dashboard completo
+  agentes   — Ver agentes por área
+  limpiar   — Limpiar logs y backups ahora
+  misiones  — Ver y ejecutar misiones pendientes
+  log       — Ver últimas líneas del log
+  q         — Detener el sistema""")
+
+            elif cmd == "":
+                continue
+
+            else:
+                print(f"Comando desconocido: '{cmd}'. Escribe 'help' para ver opciones.")
+
+        except KeyboardInterrupt:
+            log("Sistema maestro detenido con Ctrl+C.", "WARN")
+            os._exit(0)
+        except EOFError:
+            # Sin consola interactiva (modo daemon)
+            time.sleep(60)
+        except Exception as e:
+            log(f"Error en consola: {e}", "WARN")
+
+# ---------------------------------------------
+#  REGISTRO EN TAREA DE WINDOWS (arranque automático)
+# ---------------------------------------------
+
+def registrar_tarea_windows():
+    """Registra el sistema para arrancar automáticamente con Windows."""
+    try:
+        python_exe = sys.executable
+        script     = os.path.abspath(__file__)
+        nombre     = "AgenciaSanti_SistemaMaestro"
+
+        cmd_check = f'schtasks /query /tn "{nombre}" 2>nul'
+        existe = os.system(cmd_check) == 0
+
+        if not existe:
+            cmd_crear = (
+                f'schtasks /create /tn "{nombre}" '
+                f'/tr "\\"{python_exe}\\" \\"{script}\\" --daemon" '
+                f'/sc onlogon /rl highest /f'
+            )
+            resultado = os.system(cmd_crear)
+            if resultado == 0:
+                log(f"[OK] Tarea '{nombre}' registrada — arrancará con Windows", "OK")
+            else:
+                log("[WARN] No se pudo registrar tarea (ejecuta como administrador)", "WARN")
+        else:
+            log(f"Tarea '{nombre}' ya registrada en Windows", "INFO")
+
+    except Exception as e:
+        log(f"Error registrando tarea: {e}", "WARN")
+
+# ---------------------------------------------
+#  PUNTO DE ENTRADA
+# ---------------------------------------------
+
+def main():
+    modo_daemon = "--daemon" in sys.argv
+
+    log("+======================================================+", "MASTER")
+    log("|      AGENCIA SANTI — SISTEMA MAESTRO v1.0           |", "MASTER")
+    log("|      Iniciando todos los sistemas...                |", "MASTER")
+    log("+======================================================+", "MASTER")
+
+    # Registrar en Windows para arranque automático
+    if not modo_daemon:
+        registrar_tarea_windows()
+
+    # Limpieza inicial
+    limpiar_sistema()
+
+    # Arrancar todos los hilos en paralelo
+    hilos = [
+        threading.Thread(target=hilo_fabrica,  daemon=True, name="Fábrica"),
+        threading.Thread(target=hilo_noche,    daemon=True, name="Noche"),
+        threading.Thread(target=hilo_monitor,  daemon=True, name="Monitor"),
+        threading.Thread(target=hilo_limpieza, daemon=True, name="Limpieza"),
+        threading.Thread(target=hilo_misiones, daemon=True, name="Misiones"),
+    ]
+
+    for hilo in hilos:
+        hilo.start()
+        log(f"Hilo '{hilo.name}' iniciado", "OK")
+        time.sleep(1)
+
+    log("Todos los sistemas activos. Agencia Santi operando.", "MASTER")
+
+    # En modo daemon no hay consola interactiva
+    if modo_daemon:
+        log("Modo daemon — sin consola interactiva", "INFO")
+        while True:
+            time.sleep(300)
+            total, ok = contar_agentes()
+            log(f"Heartbeat — Agentes: {total} | Ciclos noche: {estado['ciclos_noche']} | Lotes fábrica: {estado['lotes_generados']}", "INFO")
+    else:
+        consola_interactiva()
+
+
+if __name__ == "__main__":
+    main()

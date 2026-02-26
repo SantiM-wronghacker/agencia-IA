@@ -1,0 +1,3085 @@
+{
+    "agenda_reuniones.py": {
+        "descripcion": "Agente para gestionar una agenda de reuniones",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:38",
+        "ordenes": [
+            "agenda reuniones"
+        ]
+    },
+    "agent_files.py": {
+        "descripcion": "Agente con archivos que interactúa con el usuario y guarda notas en archivos markdown.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:39",
+        "ordenes": [
+            "agent files"
+        ]
+    },
+    "agent_rag.py": {
+        "descripcion": "Agente con memoria (RAG) que responde preguntas utilizando un modelo de lenguaje y una base de conocimiento.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:39",
+        "ordenes": [
+            "agent rag"
+        ]
+    },
+    "agent_router.py": {
+        "descripcion": "Router inteligente que clasifica órdenes del usuario y las distribuye al agente correcto usando el bus de mensajes. Soporta rutas: CHAT, SAVE, TASK, F",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:39",
+        "ordenes": [
+            "agent router"
+        ]
+    },
+    "agent_router_memory.py": {
+        "descripcion": "Agente de router con memoria que clasifica intenciones y responde según el contexto.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:39",
+        "ordenes": [
+            "agent router memory"
+        ]
+    },
+    "agent_router_memory_pro.py": {
+        "descripcion": "Agente de router con memoria que clasifica intenciones y responde según la ruta seleccionada",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "agent router memory pro"
+        ]
+    },
+    "agent_router_projects.py": {
+        "descripcion": "Este script se encarga de gestionar proyectos y rutas de agentes.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "agent router projects"
+        ]
+    },
+    "agent_router_state_autoscale.py": {
+        "descripcion": "Agent Router State Autoscale",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "agent router state autoscale"
+        ]
+    },
+    "agent_router_state_pro.py": {
+        "descripcion": "Agent Router State Pro",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "agent router state pro"
+        ]
+    },
+    "agent_team.py": {
+        "descripcion": "Agente de planificación y ejecución de tareas",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "agent team"
+        ]
+    },
+    "agente_arquitecto_web.py": {
+        "descripcion": "Agente que analiza y sugiere mejoras para la interfaz de usuario web",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "agente arquitecto web"
+        ]
+    },
+    "agente_estrategia.py": {
+        "descripcion": "Estratega v2.1. Genera misiones por área simultáneamente con prioridad",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "agente estrategia"
+        ]
+    },
+    "analizador_balances.py": {
+        "descripcion": "Analiza un archivo de texto con activos y pasivos para calcular el capital contable y razones financieras básicas.",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "analizador balances"
+        ]
+    },
+    "api.py": {
+        "descripcion": "Implementación de un sistema de logs para una página web que muestra una consola en vivo de lo que cada agente está haciendo en el servidor.",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Web/API"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "api"
+        ]
+    },
+    "app.py": {
+        "descripcion": "Gestión de proyectos y agentes para una agencia de IA",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:50",
+        "ordenes": [
+            "app"
+        ]
+    },
+    "app_dashboard.py": {
+        "descripcion": "Aplicación web para la gestión de tareas y áreas de conocimiento",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Web/API",
+            "Base de Datos"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "app dashboard"
+        ]
+    },
+    "asistente_estudio_finanzas.py": {
+        "descripcion": "Agente de estudio de finanzas que busca información en fuentes confiables y genera resúmenes de estudio sobre conceptos clave de contaduría pública en",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "asistente estudio finanzas"
+        ]
+    },
+    "asistente_iva.py": {
+        "descripcion": "Asistente para calcular el IVA de una lista de montos",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "asistente iva"
+        ]
+    },
+    "asistente_iva_contable.py": {
+        "descripcion": "Asistente para calcular IVA y subtotal de montos",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "asistente iva contable"
+        ]
+    },
+    "auditor_tokens.py": {
+        "descripcion": "Auditor de tokens para agentes de IA",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "auditor tokens"
+        ]
+    },
+    "auto_evolucion.py": {
+        "descripcion": "Agente de auto-evolución que investiga y mejora código",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "auto evolucion"
+        ]
+    },
+    "auto_evolucion_pro.py": {
+        "descripcion": "Agente de evolución pro que investiga y mejora la infraestructura de código",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Base de Datos"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "auto evolucion pro"
+        ]
+    },
+    "auto_run.py": {
+        "descripcion": "Motor de ejecución de misiones. Lee misiones.txt línea por línea,",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Sistema"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52"
+    },
+    "bus_mensajes.py": {
+        "descripcion": "Bus de mensajes central. Sistema nervioso de la agencia — permite que los agentes se comuniquen entre sí depositando y recogiendo resultados sin depen",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52"
+    },
+    "buscador_plusvalia.py": {
+        "descripcion": "Busca el crecimiento porcentual promedio de precios de vivienda en las colonias principales de CDMX.",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "buscador plusvalia"
+        ]
+    },
+    "calculadora_isr_basica.py": {
+        "descripcion": "Calculadora básica de ISR para empresarios.",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "calculadora isr basica"
+        ]
+    },
+    "calculadora_roi.py": {
+        "descripcion": "Calculadora de ROI para propiedades inmobiliarias",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "calculadora roi"
+        ]
+    },
+    "calculadora_roi_mexico.py": {
+        "descripcion": "Calculadora de ROI y flujo de caja neto para propiedades en México",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "calculadora roi mexico"
+        ]
+    },
+    "celery_app.py": {
+        "descripcion": "Agente de tarea Celery con Redis como Broker y Backend",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "celery app"
+        ]
+    },
+    "clasificador_viviendas.py": {
+        "descripcion": "Clasificador de viviendas según su precio",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "clasificador viviendas"
+        ]
+    },
+    "consola_maestra.py": {
+        "descripcion": "Agente que procesa órdenes y muestra resultados",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "consola maestra"
+        ]
+    },
+    "conversor_pesos_dolar.py": {
+        "descripcion": "Convierte precios de propiedades de pesos a dólares",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "conversor pesos dolar"
+        ]
+    },
+    "database.py": {
+        "descripcion": "Manejo de sesiones y mensajes para una agencia de IA",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Base de Datos"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "database"
+        ]
+    },
+    "ejecutar_mision.py": {
+        "descripcion": "Ejecuta una misión de mejora en el Dashboard",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "ejecutar mision"
+        ]
+    },
+    "encriptador_claves.py": {
+        "descripcion": "Encriptador de claves para archivos de texto",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "encriptador claves"
+        ]
+    },
+    "formateador_codigo_limpio.py": {
+        "descripcion": "Formateador de código que revisa la indentación y docstrings en archivos .py",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "formateador codigo limpio"
+        ]
+    },
+    "generador_contrato_arrendamiento.py": {
+        "descripcion": "Generador de contratos de arrendamiento",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "generador contrato arrendamiento"
+        ]
+    },
+    "generador_copy_propiedades.py": {
+        "descripcion": "Genera variantes de anuncios persuasivos para Facebook e Instagram basados en m2, zona y precio.",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "generador copy propiedades"
+        ]
+    },
+    "generador_fichas_tecnicas.py": {
+        "descripcion": "Generador de fichas técnicas de propiedades",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:52",
+        "ordenes": [
+            "generador fichas tecnicas"
+        ]
+    },
+    "hub_control.py": {
+        "descripcion": "Hub Control",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Sistema"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "hub control"
+        ]
+    },
+    "integrador_router.py": {
+        "descripcion": "Integrador masivo del llm_router. Reemplaza todas las llamadas directas",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53"
+    },
+    "limpiador_backups_antiguos.py": {
+        "descripcion": "Mueve archivos .bak que tienen más de 24 horas a la carpeta 'Historico'.",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "limpiador backups antiguos"
+        ]
+    },
+    "llm_router.py": {
+        "descripcion": "Motor de LLM con rotación automática de proveedores. Si uno falla o",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53"
+    },
+    "maestro_ceo.py": {
+        "descripcion": "CEO orquestador principal. Recibe órdenes del usuario, coordina agentes especializados en cadena y sintetiza un resultado final coherente usando Groq.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Sistema"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "maestro ceo"
+        ]
+    },
+    "main.py": {
+        "descripcion": "Agente de routing para direccionar consultas a diferentes módulos (CHAT, SAVE, TASK, RAG)",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "main"
+        ]
+    },
+    "main_chat_backup.py": {
+        "descripcion": "Agente de chat que utiliza la API de Groq para generar respuestas a preguntas del usuario",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "main chat backup"
+        ]
+    },
+    "mapa_competencia.py": {
+        "descripcion": "Agente que busca inmobiliarias más activas en una zona y muestra sus diferenciadores de servicio",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "mapa competencia"
+        ]
+    },
+    "mapeador_capacidades.py": {
+        "descripcion": "Inspector de la agencia. Analiza todos los archivos .py, detecta",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Excel/Datos",
+            "Web",
+            "Web/API",
+            "Base de Datos",
+            "Sistema"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53"
+    },
+    "memory_manager.py": {
+        "descripcion": "Gestiona la memoria de conversaciones y actualiza resúmenes.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "memory manager"
+        ]
+    },
+    "monitor_gpu.py": {
+        "descripcion": "Monitorea la temperatura y uso de memoria de la GPU",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "monitor gpu"
+        ]
+    },
+    "monitor_internet.py": {
+        "descripcion": "Agente que monitorea la conexión a internet y busca información en Google",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Web"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "monitor internet"
+        ]
+    },
+    "noche_total.py": {
+        "descripcion": "Director de Orquesta v2.0. Mapeo + Estrategia corren en PARALELO",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Sistema"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "noche total"
+        ]
+    },
+    "organizador_descargas.py": {
+        "descripcion": "Organiza automáticamente la carpeta de Descargas moviendo los archivos por extensión",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "organizador descargas"
+        ]
+    },
+    "orquestador_clawbot.py": {
+        "descripcion": "Orquestador estilo Clawbot v2.0. Lee habilidades.json dinámicamente",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)",
+            "Sistema"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53"
+    },
+    "patcher_pro.py": {
+        "descripcion": "Cirujano de código de la agencia. Recibe un archivo .py y una misión,",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "patcher pro"
+        ]
+    },
+    "proyeccion_utilidades.py": {
+        "descripcion": "Simulador de utilidades para calcular utilidades anuales y mensuales",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "proyeccion utilidades"
+        ]
+    },
+    "rag_index.py": {
+        "descripcion": "Indexador de texto para agente de IA",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "rag index"
+        ]
+    },
+    "rag_pro.py": {
+        "descripcion": "Agente de búsqueda en base de conocimiento",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "rag pro"
+        ]
+    },
+    "rag_query.py": {
+        "descripcion": "Agente de búsqueda de información en una base de conocimiento",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "rag query"
+        ]
+    },
+    "reparador_masivo.py": {
+        "descripcion": "Reparador masivo automático. Analiza todos los agentes con problemas y los repara uno por uno usando Groq. Elimina input(), agrega sys.argv, corrige i",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53"
+    },
+    "reporte_diario.py": {
+        "descripcion": "Genera un resumen ejecutivo diario basado en logs de eventos",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "reporte diario"
+        ]
+    },
+    "resumen_diario_agente.py": {
+        "descripcion": "Genera un reporte de texto con todas las tareas que el sistema completó durante el día.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "resumen diario agente"
+        ]
+    },
+    "root_assistant.py": {
+        "descripcion": "Asistente raíz con permisos de administrador. Procesa consultas",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Groq (Nube)"
+        ],
+        "ultima_actualizacion": "2026-02-23 19:31:50",
+        "ordenes": [
+            "root assistant"
+        ]
+    },
+    "seguimiento_whatsapp.py": {
+        "descripcion": "Agente de seguimiento de clientes que envía recordatorios mediante WhatsApp",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Base de Datos"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "seguimiento whatsapp"
+        ]
+    },
+    "simulador_hipoteca.py": {
+        "descripcion": "Simulador de hipoteca que calcula el pago mensual y la tabla de amortización",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "simulador hipoteca"
+        ]
+    },
+    "supervisor_qa.py": {
+        "descripcion": "Auditor de calidad de la agencia. Verifica sintaxis, detecta imports",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "supervisor qa"
+        ]
+    },
+    "test_evolucion.py": {
+        "descripcion": "Agente de auto-evolución para mejorar la funcionalidad de patcher_pro.py",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "test evolucion"
+        ]
+    },
+    "validador_leads.py": {
+        "descripcion": "Validador de leads para agencia inmobiliaria que clasifica clientes según presupuesto y urgencia",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:53",
+        "ordenes": [
+            "validador leads"
+        ]
+    },
+    "verificador_documentacion.py": {
+        "descripcion": "Verifica la documentación requerida para procesos de renta",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-20 21:11:54",
+        "ordenes": [
+            "verificador documentacion"
+        ]
+    },
+    "analizador_flujo_caja.py": {
+        "descripcion": "Analiza flujo de caja mensual de un negocio. Recibe ingresos y egresos por categoría, calcula saldo neto, identifica meses críticos y proyecta 12 meses hacia adelante.",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:22:27",
+        "ordenes": [
+            "analizador flujo caja"
+        ]
+    },
+    "comparador_creditos.py": {
+        "descripcion": "Compara hasta 3 opciones de crédito hipotecario o empresarial. Calcula CAT, pago mensual, costo total y determina cuál conviene más según el perfil del usuario.",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:22:32",
+        "ordenes": [
+            "comparador creditos"
+        ]
+    },
+    "calculadora_plusvalia.py": {
+        "descripcion": "Calcula la plusvalía proyectada de una propiedad a 5 y 10 años según colonia, tipo de inmueble y tasa de crecimiento histórica de la zona en CDMX.",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:22:36",
+        "ordenes": [
+            "calculadora plusvalia"
+        ]
+    },
+    "evaluador_zona.py": {
+        "descripcion": "Evalúa una zona o colonia de CDMX para inversión inmobiliaria. Analiza plusvalía, seguridad, servicios, demanda de renta y emite un score de 1 a 10 con recomendación.",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:22:41",
+        "ordenes": [
+            "evaluador zona"
+        ]
+    },
+    "coordinador_cadena.py": {
+        "descripcion": "Conector entre agentes: recibe el output de un agente y lo prepara como input estructurado para el siguiente. Elimina ruido, extrae datos clave y formatea para sys.argv.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:22:45",
+        "ordenes": [
+            "coordinador cadena"
+        ]
+    },
+    "sintetizador_reportes.py": {
+        "descripcion": "Toma outputs de múltiples agentes y genera un reporte ejecutivo unificado en texto plano. Ideal para consolidar análisis del Clawbot en un documento enviable.",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:22:50",
+        "ordenes": [
+            "sintetizador reportes"
+        ]
+    },
+    "generador_nda.py": {
+        "descripcion": "Genera acuerdos de confidencialidad (NDA) básicos para México. Recibe nombres de las partes, objeto del acuerdo y vigencia. Produce documento en texto listo para firmar.",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:23:12",
+        "ordenes": [
+            "generador nda"
+        ]
+    },
+    "checklist_due_diligence.py": {
+        "descripcion": "Genera checklist completo de due diligence legal para compraventa de inmuebles en México. Lista documentos requeridos, alertas de riesgo y pasos del proceso notarial.",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:23:16",
+        "ordenes": [
+            "checklist due diligence"
+        ]
+    },
+    "generador_email_prospecto.py": {
+        "descripcion": "Genera secuencia de 3 emails de seguimiento para prospectos inmobiliarios o de negocio. Personaliza según etapa del embudo: frío, tibio o caliente.",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:23:21",
+        "ordenes": [
+            "generador email prospecto"
+        ]
+    },
+    "analizador_competencia_digital.py": {
+        "descripcion": "Analiza la presencia digital de un competidor: propuesta de valor, canales que usa, debilidades detectadas y oportunidades de diferenciación para el cliente.",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:23:25",
+        "ordenes": [
+            "analizador competencia digital"
+        ]
+    },
+    "calculadora_comision.py": {
+        "descripcion": "Calcula comisiones de ventas para agentes inmobiliarios o vendedores. Soporta esquemas fijos, escalonados y con bonos por meta. Muestra desglose mensual y anual.",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:23:30",
+        "ordenes": [
+            "calculadora comision"
+        ]
+    },
+    "script_llamada_ventas.py": {
+        "descripcion": "Genera scripts de llamada de ventas personalizados para diferentes tipos de prospectos. Incluye apertura, manejo de objeciones y cierre según el perfil del cliente.",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:23:34",
+        "ordenes": [
+            "script llamada ventas"
+        ]
+    },
+    "gestor_proveedores.py": {
+        "descripcion": "Gestiona y evalúa proveedores de servicios para una empresa. Registra nombre, servicio, costo mensual, calificación y genera ranking con recomendación de renovar o cambiar.",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar",
+            "llm_router"
+        ],
+        "ultima_actualizacion": "2026-02-23 20:23:39",
+        "ordenes": [
+            "gestor proveedores"
+        ]
+    },
+    "control_presupuesto_mensual.py": {
+        "descripcion": "Agente que realiza control presupuesto mensual",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:11:46",
+        "ordenes": [
+            "control presupuesto mensual"
+        ]
+    },
+    "analizador_razones_financieras.py": {
+        "descripcion": "Agente que realiza analizador razones financieras",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:11:51",
+        "ordenes": [
+            "analizador razones financieras"
+        ]
+    },
+    "calculadora_retorno_desarrollo_obra.py": {
+        "descripcion": "Agente que realiza calculadora retorno desarrollo obra",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:11:57",
+        "ordenes": [
+            "calculadora retorno desarrollo obra"
+        ]
+    },
+    "calculadora_ocupacion_renta.py": {
+        "descripcion": "Agente que realiza calculadora ocupacion renta",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:02",
+        "ordenes": [
+            "calculadora ocupacion renta"
+        ]
+    },
+    "router_consultas_complejidad.py": {
+        "descripcion": "Agente que realiza router consultas complejidad",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:07",
+        "ordenes": [
+            "router consultas complejidad"
+        ]
+    },
+    "clasificador_intencion_usuario.py": {
+        "descripcion": "Agente que realiza clasificador intencion usuario",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:12",
+        "ordenes": [
+            "clasificador intencion usuario"
+        ]
+    },
+    "conversor_formatos_datos.py": {
+        "descripcion": "Agente que realiza conversor formatos datos",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:18",
+        "ordenes": [
+            "conversor formatos datos"
+        ]
+    },
+    "scheduler_tareas_programadas.py": {
+        "descripcion": "Agente que realiza scheduler tareas programadas",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:22",
+        "ordenes": [
+            "scheduler tareas programadas"
+        ]
+    },
+    "generador_plan_contenidos.py": {
+        "descripcion": "Agente que realiza generador plan contenidos",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:28",
+        "ordenes": [
+            "generador plan contenidos"
+        ]
+    },
+    "comparador_zonas_comerciales.py": {
+        "descripcion": "Agente que realiza comparador zonas comerciales",
+        "categoria": "BIENES RAÍCES COMERCIALES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:33",
+        "ordenes": [
+            "comparador zonas comerciales"
+        ]
+    },
+    "generador_recordatorio_medicamentos.py": {
+        "descripcion": "Agente que realiza generador recordatorio medicamentos",
+        "categoria": "SALUD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:38",
+        "ordenes": [
+            "generador recordatorio medicamentos"
+        ]
+    },
+    "generador_rubrica_evaluacion.py": {
+        "descripcion": "Agente que realiza generador rubrica evaluacion",
+        "categoria": "EDUCACIÓN",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:43",
+        "ordenes": [
+            "generador rubrica evaluacion"
+        ]
+    },
+    "calculadora_presupuesto_viaje.py": {
+        "descripcion": "Agente que realiza calculadora presupuesto viaje",
+        "categoria": "TURISMO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:48",
+        "ordenes": [
+            "calculadora presupuesto viaje"
+        ]
+    },
+    "generador_plan_onboarding.py": {
+        "descripcion": "Agente que realiza generador plan onboarding",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:53",
+        "ordenes": [
+            "generador plan onboarding"
+        ]
+    },
+    "generador_manifiesto_carga.py": {
+        "descripcion": "Agente que realiza generador manifiesto carga",
+        "categoria": "LOGÍSTICA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:12:58",
+        "ordenes": [
+            "generador manifiesto carga"
+        ]
+    },
+    "calculo_nomina_mensual_mexico.py": {
+        "descripcion": "Agente que realiza calculo nomina mensual mexico",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:08",
+        "ordenes": [
+            "calculo nomina mensual mexico"
+        ]
+    },
+    "analizador_deuda_empresarial.py": {
+        "descripcion": "Agente que realiza analizador deuda empresarial",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:13",
+        "ordenes": [
+            "analizador deuda empresarial"
+        ]
+    },
+    "evaluador_credito_puente.py": {
+        "descripcion": "Agente que realiza evaluador credito puente",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:19",
+        "ordenes": [
+            "evaluador credito puente"
+        ]
+    },
+    "simulador_crowdfunding_inmobiliario.py": {
+        "descripcion": "Agente que realiza simulador crowdfunding inmobiliario",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:23",
+        "ordenes": [
+            "simulador crowdfunding inmobiliario"
+        ]
+    },
+    "agente_validacion_resultados.py": {
+        "descripcion": "Agente que realiza agente validacion resultados",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:28",
+        "ordenes": [
+            "agente validacion resultados"
+        ]
+    },
+    "generador_prompts_optimizados.py": {
+        "descripcion": "Agente que realiza generador prompts optimizados",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:33",
+        "ordenes": [
+            "generador prompts optimizados"
+        ]
+    },
+    "parser_archivos_configuracion.py": {
+        "descripcion": "Agente que realiza parser archivos configuracion",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:38",
+        "ordenes": [
+            "parser archivos configuracion"
+        ]
+    },
+    "monitor_uso_apis.py": {
+        "descripcion": "Agente que realiza monitor uso apis",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:43",
+        "ordenes": [
+            "monitor uso apis"
+        ]
+    },
+    "calculadora_seguro_vida_mexico.py": {
+        "descripcion": "Agente que realiza calculadora seguro vida mexico",
+        "categoria": "SEGUROS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:49",
+        "ordenes": [
+            "calculadora seguro vida mexico"
+        ]
+    },
+    "calculadora_costo_platillo.py": {
+        "descripcion": "Agente que realiza calculadora costo platillo",
+        "categoria": "RESTAURANTES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:54",
+        "ordenes": [
+            "calculadora costo platillo"
+        ]
+    },
+    "analizador_costo_ultima_milla.py": {
+        "descripcion": "Agente que realiza analizador costo ultima milla",
+        "categoria": "LOGÍSTICA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:13:59",
+        "ordenes": [
+            "analizador costo ultima milla"
+        ]
+    },
+    "generador_bio_redes_sociales.py": {
+        "descripcion": "Agente que realiza generador bio redes sociales",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:04",
+        "ordenes": [
+            "generador bio redes sociales"
+        ]
+    },
+    "calculadora_regimen_fiscal_adecuado.py": {
+        "descripcion": "Agente que realiza calculadora regimen fiscal adecuado",
+        "categoria": "CONTABILIDAD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:08",
+        "ordenes": [
+            "calculadora regimen fiscal adecuado"
+        ]
+    },
+    "comparador_hospedaje.py": {
+        "descripcion": "Agente que realiza comparador hospedaje",
+        "categoria": "TURISMO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:13",
+        "ordenes": [
+            "comparador hospedaje"
+        ]
+    },
+    "generador_evaluacion_desempenio.py": {
+        "descripcion": "Agente que realiza generador evaluacion desempenio",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:19",
+        "ordenes": [
+            "generador evaluacion desempenio"
+        ]
+    },
+    "analisis_estados_financieros.py": {
+        "descripcion": "Agente que realiza analisis estados financieros",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:29",
+        "ordenes": [
+            "analisis estados financieros"
+        ]
+    },
+    "simulador_fondo_emergencia.py": {
+        "descripcion": "Agente que realiza simulador fondo emergencia",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:35",
+        "ordenes": [
+            "simulador fondo emergencia"
+        ]
+    },
+    "comparador_hipotecas_bancos_mexico.py": {
+        "descripcion": "Agente que realiza comparador hipotecas bancos mexico",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:40",
+        "ordenes": [
+            "comparador hipotecas bancos mexico"
+        ]
+    },
+    "plan_comercializacion_propiedad.py": {
+        "descripcion": "Agente que realiza plan comercializacion propiedad",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:45",
+        "ordenes": [
+            "plan comercializacion propiedad"
+        ]
+    },
+    "orquestador_agentes_industria.py": {
+        "descripcion": "Agente que realiza orquestador agentes industria",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:50",
+        "ordenes": [
+            "orquestador agentes industria"
+        ]
+    },
+    "dispatcher_multiagente.py": {
+        "descripcion": "Agente que realiza dispatcher multiagente",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:14:55",
+        "ordenes": [
+            "dispatcher multiagente"
+        ]
+    },
+    "monitor_salud_sistema.py": {
+        "descripcion": "Agente que realiza monitor salud sistema",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:01",
+        "ordenes": [
+            "monitor salud sistema"
+        ]
+    },
+    "validador_datos_entrada.py": {
+        "descripcion": "Agente que realiza validador datos entrada",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:06",
+        "ordenes": [
+            "validador datos entrada"
+        ]
+    },
+    "calculadora_eficiencia_operativa.py": {
+        "descripcion": "Agente que realiza calculadora eficiencia operativa",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:11",
+        "ordenes": [
+            "calculadora eficiencia operativa"
+        ]
+    },
+    "calculadora_precio_venta_platillo.py": {
+        "descripcion": "Agente que realiza calculadora precio venta platillo",
+        "categoria": "RESTAURANTES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:15",
+        "ordenes": [
+            "calculadora precio venta platillo"
+        ]
+    },
+    "calculadora_costo_empleado_mexico.py": {
+        "descripcion": "Agente que realiza calculadora costo empleado mexico",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:20",
+        "ordenes": [
+            "calculadora costo empleado mexico"
+        ]
+    },
+    "comparador_seguros_auto.py": {
+        "descripcion": "Agente que realiza comparador seguros auto",
+        "categoria": "SEGUROS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:26",
+        "ordenes": [
+            "comparador seguros auto"
+        ]
+    },
+    "guia_constitucion_empresa_mexico.py": {
+        "descripcion": "Agente que realiza guia constitucion empresa mexico",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:32",
+        "ordenes": [
+            "guia constitucion empresa mexico"
+        ]
+    },
+    "calculadora_dosis_medicamento.py": {
+        "descripcion": "Agente que realiza calculadora dosis medicamento",
+        "categoria": "SALUD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:37",
+        "ordenes": [
+            "calculadora dosis medicamento"
+        ]
+    },
+    "calculadora_iva_desglosado.py": {
+        "descripcion": "Agente que realiza calculadora iva desglosado",
+        "categoria": "CONTABILIDAD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:41",
+        "ordenes": [
+            "calculadora iva desglosado"
+        ]
+    },
+    "estimador_valor_empresa.py": {
+        "descripcion": "Agente que realiza estimador valor empresa",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:52",
+        "ordenes": [
+            "estimador valor empresa"
+        ]
+    },
+    "calculo_depreciacion_activos.py": {
+        "descripcion": "Agente que realiza calculo depreciacion activos",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:15:56",
+        "ordenes": [
+            "calculo depreciacion activos"
+        ]
+    },
+    "comparador_zonas_inversion_cdmx.py": {
+        "descripcion": "Agente que realiza comparador zonas inversion cdmx",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:01",
+        "ordenes": [
+            "comparador zonas inversion cdmx"
+        ]
+    },
+    "detector_oportunidades_compra.py": {
+        "descripcion": "Agente que realiza detector oportunidades compra",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:07",
+        "ordenes": [
+            "detector oportunidades compra"
+        ]
+    },
+    "agente_resumen_ejecutivo.py": {
+        "descripcion": "Agente que realiza agente resumen ejecutivo",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:12",
+        "ordenes": [
+            "agente resumen ejecutivo"
+        ]
+    },
+    "coordinador_pipeline_datos.py": {
+        "descripcion": "Agente que realiza coordinador pipeline datos",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:17",
+        "ordenes": [
+            "coordinador pipeline datos"
+        ]
+    },
+    "compresor_archivador_logs.py": {
+        "descripcion": "Agente que realiza compresor archivador logs",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:22",
+        "ordenes": [
+            "compresor archivador logs"
+        ]
+    },
+    "generador_hash_verificacion.py": {
+        "descripcion": "Agente que realiza generador hash verificacion",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:28",
+        "ordenes": [
+            "generador hash verificacion"
+        ]
+    },
+    "analizador_clausulas_riesgo.py": {
+        "descripcion": "Agente que realiza analizador clausulas riesgo",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:32",
+        "ordenes": [
+            "analizador clausulas riesgo"
+        ]
+    },
+    "analizador_buyer_persona.py": {
+        "descripcion": "Agente que realiza analizador buyer persona",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:38",
+        "ordenes": [
+            "analizador buyer persona"
+        ]
+    },
+    "generador_reporte_siniestro.py": {
+        "descripcion": "Agente que realiza generador reporte siniestro",
+        "categoria": "SEGUROS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:43",
+        "ordenes": [
+            "generador reporte siniestro"
+        ]
+    },
+    "optimizador_ruta_entregas.py": {
+        "descripcion": "Agente que realiza optimizador ruta entregas",
+        "categoria": "LOGÍSTICA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:49",
+        "ordenes": [
+            "optimizador ruta entregas"
+        ]
+    },
+    "calculadora_tiempo_produccion.py": {
+        "descripcion": "Agente que realiza calculadora tiempo produccion",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:54",
+        "ordenes": [
+            "calculadora tiempo produccion"
+        ]
+    },
+    "generador_documentacion_api.py": {
+        "descripcion": "Agente que realiza generador documentacion api",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:16:59",
+        "ordenes": [
+            "generador documentacion api"
+        ]
+    },
+    "generador_descripcion_puesto.py": {
+        "descripcion": "Agente que realiza generador descripcion puesto",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:04",
+        "ordenes": [
+            "generador descripcion puesto"
+        ]
+    },
+    "calculo_rendimiento_fondos.py": {
+        "descripcion": "Agente que realiza calculo rendimiento fondos",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:14",
+        "ordenes": [
+            "calculo rendimiento fondos"
+        ]
+    },
+    "calculadora_afore_retiro.py": {
+        "descripcion": "Agente que realiza calculadora afore retiro",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:20",
+        "ordenes": [
+            "calculadora afore retiro"
+        ]
+    },
+    "calculadora_renta_justa_m2.py": {
+        "descripcion": "Agente que realiza calculadora renta justa m2",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:25",
+        "ordenes": [
+            "calculadora renta justa m2"
+        ]
+    },
+    "analizador_tendencias_mercado_inmobiliario.py": {
+        "descripcion": "Agente que realiza analizador tendencias mercado inmobiliario",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:30",
+        "ordenes": [
+            "analizador tendencias mercado inmobiliario"
+        ]
+    },
+    "agente_memoria_contextual.py": {
+        "descripcion": "Agente que realiza agente memoria contextual",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:35",
+        "ordenes": [
+            "agente memoria contextual"
+        ]
+    },
+    "monitor_performance_agentes.py": {
+        "descripcion": "Agente que realiza monitor performance agentes",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:41",
+        "ordenes": [
+            "monitor performance agentes"
+        ]
+    },
+    "limpiador_archivos_temporales.py": {
+        "descripcion": "Agente que realiza limpiador archivos temporales",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:46",
+        "ordenes": [
+            "limpiador archivos temporales"
+        ]
+    },
+    "generador_backups_automaticos.py": {
+        "descripcion": "Agente que realiza generador backups automaticos",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:51",
+        "ordenes": [
+            "generador backups automaticos"
+        ]
+    },
+    "calculadora_punto_equilibrio_restaurante.py": {
+        "descripcion": "Agente que realiza calculadora punto equilibrio restaurante",
+        "categoria": "RESTAURANTES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:17:56",
+        "ordenes": [
+            "calculadora punto equilibrio restaurante"
+        ]
+    },
+    "calculadora_capacidad_almacen.py": {
+        "descripcion": "Agente que realiza calculadora capacidad almacen",
+        "categoria": "LOGÍSTICA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:18:01",
+        "ordenes": [
+            "calculadora capacidad almacen"
+        ]
+    },
+    "analizador_hashtags_instagram.py": {
+        "descripcion": "Agente que realiza analizador hashtags instagram",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:18:06",
+        "ordenes": [
+            "analizador hashtags instagram"
+        ]
+    },
+    "calculadora_descuentos_margen.py": {
+        "descripcion": "Agente que realiza calculadora descuentos margen",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:18:11",
+        "ordenes": [
+            "calculadora descuentos margen"
+        ]
+    },
+    "calculadora_roi_renta_vacacional.py": {
+        "descripcion": "Agente que realiza calculadora roi renta vacacional",
+        "categoria": "TURISMO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:18:16",
+        "ordenes": [
+            "calculadora roi renta vacacional"
+        ]
+    },
+    "checklist_contratacion_seguro.py": {
+        "descripcion": "Agente que realiza checklist contratacion seguro",
+        "categoria": "SEGUROS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:18:21",
+        "ordenes": [
+            "checklist contratacion seguro"
+        ]
+    },
+    "calculadora_ptu_empleados.py": {
+        "descripcion": "Agente que realiza calculadora ptu empleados",
+        "categoria": "CONTABILIDAD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:18:26",
+        "ordenes": [
+            "calculadora ptu empleados"
+        ]
+    },
+    "calculo_impuesto_sobre_renta_mensual.py": {
+        "descripcion": "Agente que realiza calculo impuesto sobre renta mensual",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:18:36",
+        "ordenes": [
+            "calculo impuesto sobre renta mensual"
+        ]
+    },
+    "analisis_punto_equilibrio.py": {
+        "descripcion": "Agente que realiza analisis punto equilibrio",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:18:50",
+        "ordenes": [
+            "analisis punto equilibrio"
+        ]
+    },
+    "reporte_avaluo_basico.py": {
+        "descripcion": "Agente que realiza reporte avaluo basico",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:19:01",
+        "ordenes": [
+            "reporte avaluo basico"
+        ]
+    },
+    "estimador_costos_remodelacion.py": {
+        "descripcion": "Agente que realiza estimador costos remodelacion",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:19:15",
+        "ordenes": [
+            "estimador costos remodelacion"
+        ]
+    },
+    "notificador_alertas_consola.py": {
+        "descripcion": "Agente que realiza notificador alertas consola",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:19:26",
+        "ordenes": [
+            "notificador alertas consola"
+        ]
+    },
+    "generador_reportes_csv.py": {
+        "descripcion": "Agente que realiza generador reportes csv",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:19:38",
+        "ordenes": [
+            "generador reportes csv"
+        ]
+    },
+    "generador_receta_estandarizada.py": {
+        "descripcion": "Agente que realiza generador receta estandarizada",
+        "categoria": "RESTAURANTES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:19:52",
+        "ordenes": [
+            "generador receta estandarizada"
+        ]
+    },
+    "calculadora_costo_importacion.py": {
+        "descripcion": "Agente que realiza calculadora costo importacion",
+        "categoria": "LOGÍSTICA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:20:04",
+        "ordenes": [
+            "calculadora costo importacion"
+        ]
+    },
+    "generador_calendario_editorial.py": {
+        "descripcion": "Agente que realiza generador calendario editorial",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:20:14",
+        "ordenes": [
+            "generador calendario editorial"
+        ]
+    },
+    "calculadora_rotacion_personal.py": {
+        "descripcion": "Agente que realiza calculadora rotacion personal",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:20:26",
+        "ordenes": [
+            "calculadora rotacion personal"
+        ]
+    },
+    "generador_carta_poder.py": {
+        "descripcion": "Agente que realiza generador carta poder",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:20:38",
+        "ordenes": [
+            "generador carta poder"
+        ]
+    },
+    "generador_plan_nutricional.py": {
+        "descripcion": "Agente que realiza generador plan nutricional",
+        "categoria": "SALUD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:20:54",
+        "ordenes": [
+            "generador plan nutricional"
+        ]
+    },
+    "analizador_cobertura_gastos_medicos.py": {
+        "descripcion": "Agente que realiza analizador cobertura gastos medicos",
+        "categoria": "SEGUROS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:21:08",
+        "ordenes": [
+            "analizador cobertura gastos medicos"
+        ]
+    },
+    "analizador_temporadas.py": {
+        "descripcion": "Agente que realiza analizador temporadas",
+        "categoria": "TURISMO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:21:20",
+        "ordenes": [
+            "analizador temporadas"
+        ]
+    },
+    "calculadora_costo_operacion.py": {
+        "descripcion": "Agente que realiza calculadora costo operacion",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:22:19",
+        "ordenes": [
+            "calculadora costo operacion"
+        ]
+    },
+    "calculo_capital_trabajo.py": {
+        "descripcion": "Agente que realiza calculo capital trabajo",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:22:35",
+        "ordenes": [
+            "calculo capital trabajo"
+        ]
+    },
+    "simulador_inversion_cetes.py": {
+        "descripcion": "Agente que realiza simulador inversion cetes",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:22:47",
+        "ordenes": [
+            "simulador inversion cetes"
+        ]
+    },
+    "analizador_cartera_propiedades.py": {
+        "descripcion": "Agente que realiza analizador cartera propiedades",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:22:58",
+        "ordenes": [
+            "analizador cartera propiedades"
+        ]
+    },
+    "calculadora_gastos_escrituracion.py": {
+        "descripcion": "Agente que realiza calculadora gastos escrituracion",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:23:08",
+        "ordenes": [
+            "calculadora gastos escrituracion"
+        ]
+    },
+    "generador_checklist_procesos.py": {
+        "descripcion": "Agente que realiza generador checklist procesos",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:23:20",
+        "ordenes": [
+            "generador checklist procesos"
+        ]
+    },
+    "generador_copy_facebook_ads.py": {
+        "descripcion": "Agente que realiza generador copy facebook ads",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:23:30",
+        "ordenes": [
+            "generador copy facebook ads"
+        ]
+    },
+    "checklist_consulta_medica.py": {
+        "descripcion": "Agente que realiza checklist consulta medica",
+        "categoria": "SALUD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:23:42",
+        "ordenes": [
+            "checklist consulta medica"
+        ]
+    },
+    "generador_factura_conceptos.py": {
+        "descripcion": "Agente que realiza generador factura conceptos",
+        "categoria": "CONTABILIDAD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:23:52",
+        "ordenes": [
+            "generador factura conceptos"
+        ]
+    },
+    "generador_menu_precios.py": {
+        "descripcion": "Agente que realiza generador menu precios",
+        "categoria": "RESTAURANTES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:24:05",
+        "ordenes": [
+            "generador menu precios"
+        ]
+    },
+    "calculadora_horas_extra.py": {
+        "descripcion": "Agente que realiza calculadora horas extra",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:24:16",
+        "ordenes": [
+            "calculadora horas extra"
+        ]
+    },
+    "generador_email_cotizacion.py": {
+        "descripcion": "Agente que realiza generador email cotizacion",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:25:10",
+        "ordenes": [
+            "generador email cotizacion"
+        ]
+    },
+    "analizador_deuda_tecnica.py": {
+        "descripcion": "Agente que realiza analizador deuda tecnica",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:26:10",
+        "ordenes": [
+            "analizador deuda tecnica"
+        ]
+    },
+    "calculadora_prima_seguro.py": {
+        "descripcion": "Agente que realiza calculadora prima seguro",
+        "categoria": "SEGUROS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:26:21",
+        "ordenes": [
+            "calculadora prima seguro"
+        ]
+    },
+    "generador_paquete_turistico.py": {
+        "descripcion": "Agente que realiza generador paquete turistico",
+        "categoria": "TURISMO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:26:51",
+        "ordenes": [
+            "generador paquete turistico"
+        ]
+    },
+    "calculadora_becas_disponibles.py": {
+        "descripcion": "Agente que realiza calculadora becas disponibles",
+        "categoria": "EDUCACIÓN",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:27:04",
+        "ordenes": [
+            "calculadora becas disponibles"
+        ]
+    },
+    "comparador_instrumentos_inversion.py": {
+        "descripcion": "Agente que realiza comparador instrumentos inversion",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:27:21",
+        "ordenes": [
+            "comparador instrumentos inversion"
+        ]
+    },
+    "proyector_flujo_caja_3_años.py": {
+        "descripcion": "Agente que realiza proyector flujo caja 3 años",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:27:35",
+        "ordenes": [
+            "proyector flujo caja 3 años"
+        ]
+    },
+    "generador_plan_estudio.py": {
+        "descripcion": "Agente que realiza generador plan estudio",
+        "categoria": "EDUCACIÓN",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:27:46",
+        "ordenes": [
+            "generador plan estudio"
+        ]
+    },
+    "calculadora_tiempo_transito.py": {
+        "descripcion": "Agente que realiza calculadora tiempo transito",
+        "categoria": "LOGÍSTICA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:27:59",
+        "ordenes": [
+            "calculadora tiempo transito"
+        ]
+    },
+    "plan_migracion_cloud.py": {
+        "descripcion": "Agente que realiza plan migracion cloud",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:28:11",
+        "ordenes": [
+            "plan migracion cloud"
+        ]
+    },
+    "analizador_ciclo_venta.py": {
+        "descripcion": "Agente que realiza analizador ciclo venta",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:28:23",
+        "ordenes": [
+            "analizador ciclo venta"
+        ]
+    },
+    "analizador_clima_organizacional.py": {
+        "descripcion": "Agente que realiza analizador clima organizacional",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:28:37",
+        "ordenes": [
+            "analizador clima organizacional"
+        ]
+    },
+    "generador_itinerario_viaje.py": {
+        "descripcion": "Agente que realiza generador itinerario viaje",
+        "categoria": "TURISMO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:28:52",
+        "ordenes": [
+            "generador itinerario viaje"
+        ]
+    },
+    "calculadora_presupuesto_publicitario.py": {
+        "descripcion": "Agente que realiza calculadora presupuesto publicitario",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:29:56",
+        "ordenes": [
+            "calculadora presupuesto publicitario"
+        ]
+    },
+    "calculadora_roi_bodega_industrial.py": {
+        "descripcion": "Agente que realiza calculadora roi bodega industrial",
+        "categoria": "BIENES RAÍCES COMERCIALES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:30:08",
+        "ordenes": [
+            "calculadora roi bodega industrial"
+        ]
+    },
+    "gestor_ordenes_trabajo.py": {
+        "descripcion": "Agente que realiza gestor ordenes trabajo",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:30:21",
+        "ordenes": [
+            "gestor ordenes trabajo"
+        ]
+    },
+    "analizador_merma_desperdicio.py": {
+        "descripcion": "Agente que realiza analizador merma desperdicio",
+        "categoria": "RESTAURANTES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:30:35",
+        "ordenes": [
+            "analizador merma desperdicio"
+        ]
+    },
+    "generador_balance_general_simple.py": {
+        "descripcion": "Agente que realiza generador balance general simple",
+        "categoria": "CONTABILIDAD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:30:47",
+        "ordenes": [
+            "generador balance general simple"
+        ]
+    },
+    "generador_finiquito_laboral.py": {
+        "descripcion": "Agente que realiza generador finiquito laboral",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:31:00",
+        "ordenes": [
+            "generador finiquito laboral"
+        ]
+    },
+    "calculadora_imc_riesgo.py": {
+        "descripcion": "Agente que realiza calculadora imc riesgo",
+        "categoria": "SALUD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:31:10",
+        "ordenes": [
+            "calculadora imc riesgo"
+        ]
+    },
+    "generador_encuesta_satisfaccion.py": {
+        "descripcion": "Agente que realiza generador encuesta satisfaccion",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:31:27",
+        "ordenes": [
+            "generador encuesta satisfaccion"
+        ]
+    },
+    "analizador_habitos_saludables.py": {
+        "descripcion": "Agente que realiza analizador habitos saludables",
+        "categoria": "SALUD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:31:40",
+        "ordenes": [
+            "analizador habitos saludables"
+        ]
+    },
+    "generador_ejercicios_practica.py": {
+        "descripcion": "Agente que realiza generador ejercicios practica",
+        "categoria": "EDUCACIÓN",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:31:53",
+        "ordenes": [
+            "generador ejercicios practica"
+        ]
+    },
+    "analizador_stack_tecnologico.py": {
+        "descripcion": "Agente que realiza analizador stack tecnologico",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:32:05",
+        "ordenes": [
+            "analizador stack tecnologico"
+        ]
+    },
+    "checklist_cumplimiento_sat.py": {
+        "descripcion": "Agente que realiza checklist cumplimiento sat",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:32:21",
+        "ordenes": [
+            "checklist cumplimiento sat"
+        ]
+    },
+    "analizador_deducciones_fiscales.py": {
+        "descripcion": "Agente que realiza analizador deducciones fiscales",
+        "categoria": "CONTABILIDAD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:32:33",
+        "ordenes": [
+            "analizador deducciones fiscales"
+        ]
+    },
+    "generador_propuesta_valor.py": {
+        "descripcion": "Agente que realiza generador propuesta valor",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:33:37",
+        "ordenes": [
+            "generador propuesta valor"
+        ]
+    },
+    "generador_procedimientos_sop.py": {
+        "descripcion": "Agente que realiza generador procedimientos sop",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:33:48",
+        "ordenes": [
+            "generador procedimientos sop"
+        ]
+    },
+    "analizador_objeciones.py": {
+        "descripcion": "Agente que realiza analizador objeciones",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:34:00",
+        "ordenes": [
+            "analizador objeciones"
+        ]
+    },
+    "analizador_local_comercial.py": {
+        "descripcion": "Agente que realiza analizador local comercial",
+        "categoria": "BIENES RAÍCES COMERCIALES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:34:12",
+        "ordenes": [
+            "analizador local comercial"
+        ]
+    },
+    "tracker_pedidos_basico.py": {
+        "descripcion": "Agente que realiza tracker pedidos basico",
+        "categoria": "LOGÍSTICA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:34:26",
+        "ordenes": [
+            "tracker pedidos basico"
+        ]
+    },
+    "calculadora_prestaciones_ley.py": {
+        "descripcion": "Agente que realiza calculadora prestaciones ley",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:34:37",
+        "ordenes": [
+            "calculadora prestaciones ley"
+        ]
+    },
+    "analizador_costos_seguro_medico.py": {
+        "descripcion": "Agente que realiza analizador costos seguro medico",
+        "categoria": "SALUD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:34:49",
+        "ordenes": [
+            "analizador costos seguro medico"
+        ]
+    },
+    "calculadora_costo_carrera_mexico.py": {
+        "descripcion": "Agente que realiza calculadora costo carrera mexico",
+        "categoria": "EDUCACIÓN",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:35:21",
+        "ordenes": [
+            "calculadora costo carrera mexico"
+        ]
+    },
+    "analizador_seguridad_basica.py": {
+        "descripcion": "Agente que realiza analizador seguridad basica",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:35:33",
+        "ordenes": [
+            "analizador seguridad basica"
+        ]
+    },
+    "template_contrato_servicios_profesionales.py": {
+        "descripcion": "Agente que realiza template contrato servicios profesionales",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:35:53",
+        "ordenes": [
+            "template contrato servicios profesionales"
+        ]
+    },
+    "calculadora_calorias_actividad.py": {
+        "descripcion": "Agente que realiza calculadora calorias actividad",
+        "categoria": "SALUD",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:36:06",
+        "ordenes": [
+            "calculadora calorias actividad"
+        ]
+    },
+    "estimador_aforo_local.py": {
+        "descripcion": "Agente que realiza estimador aforo local",
+        "categoria": "BIENES RAÍCES COMERCIALES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:36:18",
+        "ordenes": [
+            "estimador aforo local"
+        ]
+    },
+    "calculadora_roi_educativo.py": {
+        "descripcion": "Agente que realiza calculadora roi educativo",
+        "categoria": "EDUCACIÓN",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:37:20",
+        "ordenes": [
+            "calculadora roi educativo"
+        ]
+    },
+    "calculadora_costo_envio_mexico.py": {
+        "descripcion": "Agente que realiza calculadora costo envio mexico",
+        "categoria": "LOGÍSTICA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:37:33",
+        "ordenes": [
+            "calculadora costo envio mexico"
+        ]
+    },
+    "calculadora_liquidacion_laboral.py": {
+        "descripcion": "Agente que realiza calculadora liquidacion laboral",
+        "categoria": "RECURSOS HUMANOS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:38:08",
+        "ordenes": [
+            "calculadora liquidacion laboral"
+        ]
+    },
+    "calculadora_licencias_software.py": {
+        "descripcion": "Agente que realiza calculadora licencias software",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:38:18",
+        "ordenes": [
+            "calculadora licencias software"
+        ]
+    },
+    "calculadora_pipeline_ventas.py": {
+        "descripcion": "Agente que realiza calculadora pipeline ventas",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:38:27",
+        "ordenes": [
+            "calculadora pipeline ventas"
+        ]
+    },
+    "analizador_kpis_operativos.py": {
+        "descripcion": "Agente que realiza analizador kpis operativos",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:38:38",
+        "ordenes": [
+            "analizador kpis operativos"
+        ]
+    },
+    "analizador_funnel_ventas.py": {
+        "descripcion": "Agente que realiza analizador funnel ventas",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:38:54",
+        "ordenes": [
+            "analizador funnel ventas"
+        ]
+    },
+    "convenio_prestacion_servicios.py": {
+        "descripcion": "Agente que realiza convenio prestacion servicios",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:39:04",
+        "ordenes": [
+            "convenio prestacion servicios"
+        ]
+    },
+    "calculadora_renta_oficina_cdmx.py": {
+        "descripcion": "Agente que realiza calculadora renta oficina cdmx",
+        "categoria": "BIENES RAÍCES COMERCIALES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:39:39",
+        "ordenes": [
+            "calculadora renta oficina cdmx"
+        ]
+    },
+    "analizador_tecnicas_aprendizaje.py": {
+        "descripcion": "Agente que realiza analizador tecnicas aprendizaje",
+        "categoria": "EDUCACIÓN",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:39:51",
+        "ordenes": [
+            "analizador tecnicas aprendizaje"
+        ]
+    },
+    "calculadora_roi_automatizacion.py": {
+        "descripcion": "Agente que realiza calculadora roi automatizacion",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:40:01",
+        "ordenes": [
+            "calculadora roi automatizacion"
+        ]
+    },
+    "calculadora_forecast_mensual.py": {
+        "descripcion": "Agente que realiza calculadora forecast mensual",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:41:04",
+        "ordenes": [
+            "calculadora forecast mensual"
+        ]
+    },
+    "calculadora_sla_uptime.py": {
+        "descripcion": "Agente que realiza calculadora sla uptime",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:41:19",
+        "ordenes": [
+            "calculadora sla uptime"
+        ]
+    },
+    "generador_temario_curso.py": {
+        "descripcion": "Agente que realiza generador temario curso",
+        "categoria": "EDUCACIÓN",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:41:32",
+        "ordenes": [
+            "generador temario curso"
+        ]
+    },
+    "calculadora_contrato_arrendamiento_comercial.py": {
+        "descripcion": "Agente que realiza calculadora contrato arrendamiento comercial",
+        "categoria": "BIENES RAÍCES COMERCIALES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:41:44",
+        "ordenes": [
+            "calculadora contrato arrendamiento comercial"
+        ]
+    },
+    "calculadora_cac_ltv.py": {
+        "descripcion": "Agente que realiza calculadora cac ltv",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:41:54",
+        "ordenes": [
+            "calculadora cac ltv"
+        ]
+    },
+    "tracker_seguimiento_prospectos.py": {
+        "descripcion": "Agente que realiza tracker seguimiento prospectos",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:42:07",
+        "ordenes": [
+            "tracker seguimiento prospectos"
+        ]
+    },
+    "analizador_cuellos_botella.py": {
+        "descripcion": "Agente que realiza analizador cuellos botella",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:42:18",
+        "ordenes": [
+            "analizador cuellos botella"
+        ]
+    },
+    "calculadora_indemnizacion_imss.py": {
+        "descripcion": "Agente que realiza calculadora indemnizacion imss",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:42:29",
+        "ordenes": [
+            "calculadora indemnizacion imss"
+        ]
+    },
+    "calculadora_costo_infraestructura_cloud.py": {
+        "descripcion": "Agente que realiza calculadora costo infraestructura cloud",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:42:41",
+        "ordenes": [
+            "calculadora costo infraestructura cloud"
+        ]
+    },
+    "analizador_metricas_campana.py": {
+        "descripcion": "Agente que realiza analizador metricas campana",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:42:54",
+        "ordenes": [
+            "analizador metricas campana"
+        ]
+    },
+    "script_cierre_ventas.py": {
+        "descripcion": "Agente que realiza script cierre ventas",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:43:03",
+        "ordenes": [
+            "script cierre ventas"
+        ]
+    },
+    "calculadora_capacidad_instalada.py": {
+        "descripcion": "Agente que realiza calculadora capacidad instalada",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:43:15",
+        "ordenes": [
+            "calculadora capacidad instalada"
+        ]
+    },
+    "checklist_requisitos_notariales.py": {
+        "descripcion": "Agente que realiza checklist requisitos notariales",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:43:45",
+        "ordenes": [
+            "checklist requisitos notariales"
+        ]
+    },
+    "generador_especificaciones_tecnicas.py": {
+        "descripcion": "Agente que realiza generador especificaciones tecnicas",
+        "categoria": "TECNOLOGÍA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:43:55",
+        "ordenes": [
+            "generador especificaciones tecnicas"
+        ]
+    },
+    "generador_estrategia_referidos.py": {
+        "descripcion": "Agente que realiza generador estrategia referidos",
+        "categoria": "MARKETING",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:44:51",
+        "ordenes": [
+            "generador estrategia referidos"
+        ]
+    },
+    "generador_argumentario_ventas.py": {
+        "descripcion": "Agente que realiza generador argumentario ventas",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:45:22",
+        "ordenes": [
+            "generador argumentario ventas"
+        ]
+    },
+    "generador_acta_acuerdos.py": {
+        "descripcion": "Agente que realiza generador acta acuerdos",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:45:37",
+        "ordenes": [
+            "generador acta acuerdos"
+        ]
+    },
+    "generador_propuesta_comercial.py": {
+        "descripcion": "Agente que realiza generador propuesta comercial",
+        "categoria": "VENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:45:51",
+        "ordenes": [
+            "generador propuesta comercial"
+        ]
+    },
+    "gestor_inventario_basico.py": {
+        "descripcion": "Agente que realiza gestor inventario basico",
+        "categoria": "OPERACIONES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estándar"
+        ],
+        "ultima_actualizacion": "2026-02-23 21:46:01",
+        "ordenes": [
+            "gestor inventario basico"
+        ]
+    },
+    "api_agencia.py": {
+        "descripcion": "API REST de la Agencia Santi. Expone todos los agentes como endpoints HTTP para WhatsApp, dashboard y apps externas. Corre en localhost:8000.",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "http.server (stdlib)",
+            "json",
+            "subprocess"
+        ],
+        "ultima_actualizacion": "2026-02-25 00:00:00",
+        "ordenes": [
+            "api agencia",
+            "iniciar api"
+        ]
+    },
+    "dashboard_web.py": {
+        "descripcion": "Dashboard web de la Agencia Santi. Muestra estado de agentes en tiempo real, permite ejecutarlos desde el navegador y ver logs. Corre en localhost:8080.",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "http.server (stdlib)",
+            "HTML/CSS/JS embebido"
+        ],
+        "ultima_actualizacion": "2026-02-25 00:00:00",
+        "ordenes": [
+            "dashboard",
+            "abrir dashboard"
+        ]
+    },
+    "fabrica_agentes.py": {
+        "descripcion": "Fabrica autonoma que crea y mejora agentes Python. Modos CREAR/MEJORAR automaticos segun cantidad de agentes. Bucle infinito con validacion de sintaxis y pruebas.",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "llm_router",
+            "subprocess",
+            "ast"
+        ],
+        "ultima_actualizacion": "2026-02-25 00:00:00",
+        "ordenes": [
+            "fabrica",
+            "crear agentes",
+            "mejorar agentes"
+        ]
+    },
+    "fix_unicode.py": {
+        "descripcion": "Utilidad de mantenimiento. Corrige UnicodeEncodeError en archivos Python de la agencia reemplazando emojis y caracteres especiales por texto ASCII.",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-25 00:00:00",
+        "ordenes": [
+            "fix unicode",
+            "arreglar unicode"
+        ]
+    },
+    "sistema_maestro.py": {
+        "descripcion": "Orquestador principal de la Agencia Santi. Lanza y supervisa 7 hilos: fabrica, noche, auto_run, api, dashboard, watchdog y monitor. Control central del sistema.",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "threading",
+            "subprocess",
+            "watchdog"
+        ],
+        "ultima_actualizacion": "2026-02-25 00:00:00",
+        "ordenes": [
+            "sistema maestro",
+            "iniciar sistema",
+            "arrancar agencia"
+        ]
+    }
+}

@@ -5,6 +5,10 @@ __pycache__/
 .venv/
 venv/
 env/
+*.egg-info/
+dist/
+build/
+.mypy_cache/
 
 # Secretos — NUNCA subir al repo
 .env
@@ -28,9 +32,14 @@ registro_fabrica.txt
 lote_temporal/
 *.tmp
 
-# Datos de proyectos (pueden tener info sensible)
+# Datos de proyectos y memoria
+memory_db/
+runs/
+*.sqlite3
 projects/*/memory_db/
 projects/*/*.sqlite3
+projects/*/*/runs/
+projects/*/*/memory_db/
 
 # IDE y OS
 .vscode/

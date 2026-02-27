@@ -292,8 +292,12 @@ def probar_agente(ruta):
         return False, str(e)
 
 def agregar_a_misiones(archivo, funcion, area):
-    """Agrega un agente fallido a misiones.txt para que la fabrica lo complete."""
-    mision = f"CREAR {archivo} | {area} | {funcion}"
+    """
+    Agrega un agente fallido a misiones.txt en el formato que espera auto_run.py:
+    archivo.py;instruccion
+    """
+    instruccion = f"Crear agente {area}: {funcion}"
+    mision = f"{archivo};{instruccion}"
     try:
         # Leer existentes para no duplicar
         existentes = set()

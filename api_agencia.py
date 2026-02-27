@@ -9,15 +9,21 @@ TECNOLOGÍA: http.server (stdlib), json, subprocess
 
 
 import os
+import sys
 import json
 import time
 import subprocess
 import threading
-import hashlib
-import hmac
+import io as _io
 from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
+
+# Fix Unicode para Windows (cp1252)
+if hasattr(sys.stdout, 'buffer'):
+    sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'buffer'):
+    sys.stderr = _io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # ---------------------------------------------
 #  CONFIGURACION

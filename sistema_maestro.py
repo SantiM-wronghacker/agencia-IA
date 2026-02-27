@@ -15,7 +15,14 @@ import threading
 import subprocess
 import shutil
 import re
+import io as _io
 from datetime import datetime
+
+# Fix Unicode para Windows (cp1252) — necesario para imprimir caracteres de caja ╔═╗║╚╝
+if hasattr(sys.stdout, 'buffer'):
+    sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'buffer'):
+    sys.stderr = _io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # ─────────────────────────────────────────────
 #  CONFIGURACIÓN

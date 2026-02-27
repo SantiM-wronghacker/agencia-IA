@@ -82,6 +82,7 @@ def ejecutar_script(nombre_script, descripcion, resultados=None, clave=None):
             capture_output=True,
             text=True,
             encoding="utf-8",
+            errors="replace",
             timeout=TIMEOUT_SUBPROCESO
         )
         exito = resultado.returncode == 0

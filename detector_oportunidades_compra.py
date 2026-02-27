@@ -22,7 +22,7 @@ def main():
         # Generar oportunidades de compra
         oportunidades = []
         for _ in range(5):
-            precio = random.randint(presupuesto * 0.8, presupuesto * 1.2)
+            precio = random.randint(presupuesto * 8 // 10, presupuesto * 12 // 10)
             metros_cuadrados = random.randint(50, 200)
             habitaciones = random.randint(2, 5)
             banos = random.randint(1, 3)
@@ -34,7 +34,9 @@ def main():
                 "metros_cuadrados": metros_cuadrados,
                 "habitaciones": habitaciones,
                 "banos": banos,
-                "colonia": colonia
+                "colonia": colonia,
+                "antiguedad": random.randint(1, 20),
+                "estado_conserva": random.choice(["Excelente", "Bueno", "Regular", "Mal"])
             })
 
         # Imprimir oportunidades
@@ -46,8 +48,22 @@ def main():
             print(f"Metros cuadrados: {oportunidad['metros_cuadrados']}")
             print(f"Habitaciones: {oportunidad['habitaciones']}")
             print(f"Banos: {oportunidad['banos']}")
-            print(f"Colonia: {oportunidad['colonia']}\n")
+            print(f"Colonia: {oportunidad['colonia']}")
+            print(f"Antiguedad: {oportunidad['antiguedad']} años")
+            print(f"Estado de conserva: {oportunidad['estado_conserva']}\n")
 
+        # Resumen ejecutivo
+        print("Resumen Ejecutivo:")
+        print(f"Total de oportunidades: {len(oportunidades)}")
+        print(f"Precio promedio: ${sum(oportunidad['precio'] for oportunidad in oportunidades) // len(oportunidades):,}")
+        print(f"Metros cuadrados promedio: {sum(oportunidad['metros_cuadrados'] for oportunidad in oportunidades) // len(oportunidades)}")
+        print(f"Habitaciones promedio: {sum(oportunidad['habitaciones'] for oportunidad in oportunidades) // len(oportunidades)}")
+        print(f"Banos promedio: {sum(oportunidad['banos'] for oportunidad in oportunidades) // len(oportunidades)}")
+
+    except IndexError:
+        print("Error: Debe proporcionar los parámetros ciudad, estado y presupuesto")
+    except ValueError:
+        print("Error: El presupuesto debe ser un número entero")
     except Exception as e:
         print(f"Error: {str(e)}")
 

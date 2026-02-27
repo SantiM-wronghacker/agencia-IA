@@ -38,6 +38,9 @@ def main():
         empresas_tecnologicas_mx = random.randint(1200, 1800)
         desarrolladores_python = random.randint(30000, 50000)
         crecimiento_anual = round(random.uniform(0.05, 0.15), 2)
+        inversion_tecnologica = round(random.uniform(5000000, 10000000), 2)
+        empresas_startup = random.randint(500, 1000)
+        eventos_tecnologicos = random.randint(20, 50)
 
         # Salida de resultados
         print(f"Fecha de análisis: {fecha_actual}")
@@ -45,12 +48,25 @@ def main():
         print(f"Empresas tecnológicas en México: {empresas_tecnologicas_mx}")
         print(f"Desarrolladores Python en México: {desarrolladores_python:,}")
         print(f"Crecimiento anual del sector tecnológico: {crecimiento_anual*100}%")
+        print(f"Inversión en tecnología en México: ${inversion_tecnologica:,.2f}")
+        print(f"Empresas startup en México: {empresas_startup}")
+        print(f"Eventos tecnológicos en México: {eventos_tecnologicos}")
         print("\nDistribución del stack tecnológico:")
         for tech, porc in stack_tecnologico.items():
             print(f"{tech.upper():<10} {porc*100:.1f}%")
+        print("\nResumen ejecutivo:")
+        print(f"El sector tecnológico en México muestra un crecimiento anual del {crecimiento_anual*100}%")
+        print(f"Con una inversión en tecnología de ${inversion_tecnologica:,.2f} y {empresas_tecnologicas_mx} empresas tecnológicas")
+        print(f"El stack tecnológico se compone principalmente de {max(stack_tecnologico, key=stack_tecnologico.get).upper()} con un {stack_tecnologico[max(stack_tecnologico, key=stack_tecnologico.get)]*100:.1f}%")
 
     except Exception as e:
         print(f"Error en el análisis: {str(e)}")
+
+    except KeyboardInterrupt:
+        print("Análisis interrumpido")
+
+    except MemoryError:
+        print("Error de memoria insuficiente")
 
 if __name__ == "__main__":
     main()

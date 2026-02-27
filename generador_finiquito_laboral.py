@@ -10,26 +10,30 @@ from datetime import datetime, timedelta
 import random
 
 def calcular_finiquito(salario_diario, antiguedad_dias, dias_trabajados_mes, dias_aguinaldo, dias_vacaciones):
-    # Cálculos básicos
-    prima_vacacional = salario_diario * dias_vacaciones * 0.25
-    aguinaldo = salario_diario * dias_aguinaldo
-    salario_mes = salario_diario * dias_trabajados_mes
-    indemnizacion = salario_diario * antiguedad_dias * 0.3333
+    try:
+        # Cálculos básicos
+        prima_vacacional = salario_diario * dias_vacaciones * 0.25
+        aguinaldo = salario_diario * dias_aguinaldo
+        salario_mes = salario_diario * dias_trabajados_mes
+        indemnizacion = salario_diario * antiguedad_dias * 0.3333
 
-    # Total a pagar
-    total = salario_mes + prima_vacacional + aguinaldo + indemnizacion
+        # Total a pagar
+        total = salario_mes + prima_vacacional + aguinaldo + indemnizacion
 
-    return {
-        "salario_diario": salario_diario,
-        "antiguedad_dias": antiguedad_dias,
-        "dias_trabajados_mes": dias_trabajados_mes,
-        "dias_aguinaldo": dias_aguinaldo,
-        "dias_vacaciones": dias_vacaciones,
-        "prima_vacacional": prima_vacacional,
-        "aguinaldo": aguinaldo,
-        "indemnizacion": indemnizacion,
-        "total": total
-    }
+        return {
+            "salario_diario": salario_diario,
+            "antiguedad_dias": antiguedad_dias,
+            "dias_trabajados_mes": dias_trabajados_mes,
+            "dias_aguinaldo": dias_aguinaldo,
+            "dias_vacaciones": dias_vacaciones,
+            "prima_vacacional": prima_vacacional,
+            "aguinaldo": aguinaldo,
+            "indemnizacion": indemnizacion,
+            "total": total
+        }
+    except Exception as e:
+        print(f"Error en cálculo: {str(e)}")
+        return None
 
 def main():
     try:
@@ -48,15 +52,23 @@ def main():
             dias_vacaciones
         )
 
-        print("Finiquito Laboral Generado:")
-        print(f"Salario diario: ${finiquito['salario_diario']:.2f}")
-        print(f"Antigüedad: {finiquito['antiguedad_dias']} días")
-        print(f"Prima vacacional: ${finiquito['prima_vacacional']:.2f}")
-        print(f"Aguinaldo: ${finiquito['aguinaldo']:.2f}")
-        print(f"Total a pagar: ${finiquito['total']:.2f}")
-
+        if finiquito is not None:
+            print("Finiquito Laboral Generado:")
+            print(f"Salario diario: ${finiquito['salario_diario']:.2f}")
+            print(f"Antigüedad: {finiquito['antiguedad_dias']} días")
+            print(f"Días trabajados en el mes: {finiquito['dias_trabajados_mes']}")
+            print(f"Días de aguinaldo: {finiquito['dias_aguinaldo']}")
+            print(f"Días de vacaciones: {finiquito['dias_vacaciones']}")
+            print(f"Prima vacacional: ${finiquito['prima_vacacional']:.2f}")
+            print(f"Aguinaldo: ${finiquito['aguinaldo']:.2f}")
+            print(f"Indemnización: ${finiquito['indemnizacion']:.2f}")
+            print(f"Total a pagar: ${finiquito['total']:.2f}")
+            print(f"Salario mensual: ${salario_diario * dias_trabajados_mes:.2f}")
+            print(f"Total de prima vacacional y aguinaldo: ${finiquito['prima_vacacional'] + finiquito['aguinaldo']:.2f}")
+            print("Resumen Ejecutivo:")
+            print(f"El finiquito laboral para un trabajador con {antiguedad_dias} días de antigüedad, un salario diario de ${salario_diario:.2f} y {dias_trabajados_mes} días trabajados en el mes, es de ${finiquito['total']:.2f}.")
     except Exception as e:
-        print(f"Error al generar finiquito: {str(e)}")
+        print(f"Error en main: {str(e)}")
 
 if __name__ == "__main__":
     main()

@@ -26,11 +26,13 @@ def main():
         promedio_pasos_mx = 4500
         promedio_sueno_mx = 6.5
         consumo_agua_recomendado = 2.5  # litros por día
+        calorias_diarias_recomendadas = 2000
 
         # Generar datos aleatorios para el análisis
         actividad_fisica = random.randint(1, 100)
         consumo_agua = random.uniform(1.0, 3.5)
         estres = random.randint(1, 10)
+        calorias_diarias = random.randint(1500, 2500)
 
         # Generar fecha de análisis
         fecha_analisis = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -44,7 +46,26 @@ def main():
         print(f"Consumo de agua: {consumo_agua:.1f} litros (Recomendado: {consumo_agua_recomendado} litros)")
         print(f"Nivel de estrés: {estres}/10")
         print(f"Actividad física: {actividad_fisica}%")
+        print(f"Calorías diarias: {calorias_diarias} (Recomendado: {calorias_diarias_recomendadas})")
+        print("")
 
+        # Resumen ejecutivo
+        print("=== RESUMEN EJECUTIVO ===")
+        if categoria == "Normal" and pasos_diarios >= promedio_pasos_mx and horas_sueño >= promedio_sueno_mx and consumo_agua >= consumo_agua_recomendado:
+            print("Su estilo de vida es saludable.")
+        else:
+            print("Es importante mejorar su estilo de vida.")
+            if categoria != "Normal":
+                print(f"Su IMC es {categoria}, es importante ajustar su dieta y realizar ejercicio regularmente.")
+            if pasos_diarios < promedio_pasos_mx:
+                print(f"Debería aumentar su número de pasos diarios a {promedio_pasos_mx} o más.")
+            if horas_sueño < promedio_sueno_mx:
+                print(f"Debería aumentar su número de horas de sueño a {promedio_sueno_mx} o más.")
+            if consumo_agua < consumo_agua_recomendado:
+                print(f"Debería aumentar su consumo de agua a {consumo_agua_recomendado} litros o más al día.")
+
+    except ValueError as e:
+        print(f"Error en los parámetros: {str(e)}")
     except Exception as e:
         print(f"Error en el análisis: {str(e)}")
 

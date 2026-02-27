@@ -32,10 +32,16 @@ def calculo_nomina(salario_diario, dias_trabajados):
 
 def main():
     try:
-        salario_diario = float(sys.argv[1]) if len(sys.argv) > 1 else 500.0  # $500.00 diarios
-        dias_trabajados = int(sys.argv[2]) if len(sys.argv) > 2 else 30  # 30 días trabajados
+        if len(sys.argv) < 3:
+            print("Uso: python calculo_nomina_mensual_mexico.py <salario_diario> <dias_trabajados>")
+            print("Ejemplo: python calculo_nomina_mensual_mexico.py 500.0 30")
+            return
+        salario_diario = float(sys.argv[1])
+        dias_trabajados = int(sys.argv[2])
         resultado = calculo_nomina(salario_diario, dias_trabajados)
         if isinstance(resultado, dict):
+            print("Resumen de Nómina:")
+            print("--------------------")
             print("Salario Diario: $", round(salario_diario, 2))
             print("Días Trabajados: ", dias_trabajados)
             print("Salario Mensual: $", round(resultado["salario_mensual"], 2))
@@ -44,14 +50,15 @@ def main():
             print("Infonavit (5%): $", round(resultado["infonavit"], 2))
             print("Total Deducciones: $", round(resultado["total_deducciones"], 2))
             print("Neto: $", round(resultado["neto"], 2))
-            print("Resumen Ejecutivo:")
+            print("\nResumen Ejecutivo:")
+            print("--------------------")
             print("El salario mensual es de $", round(resultado["salario_mensual"], 2))
             print("Las deducciones totales son de $", round(resultado["total_deducciones"], 2))
             print("El monto neto a recibir es de $", round(resultado["neto"], 2))
         else:
-            print("Error: ", resultado)
+            print("Error:", resultado)
     except Exception as e:
-        print("Error: ", str(e))
+        print("Error:", str(e))
 
 if __name__ == "__main__":
     main()

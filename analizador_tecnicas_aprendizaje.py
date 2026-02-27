@@ -1,6 +1,6 @@
 """
 ÁREA: EDUCACIÓN
-DESCRIPCIÓN: Agente que realiza analizador tecnicas aprendizaje
+DESCRIPCIÓN: Agente que realiza analizador técnicas aprendizaje
 TECNOLOGÍA: Python estándar
 """
 
@@ -31,16 +31,24 @@ def main():
         # Análisis
         mejor_tecnica = max(resultados.items(), key=lambda x: x[1]["promedio_calificacion"] * x[1]["retencion_estudiantes"])
         costo_total = sum([d["costo_por_estudiante"] * num_estudiantes for d in resultados.values()])
+        costo_promedio = round(costo_total / num_estudiantes, 2)
+        tecnica_mas_costosa = max(resultados, key=lambda x: resultados[x]['costo_por_estudiante'])
+        tecnica_menor_implementacion = min(resultados, key=lambda x: resultados[x]['dias_implementacion'])
 
         # Reporte
         print(f"Análisis de técnicas de aprendizaje para {num_estudiantes} estudiantes en {dias_analisis} días")
         print(f"Técnica más efectiva: {mejor_tecnica[0]} (Promedio: {mejor_tecnica[1]['promedio_calificacion']}, Retención: {mejor_tecnica[1]['retencion_estudiantes']})")
         print(f"Costo total estimado: ${costo_total:,.2f} MXN")
-        print(f"Técnica más costosa: {max(resultados, key=lambda x: resultados[x]['costo_por_estudiante'])}")
-        print(f"Técnica con menor implementación: {min(resultados, key=lambda x: resultados[x]['dias_implementacion'])}")
+        print(f"Costo promedio por estudiante: ${costo_promedio:,.2f} MXN")
+        print(f"Técnica más costosa: {tecnica_mas_costosa} (${resultados[tecnica_mas_costosa]['costo_por_estudiante']:,.2f} MXN)")
+        print(f"Técnica con menor implementación: {tecnica_menor_implementacion} ({resultados[tecnica_menor_implementacion]['dias_implementacion']} días)")
+        print(f"Fecha de análisis: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Resumen ejecutivo: La técnica {mejor_tecnica[0]} es la más efectiva para {num_estudiantes} estudiantes, con un promedio de {mejor_tecnica[1]['promedio_calificacion']} y una retención del {mejor_tecnica[1]['retencion_estudiantes']}. El costo total estimado es de ${costo_total:,.2f} MXN.")
 
     except Exception as e:
         print(f"Error en el análisis: {str(e)}")
+    except IndexError:
+        print("Error: No se proporcionaron parámetros suficientes. Uso: python analizador_tecnicas_aprendizaje.py <num_estudiantes> <num_tecnicas> <dias_analisis>")
 
 if __name__ == "__main__":
     main()

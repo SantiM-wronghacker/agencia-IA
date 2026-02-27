@@ -8,7 +8,6 @@ import sys
 import json
 import datetime
 import math
-import random
 
 def calcular_razones_financieras(ventas, costos, gastos, activos, pasivos):
     try:
@@ -33,6 +32,10 @@ def calcular_razones_financieras(ventas, costos, gastos, activos, pasivos):
     except ZeroDivisionError:
         return {
             "error": "No se puede dividir por cero"
+        }
+    except Exception as e:
+        return {
+            "error": str(e)
         }
 
 def main():
@@ -65,7 +68,11 @@ def main():
         print(f"Endeudamiento: {razones_financieras.get('endeudamiento', 0):.2f}")
         print(f"Utilidad Neta: {razones_financieras.get('utilidad_neta', 0):.2f}")
         print(f"ROI: {razones_financieras.get('roi', 0):.2f}")
-        print(f"Fecha de cálculo: {datetime.date.today()}")
+        print(f"Margen de Utilidad Bruta: {(ventas - costos) / ventas:.2f}")
+        print(f"Margen de Utilidad Operativa: {(ventas - costos - gastos) / ventas:.2f}")
+        print(f"Resumen Ejecutivo: La empresa tiene una liquidez de {razones_financieras.get('liquidez', 0):.2f}, un endeudamiento de {razones_financieras.get('endeudamiento', 0):.2f}, una utilidad neta de {razones_financieras.get('utilidad_neta', 0):.2f} y un ROI de {razones_financieras.get('roi', 0):.2f}.")
+        if 'error' in razones_financieras:
+            print(f"Error: {razones_financieras['error']}")
     except Exception as e:
         print(f"Error: {str(e)}")
 

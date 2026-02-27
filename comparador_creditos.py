@@ -1,9 +1,3 @@
-"""
-ÁREA: FINANZAS
-DESCRIPCIÓN: Compara hasta 3 opciones de crédito hipotecario o empresarial. Calcula CAT, pago mensual, costo total y determina cuál conviene más según el perfil del usuario.
-TECNOLOGÍA: Python estándar
-"""
-
 import sys
 import math
 
@@ -22,11 +16,11 @@ def main():
             tasa3 = float(sys.argv[4])
             plazo = int(sys.argv[5])
         else:
-            monto = 2000000
-            tasa1 = 9.5
-            tasa2 = 10.2
-            tasa3 = 11.0
-            plazo = 20
+            monto = 2000000  # monto promedio de un crédito hipotecario en México
+            tasa1 = 9.5  # tasa de interés promedio de un crédito hipotecario en México
+            tasa2 = 10.2  # tasa de interés promedio de un crédito hipotecario con garantía en México
+            tasa3 = 11.0  # tasa de interés promedio de un crédito hipotecario sin garantía en México
+            plazo = 20  # plazo promedio de un crédito hipotecario en México
 
         pago_mensual1 = calcular_pago_mensual(monto, tasa1, plazo)
         pago_mensual2 = calcular_pago_mensual(monto, tasa2, plazo)
@@ -40,17 +34,29 @@ def main():
         cat2 = (costo_total2 - monto) / monto * 100
         cat3 = (costo_total3 - monto) / monto * 100
 
-        print(f"Opción 1: CAT {cat1:.2f}%, pago mensual {pago_mensual1:.2f}, costo total {costo_total1:.2f}")
-        print(f"Opción 2: CAT {cat2:.2f}%, pago mensual {pago_mensual2:.2f}, costo total {costo_total2:.2f}")
-        print(f"Opción 3: CAT {cat3:.2f}%, pago mensual {pago_mensual3:.2f}, costo total {costo_total3:.2f}")
+        print(f"Resumen de opciones de crédito:")
+        print(f"Opción 1: Tasa de interés {tasa1}%, plazo {plazo} años, monto {monto}")
+        print(f"  - Pago mensual: {pago_mensual1:.2f}")
+        print(f"  - Costo total: {costo_total1:.2f}")
+        print(f"  - CAT: {cat1:.2f}%")
+        print(f"Opción 2: Tasa de interés {tasa2}%, plazo {plazo} años, monto {monto}")
+        print(f"  - Pago mensual: {pago_mensual2:.2f}")
+        print(f"  - Costo total: {costo_total2:.2f}")
+        print(f"  - CAT: {cat2:.2f}%")
+        print(f"Opción 3: Tasa de interés {tasa3}%, plazo {plazo} años, monto {monto}")
+        print(f"  - Pago mensual: {pago_mensual3:.2f}")
+        print(f"  - Costo total: {costo_total3:.2f}")
+        print(f"  - CAT: {cat3:.2f}%")
 
         if cat1 < cat2 and cat1 < cat3:
-            print("La opción 1 conviene más")
+            print(f"\nResumen ejecutivo: La opción 1 conviene más, con un CAT de {cat1:.2f}% y un pago mensual de {pago_mensual1:.2f}")
         elif cat2 < cat1 and cat2 < cat3:
-            print("La opción 2 conviene más")
+            print(f"\nResumen ejecutivo: La opción 2 conviene más, con un CAT de {cat2:.2f}% y un pago mensual de {pago_mensual2:.2f}")
         else:
-            print("La opción 3 conviene más")
+            print(f"\nResumen ejecutivo: La opción 3 conviene más, con un CAT de {cat3:.2f}% y un pago mensual de {pago_mensual3:.2f}")
 
+    except ValueError:
+        print("Error: Los parámetros deben ser numéricos")
     except Exception as e:
         print(f"Error: {str(e)}")
 

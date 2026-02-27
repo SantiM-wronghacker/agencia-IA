@@ -28,6 +28,7 @@ class ResumenDiarioAgente:
             reporte += f"Tarea: {tarea.descripcion}\n"
             reporte += f"Tiempo de inicio: {tarea.tiempo_inicio.strftime('%Y-%m-%d %H:%M:%S')}\n"
             reporte += f"Tiempo de fin: {tarea.tiempo_fin.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            reporte += f"Duración: {(tarea.tiempo_fin - tarea.tiempo_inicio).total_seconds() / 60:.2f} minutos\n"
             reporte += "-------------------------\n"
 
         return reporte
@@ -39,29 +40,38 @@ class ResumenDiarioAgente:
             archivo.write(reporte)
 
 def main():
-    agente = ResumenDiarioAgente()
+    try:
+        agente = ResumenDiarioAgente()
 
-    if len(sys.argv) > 1:
-        monto = float(sys.argv[1])
-        tasa = float(sys.argv[2])
-        plazo = int(sys.argv[3])
-    else:
-        monto = 2000000
-        tasa = 9.5
-        plazo = 20
-        print(f"Usando valores por defecto: monto={monto}, tasa={tasa}, plazo={plazo}")
+        if len(sys.argv) > 1:
+            monto = float(sys.argv[1])
+            tasa = float(sys.argv[2])
+            plazo = int(sys.argv[3])
+        else:
+            monto = 2000000
+            tasa = 9.5
+            plazo = 20
+            print(f"Usando valores por defecto: monto={monto}, tasa={tasa}, plazo={plazo}")
 
-    tarea1 = Tarea("Cálculo de hipoteca", datetime(2024, 9, 16, 8, 0, 0), datetime(2024, 9, 16, 9, 0, 0))
-    tarea2 = Tarea("Generación de reporte", datetime(2024, 9, 16, 10, 0, 0), datetime(2024, 9, 16, 11, 0, 0))
+        tarea1 = Tarea("Cálculo de hipoteca", datetime(2024, 9, 16, 8, 0, 0), datetime(2024, 9, 16, 9, 0, 0))
+        tarea2 = Tarea("Generación de reporte", datetime(2024, 9, 16, 10, 0, 0), datetime(2024, 9, 16, 11, 0, 0))
+        tarea3 = Tarea("Análisis de datos", datetime(2024, 9, 16, 12, 0, 0), datetime(2024, 9, 16, 13, 0, 0))
+        tarea4 = Tarea("Creación de gráficos", datetime(2024, 9, 16, 14, 0, 0), datetime(2024, 9, 16, 15, 0, 0))
 
-    agente.agregar_tarea(tarea1)
-    agente.agregar_tarea(tarea2)
+        agente.agregar_tarea(tarea1)
+        agente.agregar_tarea(tarea2)
+        agente.agregar_tarea(tarea3)
+        agente.agregar_tarea(tarea4)
 
-    reporte = agente.generar_reporte()
-    print(reporte)
+        reporte = agente.generar_reporte()
+        print(reporte)
 
-    time.sleep(2)
-    agente.guardar_reporte(reporte)
+        total_minutos = sum((tarea.tiempo_fin - tarea.tiempo_inicio).total_seconds() / 60 for tarea in agente.tareas)
+        print(f"Resumen ejecutivo: Se completaron {len(agente.tareas)} tareas en un total de {total_minutos:.2f} minutos.")
+
+        agente.guardar_reporte(reporte)
+    except Exception as e:
+        print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
     main()

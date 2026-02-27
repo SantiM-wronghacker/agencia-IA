@@ -43,14 +43,17 @@ def main():
         print(f"Margen de utilidad: {margen_utilidad:.2f}%")
         print(f"Porcentaje de costo de producción sobre el precio de venta: {(costo_produccion / precio_venta) * 100:.2f}%")
         print(f"Porcentaje de utilidad sobre el precio de venta: {(utilidad / precio_venta) * 100:.2f}%")
+        print(f"Porcentaje de IVA sobre el precio de venta: {(iva * costo_produccion * (1 + margen_ganancia)) / precio_venta * 100:.2f}%")
 
         print("\nResumen Ejecutivo:")
         print(f"El precio de venta del platillo es de ${precio_venta:.2f} MXN, con una utilidad de ${(utilidad):.2f} MXN y un margen de utilidad de {margen_utilidad:.2f}%.")
 
     except ValueError as e:
-        print(f"Error: {str(e)} - Por favor, ingrese valores numéricos válidos.")
+        print(f"Error: {e}")
+    except IndexError:
+        print("Error: No se proporcionaron los argumentos necesarios. Uso: python calculadora_precio_venta_platillo.py <costo_produccion> <margen_ganancia> <iva>")
     except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()

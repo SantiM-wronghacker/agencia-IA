@@ -1,8 +1,3 @@
-"""
-ÁREA: TECNOLOGÍA
-DESCRIPCIÓN: Agente que realiza calculadora sla uptime
-TECNOLOGÍA: Python estándar
-"""
 import sys
 import math
 from datetime import datetime, timedelta
@@ -34,10 +29,25 @@ def calcular_sla_uptime(dias_baja=0, horas_baja=0, minutos_baja=0, sla_objetivo=
 def main():
     try:
         # Parámetros por línea de comandos con defaults
-        dias_baja = int(sys.argv[1]) if len(sys.argv) > 1 else 0
-        horas_baja = int(sys.argv[2]) if len(sys.argv) > 2 else 0
-        minutos_baja = int(sys.argv[3]) if len(sys.argv) > 3 else 0
-        sla_objetivo = float(sys.argv[4]) if len(sys.argv) > 4 else 99.9
+        if len(sys.argv) > 1:
+            dias_baja = int(sys.argv[1])
+        else:
+            dias_baja = 0
+
+        if len(sys.argv) > 2:
+            horas_baja = int(sys.argv[2])
+        else:
+            horas_baja = 0
+
+        if len(sys.argv) > 3:
+            minutos_baja = int(sys.argv[3])
+        else:
+            minutos_baja = 0
+
+        if len(sys.argv) > 4:
+            sla_objetivo = float(sys.argv[4])
+        else:
+            sla_objetivo = 99.9
 
         # Calcular SLA y uptime
         resultados = calcular_sla_uptime(dias_baja, horas_baja, minutos_baja, sla_objetivo)
@@ -48,8 +58,14 @@ def main():
         print(f"Uptime anual: {resultados['uptime']}%")
         print(f"SLA alcanzado: {resultados['sla']}% (objetivo: {sla_objetivo}%)")
         print(f"Tiempo de baja en segundos: {resultados['tiempo_baja_total']}")
-        print("Fin del cálculo")
+        print("Resumen Ejecutivo:")
+        if resultados['sla'] >= sla_objetivo:
+            print(f"El SLA objetivo de {sla_objetivo}% ha sido alcanzado con un uptime de {resultados['uptime']}%.")
+        else:
+            print(f"El SLA objetivo de {sla_objetivo}% no ha sido alcanzado. El uptime actual es de {resultados['uptime']}%.")
 
+    except ValueError as e:
+        print(f"Error en el cálculo: Los parámetros deben ser números enteros o flotantes. {str(e)}")
     except Exception as e:
         print(f"Error en el cálculo: {str(e)}")
 

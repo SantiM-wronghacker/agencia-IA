@@ -45,15 +45,25 @@ def main():
         print(f"Prompts generados:")
         for i, prompt in enumerate(prompts):
             print(f"{i+1}. {prompt}")
-        print(f"Longitud promedio de los prompts: {sum(len(prompt) for prompt in prompts) / len(prompts)}")
+        print(f"Longitud promedio de los prompts: {sum(len(prompt) for prompt in prompts) / len(prompts):.2f}")
         print(f"Longitud máxima de los prompts generados: {max(len(prompt) for prompt in prompts)}")
         print(f"Longitud mínima de los prompts generados: {min(len(prompt) for prompt in prompts)}")
-        print(f"Resumen ejecutivo: Se han generado {len(prompts)} prompts con longitudes entre {longitud_min} y {longitud_max} caracteres")
+        print(f"Resumen ejecutivo:")
+        print(f"  - Número de prompts: {len(prompts)}")
+        print(f"  - Longitud promedio: {sum(len(prompt) for prompt in prompts) / len(prompts):.2f}")
+        print(f"  - Longitud máxima: {max(len(prompt) for prompt in prompts)}")
+        print(f"  - Longitud mínima: {min(len(prompt) for prompt in prompts)}")
+        print(f"  - Fecha y hora de generación: {datetime.datetime.now()}")
+        if len(prompts) > 0:
+            print(f"  - Primer prompt: {prompts[0]}")
+            print(f"  - Último prompt: {prompts[-1]}")
+        else:
+            print(f"  - No se generaron prompts")
 
     except ValueError as e:
-        print(f"Error de valor: {str(e)}")
+        print(f"Error: {e}")
     except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"Error desconocido: {e}")
 
 if __name__ == "__main__":
     main()

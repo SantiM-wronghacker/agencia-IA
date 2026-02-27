@@ -1,9 +1,3 @@
-"""
-AREA: FINANZAS
-DESCRIPCION: Analiza flujo de caja mensual de un negocio. Recibe ingresos y egresos por categoría, calcula saldo neto, identifica meses críticos y proyecta 12 meses hacia adelante.
-TECNOLOGIA: Python estándar
-"""
-
 import sys
 import math
 
@@ -14,15 +8,15 @@ def main():
             egresos_fijos = int(sys.argv[2])
             egresos_variables = int(sys.argv[3])
         else:
-            ingresos_mensuales = 150000
-            egresos_fijos = 80000
-            egresos_variables = 30000
+            ingresos_mensuales = 200000  # Ingresos mensuales promedio en México
+            egresos_fijos = 120000  # Egresos fijos promedio en México
+            egresos_variables = 40000  # Egresos variables promedio en México
 
         saldo_neto = ingresos_mensuales - egresos_fijos - egresos_variables
         meses_criticos = 0
         proyeccion = []
-        tasa_interes_anual = 0.06  # Tasa de interés anual para cálculo de intereses
-        tasa_inflacion_anual = 0.03  # Tasa de inflación anual para cálculo de ajuste de precios
+        tasa_interes_anual = 0.08  # Tasa de interés anual promedio en México
+        tasa_inflacion_anual = 0.04  # Tasa de inflación anual promedio en México
 
         for i in range(12):
             saldo_proyectado = saldo_neto * (i + 1)
@@ -34,19 +28,18 @@ def main():
         intereses_mensuales = (ingresos_mensuales * tasa_interes_anual) / 12
         ajuste_precios_mensuales = (ingresos_mensuales * tasa_inflacion_anual) / 12
 
-        print(f"Ingresos mensuales: {ingresos_mensuales}")
-        print(f"Egresos fijos: {egresos_fijos}")
-        print(f"Egresos variables: {egresos_variables}")
-        print(f"Saldo neto: {saldo_neto}")
-        print(f"Meses críticos: {meses_criticos}")
+        print(f"Ingresos mensuales: ${ingresos_mensuales:,.2f} MXN")
+        print(f"Egresos fijos: ${egresos_fijos:,.2f} MXN")
+        print(f"Egresos variables: ${egresos_variables:,.2f} MXN")
+        print(f"Saldo neto: ${saldo_neto:,.2f} MXN")
+        print(f"Meses críticos: {meses_criticos} meses")
         print(f"Proyección 12 meses: {proyeccion}")
-        print(f"Intereses mensuales: {intereses_mensuales}")
-        print(f"Ajuste de precios mensuales: {ajuste_precios_mensuales}")
-        print(f"Saldo neto con intereses y ajuste de precios: {saldo_neto + intereses_mensuales - ajuste_precios_mensuales}")
-        print(f"Resumen ejecutivo: El negocio tiene un saldo neto de {saldo_neto} y se proyecta un total de {meses_criticos} meses críticos en los próximos 12 meses.")
-
-    except ValueError as e:
-        print(f"Error: {str(e)} - Por favor, ingrese valores numéricos.")
+        print(f"Intereses mensuales: ${intereses_mensuales:,.2f} MXN")
+        print(f"Ajuste de precios mensuales: ${ajuste_precios_mensuales:,.2f} MXN")
+        print(f"Saldo neto con intereses y ajuste de precios: ${saldo_neto + intereses_mensuales - ajuste_precios_mensuales:,.2f} MXN")
+        print(f"Resumen ejecutivo: El negocio tiene un saldo neto de ${saldo_neto:,.2f} MXN y se proyecta un total de {meses_criticos} meses críticos en el próximo año. Es importante considerar los intereses mensuales y el ajuste de precios para tomar decisiones informadas.")
+    except ValueError:
+        print("Error: Los parámetros deben ser números enteros.")
     except Exception as e:
         print(f"Error: {str(e)}")
 

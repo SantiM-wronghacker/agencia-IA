@@ -7,6 +7,8 @@ TECNOLOGÍA: Python
 import os
 import sys
 import time
+import json
+import math
 
 class AnalizadorBalances:
     def __init__(self, archivo):
@@ -14,6 +16,10 @@ class AnalizadorBalances:
         self.activos = {}
         self.pasivos = {}
         self.capital_contable = 0
+        self.liquidez = 0
+        self.endeudamiento = 0
+        self.rotacion_activos = 0
+        self.rotacion_pasivos = 0
 
     def leer_archivo(self):
         try:
@@ -30,6 +36,9 @@ class AnalizadorBalances:
         except FileNotFoundError:
             print("El archivo no existe")
             return None
+        except Exception as e:
+            print("Error al leer el archivo:", str(e))
+            return None
 
     def calcular_capital_contable(self):
         total_activos = sum(self.activos.values())
@@ -39,16 +48,28 @@ class AnalizadorBalances:
     def calcular_razones_financieras(self):
         if self.capital_contable == 0:
             return None
-        liquidez = self.activos.get('Caja y bancos', 0) / self.pasivos.get('Cuentas por pagar', 1)
-        endeudamiento = sum(self.pasivos.values()) / self.capital_contable
-        return liquidez, endeudamiento
+        self.liquidez = self.activos.get('Caja y bancos', 0) / self.pasivos.get('Cuentas por pagar', 1)
+        self.endeudamiento = sum(self.pasivos.values()) / self.capital_contable
+        self.rotacion_activos = sum(self.activos.values()) / self.activos.get('Inventario', 1)
+        self.rotacion_pasivos = sum(self.pasivos.values()) / self.pasivos.get('Cuentas por pagar', 1)
 
     def imprimir_resultados(self):
         print("Capital Contable:", self.capital_contable)
-        razones = self.calcular_razones_financieras()
-        if razones:
-            print("Liquidez:", razones[0])
-            print("Endeudamiento:", razones[1])
+        print("Liquidez:", self.liquidez)
+        print("Endeudamiento:", self.endeudamiento)
+        print("Rotación de Activos:", self.rotacion_activos)
+        print("Rotación de Pasivos:", self.rotacion_pasivos)
+        print("Total Activos:", sum(self.activos.values()))
+        print("Total Pasivos:", sum(self.pasivos.values()))
+        print("Resumen Ejecutivo:")
+        if self.liquidez > 1:
+            print("La empresa tiene una buena liquidez")
+        else:
+            print("La empresa tiene una mala liquidez")
+        if self.endeudamiento < 1:
+            print("La empresa tiene un buen nivel de endeudamiento")
+        else:
+            print("La empresa tiene un mal nivel de endeudamiento")
 
 def main():
     if len(sys.argv) > 1:
@@ -59,6 +80,7 @@ def main():
     analizador = AnalizadorBalances(archivo)
     analizador.leer_archivo()
     analizador.calcular_capital_contable()
+    analizador.calcular_razones_financieras()
     analizador.imprimir_resultados()
 
 if __name__ == "__main__":

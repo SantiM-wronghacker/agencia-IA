@@ -40,13 +40,16 @@ def main():
         print(f"Costo total (incluyendo IVA): ${costo + iva:.2f} MXN")
         print(f"Utilidad: ${precio_con_iva - (costo + iva):.2f} MXN")
         print(f"Resumen ejecutivo: El precio original de ${precio:.2f} MXN con un descuento de {porcentaje_descuento}% y un IVA de {porcentaje_iva}%, resulta en un precio final de ${precio_con_iva:.2f} MXN, con una utilidad de ${precio_con_iva - (costo + iva):.2f} MXN y un margen de {margen:.2f}%")
+        print(f"Porcentaje de utilidad sobre el precio de venta: {(precio_con_iva - (costo + iva)) / precio_con_iva * 100:.2f}%")
+        print(f"Porcentaje de utilidad sobre el costo total: {(precio_con_iva - (costo + iva)) / (costo + iva) * 100:.2f}%")
+        print(f"Retorno sobre la inversión (ROI): {(precio_con_iva - (costo + iva)) / costo * 100:.2f}%")
 
     except IndexError:
         print("Error: No se proporcionaron suficientes argumentos")
     except ValueError:
-        print("Error: Los argumentos proporcionados no son números válidos")
+        print("Error: Los argumentos proporcionados no son válidos")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error inesperado: {str(e)}")
 
 if __name__ == "__main__":
     main()

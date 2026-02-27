@@ -1,58 +1,81 @@
 """
 ÁREA: FINANZAS
-DESCRIPCIÓN: Asistente para calcular el IVA de una lista de montos
+DESCRIPCIÓN: Asistente para calcular el IVA de una lista de montos con enfoque en normativa mexicana
 TECNOLOGÍA: Python
 """
 
 import sys
+import math
 
 class AsistenteIVA:
-    def __init__(self, montos, iva=0.16):
+    def __init__(self, montos, iva=0.16, retencion=0.0, exento=False):
         self.montos = montos
-        self.iva = iva  
+        self.iva = iva
+        self.retencion = retencion
+        self.exento = exento
+        self.validar_montos()
+
+    def validar_montos(self):
+        if not all(isinstance(monto, (int, float)) for monto in self.montos):
+            raise ValueError("Todos los montos deben ser números")
+        if any(monto < 0 for monto in self.montos):
+            raise ValueError("Los montos no pueden ser negativos")
 
     def calcular_subtotal(self):
         return sum(self.montos)
 
     def calcular_iva(self):
+        if self.exento:
+            return 0
         return self.calcular_subtotal() * self.iva
 
+    def calcular_retencion(self):
+        if self.retencion <= 0:
+            return 0
+        return self.calcular_subtotal() * self.retencion
+
     def calcular_total(self):
-        return self.calcular_subtotal() + self.calcular_iva()
+        subtotal = self.calcular_subtotal()
+        iva = self.calcular_iva()
+        retencion = self.calcular_retencion()
+        return subtotal + iva - retencion
 
     def generar_resumen(self):
         subtotal = self.calcular_subtotal()
         iva = self.calcular_iva()
+        retencion = self.calcular_retencion()
         total = self.calcular_total()
 
         resumen = f"Resumen de declaración contable:\n"
         resumen += f"Subtotal: ${subtotal:.2f}\n"
         resumen += f"IVA ({self.iva*100}%): ${iva:.2f}\n"
-        resumen += f"Total: ${total:.2f}\n"
+        resumen += f"Retención ({self.retencion*100}%): ${retencion:.2f}\n"
+        resumen += f"Total a pagar: ${total:.2f}\n"
         resumen += f"Total de montos: {len(self.montos)}\n"
-        resumen += f"Monto promedio: ${sum(self.montos)/len(self.montos):.2f}\n"
+        resumen += f"Monto promedio: ${subtotal/len(self.montos):.2f}\n"
         resumen += f"Monto máximo: ${max(self.montos):.2f}\n"
         resumen += f"Monto mínimo: ${min(self.montos):.2f}\n"
+        resumen += f"Porcentaje de IVA sobre total: {iva/total*100:.2f}%\n"
+        resumen += f"Porcentaje de retención sobre total: {retencion/total*100:.2f}%\n"
+        resumen += f"Monto redondeado: ${math.ceil(total):.2f}\n"
+        resumen += f"Monto redondeado (centavos): ${math.floor(total):.2f}\n"
+        resumen += f"Monto redondeado (banco): ${round(total, -1):.2f}\n"
 
         return resumen
 
+    def generar_resumen_ejecutivo(self):
+        subtotal = self.calcular_subtotal()
+        iva = self.calcular_iva()
+        retencion = self.calcular_retencion()
+        total = self.calcular_total()
 
-def main():
-    try:
-        if len(sys.argv) > 1:
-            montos = [float(arg) for arg in sys.argv[1:]]
-        else:
-            montos = [100, 200, 300, 400, 500]
-            print("Usando valores por defecto:", montos)
-        asistente = AsistenteIVA(montos)
-        print(asistente.generar_resumen())
-        print("\nResumen ejecutivo:")
-        print("El total a pagar es de ${:.2f}, de los cuales ${:.2f} corresponden a IVA.".format(asistente.calcular_total(), asistente.calcular_iva()))
-    except ValueError:
-        print("Error: Los argumentos deben ser números.")
-    except Exception as e:
-        print("Error:", str(e))
+        ejecutivo = f"\nResumen ejecutivo:\n"
+        ejecutivo += f"El total a pagar es de ${total:.2f}\n"
+        ejecutivo += f"De este monto, ${iva:.2f} corresponden a IVA ({self.iva*100}%)\n"
+        ejecutivo += f"Y ${retencion:.2f} son retenciones ({self.retencion*100}%)\n"
+        ejecutivo += f"El subtotal antes de impuestos es ${subtotal:.2f}\n"
+        ejecutivo += f"El monto promedio por transacción es ${subtotal/len(self.montos):.2f}\n"
+        ejecutivo += f"El monto máximo registrado es ${max(self.montos):.2f}\n"
+        ejecutivo += f"El monto mínimo registrado es ${min(self.montos):.2f}\n"
 
-
-if __name__ == "__main__":
-    main()
+        return ejecutivo

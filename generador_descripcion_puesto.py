@@ -1,6 +1,6 @@
 """
 ÁREA: RECURSOS HUMANOS
-DESCRIPCIÓN: Agente que realiza generador descripcion puesto
+DESCRIPCIÓN: Agente que genera descripciones detalladas de puestos con cálculos fiscales y laborales precisos para México
 TECNOLOGÍA: Python estándar
 """
 
@@ -11,34 +11,47 @@ import math
 import re
 import random
 
-def main():
-    try:
-        nombre_puesto = sys.argv[1] if len(sys.argv) > 1 else "Gerente de Ventas"
-        sueldo_anual = int(sys.argv[2]) if len(sys.argv) > 2 else 500000
-        beneficios = ["Seguro médico", "Bono de vacaciones", "Plan de pensiones", "Aguinaldo", "Prima de antigüedad"]
-        beneficios_random = random.sample(beneficios, 3)
-        fecha_inicio = datetime.date.today()
-        fecha_fin = datetime.date.today() + datetime.timedelta(days=365)
+def calcular_isr(sueldo_anual):
+    """Cálculo del ISR anual según tabla 2023 México"""
+    if sueldo_anual <= 758.75:
+        return sueldo_anual * 0.0192
+    elif sueldo_anual <= 1046.08:
+        return 14.45 + (sueldo_anual - 758.75) * 0.064
+    elif sueldo_anual <= 1379.88:
+        return 47.73 + (sueldo_anual - 1046.08) * 0.08
+    elif sueldo_anual <= 1654.54:
+        return 81.73 + (sueldo_anual - 1379.88) * 0.103
+    elif sueldo_anual <= 2137.21:
+        return 136.98 + (sueldo_anual - 1654.54) * 0.12
+    elif sueldo_anual <= 3205.82:
+        return 246.98 + (sueldo_anual - 2137.21) * 0.142
+    elif sueldo_anual <= 4537.14:
+        return 444.21 + (sueldo_anual - 3205.82) * 0.164
+    elif sueldo_anual <= 9726.81:
+        return 719.68 + (sueldo_anual - 4537.14) * 0.179
+    elif sueldo_anual <= 12968.47:
+        return 1485.96 + (sueldo_anual - 9726.81) * 0.2136
+    elif sueldo_anual <= 24185.57:
+        return 2331.83 + (sueldo_anual - 12968.47) * 0.2352
+    elif sueldo_anual <= 37658.32:
+        return 4693.53 + (sueldo_anual - 24185.57) * 0.3
+    elif sueldo_anual <= 72349.50:
+        return 9381.13 + (sueldo_anual - 37658.32) * 0.32
+    elif sueldo_anual <= 97268.10:
+        return 19136.73 + (sueldo_anual - 72349.50) * 0.34
+    else:
+        return 27063.93 + (sueldo_anual - 97268.10) * 0.35
 
-        print(f"Nombre del puesto: {nombre_puesto}")
-        print(f"Sueldo anual: ${sueldo_anual:,.2f} MXN")
-        print(f"Sueldo mensual: ${sueldo_anual / 12:,.2f} MXN")
-        print(f"Beneficios: {', '.join(beneficios_random)}")
-        print(f"Fecha de inicio: {fecha_inicio.strftime('%d/%m/%Y')}")
-        print(f"Fecha de fin: {fecha_fin.strftime('%d/%m/%Y')}")
-        print(f"Duración del contrato: {math.ceil((fecha_fin - fecha_inicio).days / 365)} años")
-        print(f"IMPUESTO SOBRE LA RENTA (ISR): {sueldo_anual * 0.1:,.2f} MXN")
-        print(f"SUBSIDIO PARA EL EMPLEO: {sueldo_anual * 0.01:,.2f} MXN")
-        print(f"APORTACIONES AL IMSS: {sueldo_anual * 0.05:,.2f} MXN")
-        print(f"APORTACIONES AL INFONAVIT: {sueldo_anual * 0.05:,.2f} MXN")
+def calcular_imss(sueldo_anual):
+    """Cálculo de IMSS anual con tope máximo"""
+    umbral = 25 * 730.55  # 25 UMA 2023
+    if sueldo_anual > umbral:
+        sueldo_anual = umbral
+    return sueldo_anual * 0.05
 
-        print("\nResumen Ejecutivo:")
-        print(f"El puesto de {nombre_puesto} ofrece un sueldo anual de ${sueldo_anual:,.2f} MXN, beneficios como {', '.join(beneficios_random)} y una duración del contrato de {math.ceil((fecha_fin - fecha_inicio).days / 365)} años.")
-
-    except ValueError as e:
-        print(f"Error: {str(e)}")
-    except Exception as e:
-        print(f"Error: {str(e)}")
-
-if __name__ == "__main__":
-    main()
+def calcular_infonavit(sueldo_anual):
+    """Cálculo de INFONAVIT anual con tope máximo"""
+    umbral = 25 * 730.55  # 25 UMA 2023
+    if sueldo_anual > umbral:
+        sueldo_anual = umbral
+    return su

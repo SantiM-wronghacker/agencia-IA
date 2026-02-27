@@ -23,6 +23,20 @@ def main():
             dias = int(sys.argv[1])
         if len(sys.argv) > 2:
             clientes = int(sys.argv[2])
+        if len(sys.argv) > 3:
+            monto_min = int(sys.argv[3])
+        if len(sys.argv) > 4:
+            monto_max = int(sys.argv[4])
+
+        # Validar argumentos
+        if dias < 1:
+            raise ValueError("El número de días debe ser mayor que 0")
+        if clientes < 1:
+            raise ValueError("El número de clientes debe ser mayor que 0")
+        if monto_min < 0:
+            raise ValueError("El monto mínimo no puede ser negativo")
+        if monto_max < monto_min:
+            raise ValueError("El monto máximo debe ser mayor que el monto mínimo")
 
         # Generar datos de procedimientos
         procedimientos = []
@@ -46,12 +60,23 @@ def main():
         print(f"Generador de procedimientos SOP - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"Clientes procesados: {clientes}")
         print(f"Rango de fechas: últimos {dias} días")
-        print(f"Montos generados: entre ${monto_min} y ${monto_max} MXN")
+        print(f"Montos generados: entre ${monto_min:,.2f} y ${monto_max:,.2f} MXN")
         print(f"Archivo generado: {os.path.abspath(output_file)}")
         print("Procedimientos generados:")
-        for proc in procedimientos[:3]:  # Mostrar solo 3 ejemplos
-            print(f"  {proc['id']}: {proc['cliente']} - ${proc['monto']} ({proc['status']})")
+        for proc in procedimientos[:5]:  # Mostrar 5 ejemplos
+            print(f"  {proc['id']}: {proc['cliente']} - ${proc['monto']:,.2f} ({proc['status']})")
+        print(f"Total de procedimientos: {len(procedimientos)}")
+        print(f"Monto total: ${sum(proc['monto'] for proc in procedimientos):,.2f}")
+        print(f"Promedio de monto: ${sum(proc['monto'] for proc in procedimientos) / len(procedimientos):,.2f}")
+        print("Resumen ejecutivo:")
+        print(f"  * Fecha de generación: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"  * Número de clientes: {clientes}")
+        print(f"  * Rango de fechas: últimos {dias} días")
+        print(f"  * Monto total: ${sum(proc['monto'] for proc in procedimientos):,.2f}")
 
+    except ValueError as e:
+        print(f"Error de valor: {str(e)}", file=sys.stderr)
+        sys.exit(1)
     except Exception as e:
         print(f"Error: {str(e)}", file=sys.stderr)
         sys.exit(1)

@@ -1,9 +1,3 @@
-"""
-ÁREA: SEGUROS
-DESCRIPCIÓN: Agente que realiza analizador cobertura gastos medicos
-TECNOLOGÍA: Python estándar
-"""
-
 import sys
 import json
 import random
@@ -24,11 +18,11 @@ def main():
 
         # Simulación de gastos médicos
         gastos = {
-            "hospitalizacion": random.uniform(10000, 50000),
-            "medicamentos": random.uniform(2000, 15000),
-            "consultas": random.uniform(500, 3000),
-            "laboratorio": random.uniform(1000, 8000),
-            "cirugia": random.uniform(0, 100000)
+            "hospitalizacion": random.uniform(20000, 80000),
+            "medicamentos": random.uniform(5000, 30000),
+            "consultas": random.uniform(2000, 10000),
+            "laboratorio": random.uniform(3000, 15000),
+            "cirugia": random.uniform(50000, 200000)
         }
 
         # Cálculo de cobertura
@@ -47,12 +41,18 @@ def main():
         print(f"Análisis de cobertura de gastos médicos - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"Monto asegurado: ${monto_asegurado:,.2f} MXN")
         print(f"Total de gastos médicos: ${total_gastos:,.2f} MXN")
+        print(f"Gastos médicos detallados:")
+        for gasto, monto in gastos.items():
+            print(f"  - {gasto.capitalize()}: ${monto:,.2f} MXN")
         print(f"Cobertura después de deducible (${deducible:,.2f} MXN): ${cobertura:,.2f} MXN")
         print(f"Coaseguro aplicado ({coaseguro*100:.0f}%): ${coaseguro_aplicado:,.2f} MXN")
         print(f"Cobertura final a pagar: ${cobertura_final:,.2f} MXN")
+        print(f"Resumen ejecutivo: La cobertura final a pagar es de ${cobertura_final:,.2f} MXN, lo que representa {cobertura_final/monto_asegurado*100:.2f}% del monto asegurado.")
 
+    except ValueError as e:
+        print(f"Error: {e}. Por favor, ingrese valores numéricos válidos.")
     except Exception as e:
-        print(f"Error en el análisis: {str(e)}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()

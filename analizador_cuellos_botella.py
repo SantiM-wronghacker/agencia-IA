@@ -38,13 +38,26 @@ def main():
         print(f"Fecha de análisis: {datetime.now().strftime('%d/%m/%Y %H:%M')}")
         print(f"Total días analizados: {dias}")
         print(f"Días con cuellos de botella: {len(cuellos_botella)}")
-        print(f"Producción promedio en cuellos de botella: {sum(c[1] for c in cuellos_botella)/len(cuellos_botella) if cuellos_botella else 0:.2f} unidades")
+        print(f"Producción promedio en cuellos de botella: {sum(c['promedio'] for c in cuellos_botella)/len(cuellos_botella) if cuellos_botella else 0:.2f} unidades")
+        print(f"Producción total: {sum(datos_produccion)} unidades")
+        print(f"Producción promedio diaria: {sum(datos_produccion)/len(datos_produccion):.2f} unidades")
+        print(f"Mayor producción diaria: {max(datos_produccion)} unidades")
+        print(f"Menor producción diaria: {min(datos_produccion)} unidades")
 
         if cuellos_botella:
             print("\nDetalle de cuellos de botella:")
             for item in cuellos_botella[:3]:  # Mostrar solo los primeros 3 para no saturar
                 print(f"  Día {item['dia']}: {item['produccion']} unidades (promedio móvil: {item['promedio']})")
 
+        print("\nResumen ejecutivo:")
+        print(f"El análisis de cuellos de botella ha identificado {len(cuellos_botella)} días con producción por debajo del umbral establecido.")
+        print(f"La producción promedio en estos días es de {sum(c['promedio'] for c in cuellos_botella)/len(cuellos_botella) if cuellos_botella else 0:.2f} unidades.")
+        print(f"Se recomienda revisar la producción diaria para identificar oportunidades de mejora.")
+
+    except IndexError:
+        print("Error: Debe proporcionar el número de días y el umbral como parámetros.")
+    except ValueError:
+        print("Error: Los parámetros deben ser números.")
     except Exception as e:
         print(f"Error en el análisis: {str(e)}")
 

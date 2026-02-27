@@ -19,16 +19,16 @@ def main():
 
         # Simular datos de hospedaje
         hoteles = [
-            {"nombre": "Hotel 1", "precio": 1500.0, "calificacion": 4.5},
-            {"nombre": "Hotel 2", "precio": 2000.0, "calificacion": 4.8},
-            {"nombre": "Hotel 3", "precio": 1200.0, "calificacion": 4.2},
-            {"nombre": "Hotel 4", "precio": 2500.0, "calificacion": 4.9},
-            {"nombre": "Hotel 5", "precio": 1800.0, "calificacion": 4.6},
-            {"nombre": "Hotel 6", "precio": 2200.0, "calificacion": 4.7},
-            {"nombre": "Hotel 7", "precio": 1000.0, "calificacion": 4.1},
-            {"nombre": "Hotel 8", "precio": 2800.0, "calificacion": 4.95},
-            {"nombre": "Hotel 9", "precio": 1600.0, "calificacion": 4.4},
-            {"nombre": "Hotel 10", "precio": 3000.0, "calificacion": 4.99},
+            {"nombre": "Hyatt Zilara Cancun", "precio": 4500.0, "calificacion": 4.8},
+            {"nombre": "Secrets The Vine Cancun", "precio": 3800.0, "calificacion": 4.7},
+            {"nombre": "Moon Palace Cancun", "precio": 3200.0, "calificacion": 4.5},
+            {"nombre": "Iberostar Cancun", "precio": 4000.0, "calificacion": 4.6},
+            {"nombre": "The Grand Park Royal Cancun", "precio": 3500.0, "calificacion": 4.4},
+            {"nombre": "Fiesta Americana Grand Coral Beach", "precio": 4200.0, "calificacion": 4.5},
+            {"nombre": "The Westin Lagunamar Ocean Resort Villas", "precio": 3000.0, "calificacion": 4.3},
+            {"nombre": "Riu Cancun", "precio": 2800.0, "calificacion": 4.2},
+            {"nombre": "Barcelo Maya Palace", "precio": 2500.0, "calificacion": 4.1},
+            {"nombre": "Occidental at Xcaret Destination", "precio": 2200.0, "calificacion": 4.0},
         ]
 
         # Seleccionar los mejores hoteles
@@ -42,7 +42,13 @@ def main():
         print("-----------------------------------------")
         print(f"Promedio de precios: ${sum(hotel['precio'] for hotel in mejores_hoteles) / len(mejores_hoteles):.2f} MXN")
         print(f"Promedio de calificaciones: {sum(hotel['calificacion'] for hotel in mejores_hoteles) / len(mejores_hoteles):.2f}")
+        print(f"Rango de precios: ${min(hotel['precio'] for hotel in mejores_hoteles):.2f} MXN - ${max(hotel['precio'] for hotel in mejores_hoteles):.2f} MXN")
+        print(f"Resumen Ejecutivo: Los {num_hoteles} mejores hoteles en {ciudad} tienen un promedio de precio de ${sum(hotel['precio'] for hotel in mejores_hoteles) / len(mejores_hoteles):.2f} MXN y un promedio de calificación de {sum(hotel['calificacion'] for hotel in mejores_hoteles) / len(mejores_hoteles):.2f}")
 
+    except IndexError:
+        print("Error: Debe proporcionar la ciudad y el número de hoteles como argumentos.")
+    except ValueError:
+        print("Error: El número de hoteles debe ser un número entero.")
     except Exception as e:
         print(f"Error: {str(e)}")
 

@@ -44,6 +44,9 @@ def main():
         fecha_vencimiento = (datetime.now() + timedelta(days=365)).strftime("%Y-%m-%d")
         deducible = random.randint(5000, 15000)
         copago = random.randint(100, 300)
+        gastos_medicos = round(costo_total * 0.8, 2)
+        gastos_hospitales = round(costo_total * 0.15, 2)
+        gastos_consultas = round(costo_total * 0.05, 2)
 
         # Imprimir resultados
         print(f"Análisis de costo de seguro médico - {fecha_actual}")
@@ -53,7 +56,21 @@ def main():
         print(f"Deducible anual: ${deducible:,.2f} MXN")
         print(f"Copago por consulta: ${copago:,.2f} MXN")
         print(f"Vigencia hasta: {fecha_vencimiento}")
+        print(f"Gastos médicos estimados: ${gastos_medicos:,.2f} MXN")
+        print(f"Gastos hospitalarios estimados: ${gastos_hospitales:,.2f} MXN")
+        print(f"Gastos por consultas estimados: ${gastos_consultas:,.2f} MXN")
+        print(f"Total de gastos estimados: ${gastos_medicos + gastos_hospitales + gastos_consultas:,.2f} MXN")
 
+        # Resumen ejecutivo
+        print("\nResumen Ejecutivo:")
+        print(f"El costo total del seguro médico para {cobertura} es de ${costo_total:,.2f} MXN al mes.")
+        print(f"El deducible anual es de ${deducible:,.2f} MXN y el copago por consulta es de ${copago:,.2f} MXN.")
+        print(f"Se estima que los gastos médicos serán de ${gastos_medicos:,.2f} MXN, los gastos hospitalarios serán de ${gastos_hospitales:,.2f} MXN y los gastos por consultas serán de ${gastos_consultas:,.2f} MXN.")
+
+    except ValueError as e:
+        print(f"Error: {str(e)}")
+    except KeyError as e:
+        print(f"Error: {str(e)}")
     except Exception as e:
         print(f"Error en el análisis: {str(e)}")
 

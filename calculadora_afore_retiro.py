@@ -20,7 +20,7 @@ def main():
 
         ahorro_actual = 0.0
         edad_retiro = edad + años_retiro
-        aportacion_mensual = salario * aportacion
+        aportacion_mensual = salario * aportacion / 12
 
         for año in range(edad, edad_retiro):
             ahorro_actual = (ahorro_actual + aportacion_mensual * 12) * (1 + tasa_interes)
@@ -34,8 +34,12 @@ def main():
         print(f"Aportación anual: ${math.floor(aportacion_mensual * 12)}")
         print(f"Años hasta el retiro: {años_retiro} años")
         print(f"Total de aportaciones: ${math.floor(aportacion_mensual * 12 * años_retiro)}")
+        print(f"Total de intereses ganados: ${math.floor(ahorro_actual - aportacion_mensual * 12 * años_retiro)}")
+        print(f"Retiro mensual proyectado: ${math.floor(ahorro_actual / (años_retiro * 12))}")
+        print(f"Retiro anual proyectado: ${math.floor(ahorro_actual / años_retiro)}")
         print("Resumen ejecutivo:")
         print(f"Con una edad actual de {edad} años, un salario de ${math.floor(salario)} al año, una aportación del {aportacion*100}%, una tasa de interés del {tasa_interes*100}% y un retiro en {años_retiro} años, se proyecta un ahorro de ${math.floor(ahorro_actual)} al momento del retiro.")
+        print(f"Se espera que el ahorro proyectado al retiro sea suficiente para cubrir los gastos durante la jubilación, considerando un retiro mensual de ${math.floor(ahorro_actual / (años_retiro * 12))} y un retiro anual de ${math.floor(ahorro_actual / años_retiro)}.")
     except ValueError as e:
         print(f"Error: {str(e)}")
     except Exception as e:

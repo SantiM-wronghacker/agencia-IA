@@ -19,13 +19,22 @@ def calcular_costo_empleado(salario_base, horas_trabajadas, dias_trabajados, bon
 
 def main():
     try:
-        salario_base = float(sys.argv[1]) if len(sys.argv) > 1 else 25000.0
-        horas_trabajadas = float(sys.argv[2]) if len(sys.argv) > 2 else 8.0
-        dias_trabajados = float(sys.argv[3]) if len(sys.argv) > 3 else 30.0
-        bonificacion = float(sys.argv[4]) if len(sys.argv) > 4 else 0.0
+        if len(sys.argv) < 5:
+            print("Uso: python calculadora_costo_empleado_mexico.py <salario_base> <horas_trabajadas> <dias_trabajados> <bonificacion>")
+            sys.exit(1)
+
+        salario_base = float(sys.argv[1])
+        horas_trabajadas = float(sys.argv[2])
+        dias_trabajados = float(sys.argv[3])
+        bonificacion = float(sys.argv[4])
+
+        if salario_base <= 0 or horas_trabajadas <= 0 or dias_trabajados <= 0:
+            print("Error: Los valores de salario base, horas trabajadas y días trabajados deben ser mayores que cero.")
+            sys.exit(1)
 
         subtotal, impuesto, seguro_social, infonavit, total = calcular_costo_empleado(salario_base, horas_trabajadas, dias_trabajados, bonificacion)
 
+        print(f"Resumen de costo del empleado:")
         print(f"Salario base: ${salario_base:.2f}")
         print(f"Horas trabajadas: {horas_trabajadas:.2f} horas")
         print(f"Días trabajados: {dias_trabajados:.2f} días")
@@ -37,15 +46,13 @@ def main():
         print(f"Total: ${total:.2f}")
         print(f"Costo por hora: ${subtotal / (horas_trabajadas * dias_trabajados):.2f}")
         print(f"Costo por día: ${subtotal / dias_trabajados:.2f}")
-        print("Resumen ejecutivo:")
+        print("\nResumen ejecutivo:")
         print(f"El costo total del empleado es de ${total:.2f}, con un subtotal de ${subtotal:.2f} y un total de impuestos y contribuciones de ${impuesto + seguro_social + infonavit:.2f}.")
-
-    except ValueError as e:
-        print(f"Error: {str(e)}")
-    except IndexError as e:
-        print(f"Error: {str(e)}")
-    except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"La bonificación representa el {bonificacion / total * 100:.2f}% del costo total.")
+        print(f"El costo por hora es de ${subtotal / (horas_trabajadas * dias_trabajados):.2f}, lo que representa un costo por día de ${subtotal / dias_trabajados:.2f}.")
+    except ValueError:
+        print("Error: Los valores ingresados deben ser numéricos.")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

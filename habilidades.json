@@ -3345,5 +3345,17 @@
         "ordenes": [
             "clasificador prioridad tareas"
         ]
+    },
+    "generador_briefing_diario.py": {
+        "descripcion": "Agente que realiza generador briefing diario",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:32:01",
+        "ordenes": [
+            "generador briefing diario"
+        ]
     }
 }

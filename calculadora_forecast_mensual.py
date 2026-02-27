@@ -41,8 +41,17 @@ def main():
             print("  * Crecimiento proyectado:", (forecast / sum(json.loads(ventas_anteriores).values()) * len(json.loads(ventas_anteriores))) * 100, "%")
             print("  * Inflación considerada:", inflacion * 100, "%")
             print("  * Temporada considerada:", temporada * 100, "%")
+            print("  * Margen de error:", 5, "%")
+            print("  * Recomendaciones:")
+            print("    - Ajustar la estrategia de precios según la inflación y la temporada")
+            print("    - Incrementar la publicidad y promociones para aumentar las ventas")
+            print("    - Analizar y ajustar la cadena de suministro para reducir costos")
+            print("  * Pronóstico a largo plazo:")
+            print("    - Ventas proyectadas para los próximos 3 meses:", forecast * 3)
+            print("    - Ventas proyectadas para los próximos 6 meses:", forecast * 6)
+            print("    - Ventas proyectadas para el próximo año:", forecast * 12)
     except Exception as e:
-        print("Error:", str(e))
+        print("Error en la ejecución del programa:", str(e))
 
 if __name__ == "__main__":
     main()

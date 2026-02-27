@@ -16,17 +16,10 @@ import subprocess
 import shutil
 import re
 from datetime import datetime
-import io as _io
 
-# Fix Unicode para Windows (cp1252) — hace print() seguro con cualquier caracter
-if hasattr(sys.stdout, 'buffer'):
-    sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-if hasattr(sys.stderr, 'buffer'):
-    sys.stderr = _io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
-
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  CONFIGURACIÓN
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 BASE_DIR        = os.path.dirname(os.path.abspath(__file__))
 LOG             = os.path.join(BASE_DIR, "registro_noche.txt")
@@ -43,9 +36,9 @@ TIMEOUT_MISIONES = 1800   # 30 min para auto_run (200+ misiones)
 
 os.makedirs(RUNS_DIR, exist_ok=True)
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  ESTADO GLOBAL
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 estado = {
     "inicio":           datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -63,14 +56,14 @@ estado = {
 
 log_lock = threading.Lock()
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  LOGGING
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def log(msg, nivel="INFO"):
     ts = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    iconos = {"INFO": "[INFO]", "OK": "[OK]", "WARN": "[WARN]", "ERROR": "[ERROR]", "MASTER": "[FABRICA]"}
-    icono = iconos.get(nivel, "[INFO]")
+    iconos = {"INFO": "ℹ", "OK": "✅", "WARN": "⚠", "ERROR": "❌", "MASTER": "🏭"}
+    icono = iconos.get(nivel, "ℹ")
     linea = f"[{ts}] [{nivel}] {icono} [MAESTRO] {msg}"
     with log_lock:
         print(linea)
@@ -80,9 +73,9 @@ def log(msg, nivel="INFO"):
         except Exception:
             pass
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  EJECUTOR SEGURO DE SCRIPTS
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def ejecutar(script, args=None, timeout=TIMEOUT_PROCESO):
     ruta = os.path.join(BASE_DIR, script)
@@ -101,9 +94,9 @@ def ejecutar(script, args=None, timeout=TIMEOUT_PROCESO):
     except Exception as e:
         return False, str(e)
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  LECTOR DE HABILIDADES
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def contar_agentes():
     try:
@@ -121,9 +114,9 @@ def contar_misiones():
     except Exception:
         return 0
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  LIMPIADOR AUTOMÁTICO
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def limpiar_sistema():
     """Limpia logs pesados, backups viejos y archivos temporales."""
@@ -145,7 +138,7 @@ def limpiar_sistema():
                     f.writelines(lineas[:-500])
                 with open(LOG, "w", encoding="utf-8") as f:
                     f.writelines(ultimas)
-                log(f"Log archivado ({size_mb:.1f}MB -> 500 líneas activas)", "OK")
+                log(f"Log archivado ({size_mb:.1f}MB → 500 líneas activas)", "OK")
             except Exception as e:
                 log(f"Error limpiando log: {e}", "WARN")
 
@@ -155,7 +148,8 @@ def limpiar_sistema():
     ahora = time.time()
     movidos = 0
     for f in os.listdir(BASE_DIR):
-        if f.endswith(".bak") and not f.startswith("."):
+        es_bak = f.endswith(".bak") or ".bak.mejora_" in f or ".bak." in f
+        if es_bak and not f.startswith("."):
             ruta = os.path.join(BASE_DIR, f)
             edad = (ahora - os.path.getmtime(ruta)) / 86400
             if edad > 3:
@@ -179,7 +173,7 @@ def limpiar_sistema():
                     bus_data = bus_data[-50:]
                     with open(BUS, "w", encoding="utf-8") as f:
                         json.dump(bus_data, f, indent=2, ensure_ascii=False)
-                    log(f"Bus limpiado ({size_bus:.0f}KB -> 50 mensajes)", "OK")
+                    log(f"Bus limpiado ({size_bus:.0f}KB → 50 mensajes)", "OK")
             except Exception:
                 pass
 
@@ -204,9 +198,9 @@ def hilo_limpieza():
         except Exception as e:
             log(f"Error en limpieza: {e}", "WARN")
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  MONITOR DE SALUD
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def hilo_monitor():
     """Monitorea el estado del sistema cada CICLO_MONITOR segundos."""
@@ -222,16 +216,16 @@ def hilo_monitor():
 
             # Alerta si hay agentes con problemas
             if total > 0 and ok < total * 0.8:
-                log(f"[WARN] Solo {ok}/{total} agentes saludables", "WARN")
+                log(f"⚠ Solo {ok}/{total} agentes saludables", "WARN")
 
             time.sleep(CICLO_MONITOR)
         except Exception as e:
             log(f"Error monitor: {e}", "WARN")
             time.sleep(CICLO_MONITOR)
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  HILO: MODO NOCHE
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def hilo_noche():
     """
@@ -273,9 +267,9 @@ def hilo_noche():
             log(f"Error en noche: {e}", "ERROR")
             time.sleep(30)
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  HILO: FÁBRICA DE AGENTES
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def hilo_fabrica():
     """Corre fabrica_agentes.py como subproceso continuo."""
@@ -303,14 +297,14 @@ def hilo_fabrica():
             # Leer output de la fábrica y reenviarlo al log
             for linea in proc.stdout:
                 linea = linea.strip()
-                if linea and "FÁBRICA" in linea:
+                if linea and ("FABRICA" in linea.upper() or "LOTE" in linea or "APROBADO" in linea):
                     if "APROBADO" in linea:
                         estado["lotes_generados"] += 1
                         match = re.search(r'(\w+\.py)', linea)
                         if match:
                             estado["ultimo_agente"] = match.group(1)
                     # Solo loggear líneas importantes para no saturar
-                    if any(k in linea for k in ["LOTE", "APROBADO", "ERROR", "COMPLETADO", "FÁBRICA"]):
+                    if any(k in linea.upper() for k in ["LOTE", "APROBADO", "ERROR", "COMPLETADO", "FABRICA"]):
                         with log_lock:
                             try:
                                 with open(LOG, "a", encoding="utf-8") as f:
@@ -326,9 +320,9 @@ def hilo_fabrica():
             log(f"Error en fábrica: {e}", "ERROR")
             time.sleep(30)
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  HILO: EJECUTOR DE MISIONES
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def hilo_misiones():
     """Ejecuta misiones pendientes. Timeout largo para cientos de misiones."""
@@ -350,32 +344,34 @@ def hilo_misiones():
             log(f"Error misiones: {e}", "WARN")
             time.sleep(60)
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  CONSOLA CENTRAL
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def mostrar_dashboard():
     total, ok = contar_agentes()
     print(f"""
-+==========================================================+
-|           AGENCIA SANTI — SISTEMA MAESTRO v1.0           |
-+==========================================================+
-|  Inicio:        {estado['inicio']:<38}  |
-|  Agentes total: {total:<5}  Saludables: {ok:<5}                    |
-|  Ciclos noche:  {estado['ciclos_noche']:<5}  Errores: {estado['errores']:<5}                    |
-|  Lotes fábrica: {estado['lotes_generados']:<5}  Último: {estado['ultimo_agente']:<20}  |
-|  Misiones:      {estado['misiones_pendientes']:<5}  Log: {estado['log_size_mb']:<5}MB                      |
-|  Último ciclo:  {estado['ultimo_ciclo']:<38}  |
-+==========================================================+
-|  PROCESOS ACTIVOS:                                       |
-|  {'[OK]' if estado['fabrica_activa'] else '[ERROR]'} Fábrica de agentes (bucle infinito)              |
-|  {'[OK]' if estado['noche_activa'] else '[ERROR]'} Modo noche (ciclos cada 2 min)                  |
-|  [OK] Monitor de salud (cada 60s)                          |
-|  [OK] Limpieza automática (cada 5 min)                     |
-|  [OK] Ejecutor de misiones (cada 10 min)                   |
-+==========================================================+
-|  COMANDOS: 'status' 'agentes' 'limpiar' 'misiones' 'q'  |
-+==========================================================+""")
+╔══════════════════════════════════════════════════════════╗
+║           AGENCIA SANTI — SISTEMA MAESTRO v1.0           ║
+╠══════════════════════════════════════════════════════════╣
+║  Inicio:        {estado['inicio']:<38}  ║
+║  Agentes total: {total:<5}  Saludables: {ok:<5}                    ║
+║  Ciclos noche:  {estado['ciclos_noche']:<5}  Errores: {estado['errores']:<5}                    ║
+║  Lotes fábrica: {estado['lotes_generados']:<5}  Último: {estado['ultimo_agente']:<20}  ║
+║  Misiones:      {estado['misiones_pendientes']:<5}  Log: {estado['log_size_mb']:<5}MB                      ║
+║  Último ciclo:  {estado['ultimo_ciclo']:<38}  ║
+╠══════════════════════════════════════════════════════════╣
+║  PROCESOS ACTIVOS:                                       ║
+║  {'✅' if estado['fabrica_activa'] else '❌'} Fábrica de agentes (bucle infinito)              ║
+║  {'✅' if estado['noche_activa'] else '❌'} Modo noche (ciclos cada 2 min)                  ║
+║  ✅ Monitor de salud (cada 60s)                          ║
+║  ✅ Limpieza automática (cada 5 min)                     ║
+║  ✅ Ejecutor de misiones (cada 10 min)                   ║
+║  ✅ API REST  — http://localhost:8000                    ║
+║  ✅ Dashboard — http://localhost:8080                    ║
+╠══════════════════════════════════════════════════════════╣
+║  COMANDOS: 'status' 'agentes' 'limpiar' 'misiones' 'q'  ║
+╚══════════════════════════════════════════════════════════╝""")
 
 def consola_interactiva():
     """Consola central para controlar el sistema."""
@@ -384,7 +380,7 @@ def consola_interactiva():
 
     while True:
         try:
-            cmd = input("\n[FABRICA] Maestro> ").strip().lower()
+            cmd = input("\n🏭 Maestro> ").strip().lower()
 
             if cmd in ("q", "quit", "exit", "salir"):
                 log("Sistema maestro detenido manualmente.", "WARN")
@@ -402,7 +398,7 @@ def consola_interactiva():
                     for v in h.values():
                         area = v.get("categoria", "GENERAL")
                         areas[area] = areas.get(area, 0) + 1
-                    print(f"\n[STATS] AGENTES POR ÁREA ({total} total, {ok} OK):")
+                    print(f"\n📊 AGENTES POR ÁREA ({total} total, {ok} OK):")
                     for area, count in sorted(areas.items(), key=lambda x: -x[1]):
                         print(f"   {area:<25} {count}")
                 except Exception as e:
@@ -413,16 +409,16 @@ def consola_interactiva():
 
             elif cmd == "misiones":
                 misiones = contar_misiones()
-                print(f"\n[LISTA] {misiones} misiones pendientes en misiones.txt")
+                print(f"\n📋 {misiones} misiones pendientes en misiones.txt")
                 if misiones > 0:
                     exito, _ = ejecutar("auto_run.py", timeout=300)
-                    print("[OK] Ejecutadas" if exito else "[ERROR] Error al ejecutar")
+                    print("✅ Ejecutadas" if exito else "❌ Error al ejecutar")
 
             elif cmd == "log":
                 if os.path.exists(LOG):
                     with open(LOG, "r", encoding="utf-8", errors="replace") as f:
                         lineas = f.readlines()
-                    print(f"\n[DOC] Últimas 20 líneas del log:")
+                    print(f"\n📄 Últimas 20 líneas del log:")
                     for l in lineas[-20:]:
                         print(l.rstrip())
 
@@ -451,9 +447,9 @@ Comandos disponibles:
         except Exception as e:
             log(f"Error en consola: {e}", "WARN")
 
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 #  REGISTRO EN TAREA DE WINDOWS (arranque automático)
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def registrar_tarea_windows():
     """Registra el sistema para arrancar automáticamente con Windows."""
@@ -473,36 +469,92 @@ def registrar_tarea_windows():
             )
             resultado = os.system(cmd_crear)
             if resultado == 0:
-                log(f"[OK] Tarea '{nombre}' registrada — arrancará con Windows", "OK")
+                log(f"✅ Tarea '{nombre}' registrada — arrancará con Windows", "OK")
             else:
-                log("[WARN] No se pudo registrar tarea (ejecuta como administrador)", "WARN")
+                log("⚠ No se pudo registrar tarea (ejecuta como administrador)", "WARN")
         else:
             log(f"Tarea '{nombre}' ya registrada en Windows", "INFO")
 
     except Exception as e:
         log(f"Error registrando tarea: {e}", "WARN")
 
-# ---------------------------------------------
+
+# ─────────────────────────────────────────────
+#  HILO: API REST
+# ─────────────────────────────────────────────
+
+def hilo_api():
+    """Arranca la API REST en puerto 8000."""
+    log('API REST activada en puerto 8000', 'OK')
+    while True:
+        try:
+            ruta = os.path.join(BASE_DIR, 'api_agencia.py')
+            if not os.path.exists(ruta):
+                log('api_agencia.py no encontrado, esperando...', 'WARN')
+                time.sleep(30)
+                continue
+            proc = subprocess.Popen(
+                [sys.executable, ruta],
+                cwd=BASE_DIR,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            proc.wait()
+            log('API REST termino, reiniciando en 5s...', 'WARN')
+            time.sleep(5)
+        except Exception as e:
+            log(f'Error en API: {e}', 'ERROR')
+            time.sleep(15)
+
+# ─────────────────────────────────────────────
+#  HILO: DASHBOARD WEB
+# ─────────────────────────────────────────────
+
+def hilo_dashboard():
+    """Arranca el dashboard web en puerto 8080."""
+    log('Dashboard web activado en puerto 8080', 'OK')
+    while True:
+        try:
+            ruta = os.path.join(BASE_DIR, 'dashboard_web.py')
+            if not os.path.exists(ruta):
+                log('dashboard_web.py no encontrado, esperando...', 'WARN')
+                time.sleep(30)
+                continue
+            proc = subprocess.Popen(
+                [sys.executable, ruta],
+                cwd=BASE_DIR,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            proc.wait()
+            log('Dashboard termino, reiniciando en 5s...', 'WARN')
+            time.sleep(5)
+        except Exception as e:
+            log(f'Error en dashboard: {e}', 'ERROR')
+            time.sleep(15)
+
+# ─────────────────────────────────────────────
 #  PUNTO DE ENTRADA
-# ---------------------------------------------
+# ─────────────────────────────────────────────
 
 def main():
     modo_daemon = "--daemon" in sys.argv
 
-    log("+======================================================+", "MASTER")
-    log("|      AGENCIA SANTI — SISTEMA MAESTRO v1.0           |", "MASTER")
-    log("|      Iniciando todos los sistemas...                |", "MASTER")
-    log("+======================================================+", "MASTER")
+    log("╔══════════════════════════════════════════════════════╗", "MASTER")
+    log("║      AGENCIA SANTI — SISTEMA MAESTRO v1.0           ║", "MASTER")
+    log("║      Iniciando todos los sistemas...                ║", "MASTER")
+    log("╚══════════════════════════════════════════════════════╝", "MASTER")
 
-    # Registrar en Windows para arranque automático
-    if not modo_daemon:
-        registrar_tarea_windows()
+    # Arranque automatico de Windows DESACTIVADO
+    # Para reactivar: registrar_tarea_windows()
 
     # Limpieza inicial
     limpiar_sistema()
 
     # Arrancar todos los hilos en paralelo
     hilos = [
+        threading.Thread(target=hilo_api,      daemon=True, name="API"),
+        threading.Thread(target=hilo_dashboard,daemon=True, name="Dashboard"),
         threading.Thread(target=hilo_fabrica,  daemon=True, name="Fábrica"),
         threading.Thread(target=hilo_noche,    daemon=True, name="Noche"),
         threading.Thread(target=hilo_monitor,  daemon=True, name="Monitor"),

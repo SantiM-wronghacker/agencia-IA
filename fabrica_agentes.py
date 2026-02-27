@@ -1,10 +1,10 @@
 """
-ÁREA: CEREBRO
-DESCRIPCIÓN: Fábrica de agentes en bucle infinito. Genera lotes de 15 agentes,
+AREA: CEREBRO
+DESCRIPCION: Fabrica de agentes en bucle infinito. Genera lotes de 15 agentes,
              prueba cada uno, repara los que fallan hasta que pasen, y en cuanto
-             los 15 están aprobados arranca automáticamente el siguiente lote.
-             Nunca para. Cubre todas las áreas de negocio posibles.
-TECNOLOGÍA: llm_router (multi-proveedor), ast, subprocess
+             los 15 estan aprobados arranca automaticamente el siguiente lote.
+             Nunca para. Cubre todas las areas de negocio posibles.
+TECNOLOGIA: llm_router (multi-proveedor), ast, subprocess
 """
 
 import os
@@ -15,10 +15,10 @@ import time
 import random
 import subprocess
 import shutil
-from datetime import datetime
 import io as _io
+from datetime import datetime
 
-# Fix Unicode para Windows (cp1252) — hace print() seguro con cualquier caracter
+# Fix Unicode para Windows (cp1252)
 if hasattr(sys.stdout, 'buffer'):
     sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 if hasattr(sys.stderr, 'buffer'):
@@ -37,26 +37,21 @@ except ImportError:
         )
         return r.choices[0].message.content.strip()
 
-LOG          = "registro_noche.txt"
-HABILIDADES  = "habilidades.json"
-CARPETA_LOTE = "lote_nuevo"
-TAMAÑO_LOTE  = 15
-PAUSA_AGENTE = 3
-PAUSA_LOTE   = 5
-
-# ---------------------------------------------
-#  MODO: "crear" hasta 500 agentes, luego "mejorar"
-#  Forzar modo: python fabrica_agentes.py mejorar
-#               python fabrica_agentes.py crear
-# ---------------------------------------------
-UMBRAL_MODO_MEJORA = 500
+LOG               = "registro_noche.txt"
+HABILIDADES       = "habilidades.json"
+CARPETA_LOTE      = "lote_nuevo"
+TAMANO_LOTE       = 15
+PAUSA_AGENTE      = 3
+PAUSA_LOTE        = 5
+UMBRAL_MODO_MEJORA = 300   # antes 500; con 255 agentes ya conviene mejorar
+MAX_LLM_FALLOS    = 6      # reintentos LLM antes de saltar al siguiente agente
 
 AREAS_TEMAS = {
     "FINANZAS": [
         "analisis_estados_financieros", "control_presupuesto_mensual",
         "calculo_depreciacion_activos", "analisis_punto_equilibrio",
         "simulador_inversion_cetes", "calculo_rendimiento_fondos",
-        "analizador_deuda_empresarial", "proyector_flujo_caja_3_años",
+        "analizador_deuda_empresarial", "proyector_flujo_caja_3_anos",
         "calculo_capital_trabajo", "comparador_instrumentos_inversion",
         "calculo_nomina_mensual_mexico", "analizador_razones_financieras",
         "estimador_valor_empresa", "calculadora_afore_retiro",
@@ -123,7 +118,7 @@ AREAS_TEMAS = {
         "generador_plan_onboarding", "calculadora_horas_extra",
         "generador_encuesta_satisfaccion", "calculadora_rotacion_personal",
     ],
-    "TECNOLOGÍA": [
+    "TECNOLOGIA": [
         "calculadora_costo_infraestructura_cloud",
         "generador_especificaciones_tecnicas", "analizador_stack_tecnologico",
         "calculadora_roi_automatizacion", "plan_migracion_cloud",
@@ -137,13 +132,13 @@ AREAS_TEMAS = {
         "checklist_consulta_medica", "calculadora_dosis_medicamento",
         "generador_recordatorio_medicamentos", "analizador_habitos_saludables",
     ],
-    "EDUCACIÓN": [
+    "EDUCACION": [
         "generador_plan_estudio", "calculadora_costo_carrera_mexico",
         "generador_ejercicios_practica", "analizador_tecnicas_aprendizaje",
         "calculadora_roi_educativo", "generador_rubrica_evaluacion",
         "generador_temario_curso", "calculadora_becas_disponibles",
     ],
-    "LOGÍSTICA": [
+    "LOGISTICA": [
         "calculadora_costo_envio_mexico", "optimizador_ruta_entregas",
         "calculadora_tiempo_transito", "analizador_costo_ultima_milla",
         "generador_manifiesto_carga", "calculadora_capacidad_almacen",
@@ -160,7 +155,7 @@ AREAS_TEMAS = {
         "analizador_merma_desperdicio", "generador_receta_estandarizada",
         "calculadora_precio_venta_platillo",
     ],
-    "BIENES RAÍCES COMERCIALES": [
+    "BIENES RAICES COMERCIALES": [
         "calculadora_renta_oficina_cdmx", "analizador_local_comercial",
         "calculadora_roi_bodega_industrial", "comparador_zonas_comerciales",
         "estimador_aforo_local", "calculadora_contrato_arrendamiento_comercial",
@@ -184,8 +179,11 @@ AREAS_TEMAS = {
 
 def log(msg):
     ts = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    linea = f"[{ts}] [FÁBRICA] {msg}"
-    print(linea)
+    linea = "[" + ts + "] [FABRICA] " + str(msg)
+    try:
+        print(linea, flush=True)
+    except Exception:
+        pass
     try:
         with open(LOG, "a", encoding="utf-8") as f:
             f.write(linea + "\n")
@@ -207,11 +205,10 @@ def registrar_en_habilidades(archivo, area, descripcion):
         "descripcion": descripcion,
         "categoria": area,
         "salud": "OK",
-        "tecnologia": ["Python estándar"],
+        "tecnologia": ["Python estandar"],
         "ultima_actualizacion": datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         "ordenes": [archivo.replace(".py", "").replace("_", " ")]
     }
-    # Backup antes de escribir para proteger ante crashes durante json.dump
     bak = HABILIDADES + ".bak"
     if os.path.exists(HABILIDADES):
         try:
@@ -221,7 +218,7 @@ def registrar_en_habilidades(archivo, area, descripcion):
     tmp = HABILIDADES + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(habilidades, f, indent=4, ensure_ascii=False)
-    os.replace(tmp, HABILIDADES)  # atomico en mismo filesystem
+    os.replace(tmp, HABILIDADES)
 
 def agentes_existentes():
     return set(cargar_habilidades().keys())
@@ -250,7 +247,7 @@ def probar_agente(ruta):
         salida = (r.stdout or "").strip()
         if len(salida) < 10:
             err = (r.stderr or "").strip()
-            return False, err[:200] or "Output vacío o muy corto"
+            return False, err[:200] or "Output vacio o muy corto"
         return True, salida[:200]
     except subprocess.TimeoutExpired:
         return False, "Timeout de 25s"
@@ -268,7 +265,6 @@ def generar_plan_lote(numero_lote, existentes):
     plan = []
     usados = set()
 
-    # 2 por área base
     for area in areas_base:
         temas = list(AREAS_TEMAS.get(area, []))
         random.shuffle(temas)
@@ -282,10 +278,9 @@ def generar_plan_lote(numero_lote, existentes):
                 if agregados >= 2:
                     break
 
-    # El resto de áreas nuevas/rotativas
     random.shuffle(areas_extras)
     for area in areas_extras * 3:
-        if len(plan) >= TAMAÑO_LOTE:
+        if len(plan) >= TAMANO_LOTE:
             break
         temas = list(AREAS_TEMAS.get(area, []))
         random.shuffle(temas)
@@ -296,61 +291,49 @@ def generar_plan_lote(numero_lote, existentes):
                 usados.add(nombre)
                 break
 
-    return plan[:TAMAÑO_LOTE]
+    return plan[:TAMANO_LOTE]
 
 # ---------------------------------------------
-#  GENERADOR DE CÓDIGO
+#  GENERADOR DE CODIGO
 # ---------------------------------------------
 
 def generar_codigo(spec):
-    prompt = f"""Eres experto Python creando agentes para Agencia Santi (México).
-
-ARCHIVO: {spec['archivo']}
-ÁREA: {spec['area']}
-FUNCIÓN: {spec['tema']}
-
-REGLAS ABSOLUTAS:
-1. Encabezado al inicio:
-\"\"\"
-ÁREA: {spec['area']}
-DESCRIPCIÓN: Agente que realiza {spec['tema']}
-TECNOLOGÍA: Python estándar
-\"\"\"
-2. NUNCA uses input() — solo sys.argv con defaults realistas
-3. Output: mínimo 5 líneas con datos concretos y números reales mexicanos
-4. Solo stdlib: os, sys, json, datetime, math, re, random
-5. Función main() + if __name__ == "__main__": main()
-6. try/except en main
-7. Completamente autónomo — corre solo sin intervención humana
-
-DEVUELVE SOLO CÓDIGO PYTHON. Sin markdown. Sin explicaciones."""
-
+    prompt = (
+        "Eres experto Python creando agentes para Agencia Santi (Mexico).\n\n"
+        "ARCHIVO: " + spec['archivo'] + "\n"
+        "AREA: " + spec['area'] + "\n"
+        "FUNCION: " + spec['tema'] + "\n\n"
+        "REGLAS ABSOLUTAS:\n"
+        "1. Encabezado al inicio con AREA/DESCRIPCION/TECNOLOGIA\n"
+        "2. NUNCA uses input() - solo sys.argv con defaults realistas\n"
+        "3. Output: minimo 5 lineas con datos concretos y numeros reales mexicanos\n"
+        "4. Solo stdlib: os, sys, json, datetime, math, re, random\n"
+        "5. Funcion main() + if __name__ == '__main__': main()\n"
+        "6. try/except en main\n"
+        "7. Completamente autonomo - corre solo sin intervencion humana\n\n"
+        "DEVUELVE SOLO CODIGO PYTHON. Sin markdown. Sin explicaciones."
+    )
     r = ia(prompt)
     return limpiar_codigo(r) if r else None
 
 def reparar_codigo(spec, codigo_roto, error, intento):
-    prompt = f"""Repara este agente Python. Intento #{intento}.
-
-ARCHIVO: {spec['archivo']}
-FUNCIÓN: {spec['tema']}
-ERROR: {error}
-
-CÓDIGO ACTUAL:
-{codigo_roto[:2500]}
-
-SOLUCIONES COMUNES:
-- input() -> reemplazar con sys.argv[1] if len(sys.argv) > 1 else "default"
-- Output vacío -> agregar print() con cálculos y datos
-- ImportError -> usar solo os/sys/json/math/re/datetime/random
-- SyntaxError -> corregir indentación y paréntesis
-
-DEVUELVE SOLO EL CÓDIGO CORREGIDO. Sin markdown."""
-
+    prompt = (
+        "Repara este agente Python. Intento #" + str(intento) + "\n\n"
+        "ARCHIVO: " + spec['archivo'] + "\n"
+        "ERROR: " + str(error) + "\n\n"
+        "CODIGO ACTUAL:\n" + str(codigo_roto)[:2500] + "\n\n"
+        "SOLUCIONES COMUNES:\n"
+        "- input() -> sys.argv[1] if len(sys.argv) > 1 else 'default'\n"
+        "- Output vacio -> agregar print() con calculos\n"
+        "- ImportError -> usar solo stdlib\n"
+        "- SyntaxError -> corregir indentacion\n\n"
+        "DEVUELVE SOLO EL CODIGO CORREGIDO. Sin markdown."
+    )
     r = ia(prompt)
     return limpiar_codigo(r) if r else None
 
 # ---------------------------------------------
-#  PROCESAR UN AGENTE — bucle hasta aprobar
+#  PROCESAR UN AGENTE
 # ---------------------------------------------
 
 def procesar_agente(spec, numero, total):
@@ -358,92 +341,90 @@ def procesar_agente(spec, numero, total):
     area    = spec["area"]
     tema    = spec["tema"]
 
-    log(f"\n  [{numero}/{total}] {archivo} [{area}]")
+    log("  [" + str(numero) + "/" + str(total) + "] " + archivo + " [" + area + "]")
 
     os.makedirs(CARPETA_LOTE, exist_ok=True)
     ruta_temp    = os.path.join(CARPETA_LOTE, archivo)
     codigo       = None
-    ultimo_error = "Sin código generado aún"
+    ultimo_error = "Sin codigo generado aun"
     intento      = 0
+    fallos_llm   = 0
 
     while True:
         intento += 1
 
-        # Generar o reparar
         if codigo is None:
-            log(f"    -> Generando...")
+            log("    -> Generando...")
             codigo = generar_codigo(spec)
         else:
-            log(f"    [FIX] Reparando (intento {intento})...")
+            log("    [FIX] Reparando intento " + str(intento) + "...")
             codigo_nuevo = reparar_codigo(spec, codigo, ultimo_error, intento)
             if codigo_nuevo:
                 codigo = codigo_nuevo
 
         if not codigo:
-            log(f"    [WARN] Sin respuesta del LLM, reintentando en 5s...")
-            time.sleep(5)
+            fallos_llm += 1
+            if fallos_llm >= MAX_LLM_FALLOS:
+                log("    [SKIP] " + archivo + " saltado tras " + str(MAX_LLM_FALLOS) + " fallos LLM — API saturada")
+                return
+            espera = min(30 * fallos_llm, 120)  # backoff: 30s, 60s, 90s, 120s...
+            log("    [WARN] Sin respuesta del LLM (" + str(fallos_llm) + "/" + str(MAX_LLM_FALLOS) + "), esperando " + str(espera) + "s...")
+            time.sleep(espera)
             codigo = None
             continue
+        else:
+            fallos_llm = 0  # reset al recibir respuesta
 
-        # Validar sintaxis
         valido, err_sintaxis = validar_sintaxis(codigo)
         if not valido:
-            ultimo_error = f"SyntaxError: {err_sintaxis}"
-            log(f"    [WARN] Sintaxis: {err_sintaxis[:80]}")
+            ultimo_error = "SyntaxError: " + str(err_sintaxis)
+            log("    [WARN] Sintaxis: " + str(err_sintaxis)[:80])
             time.sleep(2)
             continue
 
-        # Guardar y probar
         with open(ruta_temp, "w", encoding="utf-8") as f:
             f.write(codigo)
 
         exito, output = probar_agente(ruta_temp)
 
         if exito:
-            # ¡Aprobado!
             shutil.copy2(ruta_temp, archivo)
             try:
                 os.remove(ruta_temp)
             except Exception:
                 pass
-            registrar_en_habilidades(archivo, area, f"Agente que realiza {tema}")
-            log(f"    [OK] APROBADO tras {intento} intento(s): {output[:80]}...")
+            registrar_en_habilidades(archivo, area, "Agente que realiza " + tema)
+            log("    [OK] APROBADO tras " + str(intento) + " intento(s): " + str(output)[:80])
             return
 
         ultimo_error = output
-        log(f"    [WARN] Falló: {output[:80]}")
+        log("    [WARN] Fallo: " + str(output)[:80])
         time.sleep(2)
 
 # ---------------------------------------------
-#  PROCESAR LOTE COMPLETO
+#  PROCESAR LOTE
 # ---------------------------------------------
 
 def procesar_lote(plan, numero_lote):
-    log(f"\n{'='*55}")
-    log(f"LOTE #{numero_lote} — {len(plan)} agentes")
-    log(f"Áreas: {', '.join(sorted(set(s['area'] for s in plan)))}")
-    log(f"{'='*55}")
+    log("=" * 55)
+    log("LOTE #" + str(numero_lote) + " — " + str(len(plan)) + " agentes")
+    log("Areas: " + ", ".join(sorted(set(s['area'] for s in plan))))
+    log("=" * 55)
 
     inicio = time.time()
-
     for i, spec in enumerate(plan, 1):
         procesar_agente(spec, i, len(plan))
         time.sleep(PAUSA_AGENTE)
 
-    duracion = int(time.time() - inicio)
+    duracion  = int(time.time() - inicio)
     total_hab = len(cargar_habilidades())
-    log(f"\n[OK] LOTE #{numero_lote} COMPLETO en {duracion}s — Total en agencia: {total_hab} agentes")
+    log("[OK] LOTE #" + str(numero_lote) + " COMPLETO en " + str(duracion) + "s — Total: " + str(total_hab) + " agentes")
 
 # ---------------------------------------------
-#  BUCLE INFINITO
-# ---------------------------------------------
-
-# ---------------------------------------------
-#  MODO MEJORA — Mejora agentes existentes
+#  MODO MEJORA
 # ---------------------------------------------
 
 def seleccionar_agentes_a_mejorar(n=15):
-    """Selecciona N agentes existentes para mejorar, priorizando los más cortos."""
     hab = cargar_habilidades()
     candidatos = []
     for archivo, info in hab.items():
@@ -454,105 +435,74 @@ def seleccionar_agentes_a_mejorar(n=15):
             candidatos.append((size, archivo, info))
         except Exception:
             continue
-    # Priorizar archivos más cortos (menos desarrollados)
     candidatos.sort(key=lambda x: x[0])
     return candidatos[:n]
 
 def mejorar_agente(archivo, info):
-    """Pide al LLM que mejore un agente existente."""
     try:
         with open(archivo, "r", encoding="utf-8", errors="replace") as f:
             codigo_actual = f.read()
     except Exception as e:
-        log(f"    No se pudo leer {archivo}: {e}")
+        log("    No se pudo leer " + archivo + ": " + str(e))
         return None
 
-    area = info.get("categoria", "GENERAL")
+    area        = info.get("categoria", "GENERAL")
     descripcion = info.get("descripcion", "")
 
-    prompt = f"""Mejora este agente Python de la Agencia Santi.
-
-ARCHIVO: {archivo}
-AREA: {area}
-DESCRIPCION: {descripcion}
-
-CODIGO ACTUAL:
-{codigo_actual[:2000]}
-
-MEJORAS A APLICAR (elige las mas relevantes):
-1. Si tiene menos de 20 lineas de output, ampliar con mas datos utiles
-2. Si le faltan casos edge, agregarlos con try/except
-3. Si los calculos son muy simples, hacerlos mas precisos y realistas para Mexico
-4. Si no tiene encabezado AREA/DESCRIPCION/TECNOLOGIA, agregarlo
-5. Si usa valores hardcodeados, permitir parametros por sys.argv
-6. Agregar un resumen ejecutivo al final del output
-
-REGLAS:
-- Mantener la funcion main() y if __name__ == "__main__"
-- Solo stdlib: os, sys, json, datetime, math, re, random
-- NUNCA usar input()
-- Output minimo 5 lineas con datos concretos
-
-DEVUELVE SOLO EL CODIGO MEJORADO. Sin markdown. Sin explicaciones."""
-
+    prompt = (
+        "Mejora este agente Python de la Agencia Santi.\n\n"
+        "ARCHIVO: " + archivo + "\n"
+        "AREA: " + area + "\n"
+        "DESCRIPCION: " + descripcion + "\n\n"
+        "CODIGO ACTUAL:\n" + codigo_actual[:2000] + "\n\n"
+        "MEJORAS: mas output util, mejor manejo de errores, datos mas reales de Mexico, "
+        "permitir parametros por sys.argv, agregar resumen ejecutivo al final.\n\n"
+        "REGLAS: mantener main(), solo stdlib, NUNCA input(), output minimo 5 lineas.\n\n"
+        "DEVUELVE SOLO EL CODIGO MEJORADO. Sin markdown."
+    )
     respuesta = ia(prompt)
     return limpiar_codigo(respuesta) if respuesta else None
 
 def procesar_lote_mejora(numero_lote):
-    """Procesa un lote de mejoras a agentes existentes."""
-    candidatos = seleccionar_agentes_a_mejorar(TAMAÑO_LOTE)
+    candidatos = seleccionar_agentes_a_mejorar(TAMANO_LOTE)
     if not candidatos:
         log("Sin agentes para mejorar")
         return
 
-    log(f"LOTE MEJORA #{numero_lote} — {len(candidatos)} agentes a mejorar")
+    log("LOTE MEJORA #" + str(numero_lote) + " — " + str(len(candidatos)) + " agentes")
     mejorados = 0
 
     for i, (size, archivo, info) in enumerate(candidatos, 1):
-        log(f"  [{i}/{len(candidatos)}] Mejorando {archivo} ({size} bytes)...")
-
+        log("  [" + str(i) + "/" + str(len(candidatos)) + "] Mejorando " + archivo)
         codigo_mejorado = mejorar_agente(archivo, info)
         if not codigo_mejorado:
-            log(f"    Sin respuesta del LLM")
             time.sleep(2)
             continue
-
         valido, err = validar_sintaxis(codigo_mejorado)
         if not valido:
-            log(f"    Sintaxis invalida: {err[:60]}")
+            log("    Sintaxis invalida: " + str(err)[:60])
             time.sleep(2)
             continue
-
-        # Hacer backup y guardar mejora
-        bak = archivo.replace(".py", f".bak.mejora_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
+        bak = archivo.replace(".py", ".bak.mejora_" + datetime.now().strftime('%Y%m%d_%H%M%S'))
         try:
             shutil.copy2(archivo, bak)
             with open(archivo, "w", encoding="utf-8") as f:
                 f.write(codigo_mejorado)
             nuevo_size = os.path.getsize(archivo)
-            delta = nuevo_size - size
-            log(f"    Mejorado: {size} -> {nuevo_size} bytes ({'+' if delta>0 else ''}{delta})")
+            log("    Mejorado: " + str(size) + " -> " + str(nuevo_size) + " bytes")
             mejorados += 1
         except Exception as e:
-            log(f"    Error guardando: {e}")
-
+            log("    Error guardando: " + str(e))
         time.sleep(PAUSA_AGENTE)
 
     total_hab = len(cargar_habilidades())
-    log(f"LOTE MEJORA #{numero_lote} COMPLETO — {mejorados}/{len(candidatos)} mejorados — {total_hab} agentes totales")
-
+    log("LOTE MEJORA #" + str(numero_lote) + " COMPLETO — " + str(mejorados) + "/" + str(len(candidatos)) + " mejorados — " + str(total_hab) + " agentes")
 
 # ---------------------------------------------
-#  BUCLE INFINITO CON MODO AUTOMATICO
+#  BUCLE INFINITO
 # ---------------------------------------------
 
 def detectar_modo(arg=None):
-    """
-    Detecta qué modo usar:
-    - 'crear'  : forzar creacion de agentes nuevos
-    - 'mejorar': forzar mejora de agentes existentes
-    - None     : automatico segun cantidad de agentes
-    """
     if arg:
         return arg.lower()
     total = len(cargar_habilidades())
@@ -561,57 +511,50 @@ def detectar_modo(arg=None):
 def bucle_infinito(modo_forzado=None):
     log("=" * 55)
     log("FABRICA DE AGENTES — BUCLE INFINITO")
-    log(f"Umbral auto-switch: {UMBRAL_MODO_MEJORA} agentes")
-    log(f"Modo forzado: {modo_forzado or 'automatico'}")
+    log("Umbral auto-switch: " + str(UMBRAL_MODO_MEJORA) + " agentes")
+    log("Modo: " + str(modo_forzado or "automatico"))
     log("Ctrl+C para detener")
     log("=" * 55)
 
-    numero_lote   = 1
-    total_creados = 0
+    numero_lote     = 1
+    total_creados   = 0
     total_mejorados = 0
 
     while True:
         try:
-            modo = modo_forzado or detectar_modo()
+            modo         = modo_forzado or detectar_modo()
             total_actual = len(cargar_habilidades())
-
-            log(f"Modo: {modo.upper()} | Agentes: {total_actual}")
+            log("Modo: " + modo.upper() + " | Agentes: " + str(total_actual))
 
             if modo == "crear":
                 existentes = agentes_existentes()
                 plan = generar_plan_lote(numero_lote, existentes)
-
                 if not plan:
                     log("Catalogo agotado — cambiando a modo MEJORAR")
                     modo_forzado = "mejorar"
                     continue
-
                 procesar_lote(plan, numero_lote)
                 total_creados += len(plan)
-                log(f"Acumulado: {total_creados} creados en {numero_lote} lotes")
-
-            else:  # mejorar
+                log("Acumulado: " + str(total_creados) + " creados en " + str(numero_lote) + " lotes")
+            else:
                 procesar_lote_mejora(numero_lote)
-                total_mejorados += TAMAÑO_LOTE
-                log(f"Acumulado: {total_mejorados} mejoras en {numero_lote} lotes")
+                total_mejorados += TAMANO_LOTE
+                log("Acumulado: " + str(total_mejorados) + " mejoras en " + str(numero_lote) + " lotes")
 
             numero_lote += 1
-            log(f"Siguiente lote en {PAUSA_LOTE}s...")
+            log("Siguiente lote en " + str(PAUSA_LOTE) + "s...")
             time.sleep(PAUSA_LOTE)
 
         except KeyboardInterrupt:
-            log(f"Fabrica detenida. Lotes: {numero_lote-1} | Creados: {total_creados} | Mejorados: {total_mejorados}")
+            log("Fabrica detenida. Lotes: " + str(numero_lote-1) + " | Creados: " + str(total_creados) + " | Mejorados: " + str(total_mejorados))
             sys.exit(0)
         except Exception as e:
-            log(f"Error en lote #{numero_lote}: {e}")
+            log("Error en lote #" + str(numero_lote) + ": " + str(e))
             log("Reintentando en 10s...")
             time.sleep(10)
 
 
 if __name__ == "__main__":
-    # Modo: python fabrica_agentes.py          -> automatico
-    #       python fabrica_agentes.py crear    -> solo crear
-    #       python fabrica_agentes.py mejorar  -> solo mejorar
     modo = sys.argv[1] if len(sys.argv) > 1 else None
     if modo and modo not in ("crear", "mejorar"):
         print("Uso: python fabrica_agentes.py [crear|mejorar]")

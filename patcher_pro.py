@@ -36,10 +36,14 @@ from datetime import datetime
 import io as _io
 
 # Fix Unicode para Windows (cp1252) — hace print() seguro con cualquier caracter
-if hasattr(sys.stdout, 'buffer'):
-    sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-if hasattr(sys.stderr, 'buffer'):
-    sys.stderr = _io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+elif hasattr(sys.stdout, "buffer"):
+    sys.stdout = open(sys.stdout.fileno(), mode="w", encoding="utf-8", errors="replace", closefd=False)
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+elif hasattr(sys.stderr, "buffer"):
+    sys.stderr = open(sys.stderr.fileno(), mode="w", encoding="utf-8", errors="replace", closefd=False)
 
 # ============================================================
 # CONFIGURACIÓN

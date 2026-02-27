@@ -8,10 +8,18 @@ TECNOLOGÍA: Groq, Cerebras, Gemini, Mistral, OpenRouter, LM Studio
 """
 
 import os
+import sys
 import time
 import json
 import requests
+import io as _io
 from datetime import datetime
+
+# Fix Unicode para Windows (cp1252)
+if hasattr(sys.stdout, 'buffer'):
+    sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+if hasattr(sys.stderr, 'buffer'):
+    sys.stderr = _io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # Carga el .env automáticamente si existe
 try:
@@ -37,7 +45,7 @@ PROVEEDORES = [
         "nombre": "Cerebras",
         "tipo": "cerebras",
         "api_key": os.environ.get("CEREBRAS_API_KEY", ""),
-        "modelo": "llama3.1-70b",
+        "modelo": "llama3.3-70b",
         "activo": True,
     },
     {
@@ -99,12 +107,14 @@ def _llamar_cerebras(proveedor, messages, temperatura, max_tokens):
 
 
 def _llamar_gemini(proveedor, messages, temperatura, max_tokens):
-    import google.genai as genai
-    genai.configure(api_key=proveedor["api_key"])
-    model = genai.GenerativeModel(proveedor["modelo"])
+    from google import genai
+    client = genai.Client(api_key=proveedor["api_key"])
     # Convierte formato messages a texto para Gemini
     texto = "\n".join([f"{m['role'].upper()}: {m['content']}" for m in messages])
-    resp = model.generate_content(texto)
+    resp = client.models.generate_content(
+        model=proveedor["modelo"],
+        contents=texto,
+    )
     return resp.text.strip()
 
 

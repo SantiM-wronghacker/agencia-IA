@@ -27,14 +27,19 @@ HABILIDADES     = os.path.join(BASE_DIR, "habilidades.json")
 BUS             = os.path.join(BASE_DIR, "bus_mensajes.json")
 MISIONES        = os.path.join(BASE_DIR, "misiones.txt")
 RUNS_DIR        = os.path.join(BASE_DIR, "runs")
+PROYECTOS_QUEUE = os.path.join(BASE_DIR, "proyectos_queue")
+PROYECTOS_DONE  = os.path.join(BASE_DIR, "proyectos_queue", "procesados")
 MAX_LOG_MB      = 5       # Limpiar log si supera este tamaño
 CICLO_MONITOR   = 60      # Segundos entre chequeos de salud
 CICLO_LIMPIEZA  = 300     # Segundos entre limpiezas automáticas
+CICLO_PROYECTOS = 30      # Segundos entre chequeos de proyectos_queue
 TIMEOUT_PROCESO = 180     # Timeout para scripts cortos
 TIMEOUT_NOCHE   = 3600    # 1 hora para noche_total
 TIMEOUT_MISIONES = 1800   # 30 min para auto_run (200+ misiones)
 
 os.makedirs(RUNS_DIR, exist_ok=True)
+os.makedirs(PROYECTOS_QUEUE, exist_ok=True)
+os.makedirs(PROYECTOS_DONE, exist_ok=True)
 
 # ─────────────────────────────────────────────
 #  ESTADO GLOBAL
@@ -44,14 +49,18 @@ estado = {
     "inicio":           datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
     "fabrica_activa":   False,
     "noche_activa":     False,
+    "proyectos_activo": False,
     "lotes_generados":  0,
     "agentes_total":    0,
+    "agentes_con_web":  0,
     "ciclos_noche":     0,
     "errores":          0,
     "ultimo_ciclo":     "—",
     "ultimo_agente":    "—",
     "log_size_mb":      0,
     "misiones_pendientes": 0,
+    "proyectos_creados": 0,
+    "ultimo_proyecto":  "—",
 }
 
 log_lock = threading.Lock()
@@ -105,6 +114,24 @@ def contar_agentes():
         return len(h), sum(1 for v in h.values() if v.get("salud") == "OK")
     except Exception:
         return 0, 0
+
+def contar_agentes_con_web():
+    """Cuenta agentes que importan web_bridge (tienen acceso a internet)."""
+    count = 0
+    try:
+        for f in os.listdir(BASE_DIR):
+            if f.endswith(".py") and not f.startswith("__"):
+                ruta = os.path.join(BASE_DIR, f)
+                try:
+                    with open(ruta, "r", encoding="utf-8", errors="replace") as fh:
+                        contenido = fh.read(2000)  # Solo primeros 2KB
+                    if "import web_bridge" in contenido or "from web_bridge" in contenido:
+                        count += 1
+                except Exception:
+                    pass
+    except Exception:
+        pass
+    return count
 
 def contar_misiones():
     try:
@@ -210,13 +237,14 @@ def hilo_monitor():
             misiones = contar_misiones()
             estado["agentes_total"]      = total
             estado["misiones_pendientes"] = misiones
+            estado["agentes_con_web"]    = contar_agentes_con_web()
 
             if os.path.exists(LOG):
                 estado["log_size_mb"] = round(os.path.getsize(LOG) / (1024*1024), 2)
 
             # Alerta si hay agentes con problemas
             if total > 0 and ok < total * 0.8:
-                log(f"⚠ Solo {ok}/{total} agentes saludables", "WARN")
+                log(f"Solo {ok}/{total} agentes saludables", "WARN")
 
             time.sleep(CICLO_MONITOR)
         except Exception as e:
@@ -345,30 +373,98 @@ def hilo_misiones():
             time.sleep(60)
 
 # ─────────────────────────────────────────────
+#  HILO: ORQUESTADOR DE PROYECTOS
+# ─────────────────────────────────────────────
+
+def hilo_proyectos():
+    """
+    Monitorea proyectos_queue/ cada 30s.
+    Cuando encuentra un .txt, lo lee como descripcion de negocio,
+    ejecuta orquestador_proyectos.py, y mueve el .txt a procesados/.
+    """
+    estado["proyectos_activo"] = True
+    log("Orquestador de proyectos activado (monitorea proyectos_queue/)", "OK")
+
+    while True:
+        try:
+            # Buscar archivos .txt en proyectos_queue/
+            archivos_txt = []
+            for f in os.listdir(PROYECTOS_QUEUE):
+                if f.endswith(".txt") and os.path.isfile(os.path.join(PROYECTOS_QUEUE, f)):
+                    archivos_txt.append(f)
+
+            for archivo in archivos_txt:
+                ruta = os.path.join(PROYECTOS_QUEUE, archivo)
+                try:
+                    with open(ruta, "r", encoding="utf-8", errors="replace") as fh:
+                        descripcion = fh.read().strip()
+                except Exception as e:
+                    log(f"Error leyendo {archivo}: {e}", "WARN")
+                    continue
+
+                if not descripcion:
+                    log(f"Archivo vacio: {archivo}, saltando", "WARN")
+                    continue
+
+                log(f"Nuevo proyecto detectado: {archivo}", "INFO")
+                log(f"Descripcion: {descripcion[:100]}...", "INFO")
+
+                # Ejecutar orquestador_proyectos.py con la descripcion
+                exito, output = ejecutar(
+                    "orquestador_proyectos.py",
+                    args=[descripcion],
+                    timeout=600  # 10 min max por proyecto
+                )
+
+                if exito:
+                    estado["proyectos_creados"] += 1
+                    estado["ultimo_proyecto"] = archivo.replace(".txt", "")
+                    log(f"Proyecto '{archivo}' completado", "OK")
+                else:
+                    log(f"Proyecto '{archivo}' fallo: {output[:150]}", "ERROR")
+
+                # Mover a procesados/ (exito o fallo)
+                destino = os.path.join(PROYECTOS_DONE, archivo)
+                try:
+                    shutil.move(ruta, destino)
+                except Exception as e:
+                    log(f"Error moviendo {archivo}: {e}", "WARN")
+
+            time.sleep(CICLO_PROYECTOS)
+
+        except Exception as e:
+            log(f"Error en hilo proyectos: {e}", "WARN")
+            time.sleep(CICLO_PROYECTOS)
+
+# ─────────────────────────────────────────────
 #  CONSOLA CENTRAL
 # ─────────────────────────────────────────────
 
 def mostrar_dashboard():
     total, ok = contar_agentes()
+    web_count = contar_agentes_con_web()
+    estado["agentes_con_web"] = web_count
     print(f"""
 ╔══════════════════════════════════════════════════════════╗
-║           AGENCIA SANTI — SISTEMA MAESTRO v1.0           ║
+║         AGENCIA SANTI — SISTEMA MAESTRO v1.1             ║
 ╠══════════════════════════════════════════════════════════╣
 ║  Inicio:        {estado['inicio']:<38}  ║
-║  Agentes total: {total:<5}  Saludables: {ok:<5}                    ║
+║  Agentes total: {total:<5}  Saludables: {ok:<5}  Con internet: {web_count:<4}║
 ║  Ciclos noche:  {estado['ciclos_noche']:<5}  Errores: {estado['errores']:<5}                    ║
-║  Lotes fábrica: {estado['lotes_generados']:<5}  Último: {estado['ultimo_agente']:<20}  ║
+║  Lotes fabrica: {estado['lotes_generados']:<5}  Ultimo: {estado['ultimo_agente']:<20}  ║
 ║  Misiones:      {estado['misiones_pendientes']:<5}  Log: {estado['log_size_mb']:<5}MB                      ║
-║  Último ciclo:  {estado['ultimo_ciclo']:<38}  ║
+║  Proyectos:     {estado['proyectos_creados']:<5}  Ultimo: {estado['ultimo_proyecto']:<20}  ║
+║  Ultimo ciclo:  {estado['ultimo_ciclo']:<38}  ║
 ╠══════════════════════════════════════════════════════════╣
 ║  PROCESOS ACTIVOS:                                       ║
-║  {'✅' if estado['fabrica_activa'] else '❌'} Fábrica de agentes (bucle infinito)              ║
-║  {'✅' if estado['noche_activa'] else '❌'} Modo noche (ciclos cada 2 min)                  ║
-║  ✅ Monitor de salud (cada 60s)                          ║
-║  ✅ Limpieza automática (cada 5 min)                     ║
-║  ✅ Ejecutor de misiones (cada 10 min)                   ║
-║  ✅ API REST  — http://localhost:8000                    ║
-║  ✅ Dashboard — http://localhost:8080                    ║
+║  {'OK' if estado['fabrica_activa'] else '--'} Fabrica de agentes (bucle infinito)              ║
+║  {'OK' if estado['noche_activa'] else '--'} Modo noche (ciclos cada 2 min)                  ║
+║  {'OK' if estado['proyectos_activo'] else '--'} Orquestador proyectos (cada 30s)               ║
+║  OK Monitor de salud (cada 60s)                          ║
+║  OK Limpieza automatica (cada 5 min)                     ║
+║  OK Ejecutor de misiones (cada 10 min)                   ║
+║  OK API REST  — http://localhost:8000                    ║
+║  OK Dashboard — http://localhost:8080                    ║
 ╠══════════════════════════════════════════════════════════╣
 ║  COMANDOS: 'status' 'agentes' 'limpiar' 'misiones' 'q'  ║
 ╚══════════════════════════════════════════════════════════╝""")
@@ -553,13 +649,14 @@ def main():
 
     # Arrancar todos los hilos en paralelo
     hilos = [
-        threading.Thread(target=hilo_api,      daemon=True, name="API"),
-        threading.Thread(target=hilo_dashboard,daemon=True, name="Dashboard"),
-        threading.Thread(target=hilo_fabrica,  daemon=True, name="Fábrica"),
-        threading.Thread(target=hilo_noche,    daemon=True, name="Noche"),
-        threading.Thread(target=hilo_monitor,  daemon=True, name="Monitor"),
-        threading.Thread(target=hilo_limpieza, daemon=True, name="Limpieza"),
-        threading.Thread(target=hilo_misiones, daemon=True, name="Misiones"),
+        threading.Thread(target=hilo_api,       daemon=True, name="API"),
+        threading.Thread(target=hilo_dashboard, daemon=True, name="Dashboard"),
+        threading.Thread(target=hilo_fabrica,   daemon=True, name="Fabrica"),
+        threading.Thread(target=hilo_noche,     daemon=True, name="Noche"),
+        threading.Thread(target=hilo_monitor,   daemon=True, name="Monitor"),
+        threading.Thread(target=hilo_limpieza,  daemon=True, name="Limpieza"),
+        threading.Thread(target=hilo_misiones,  daemon=True, name="Misiones"),
+        threading.Thread(target=hilo_proyectos, daemon=True, name="Proyectos"),
     ]
 
     for hilo in hilos:

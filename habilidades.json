@@ -3081,5 +3081,269 @@
             "iniciar sistema",
             "arrancar agencia"
         ]
+    },
+    "proyector_flujo_caja_3_anos.py": {
+        "descripcion": "Agente que realiza proyector flujo caja 3 anos",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 21:40:34",
+        "ordenes": [
+            "proyector flujo caja 3 anos"
+        ]
+    },
+    "analizador_portafolio_acciones.py": {
+        "descripcion": "Agente que realiza analizador portafolio acciones",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:20:03",
+        "ordenes": [
+            "analizador portafolio acciones"
+        ]
+    },
+    "generador_estado_resultados_proyectado.py": {
+        "descripcion": "Agente que realiza generador estado resultados proyectado",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:20:08",
+        "ordenes": [
+            "generador estado resultados proyectado"
+        ]
+    },
+    "calculadora_enganche_credito_infonavit.py": {
+        "descripcion": "Agente que realiza calculadora enganche credito infonavit",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:20:13",
+        "ordenes": [
+            "calculadora enganche credito infonavit"
+        ]
+    },
+    "generador_due_diligence_inmobiliario.py": {
+        "descripcion": "Agente que realiza generador due diligence inmobiliario",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:20:30",
+        "ordenes": [
+            "generador due diligence inmobiliario"
+        ]
+    },
+    "comparador_escenarios_decision.py": {
+        "descripcion": "Agente que realiza comparador escenarios decision",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:21:50",
+        "ordenes": [
+            "comparador escenarios decision"
+        ]
+    },
+    "agente_fact_checking.py": {
+        "descripcion": "Agente que realiza agente fact checking",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:25:36",
+        "ordenes": [
+            "agente fact checking"
+        ]
+    },
+    "monitor_cambios_directorio.py": {
+        "descripcion": "Agente que realiza monitor cambios directorio",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:29:22",
+        "ordenes": [
+            "monitor cambios directorio"
+        ]
+    },
+    "validador_formato_rfc_mexico.py": {
+        "descripcion": "Agente que realiza validador formato rfc mexico",
+        "categoria": "HERRAMIENTAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:33:08",
+        "ordenes": [
+            "validador formato rfc mexico"
+        ]
+    },
+    "simulador_ahorro_meta_personal.py": {
+        "descripcion": "Agente que realiza simulador ahorro meta personal",
+        "categoria": "FINANZAS PERSONALES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:44:25",
+        "ordenes": [
+            "simulador ahorro meta personal"
+        ]
+    },
+    "generador_contrato_arrendamiento_comercial.py": {
+        "descripcion": "Agente que realiza generador contrato arrendamiento comercial",
+        "categoria": "LEGAL",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:48:11",
+        "ordenes": [
+            "generador contrato arrendamiento comercial"
+        ]
+    },
+    "calculadora_regalias_franquicia.py": {
+        "descripcion": "Agente que realiza calculadora regalias franquicia",
+        "categoria": "FRANQUICIAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:51:56",
+        "ordenes": [
+            "calculadora regalias franquicia"
+        ]
+    },
+    "calculadora_rotacion_mesa.py": {
+        "descripcion": "Agente que realiza calculadora rotacion mesa",
+        "categoria": "RESTAURANTES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:55:38",
+        "ordenes": [
+            "calculadora rotacion mesa"
+        ]
+    },
+    "analizador_zonas_industria_cdmx.py": {
+        "descripcion": "Agente que realiza analizador zonas industria cdmx",
+        "categoria": "BIENES RAICES COMERCIALES",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 22:59:19",
+        "ordenes": [
+            "analizador zonas industria cdmx"
+        ]
+    },
+    "generador_bitacora_vehiculos.py": {
+        "descripcion": "Agente que realiza generador bitacora vehiculos",
+        "categoria": "TRANSPORTE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:02:59",
+        "ordenes": [
+            "generador bitacora vehiculos"
+        ]
+    },
+    "analizador_capacidad_planta.py": {
+        "descripcion": "Agente que realiza analizador capacidad planta",
+        "categoria": "MANUFACTURA",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:06:39",
+        "ordenes": [
+            "analizador capacidad planta"
+        ]
+    },
+    "calculadora_tasa_efectiva_anual.py": {
+        "descripcion": "Agente que realiza calculadora tasa efectiva anual",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:10:24",
+        "ordenes": [
+            "calculadora tasa efectiva anual"
+        ]
+    },
+    "cotizador_viaje.py": {
+        "descripcion": "Cotiza viajes completos con fee del 8%",
+        "categoria": "TURISMO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:14:03",
+        "ordenes": [
+            "cotizador viaje"
+        ]
+    },
+    "calculadora_fee_viaje.py": {
+        "descripcion": "Calcula el 8% de fee sobre costo total",
+        "categoria": "FINANZAS",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:17:40",
+        "ordenes": [
+            "calculadora fee viaje"
+        ]
+    },
+    "analizador_plusvalia_colonia.py": {
+        "descripcion": "Agente que realiza analizador plusvalia colonia",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:21:00",
+        "ordenes": [
+            "analizador plusvalia colonia"
+        ]
+    },
+    "calculadora_cap_rate_inmueble.py": {
+        "descripcion": "Agente que realiza calculadora cap rate inmueble",
+        "categoria": "REAL ESTATE",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:24:41",
+        "ordenes": [
+            "calculadora cap rate inmueble"
+        ]
+    },
+    "clasificador_prioridad_tareas.py": {
+        "descripcion": "Agente que realiza clasificador prioridad tareas",
+        "categoria": "CEREBRO",
+        "salud": "OK",
+        "tecnologia": [
+            "Python estandar"
+        ],
+        "ultima_actualizacion": "2026-02-26 23:28:20",
+        "ordenes": [
+            "clasificador prioridad tareas"
+        ]
     }
 }

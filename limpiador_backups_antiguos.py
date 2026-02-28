@@ -10,6 +10,12 @@ import datetime
 import glob
 import sys
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def mover_archivos_antiguos(ruta_actual, horas_limite=24):
     try:
         ruta_historico = os.path.join(ruta_actual, 'Historico')

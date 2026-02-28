@@ -9,6 +9,12 @@ import json
 import datetime
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_razones_financieras(ventas, costos, gastos, activos, pasivos):
     try:
         # Calcular razón de liquidez

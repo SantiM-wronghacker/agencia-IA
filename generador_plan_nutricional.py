@@ -9,6 +9,12 @@ import random
 import datetime
 import json
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_plan_nutricional(edad, peso, altura, actividad):
     # Cálculo de IMC
     imc = peso / (altura ** 2)

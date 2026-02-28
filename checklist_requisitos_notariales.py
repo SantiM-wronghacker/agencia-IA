@@ -8,6 +8,12 @@ import sys
 import json
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     try:
         # Parámetros por defecto
@@ -34,10 +40,20 @@ def main():
         if tipo_tramite == "herencia":
             requisitos["documentos_propiedad"].append("Testamento público")
             requisitos["pagos"].append("Derechos de sucesión (1% de ${:.2f})".format(valor_operacion * 0.01))
+        elif tipo_tramite == "compra_venta":
+            requisitos["documentos_propiedad"].append("Contrato de compraventa")
+        elif tipo_tramite == "donacion":
+            requisitos["documentos_propiedad"].append("Acta de donación")
+        else:
+            raise ValueError("Tipo de trámite no válido")
 
         # Requisitos por estado
         if estado == "Jalisco":
             requisitos["pagos"].append("Derechos estatales (${:.2f})".format(valor_operacion * 0.003))
+        elif estado == "CDMX":
+            requisitos["pagos"].append("Derechos de la Ciudad de México (${:.2f})".format(valor_operacion * 0.002))
+        else:
+            raise ValueError("Estado no válido")
 
         # Impresión de resultados
         print("CHECKLIST REQUISITOS NOTARIALES")
@@ -48,15 +64,20 @@ def main():
         print("\nREQUISITOS:")
         for categoria, items in requisitos.items():
             print(f"\n{categoria.upper()}:")
-            if isinstance(items, dict):
-                for k, v in items.items():
-                    print(f"  - {k}: {v}")
-            else:
+            if isinstance(items, list):
                 for item in items:
-                    print(f"  - {item}")
+                    print(f"- {item}")
+            elif isinstance(items, dict):
+                for clave, valor in items.items():
+                    print(f"- {clave}: {valor}")
+        print("\nRESUMEN EJECUTIVO:")
+        print(f"El trámite {tipo_tramite} en el estado {estado} requiere un total de {len(requisitos['documentos_propiedad']) + len(requisitos['pagos'])} documentos y pagos.")
+        print(f"El costo total de los pagos es de ${sum([float(pago.split('$')[-1].replace(',', '')) for pago in requisitos['pagos'] if '$' in pago]):,.2f} MXN")
 
+    except ValueError as e:
+        print(f"Error: {e}")
     except Exception as e:
-        print(f"Error en el proceso: {str(e)}")
+        print(f"Error desconocido: {e}")
 
 if __name__ == "__main__":
     main()

@@ -7,6 +7,12 @@ TECNOLOGÍA: Python
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class AsistenteIVA:
     def __init__(self, montos, iva=0.16, retencion=0.0, exento=False):
         self.montos = montos

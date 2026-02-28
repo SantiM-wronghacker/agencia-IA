@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_deuda(total_activos, total_pasivos, deuda_larga_plazo, deuda_corta_plazo):
     return deuda_larga_plazo + deuda_corta_plazo
 

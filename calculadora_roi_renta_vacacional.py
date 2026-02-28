@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calculadora_roi(precio_compra, gastos_iniciales, renta_mensual, gastos_mensuales, tasa_interes):
     roi = (renta_mensual - gastos_mensuales) * 12 / (precio_compra + gastos_iniciales)
     roi_anualizado = roi * (1 + tasa_interes/100)

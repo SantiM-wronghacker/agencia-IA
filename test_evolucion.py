@@ -9,6 +9,12 @@ import os
 import time
 from patcher_pro import aplicar_mejora
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     mision = sys.argv[1] if len(sys.argv) > 1 else "Añade una función que cree una copia de seguridad (.bak) del archivo original antes de escribir el nuevo código."
     archivo = sys.argv[2] if len(sys.argv) > 2 else "patcher_pro.py"

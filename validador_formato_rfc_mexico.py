@@ -1,8 +1,17 @@
 # HERRAMIENTAS/Validador de formato RFC Mexico/Python
+# AREA: HERRAMIENTAS
+# DESCRIPCION: Agente que realiza validador formato rfc mexico
+# TECNOLOGIA: Python
 
 import sys
 import re
 import datetime
+
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
 
 def main():
     try:
@@ -14,6 +23,14 @@ def main():
             print("Lugar de nacimiento:", obtener_lugar_nacimiento(rfc[11]))
             print("Tipo de persona:", "Fisica" if rfc[10] in "0123456789" else "Moral")
             print("Homoclave:", rfc[9])
+            print("Genero:", "Masculino" if rfc[10] in "012345678" else "Femenino")
+            print("Edad:", calcular_edad(rfc[4:6], rfc[6:8], "19" + rfc[8:10] if rfc[8:10] > "50" else "20" + rfc[8:10]))
+            print("Estado civil:", "Soltero" if rfc[10] in "0123" else "Casado" if rfc[10] in "4567" else "Divorciado" if rfc[10] in "89" else "Viudo")
+            print("Nacionalidad:", "Mexicana" if rfc[11] != "32" else "Extranjera")
+            print("Resumen:")
+            print("El RFC proporcionado es valido y pertenece a una persona", "fisica" if rfc[10] in "0123456789" else "moral")
+            print("con fecha de nacimiento", rfc[4:6], "/", rfc[6:8], "/", "19" + rfc[8:10] if rfc[8:10] > "50" else "20" + rfc[8:10])
+            print("y lugar de nacimiento en", obtener_lugar_nacimiento(rfc[11]))
         else:
             print("RFC no valido")
     except Exception as e:
@@ -56,6 +73,12 @@ def obtener_lugar_nacimiento(clave):
         "32": "Nacido en el extranjero"
     }
     return lugares.get(clave, "Desconocido")
+
+def calcular_edad(dia, mes, anio):
+    hoy = datetime.date.today()
+    nacimiento = datetime.date(int(anio), int(mes), int(dia))
+    edad = hoy.year - nacimiento.year - ((hoy.month, hoy.day) < (nacimiento.month, nacimiento.day))
+    return edad
 
 if __name__ == '__main__':
     main()

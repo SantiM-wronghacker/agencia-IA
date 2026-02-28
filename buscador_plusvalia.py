@@ -14,6 +14,12 @@ import re
 import random
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def buscar_crecimiento_plusvalia(colonias):
     resultados = {}
     url = "https://duckduckgo.com/"

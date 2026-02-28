@@ -8,6 +8,12 @@ import sys
 import time
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class AsistenteIVAContable:
     def __init__(self, montos, iva_porcentaje=0.16):
         self.montos = montos

@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_punto_equilibrio(ventas_diarias, costo_fijo, costo_variable):
     punto_equilibrio = (costo_fijo / (1 - (costo_variable / 100)))
     return punto_equilibrio

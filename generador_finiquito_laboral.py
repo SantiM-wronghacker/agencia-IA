@@ -9,6 +9,12 @@ import json
 from datetime import datetime, timedelta
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_finiquito(salario_diario, antiguedad_dias, dias_trabajados_mes, dias_aguinaldo, dias_vacaciones):
     try:
         # Cálculos básicos

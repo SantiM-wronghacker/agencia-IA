@@ -8,6 +8,12 @@ import random
 import datetime
 import json
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_ejercicios(cantidad=5, temas=None, niveles=None):
     if temas is None:
         temas = ["matemáticas", "español", "historia", "ciencias", "geografía"]

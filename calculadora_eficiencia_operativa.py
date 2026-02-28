@@ -8,6 +8,12 @@ import sys
 import math
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calculadora_eficiencia_operativa(ventas, costos, personal, inflacion=0.04):
     try:
         if ventas <= 0 or costos < 0 or personal <= 0:

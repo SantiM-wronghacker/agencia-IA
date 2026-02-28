@@ -10,6 +10,12 @@ from root_assistant import RootAssistant
 import time
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_resumen_ejecutivo(ruta_log="runs/state.json"):
     try:
         with open(ruta_log, 'r', encoding='utf-8') as f:

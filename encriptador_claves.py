@@ -12,6 +12,12 @@ import time
 import json
 import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_llave_secreta():
     try:
         llave = Fernet.generate_key()

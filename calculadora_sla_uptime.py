@@ -2,6 +2,12 @@ import sys
 import math
 from datetime import datetime, timedelta
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_sla_uptime(dias_baja=0, horas_baja=0, minutos_baja=0, sla_objetivo=99.9):
     """
     Calcula el SLA y uptime basado en tiempo de baja.

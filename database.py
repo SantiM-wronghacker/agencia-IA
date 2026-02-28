@@ -10,6 +10,12 @@ from datetime import datetime
 import time
 import sys
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class SessionManager:
     def __init__(self, db_name='agency_data.db'):
         self.db_path = os.path.join(os.path.dirname(__file__), db_name)

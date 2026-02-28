@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_prima(edad, sexo, estado_civil):
     prima = 0
     if edad < 20:

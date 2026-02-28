@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_dosis(peso, edad, medicamento):
     dosis = 0
     if medicamento == "paracetamol":

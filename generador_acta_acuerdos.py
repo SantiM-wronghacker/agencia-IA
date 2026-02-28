@@ -9,6 +9,12 @@ import json
 from datetime import datetime, timedelta
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_acta_acuerdos(participantes=None, temas=None, numero_acta=None):
     if participantes is None:
         participantes = ["Juan Pérez", "María García", "Carlos López", "Ana Martínez"]

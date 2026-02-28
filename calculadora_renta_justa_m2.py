@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_renta_justa(m2, ubicacion, tipo_inmueble):
     """
     Calcula la renta justa por m2 según la ubicación y tipo de inmueble
@@ -54,12 +60,12 @@ def main():
         print(f"Impuesto ISR: ${impuesto_isr:.2f} MXN")
         print(f"Impuesto IVA: ${impuesto_iva:.2f} MXN")
         print(f"Total de impuestos: ${impuesto_isr + impuesto_iva:.2f} MXN")
-        print(f"Renta neta: ${renta_justa - impuesto_isr - impuesto_iva:.2f} MXN")
-
-        print("\nResumen Ejecutivo:")
-        print(f"Renta justa: ${renta_justa:.2f} MXN")
-        print(f"Impuestos: ${impuesto_isr + impuesto_iva:.2f} MXN")
-        print(f"Renta neta: ${renta_justa - impuesto_isr - impuesto_iva:.2f} MXN")
+        print(f"Renta neta: ${renta_justa - (impuesto_isr + impuesto_iva):.2f} MXN")
+        print(f"Porcentaje de impuestos sobre la renta justa: {((impuesto_isr + impuesto_iva) / renta_justa) * 100:.2f}%")
+        print(f"Renta justa anual: ${renta_justa * 12:.2f} MXN")
+        print(f"Impuestos anuales: ${impuesto_isr * 12:.2f} MXN (ISR) + ${impuesto_iva * 12:.2f} MXN (IVA)")
+        print("Resumen ejecutivo:")
+        print(f"La renta justa por {m2} m2 en {ubicacion} para {tipo_inmueble} es de ${renta_justa:.2f} MXN, con un total de impuestos de ${impuesto_isr + impuesto_iva:.2f} MXN y una renta neta de ${renta_justa - (impuesto_isr + impuesto_iva):.2f} MXN.")
 
     except Exception as e:
         print(f"Error: {str(e)}")

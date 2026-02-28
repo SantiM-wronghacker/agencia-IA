@@ -6,6 +6,12 @@ import requests
 from config import PROJECTS_DIR, OLLAMA_TIMEOUT, API_HOST, API_PORT
 from agent_router_projects import ensure_project
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 API_URL = f"http://{API_HOST}:{API_PORT}"
 
 

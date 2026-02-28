@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_costo_envio(origen, destino, peso, distancia):
     # Tarifas realistas para México (2023)
     COSTO_FIJO = 50.00

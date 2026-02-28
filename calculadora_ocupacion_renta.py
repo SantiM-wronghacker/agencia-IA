@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_ocupacion_renta(precio_alquiler, precio_venta, tasa_interes_anual, gastos_mensuales, impuestos_anuales, seguro_anual):
     tasa_interes_mensual = tasa_interes_anual / 12
     ocupacion_renta = (precio_alquiler / precio_venta) * 12

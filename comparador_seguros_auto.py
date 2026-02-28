@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_precio_seguro(marca, modelo, año, kilometraje):
     precio_base = 5000
     ajuste_marca = {

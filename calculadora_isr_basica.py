@@ -7,6 +7,12 @@ TECNOLOGÍA: Python
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class CalculadoraISRBasica:
     def __init__(self, ingresos_mensuales, deducciones, tarifa):
         self.ingresos_mensuales = ingresos_mensuales

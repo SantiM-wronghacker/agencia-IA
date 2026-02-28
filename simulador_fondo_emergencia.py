@@ -10,6 +10,12 @@ import datetime
 import math
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_fondo_emergencia(ingreso_mensual, gastos_fijos, ahorro_mensual, meses):
     fondo_emergencia = 0
     for _ in range(meses):

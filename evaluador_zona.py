@@ -8,6 +8,12 @@ import sys
 import json
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def evaluar_zona(colonia, presupuesto):
     try:
         # Plusvalía

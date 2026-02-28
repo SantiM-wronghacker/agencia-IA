@@ -10,6 +10,12 @@ import random
 from datetime import datetime
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_valor_m2(metros, habitaciones, banos, zona):
     base = 12000 if zona.lower() == "cdmx" else 9000
     ajuste_metros = 1 - (0.001 * max(0, 100 - metros))

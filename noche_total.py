@@ -16,6 +16,12 @@ import sys
 import threading
 import io as _io
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # Fix Unicode para Windows (cp1252) — hace print() seguro con cualquier caracter
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")

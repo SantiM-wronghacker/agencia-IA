@@ -7,6 +7,12 @@ TECNOLOGÍA: Python
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class CalculadoraROI:
     def __init__(self, precio_compra, gastos_iniciales, alquiler_mensual, gastos_mensuales, tasa_interes_anual):
         self.precio_compra = precio_compra

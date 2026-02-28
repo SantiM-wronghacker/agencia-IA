@@ -11,6 +11,12 @@ from datetime import datetime, timedelta
 import random
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     try:
         # Configuración por defecto

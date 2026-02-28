@@ -10,6 +10,12 @@ import sys
 import json
 import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def configure_celery_app(broker_url, backend_url, task_name):
     try:
         celery_app = Celery(task_name, 

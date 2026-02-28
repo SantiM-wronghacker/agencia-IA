@@ -8,6 +8,12 @@ import sys
 import datetime
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_tiempo_produccion(cantidad, velocidad, horas_diarias=8, dias_semanales=5):
     if velocidad <= 0:
         raise ValueError("La velocidad debe ser mayor que cero")

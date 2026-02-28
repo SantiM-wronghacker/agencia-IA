@@ -12,6 +12,12 @@ import re
 import random
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def clasificar_intencion_usuario(texto, intenciones):
     texto = texto.lower()
     for intencion, palabras_clave in intenciones.items():

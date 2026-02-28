@@ -11,6 +11,12 @@ from datetime import datetime, timedelta
 import random
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_cotizacion(cliente=None, vendedor=None, productos=None):
     productos = productos or [
         {"nombre": "Laptop HP", "precio": 12999.99, "cantidad": 1},

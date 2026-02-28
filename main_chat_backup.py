@@ -9,6 +9,12 @@ import sys
 import time
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 MODEL = "llama-3.3-70b-versatile"
 API_URL = "https://api.groq.com/v1/models/" + MODEL + "/generate"
 LOG_FILE = "log.txt"

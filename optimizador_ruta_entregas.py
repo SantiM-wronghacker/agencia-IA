@@ -12,6 +12,12 @@ import re
 import random
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_distancia(lat1, lon1, lat2, lon2):
     radio_tierra = 6371
     dlat = math.radians(lat2 - lat1)

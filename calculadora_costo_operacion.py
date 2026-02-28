@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calculadora_costo_operacion(costo_producto, cantidad_venta, margen_ganancia, impuestos, tasa_inflacion=0.05):
     costo_total = costo_producto * cantidad_venta
     ganancia = (costo_total * margen_ganancia) / 100

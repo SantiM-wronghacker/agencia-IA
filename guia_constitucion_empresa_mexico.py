@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     try:
         nombre_empresa = sys.argv[1] if len(sys.argv) > 1 else "Empresa Mexicana SA de CV"

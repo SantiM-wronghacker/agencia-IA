@@ -9,6 +9,12 @@ import json
 import random
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_satisfaccion(empleados):
     return round(random.uniform(70, 90) + (empleados / 100), 2)
 

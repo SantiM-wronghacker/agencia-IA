@@ -8,6 +8,12 @@ import sys
 import json
 from datetime import datetime, timedelta
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_tiempo_transito(distancia_km=500, velocidad_promedio=80, tiempo_espera=2):
     """
     Calcula el tiempo de transito basado en la distancia, velocidad promedio y tiempo de espera.

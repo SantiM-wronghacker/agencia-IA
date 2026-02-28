@@ -10,6 +10,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import re
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class SimuladorHipoteca:
     def __init__(self, monto_prestado, tasa_interes_anual, plazo_anios, seguro_mensual=500):
         self.monto_prestado       = float(monto_prestado)

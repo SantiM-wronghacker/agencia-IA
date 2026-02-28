@@ -10,6 +10,12 @@ import re
 import shutil
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 LOG = "registro_noche.txt"
 
 # Agentes que NO se tocan (ya usan el router o son del sistema)

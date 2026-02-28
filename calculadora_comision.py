@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_comision(valor_venta, porcentaje_comision, esquema, meta_anual=5000000, bono_meta=50000):
     try:
         valor_venta = float(valor_venta)

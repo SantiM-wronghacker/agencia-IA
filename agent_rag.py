@@ -5,6 +5,12 @@ from chromadb.utils import embedding_functions
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 MODEL = "llama-3.3-70b"
 KB_DIR = Path("kb")
 

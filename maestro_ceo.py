@@ -12,6 +12,12 @@ import time
 from groq import Groq
 import bus_mensajes as bus
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # === CONFIGURACIÓN ===
 API_KEY = "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"
 MODELO = "llama-3.3-70b-versatile"

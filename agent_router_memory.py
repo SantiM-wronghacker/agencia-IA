@@ -11,6 +11,12 @@ import llama
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # === Config ===
 MODEL = "llama-3.3-70b-versatile"
 RUNS_DIR = Path("runs")

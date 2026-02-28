@@ -10,6 +10,12 @@ import os
 from datetime import datetime
 from math import floor
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_iva(valor):
     return valor * 0.16
 

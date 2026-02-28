@@ -8,6 +8,12 @@ import sys
 import random
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generate_copy(city=None, product=None, discount=None, date=None):
     products = ["Ropa deportiva", "Zapatos casuales", "Accesorios de moda", "Bolsas de diseño", "Relojes elegantes"]
     discounts = ["20%", "30%", "40%", "50%", "60%"]

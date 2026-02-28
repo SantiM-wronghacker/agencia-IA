@@ -6,6 +6,12 @@ import re
 import random
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_precio_promedio(zona):
     zonas_precios = {
         "Zona Rosa": [12000000, 15000000, 18000000, 20000000, 22000000],

@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_seguro_vida(edad, sexo, estado_civil, ingresos_mensuales, dependientes):
     prima_base = 800.0  # Ajustada según datos de México
     ajuste_edad = 0.05 * (edad - 25)

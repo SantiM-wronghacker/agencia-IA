@@ -20,6 +20,12 @@ from core import (
 )
 from rag_pro import search_kb
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 logger = logging.getLogger(__name__)
 
 PROJECTS_DIR.mkdir(exist_ok=True)

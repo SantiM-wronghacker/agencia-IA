@@ -4,6 +4,12 @@ Reemplaza emojis y caracteres especiales por texto ASCII simple.
 """
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 ARCHIVOS = [
     "fabrica_agentes.py",
     "noche_total.py",

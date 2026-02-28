@@ -13,6 +13,12 @@ import json
 from datetime import datetime
 from llm_router import completar
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # === CONFIGURACIÓN ===
 LOG = "registro_noche.txt"
 REPORTE = "reporte_reparacion.txt"

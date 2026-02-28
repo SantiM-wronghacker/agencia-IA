@@ -10,6 +10,12 @@ import sys
 import time
 import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_mejoras_web(output_file='misiones.txt'):
     print("Agente Arquitecto analizando la interfaz de usuario...")
     print(f"Fecha y hora de análisis: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")

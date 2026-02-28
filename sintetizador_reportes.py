@@ -11,6 +11,12 @@ import math
 import re
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_rendimiento(inversion, plazo, tasa_interes):
     return inversion * (tasa_interes / 100) * (plazo / 12)
 

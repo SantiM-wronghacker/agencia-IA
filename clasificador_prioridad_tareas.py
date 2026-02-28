@@ -1,4 +1,7 @@
 # CEREBRO/Clasificador de prioridad de tareas/Python
+# AREA: CEREBRO
+# DESCRIPCION: Agente que realiza clasificador prioridad tareas
+# TECNOLOGIA: Python
 
 import sys
 import json
@@ -8,6 +11,12 @@ import re
 import random
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def clasificar_prioridad(tarea):
     prioridades = {
         'alta': 1,
@@ -15,6 +24,24 @@ def clasificar_prioridad(tarea):
         'baja': 3
     }
     return prioridades.get(tarea['prioridad'], 3)
+
+def calcular_tiempo_estimado(tarea):
+    try:
+        return float(tarea['tiempo_estimado'])
+    except (ValueError, KeyError):
+        return 0.0
+
+def calcular_costo_estimado(tarea):
+    try:
+        return float(tarea['costo_estimado'])
+    except (ValueError, KeyError):
+        return 0.0
+
+def calcular_fecha_vencimiento(tarea):
+    try:
+        return datetime.datetime.strptime(tarea['fecha_vencimiento'], '%Y-%m-%d')
+    except (ValueError, KeyError):
+        return datetime.datetime.now()
 
 def main():
     try:
@@ -34,20 +61,29 @@ def main():
         for tarea in tareas:
             prioridad = clasificar_prioridad(tarea)
             tarea['prioridad_numerica'] = prioridad
+            tarea['tiempo_estimado_horas'] = calcular_tiempo_estimado(tarea)
+            tarea['costo_estimado_mxn'] = calcular_costo_estimado(tarea)
+            tarea['fecha_vencimiento_date'] = calcular_fecha_vencimiento(tarea)
             tareas_clasificadas.append(tarea)
 
         tareas_clasificadas.sort(key=lambda x: x['prioridad_numerica'])
 
         for i, tarea in enumerate(tareas_clasificadas):
-            print(f"Tarea {i+1}: {tarea['nombre']} - Prioridad: {tarea['prioridad']} - Fecha de vencimiento: {tarea['fecha_vencimiento']}")
-            print(f"Descripción: {tarea['descripcion']}")
-            print(f"Prioridad numérica: {tarea['prioridad_numerica']}")
-            print(f"Tiempo estimado: {tarea['tiempo_estimado']} horas")
-            print(f"Costo estimado: ${tarea['costo_estimado']:.2f} MXN")
+            print(f"Tarea {i+1}: {tarea.get('nombre', 'Sin nombre')} - Prioridad: {tarea.get('prioridad', 'Sin prioridad')} - Fecha de vencimiento: {tarea.get('fecha_vencimiento', 'Sin fecha de vencimiento')}")
+            print(f"Descripción: {tarea.get('descripcion', 'Sin descripción')}")
+            print(f"Tiempo estimado: {tarea['tiempo_estimado_horas']} horas")
+            print(f"Costo estimado: ${tarea['costo_estimado_mxn']:.2f} MXN")
+            print(f"Fecha de vencimiento (datetime): {tarea['fecha_vencimiento_date']}")
             print("-" * 50)
 
-    except Exception as e:
-        print(f"Error: {str(e)}")
+        print("Resumen ejecutivo:")
+        print(f"Total de tareas: {len(tareas_clasificadas)}")
+        print(f"Tareas con prioridad alta: {len([t for t in tareas_clasificadas if t['prioridad_numerica'] == 1])}")
+        print(f"Tareas con prioridad media: {len([t for t in tareas_clasificadas if t['prioridad_numerica'] == 2])}")
+        print(f"Tareas con prioridad baja: {len([t for t in tareas_clasificadas if t['prioridad_numerica'] == 3])}")
 
-if __name__ == '__main__':
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
     main()

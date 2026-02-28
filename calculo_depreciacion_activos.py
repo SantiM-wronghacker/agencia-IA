@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calculo_depreciacion(valor_inicial, vida_util, anios_transcurridos, metodo="lineal"):
     if metodo == "lineal":
         depreciacion_acumulada = valor_inicial * (anios_transcurridos / vida_util)

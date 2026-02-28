@@ -15,6 +15,12 @@ from database import SessionManager
 # Import Celery app to query task statuses
 from celery_app import celery_app
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 app = Flask(__name__)
 
 # Initialize the RootAssistant to use asynchronous task submission by default.

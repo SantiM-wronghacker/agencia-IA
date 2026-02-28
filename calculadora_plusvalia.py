@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     try:
         if len(sys.argv) < 4:
@@ -19,37 +25,41 @@ def main():
             tipo_inmueble = sys.argv[3]
 
         tasas_crecimiento = {
-            "Polanco": 0.05,
-            "Condesa": 0.04,
-            "Roma": 0.03,
-            "Juárez": 0.02,
+            "Polanco": 0.055,
+            "Condesa": 0.045,
+            "Roma": 0.035,
+            "Juárez": 0.025,
         }
 
         if colonia not in tasas_crecimiento:
-            tasa_crecimiento = 0.03
+            tasa_crecimiento = 0.035
         else:
             tasa_crecimiento = tasas_crecimiento[colonia]
 
         plusvalia_5_anos = precio_actual * (1 + tasa_crecimiento) ** 5 - precio_actual
         plusvalia_10_anos = precio_actual * (1 + tasa_crecimiento) ** 10 - precio_actual
+        plusvalia_anual = (1 + tasa_crecimiento) ** 1 - 1
 
         print(f"Datos de la propiedad:")
         print(f"  - Colonia: {colonia}")
         print(f"  - Tipo de inmueble: {tipo_inmueble}")
         print(f"  - Precio actual: ${precio_actual:.2f}")
         print(f"  - Tasa de crecimiento histórica: {tasa_crecimiento*100}%")
+        print(f"  - Tasa de crecimiento anual: {plusvalia_anual*100:.2f}%")
         print(f"Proyecciones de plusvalía:")
         print(f"  - Plusvalía proyectada a 5 años: ${plusvalia_5_anos:.2f}")
         print(f"  - Plusvalía proyectada a 10 años: ${plusvalia_10_anos:.2f}")
         print(f"  - Incremento porcentual a 5 años: {(plusvalia_5_anos/precio_actual)*100:.2f}%")
         print(f"  - Incremento porcentual a 10 años: {(plusvalia_10_anos/precio_actual)*100:.2f}%")
+        print(f"  - Valor de la propiedad en 5 años: ${precio_actual + plusvalia_5_anos:.2f}")
+        print(f"  - Valor de la propiedad en 10 años: ${precio_actual + plusvalia_10_anos:.2f}")
         print(f"Resumen ejecutivo:")
         print(f"  - La propiedad en {colonia} tiene un potencial de crecimiento de {tasa_crecimiento*100}% anual.")
         print(f"  - En 5 años, se proyecta un incremento de ${plusvalia_5_anos:.2f} y en 10 años de ${plusvalia_10_anos:.2f}.")
-        print(f"  - Es importante considerar que estas proyecciones son estimaciones y pueden variar según el mercado y otros factores.")
-
-    except ValueError as e:
-        print(f"Error: El precio actual debe ser un número. {str(e)}")
+        print(f"  - Es importante considerar que la tasa de crecimiento puede variar dependiendo de factores como la ubicación, el tipo de inmueble y el mercado inmobiliario.")
+        print(f"  - Se recomienda realizar un análisis más detallado y considerar diferentes escenarios para tomar decisiones informadas.")
+    except ValueError:
+        print("Error: El precio actual debe ser un número.")
     except Exception as e:
         print(f"Error: {str(e)}")
 

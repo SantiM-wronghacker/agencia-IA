@@ -8,6 +8,12 @@ import sys
 import math
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_liquidacion(salario_diario, dias_trabajados, dias_vacaciones, prima_vacacional, aguinaldo, dias_aguinaldo):
     """
     Calcula la liquidación laboral según la legislación mexicana.

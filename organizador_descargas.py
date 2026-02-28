@@ -9,6 +9,12 @@ import shutil
 import sys
 import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     ruta_descargas = os.path.join(os.path.expanduser('~'), 'Descargas')
     carpetas = {

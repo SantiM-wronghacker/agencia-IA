@@ -10,6 +10,12 @@ import datetime
 import random
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_calendario_editorial(anio=datetime.datetime.now().year):
     meses = [
         "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",

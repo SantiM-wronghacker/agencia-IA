@@ -3,6 +3,12 @@ import json
 import random
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_costo_remodelacion(area_m2, tipo_remodelacion, calidad):
     """
     Calcula el costo estimado de remodelación en pesos mexicanos.

@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_costo_empleado(salario_base, horas_trabajadas, dias_trabajados, bonificacion=0):
     salario_diario = salario_base / 30
     costo_por_hora = salario_diario / 8

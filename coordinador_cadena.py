@@ -9,6 +9,12 @@ import json
 import re
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     try:
         if len(sys.argv) < 3:

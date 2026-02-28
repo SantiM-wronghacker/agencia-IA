@@ -10,6 +10,12 @@ import datetime
 import math
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_credito_puente(monto, plazo, tasa_interes):
     cuota = monto * (tasa_interes / 100) * (1 + tasa_interes / 100) ** plazo / ((1 + tasa_interes / 100) ** plazo - 1)
     return cuota

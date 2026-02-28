@@ -9,16 +9,16 @@ import os
 import json
 from datetime import datetime, timedelta
 
-def generar_contrato():
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
+def generar_contrato(cliente="Agencia Santi", proveedor="Consultor Profesional", servicios="Desarrollo de software y consultoría legal", honorarios=50000.00, retencion=0.10, iva=0.16):
     # Datos predeterminados
-    cliente = "Agencia Santi"
-    proveedor = "Consultor Profesional"
-    servicios = "Desarrollo de software y consultoría legal"
     fecha_inicio = datetime.now().strftime("%Y-%m-%d")
     fecha_fin = (datetime.now() + timedelta(days=365)).strftime("%Y-%m-%d")
-    honorarios = 50000.00  # MXN
-    retencion = 0.10  # 10%
-    iva = 0.16  # 16%
 
     # Cálculos
     subtotal = honorarios
@@ -46,20 +46,45 @@ Representante Legal
 {proveedor}
 ________________________
 Consultor Profesional
+
+RESUMEN EJECUTIVO:
+- Cliente: {cliente}
+- Proveedor: {proveedor}
+- Servicios: {servicios}
+- Fecha de inicio: {fecha_inicio}
+- Fecha de fin: {fecha_fin}
+- Honorarios: ${subtotal:,.2f} MXN
+- Retención: {retencion*100:.0f}%
+- IVA: {iva*100:.0f}%
+- Total a pagar: ${total:,.2f} MXN
 """
 
     return template
 
 def main():
     try:
-        contrato = generar_contrato()
+        if len(sys.argv) > 1:
+            cliente = sys.argv[1]
+            proveedor = sys.argv[2]
+            servicios = sys.argv[3]
+            honorarios = float(sys.argv[4])
+            retencion = float(sys.argv[5])
+            iva = float(sys.argv[6])
+        else:
+            cliente = "Agencia Santi"
+            proveedor = "Consultor Profesional"
+            servicios = "Desarrollo de software y consultoría legal"
+            honorarios = 50000.00
+            retencion = 0.10
+            iva = 0.16
+
+        contrato = generar_contrato(cliente, proveedor, servicios, honorarios, retencion, iva)
         print(contrato)
         # Guardar en archivo
-        with open("contrato_servicios_profesionales.txt", "w", encoding="utf-8") as f:
-            f.write(contrato)
-        print("\nContrato generado y guardado en 'contrato_servicios_profesionales.txt'")
+        with open("contrato.txt", "w") as archivo:
+            archivo.write(contrato)
     except Exception as e:
-        print(f"Error al generar el contrato: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()

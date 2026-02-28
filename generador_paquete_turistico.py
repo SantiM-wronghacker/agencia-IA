@@ -9,6 +9,12 @@ import json
 import random
 from datetime import datetime, timedelta
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_paquete(destinos=None, actividades=None, precios=None):
     if destinos is None:
         destinos = ["Cancún", "Los Cabos", "Puerto Vallarta", "Riviera Maya", "Guadalajara"]

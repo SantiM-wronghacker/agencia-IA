@@ -10,6 +10,12 @@ import math
 import random
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def estimador_valor_empresa(ingresos_anuales, gastos_anuales, activos, pasivos, tasa_interes, tasa_inflacion):
     try:
         utilidad_neta = ingresos_anuales - gastos_anuales

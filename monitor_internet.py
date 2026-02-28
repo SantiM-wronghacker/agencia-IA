@@ -12,6 +12,12 @@ from bs4 import BeautifulSoup
 import sys
 import json
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def ping_google():
     try:
         if platform.system().lower() == 'windows':

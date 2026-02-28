@@ -9,6 +9,12 @@ import time
 from datetime import datetime
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class ClasificadorViviendas:
     def __init__(self, precio, ubicacion, tipo, metros_cuadrados=0, habitaciones=0, banos=0):
         self.precio = precio

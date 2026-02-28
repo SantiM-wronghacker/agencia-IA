@@ -13,6 +13,12 @@ from core import (
 from rag_pro import search_kb
 from logging_config import setup_logging
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 logger = logging.getLogger(__name__)
 
 

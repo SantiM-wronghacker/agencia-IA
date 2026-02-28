@@ -12,6 +12,12 @@ import re
 import random
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_eficiencia(agente, tareas):
     """Calcula la eficiencia del agente basada en tareas asignadas"""
     return random.uniform(0.7, 1.0) * (1 + 0.1 * len(tareas))

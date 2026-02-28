@@ -8,6 +8,12 @@ import sys
 import json
 import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_iva(costo_mensual):
     return costo_mensual * 0.16
 

@@ -5,6 +5,12 @@ from pathlib import Path
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 MODEL_MAIN = "llama-3.3-70b-versatile"  
 MODEL_SUMMARY = "llama-3.3-70b-versatile"  
 RUNS_DIR = Path("runs")

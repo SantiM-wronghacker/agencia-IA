@@ -13,6 +13,12 @@ import json
 from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 BASE_DIR  = os.path.dirname(os.path.abspath(__file__))
 PUERTO    = 8080
 API_URL   = "http://localhost:8000"

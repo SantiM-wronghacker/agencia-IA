@@ -32,6 +32,12 @@ from rag_pro import search_kb
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # === Config ===
 MODEL = "groq3:8b"
 RUNS_DIR = Path("runs")

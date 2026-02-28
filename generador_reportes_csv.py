@@ -10,6 +10,12 @@ import random
 from datetime import datetime
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # Datos realistas para México
 PRODUCTOS = ["Servicio de Consultoría", "Soporte Técnico", "Capacitación", "Desarrollo de Software", "Mantenimiento"]
 ESTADOS = ["Pendiente", "En Proceso", "Completado", "Cancelado", "Reembolsado"]

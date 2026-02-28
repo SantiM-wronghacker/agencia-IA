@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_costo_platillo(costo_ingrediente, cantidad_ingrediente, precio_venta):
     try:
         costo_total = costo_ingrediente * cantidad_ingrediente

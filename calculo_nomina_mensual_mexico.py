@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calculo_nomina(salario_diario, dias_trabajados):
     try:
         salario_mensual = salario_diario * dias_trabajados

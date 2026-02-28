@@ -12,6 +12,12 @@ import time
 import json
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 DB_DIR = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("memory_db")
 COLLECTION_NAME = sys.argv[3] if len(sys.argv) > 3 else "kb_store"
 MODEL_NAME = sys.argv[4] if len(sys.argv) > 4 else "all-MiniLM-L6-v2"

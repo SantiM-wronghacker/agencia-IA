@@ -9,6 +9,12 @@ import requests
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 MODEL = "groq"
 API_KEY = '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'
 BASE_URL = "https://api.groq.com"

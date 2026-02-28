@@ -10,6 +10,12 @@ import datetime
 import math
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_interes(inversion, plazo, tasa):
     return inversion * (tasa / 100) * (plazo / 12)
 

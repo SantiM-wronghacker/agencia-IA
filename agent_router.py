@@ -35,6 +35,12 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bus_mensajes as bus
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # === CONFIGURACIÓN ===
 RUNS_DIR = Path("runs")
 KB_DIR = Path("kb")

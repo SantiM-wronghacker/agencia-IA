@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_precio_venta(costo_produccion, margen_ganancia, iva):
     precio_venta = costo_produccion * (1 + margen_ganancia) * (1 + iva)
     return precio_venta

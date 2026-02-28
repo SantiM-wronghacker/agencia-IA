@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_capacidad_almacen(ancho, largo, alto, capacidad_contenedores):
     area_almacen = ancho * largo
     volumen_almacen = area_almacen * alto

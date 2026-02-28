@@ -11,6 +11,12 @@ import json
 import datetime
 import re
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def validar_archivo(archivo):
     if not os.path.exists(archivo):
         raise FileNotFoundError(f"Archivo no encontrado: {archivo}")

@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_isr(sueldo_anual):
     """Cálculo del ISR anual según tabla 2023 México"""
     if sueldo_anual <= 758.75:

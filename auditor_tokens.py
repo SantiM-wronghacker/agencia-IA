@@ -9,6 +9,12 @@ import re
 from datetime import datetime
 import sys
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def leer_logs(ruta_log):
     try:
         with open(ruta_log, 'r', encoding='utf-8') as archivo_log:

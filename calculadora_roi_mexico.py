@@ -6,6 +6,12 @@ TECNOLOGÍA: Python, sys
 
 import sys
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class Propiedad:
     def __init__(self, valor_compra, renta_mensual, gastos_mantenimiento_mensual, predial_anual, impuesto_renta=0.1, gastos_administracion=0.05):
         self.valor_compra = valor_compra

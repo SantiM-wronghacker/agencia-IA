@@ -12,6 +12,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_porcentaje(eventos, eventos_recentes):
     if eventos:
         return (len(eventos_recentes) / len(eventos)) * 100

@@ -9,6 +9,12 @@ import sqlite3
 from twilio.rest import Client
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # Configuración de la base de datos
 DATABASE_NAME = 'clientes.db'
 

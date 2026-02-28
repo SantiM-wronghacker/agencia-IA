@@ -16,6 +16,12 @@ import logging
 import chromadb
 from duckduckgo_search import DDGS
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 # Importar router — si no existe, fallback a Groq directo
 try:
     from llm_router import completar_simple

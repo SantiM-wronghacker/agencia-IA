@@ -11,6 +11,12 @@ from datetime import datetime
 from root_assistant import RootAssistant
 from patcher_pro import aplicar_mejora, model
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def actualizar_historial(accion, detalle):
     ruta = "runs/state.json"
     try:

@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_indemnizacion(salario_diario, anos_trabajados):
     """Calcula la indemnización IMSS según la ley mexicana con ajustes por antigüedad."""
     if anos_trabajados < 0:

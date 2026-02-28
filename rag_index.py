@@ -18,6 +18,12 @@ from config import (
 )
 from logging_config import setup_logging
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 logger = logging.getLogger(__name__)
 
 

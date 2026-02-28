@@ -9,6 +9,12 @@ import json
 import random
 from datetime import datetime, timedelta
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     try:
         # Parámetros por defecto
@@ -20,13 +26,19 @@ def main():
         destinos = {
             "Cancún": {"hoteles": ["Riu Palace", "Hyatt Ziva", "Grand Fiesta Americana"],
                       "actividades": ["Playa Delfines", "Xcaret", "Isla Mujeres"],
-                      "gastos_diarios": 1200.0},
+                      "gastos_diarios": 1200.0,
+                      "impuestos": 0.16,
+                      "propinas": 0.10},
             "CDMX": {"hoteles": ["W Mexico City", "Four Seasons", "Grand Fiesta Americana"],
                      "actividades": ["Zócalo", "Teotihuacán", "Museo Frida Kahlo"],
-                     "gastos_diarios": 900.0},
+                     "gastos_diarios": 900.0,
+                     "impuestos": 0.16,
+                     "propinas": 0.10},
             "Guadalajara": {"hoteles": ["Grand Fiesta Americana", "Hyatt Regency", "Sheraton"],
                            "actividades": ["Centro Histórico", "Hospicio Cabañas", "Laguna de Chapala"],
-                           "gastos_diarios": 700.0}
+                           "gastos_diarios": 700.0,
+                           "impuestos": 0.16,
+                           "propinas": 0.10}
         }
 
         if destino not in destinos:
@@ -39,6 +51,8 @@ def main():
         print(f"Itinerario para {dias} días en {destino} con presupuesto de ${presupuesto:.2f} MXN")
         print(f"Gasto diario estimado: ${datos_destino['gastos_diarios']:.2f} MXN")
         print(f"Presupuesto total estimado: ${dias * datos_destino['gastos_diarios']:.2f} MXN")
+        print(f"Impuestos estimados (16%): ${dias * datos_destino['gastos_diarios'] * datos_destino['impuestos']:.2f} MXN")
+        print(f"Propinas estimadas (10%): ${dias * datos_destino['gastos_diarios'] * datos_destino['propinas']:.2f} MXN")
 
         print("\nItinerario sugerido:")
         for dia in range(1, dias + 1):
@@ -46,11 +60,16 @@ def main():
             actividad = random.choice(datos_destino["actividades"])
             print(f"Día {dia}: Alojamiento en {hotel} - Actividad: {actividad}")
 
-        print(f"\nTotal estimado: ${dias * datos_destino['gastos_diarios']:.2f} MXN")
+        print("\nResumen ejecutivo:")
+        print(f"Destino: {destino}")
+        print(f"Días: {dias}")
+        print(f"Presupuesto: ${presupuesto:.2f} MXN")
+        print(f"Presupuesto total estimado: ${dias * datos_destino['gastos_diarios'] + dias * datos_destino['gastos_diarios'] * datos_destino['impuestos'] + dias * datos_destino['gastos_diarios'] * datos_destino['propinas']:.2f} MXN")
 
-    except Exception as e:
-        print(f"Error al generar itinerario: {str(e)}")
-        print("Ejemplo de uso: python generador_itinerario_viaje.py Cancún 7 15000.0")
+    except ValueError:
+        print("Error: Los parámetros deben ser numéricos.")
+    except IndexError:
+        print("Error: Faltan parámetros. Utilice el formato: python generador_itinerario_viaje.py <destino> <días> <presupuesto>")
 
 if __name__ == "__main__":
     main()

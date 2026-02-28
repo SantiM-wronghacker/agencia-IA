@@ -27,6 +27,12 @@ def _groq_compat_create(**kwargs):
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class AgendaReuniones:
     def __init__(self):
         self.horarios_disponibles = []

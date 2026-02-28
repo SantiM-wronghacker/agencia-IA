@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_ptu(salario_diario, dias_trabajados, dias_incapacidad=0):
     if dias_trabajados <= 0:
         return 0

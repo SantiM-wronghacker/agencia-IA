@@ -8,6 +8,12 @@ import sys
 import json
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_rotacion_personal(meses_trabajadores=12, trabajadores_inicial=100, trabajadores_final=95, bajas=5):
     """
     Calcula la rotación de personal en un periodo dado.

@@ -11,6 +11,12 @@ import sys
 import time
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def buscar_inmobiliarias(zona, max_results=5):
     try:
         url = f"https://duckduckgo.com/html?q=inmobiliarias+{zona}+mexico"

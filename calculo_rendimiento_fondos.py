@@ -3,6 +3,12 @@ import json
 import datetime
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calculo_rendimiento_fondos(inversion, tasa_interes, plazo):
     """Calcula el rendimiento total de una inversión"""
     rendimiento = inversion * (1 + tasa_interes/100) ** plazo

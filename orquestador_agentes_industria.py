@@ -12,6 +12,12 @@ import re
 import random
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_tiempo_realista(tiempo_estimado):
     # Ajuste para condiciones reales en México (tráfico, clima, etc.)
     factor_ajuste = random.uniform(0.8, 1.5)

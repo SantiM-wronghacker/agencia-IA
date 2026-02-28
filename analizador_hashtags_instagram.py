@@ -12,6 +12,12 @@ import re
 import random
 import os
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def obtener_hashtags():
     if len(sys.argv) > 1:
         return sys.argv[1].split(',')

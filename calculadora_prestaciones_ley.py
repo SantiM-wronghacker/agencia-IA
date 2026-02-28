@@ -8,6 +8,12 @@ import sys
 import math
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_prestaciones(salario_diario, antiguedad_anios):
     try:
         # Cálculo de prima vacacional (20% del salario diario * días de vacaciones)

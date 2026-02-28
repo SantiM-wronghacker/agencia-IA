@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 from datetime import datetime, timedelta
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_fecha_fin(fecha_inicio, vigencia_años):
     try:
         fecha_fin = fecha_inicio + timedelta(days=vigencia_años*365)

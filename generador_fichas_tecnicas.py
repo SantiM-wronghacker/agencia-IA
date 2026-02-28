@@ -8,6 +8,12 @@ import sys
 import time
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class Propiedad:
     def __init__(self, m2, recamaras, precio, ubicacion, antiguedad, estado):
         self.m2 = m2

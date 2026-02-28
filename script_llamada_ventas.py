@@ -6,6 +6,12 @@ TECNOLOGÍA: Python estándar
 
 import sys
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_script(tipo_prospecto, producto):
     try:
         script = f"Script de llamada para {tipo_prospecto} interesado en {producto}:\n"

@@ -7,6 +7,12 @@ TECNOLOGÍA: Python estándar
 import sys
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_renta_oficina():
     # Parámetros por defecto realistas para CDMX
     metros_cuadrados = float(sys.argv[1]) if len(sys.argv) > 1 else 50.0

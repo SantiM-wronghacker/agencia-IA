@@ -10,6 +10,12 @@ import datetime
 import math
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_forecast_mensual(ventas_anteriores, crecimiento, inflacion, temporada):
     try:
         ventas_anteriores = json.loads(ventas_anteriores)

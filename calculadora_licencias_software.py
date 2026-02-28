@@ -8,6 +8,12 @@ import sys
 import json
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def main():
     try:
         # Parámetros por línea de comandos con valores por defecto

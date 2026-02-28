@@ -10,6 +10,12 @@ import time
 import uuid
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 BUS_ARCHIVO = "bus_mensajes.json"
 
 # ─────────────────────────────────────────────

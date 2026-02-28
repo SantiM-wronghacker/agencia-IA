@@ -8,6 +8,12 @@ import sys
 import math
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_presupuesto(inversión_total, porcentaje_publicidad):
     presupuesto_publicitario = inversión_total * (porcentaje_publicidad / 100)
     return presupuesto_publicitario

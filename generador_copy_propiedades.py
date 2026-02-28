@@ -8,6 +8,12 @@ import sys
 import time
 import json
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_anuncios(m2, zona, precio):
     anuncios = []
     

@@ -7,6 +7,12 @@ TECNOLOGÍA: Python
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def verificar_documentacion(ine=False, comprobante=False, aval=False):
     print("Verificador de Documentación para Renta")
     print("-----------------------------------------")

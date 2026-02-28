@@ -10,6 +10,12 @@ from datetime import datetime
 from root_assistant import RootAssistant
 from patcher_pro import aplicar_mejora, model_gemini
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def log_sistema(accion, detalle):
     ruta = "runs/state.json"
     with open(ruta, 'r', encoding='utf-8') as f:

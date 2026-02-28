@@ -8,6 +8,12 @@ import sys
 import os
 from datetime import datetime, timedelta
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_horas_extra(horas_trabajadas, horas_ordinarias, tarifa_hora, dia_sabado=False, dia_domingo=False, dia_festivo=False):
     horas_extra = max(0, horas_trabajadas - horas_ordinarias)
 

@@ -21,6 +21,12 @@ from agent_router_projects import (
 )
 from rag_index import index_kb
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 setup_logging()
 logger = logging.getLogger(__name__)
 

@@ -10,6 +10,12 @@ import time
 import json
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def obtener_tipo_cambio_actual():
     try:
         url = "https://api.exchangerate-api.com/v4/latest/USD"

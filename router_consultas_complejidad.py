@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_complejidad(consultas, complejidad):
     """Calcula la complejidad total con factores de ajuste para México"""
     factor_urbano = 1.2 if consultas > 300 else 1.0

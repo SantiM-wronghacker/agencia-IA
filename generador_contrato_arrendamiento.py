@@ -8,6 +8,12 @@ import os
 import sys
 import time
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class ContratoArrendamiento:
     def __init__(self, nombre_arrendador, direccion_arrendador, nombre_arrendatario, direccion_arrendatario):
         self.nombre_arrendador = nombre_arrendador

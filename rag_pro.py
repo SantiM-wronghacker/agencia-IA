@@ -13,6 +13,12 @@ import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 logger = logging.getLogger(__name__)
 
 def _get_collection(db_dir: Path, collection_name: str):

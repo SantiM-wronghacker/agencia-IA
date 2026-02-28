@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcular_cuota(monto, plazo, tasa):
     try:
         if monto <= 0 or plazo <= 0 or tasa <= 0:

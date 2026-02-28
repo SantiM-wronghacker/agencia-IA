@@ -8,6 +8,12 @@ import sys
 import time
 from datetime import datetime
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 class SimuladorUtilidades:
     def __init__(self, metas_ventas_mensuales, gastos_fijos_mensuales):
         if len(metas_ventas_mensuales) != 12 or len(gastos_fijos_mensuales) != 12:

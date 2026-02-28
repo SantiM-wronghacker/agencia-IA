@@ -11,6 +11,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def calcula_presupuesto(duracion_viaje, destino, presupuesto_diario):
     presupuesto_total = duracion_viaje * presupuesto_diario
     return presupuesto_total

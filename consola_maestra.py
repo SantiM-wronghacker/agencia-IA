@@ -15,6 +15,12 @@ import math
 import re
 import random
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def cargar_maestro_ceo(archivo="maestro_ceo.py"):
     try:
         spec = importlib.util.spec_from_file_location("maestro_ceo", archivo)

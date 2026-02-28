@@ -11,6 +11,12 @@ import random
 import os
 import math
 
+try:
+    import web_bridge as web
+    WEB = web.WEB  # True si hay conexion a internet
+except ImportError:
+    WEB = False
+
 def generar_convenio(monto_min=50000, monto_max=500000, duracion_min=3, duracion_max=24):
     datos = {
         "fecha": datetime.datetime.now().strftime("%d/%m/%Y"),

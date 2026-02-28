@@ -336,12 +336,30 @@ def heartbeat(nombre):
         heartbeats[nombre] = time.time()
 
 def verificar_heartbeats():
-    """Verifica que todos los hilos reportaron recientemente."""
+    """
+    Verifica que todos los hilos reportaron recientemente.
+    Si TODOS los hilos tienen heartbeat muy viejo (>30min), asume sleep/wake del equipo
+    y resetea los timestamps en lugar de spamear alertas falsas.
+    """
     ahora = time.time()
-    muertos = []
+    SLEEP_THRESHOLD = 1800  # 30 min: si todos duermen tanto, fue sleep del equipo
+
     with heartbeats_lock:
-        for nombre, ts in heartbeats.items():
-            edad = ahora - ts
+        if not heartbeats:
+            return []
+
+        edades = {nombre: ahora - ts for nombre, ts in heartbeats.items()}
+        todos_viejos = all(e > SLEEP_THRESHOLD for e in edades.values())
+
+        if todos_viejos and len(heartbeats) >= 2:
+            # Sistema durmio — resetear todos los heartbeats a ahora
+            log("Sleep/wake detectado — reseteando heartbeats de todos los hilos", "WARN")
+            for nombre in heartbeats:
+                heartbeats[nombre] = ahora
+            return []  # No reportar muertos falsos
+
+        muertos = []
+        for nombre, edad in edades.items():
             if edad > HEARTBEAT_MAX:
                 muertos.append((nombre, int(edad)))
     return muertos
@@ -581,14 +599,23 @@ def hilo_noche():
             t = threading.Thread(target=lector_stdout, args=(proc, "Noche", procesar_linea_noche), daemon=True)
             t.start()
 
-            # Esperar con timeout — si se cuelga, matarlo
-            try:
-                proc.wait(timeout=TIMEOUT_NOCHE)
-            except subprocess.TimeoutExpired:
-                log(f"noche_total.py excedio timeout de {TIMEOUT_NOCHE}s — matando", "ERROR")
-                matar_subproceso(proc, "noche_total")
-                estado["errores"] += 1
-            else:
+            # Esperar con POLL LOOP de 30s — heartbeat aunque noche esté mudo (LLM lento)
+            inicio_noche = time.time()
+            terminado_ok = False
+            while not SHUTDOWN.is_set():
+                try:
+                    proc.wait(timeout=30)
+                    terminado_ok = True
+                    break
+                except subprocess.TimeoutExpired:
+                    heartbeat("Noche")  # Sigo vivo aunque noche_total no produzca output
+                    if time.time() - inicio_noche > TIMEOUT_NOCHE:
+                        log(f"noche_total.py excedio timeout de {TIMEOUT_NOCHE}s — matando", "ERROR")
+                        matar_subproceso(proc, "noche_total")
+                        estado["errores"] += 1
+                        break
+
+            if terminado_ok:
                 desregistrar_subproceso(proc)
                 rc = proc.returncode
                 if rc != 0:
@@ -695,7 +722,7 @@ def hilo_fabrica():
 # ─────────────────────────────────────────────
 
 def hilo_misiones():
-    """Ejecuta misiones pendientes con file locking."""
+    """Ejecuta misiones pendientes. Usa Popen + poll loop para mantener heartbeat activo."""
     SHUTDOWN.wait(60)  # Esperar que arranquen los otros hilos primero
     while not SHUTDOWN.is_set():
         try:
@@ -703,13 +730,39 @@ def hilo_misiones():
             misiones = contar_misiones()
             if misiones > 0:
                 log(f"Ejecutando {misiones} misiones (timeout 30min)...", "INFO")
-                exito, output = ejecutar("auto_run.py", timeout=1800)
-                if exito:
-                    restantes = contar_misiones()
-                    log(f"Misiones OK. Restantes: {restantes}", "OK")
-                    estado["misiones_pendientes"] = restantes
-                else:
-                    log(f"Misiones: {output[:200]}", "WARN")
+                ruta_auto = os.path.join(BASE_DIR, "auto_run.py")
+                if not os.path.exists(ruta_auto):
+                    log("auto_run.py no encontrado", "WARN")
+                    SHUTDOWN.wait(60)
+                    continue
+
+                # Popen (no bloqueante) + poll loop con heartbeat cada 30s
+                proc_mis = subprocess.Popen(
+                    [sys.executable, ruta_auto],
+                    cwd=BASE_DIR,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL
+                )
+                registrar_subproceso(proc_mis)
+                inicio_mis = time.time()
+
+                while not SHUTDOWN.is_set():
+                    try:
+                        proc_mis.wait(timeout=30)
+                        break   # Terminó normalmente
+                    except subprocess.TimeoutExpired:
+                        heartbeat("Misiones")  # Sigo vivo durante la ejecución larga
+                        if time.time() - inicio_mis > TIMEOUT_MISIONES:
+                            log("auto_run.py excedio timeout — matando", "ERROR")
+                            matar_subproceso(proc_mis, "auto_run")
+                            estado["errores"] += 1
+                            break
+
+                desregistrar_subproceso(proc_mis)
+                restantes = contar_misiones()
+                log(f"Misiones OK. Restantes: {restantes}", "OK")
+                estado["misiones_pendientes"] = restantes
+
             SHUTDOWN.wait(600)  # 10 min entre intentos
         except Exception as e:
             log(f"Error misiones: {e}", "WARN")

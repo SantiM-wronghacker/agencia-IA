@@ -396,141 +396,467 @@ def copiar_agente_a_proyecto(archivo, carpeta_proyecto):
         return True
     return False
 
+# ─────────────────────────────────────────────
+#  INFERIR PARAMETROS DEL NEGOCIO (LLM)
+# ─────────────────────────────────────────────
+
+def inferir_parametros_negocio(negocio):
+    """
+    Llama al LLM para obtener 3-5 parametros numericos tipicos del dominio
+    con sus patrones regex para extraerlos de consultas en espanol.
+    """
+    prompt = (
+        "Eres experto en sistemas de IA para negocios.\n\n"
+        "NEGOCIO: " + negocio["nombre"] + "\n"
+        "MODELO: " + negocio["modelo"] + "\n\n"
+        "Identifica los 3-5 parametros numericos mas importantes que los clientes\n"
+        "mencionan cuando hacen consultas a este negocio.\n\n"
+        "Para cada parametro incluye:\n"
+        "- nombre: identificador snake_case\n"
+        "- patron: regex Python para extraerlo de texto en espanol (usa \\\\d, \\\\s, etc.)\n"
+        "- tipo: 'int' o 'float'\n"
+        "- default: valor por defecto como string numerico\n"
+        "- unidad: descripcion breve (pesos, personas, noches, etc.)\n\n"
+        "Ejemplos por tipo de negocio:\n"
+        "- Agencia viajes: personas '(\\\\d+)\\\\s*personas?' int 2\n"
+        "- Hipotecas: monto '\\\\$?\\\\s*(\\\\d+(?:[,\\\\.]\\\\d+)*)' float 2000000\n"
+        "- Restaurante: comensales '(\\\\d+)\\\\s*(?:personas?|comensales?)' int 2\n"
+        "- E-commerce: cantidad '(\\\\d+)\\\\s*(?:unidades?|piezas?)' int 1\n\n"
+        'DEVUELVE SOLO JSON valido:\n'
+        '[{"nombre":"personas","patron":"(\\\\d+)\\\\s*personas?","tipo":"int","default":"2","unidad":"personas"}]\n'
+        "Sin texto antes ni despues."
+    )
+    for intento in range(2):
+        respuesta = ia(prompt)
+        if not respuesta:
+            continue
+        resultado = extraer_json(respuesta, "lista")
+        if resultado and len(resultado) >= 2:
+            log("  Params negocio inferidos: " + str([p.get("nombre") for p in resultado]))
+            return resultado
+        log("  Intento " + str(intento + 1) + " fallido al inferir params, reintentando...")
+        time.sleep(2)
+
+    log("  Fallback: usando parametros genericos")
+    return [
+        {"nombre": "monto",    "patron": r"\$?\s*(\d+(?:[,\.]\d+)*)",     "tipo": "float", "default": "1000",  "unidad": "pesos"},
+        {"nombre": "cantidad", "patron": r"(\d+)\s*(?:unidades?|piezas?)", "tipo": "int",   "default": "1",     "unidad": "unidades"},
+        {"nombre": "personas", "patron": r"(\d+)\s*personas?",             "tipo": "int",   "default": "1",     "unidad": "personas"},
+    ]
+
+
+def _generar_codigo_extraer_params(params_lista):
+    """
+    Genera el cuerpo de la funcion extraer_parametros() con los patrones
+    especificos del dominio inferidos por el LLM.
+    Devuelve un string de codigo Python con indentacion de 4 espacios.
+    """
+    L = []
+    for p in params_lista:
+        nombre = p.get("nombre", "param")
+        patron = p.get("patron", r"\d+")
+        tipo   = p.get("tipo", "float")
+        L.append("    # " + nombre.upper())
+        L.append("    m = re.search(" + repr(patron) + ", consulta_lower)")
+        L.append("    if m:")
+        if tipo == "int":
+            L.append("        params['" + nombre + "'] = int(m.group(1).replace(',', '').replace('.', ''))")
+        else:
+            L.append("        params['" + nombre + "'] = float(m.group(1).replace(',', ''))")
+        L.append("")
+
+    L.append("    # Defaults del dominio")
+    for p in params_lista:
+        nombre  = p.get("nombre", "param")
+        default = p.get("default", "0")
+        tipo    = p.get("tipo", "float")
+        try:
+            dv = str(int(default)) if tipo == "int" else str(float(default))
+        except Exception:
+            dv = repr(default)
+        L.append("    params.setdefault('" + nombre + "', " + dv + ")")
+
+    L.append("")
+    L.append("    log('Params: ' + str(params))")
+    L.append("    return params")
+    return "\n".join(L)
+
+
 def generar_orquestador_proyecto(negocio, agentes_disponibles, carpeta):
     """
-    Genera orquestador especifico usando la logica del Clawbot:
-    selecciona agentes segun la consulta, los ejecuta, sintetiza.
+    Genera orquestador estilo Clawbot para el proyecto:
+    extraccion de params con regex especificos del dominio, memoria de sesion,
+    deteccion de seguimiento, director + equipo de agentes.
     """
-    lista_str = json.dumps(agentes_disponibles, ensure_ascii=False)
+    log("  Infiriendo parametros especificos del dominio...")
+    params_lista = inferir_parametros_negocio(negocio)
 
-    codigo = '''"""
-AREA: CEREBRO
-DESCRIPCION: Orquestador de ''' + negocio["nombre"] + ''' — selecciona agentes
-             segun la consulta del cliente, los ejecuta y sintetiza la respuesta.
-TECNOLOGIA: llm_router, subprocess
-"""
+    nombre_neg  = negocio["nombre"].replace('"', '\\"')
+    modelo_neg  = negocio["modelo"].replace('"', '\\"').replace('\n', ' ')
+    lista_str   = json.dumps(agentes_disponibles, ensure_ascii=False)
+    params_code = _generar_codigo_extraer_params(params_lista)
 
-import os
-import sys
-import json
-import subprocess
-from datetime import datetime
+    L = []
+    # ── Encabezado ─────────────────────────────────────────
+    L.append('"""')
+    L.append('AREA: CEREBRO')
+    L.append('DESCRIPCION: Orquestador de ' + nombre_neg + ' v1.0 — Clawbot-style')
+    L.append('             Memoria de sesion, params con regex, deteccion de seguimiento.')
+    L.append('TECNOLOGIA: llm_router, subprocess, re')
+    L.append('"""')
+    L.append('')
+    L.append('import os')
+    L.append('import sys')
+    L.append('import re')
+    L.append('import json')
+    L.append('import time')
+    L.append('import subprocess')
+    L.append('from datetime import datetime')
+    L.append('')
+    L.append('try:')
+    L.append('    import web_bridge as web')
+    L.append('    WEB = web.WEB')
+    L.append('except ImportError:')
+    L.append('    WEB = False')
+    L.append('')
+    L.append('if hasattr(sys.stdout, "reconfigure"):')
+    L.append('    sys.stdout.reconfigure(encoding="utf-8", errors="replace")')
+    L.append('elif hasattr(sys.stdout, "buffer"):')
+    L.append('    sys.stdout = open(sys.stdout.fileno(), mode="w", encoding="utf-8", errors="replace", closefd=False)')
+    L.append('')
+    L.append('try:')
+    L.append('    from llm_router import completar_simple as ia')
+    L.append('except ImportError:')
+    L.append('    from groq import Groq')
+    L.append('    _g = Groq(api_key=os.environ.get("GROQ_API_KEY", ""))')
+    L.append('    def ia(prompt, **kw):')
+    L.append('        r = _g.chat.completions.create(')
+    L.append('            model="llama-3.3-70b-versatile",')
+    L.append('            messages=[{"role": "user", "content": prompt}],')
+    L.append('            temperature=0.3, max_tokens=2000')
+    L.append('        )')
+    L.append('        return r.choices[0].message.content.strip()')
+    L.append('')
+    # ── Constantes ─────────────────────────────────────────
+    L.append('BASE    = os.path.dirname(os.path.abspath(__file__))')
+    L.append('NOMBRE  = "' + nombre_neg + '"')
+    L.append('MODELO  = "' + modelo_neg + '"')
+    L.append('AGENTES = ' + lista_str)
+    L.append('')
+    L.append('MAX_AGENTES    = 4')
+    L.append('TIMEOUT_AGENTE = 45')
+    L.append('')
+    # ── log ────────────────────────────────────────────────
+    L.append('def log(msg):')
+    L.append('    ts = datetime.now().strftime("%H:%M:%S")')
+    L.append('    print(f"[{ts}] [{NOMBRE[:14]}] {msg}", flush=True)')
+    L.append('')
+    # ── extraer_parametros ─────────────────────────────────
+    L.append('# ============================================')
+    L.append('# EXTRACCION DE PARAMETROS — DOMINIO ESPECIFICO')
+    L.append('# ============================================')
+    L.append('def extraer_parametros(consulta, params_previos=None):')
+    L.append('    """Extrae parametros numericos del dominio de ' + nombre_neg + '."""')
+    L.append('    consulta_lower = consulta.lower()')
+    L.append('    params = dict(params_previos) if params_previos else {}')
+    L.append('')
+    L.append(params_code)
+    L.append('')
+    # ── es_seguimiento ─────────────────────────────────────
+    L.append('# ============================================')
+    L.append('# DETECCION DE SEGUIMIENTO')
+    L.append('# ============================================')
+    L.append('def es_seguimiento(consulta, historial):')
+    L.append('    if not historial:')
+    L.append('        return False')
+    L.append('    indicadores = [')
+    L.append('        "y si", "que pasa si", "que pasaria si", "y con", "ahora con",')
+    L.append('        "cambia", "baja", "sube", "reduce", "aumenta", "y para",')
+    L.append('        "en cambio", "en vez", "en lugar", "y si fuera", "mejor con"')
+    L.append('    ]')
+    L.append('    return any(ind in consulta.lower() for ind in indicadores)')
+    L.append('')
+    # ── extraer_numeros_clave ──────────────────────────────
+    L.append('# ============================================')
+    L.append('# EXTRACCION INTELIGENTE DE NUMEROS')
+    L.append('# ============================================')
+    L.append('def extraer_numeros_clave(output_raw):')
+    L.append('    if not output_raw:')
+    L.append('        return "[Sin output]"')
+    L.append('    lineas = output_raw.split("\\n")')
+    L.append('    nums, resumen = [], []')
+    L.append('    for ln in lineas:')
+    L.append('        s = ln.strip()')
+    L.append('        if not s: continue')
+    L.append('        if re.search(r\'\\$[\\d,]+|\\d+[\\.,]\\d+%?|\\d{4,}\', s):')
+    L.append('            nums.append(s)')
+    L.append('        elif any(kw in s.lower() for kw in [')
+    L.append('            "total", "pago", "mensual", "roi", "flujo", "costo",')
+    L.append('            "recomend", "resultado", "ganancia", "precio", "subtotal"')
+    L.append('        ]):')
+    L.append('            resumen.append(s)')
+    L.append('    resultado = resumen[:5] + nums[:10]')
+    L.append('    return "\\n".join(resultado) if resultado else "\\n".join(lineas[:15])')
+    L.append('')
+    # ── clase OrquestadorProyecto ──────────────────────────
+    L.append('# ============================================')
+    L.append('# ORQUESTADOR PRINCIPAL')
+    L.append('# ============================================')
+    L.append('class OrquestadorProyecto:')
+    L.append('')
+    L.append('    def __init__(self):')
+    L.append('        self.memoria_equipo = []')
+    L.append('        self.historial      = []')
+    L.append('        self.params_previos = None')
+    L.append('        self.sesion_id      = str(int(time.time()))[-6:]')
+    L.append('')
+    # director_seleccionar
+    L.append('    def director_seleccionar(self, consulta, params, contexto_previo=""):')
+    L.append('        agentes_txt = "\\n".join([f"- {a}" for a in AGENTES])')
+    L.append('        params_txt  = " | ".join([f"{k}={v}" for k, v in params.items()])')
+    L.append('        ctx_txt     = f"\\nCONTEXTO PREVIO:\\n{contexto_previo}" if contexto_previo else ""')
+    L.append('        prompt = (')
+    L.append('            f"Eres director de {NOMBRE}.\\n"')
+    L.append('            f"Negocio: {MODELO}\\n"')
+    L.append('            f"Consulta del cliente: {consulta}\\n"')
+    L.append('            f"Parametros extraidos: {params_txt}\\n"')
+    L.append('            f"{ctx_txt}\\n"')
+    L.append('            f"Agentes disponibles:\\n{agentes_txt}\\n\\n"')
+    L.append('            f"Selecciona max {MAX_AGENTES} agentes mas utiles. "')
+    L.append('            "Para cada uno define los argumentos concretos de sys.argv.\\n"')
+    L.append('            \'RESPONDE SOLO este JSON:\\n\'')
+    L.append('            \'{"analisis":"que pide el usuario en 1 frase","subtareas":[\'')
+    L.append('            \'{"paso":1,"agente":"agentes/archivo.py","objetivo":"que logra","parametros":"args exactos"}\'')
+    L.append('            \']}\' ')
+    L.append('        )')
+    L.append('        respuesta = ia(prompt)')
+    L.append('        if not respuesta:')
+    L.append('            return None')
+    L.append('        if "```" in respuesta:')
+    L.append('            for parte in respuesta.split("```"):')
+    L.append('                if "{" in parte:')
+    L.append('                    respuesta = parte.strip().lstrip("json").strip()')
+    L.append('                    break')
+    L.append('        try:')
+    L.append('            return json.loads(respuesta.strip())')
+    L.append('        except Exception as e:')
+    L.append('            log(f"Error parseando plan: {e}")')
+    L.append('            return None')
+    L.append('')
+    # ejecutar_agente
+    L.append('    def ejecutar_agente(self, archivo, parametros=""):')
+    L.append('        ruta = os.path.join(BASE, archivo)')
+    L.append('        if not os.path.exists(ruta):')
+    L.append('            log(f"[WARN] No existe: {ruta}")')
+    L.append('            return False, f"[ERROR] {archivo} no existe"')
+    L.append('        cmd = [sys.executable, ruta]')
+    L.append('        if parametros and parametros.strip():')
+    L.append('            cmd.extend(parametros.split())')
+    L.append('        try:')
+    L.append('            r = subprocess.run(')
+    L.append('                cmd, capture_output=True, text=True,')
+    L.append('                encoding="utf-8", errors="replace",')
+    L.append('                timeout=TIMEOUT_AGENTE, cwd=BASE')
+    L.append('            )')
+    L.append('            salida = r.stdout.strip()')
+    L.append('            if not salida and r.stderr:')
+    L.append('                return False, f"[ERROR] {r.stderr[:200]}"')
+    L.append('            return True, salida or "[Sin output]"')
+    L.append('        except subprocess.TimeoutExpired:')
+    L.append('            return False, f"[TIMEOUT] {archivo} > {TIMEOUT_AGENTE}s"')
+    L.append('        except Exception as e:')
+    L.append('            return False, f"[ERROR] {e}"')
+    L.append('')
+    # interpretar_aporte
+    L.append('    def interpretar_aporte(self, subtarea, output_raw):')
+    L.append('        memoria_txt = ""')
+    L.append('        for m in self.memoria_equipo:')
+    L.append('            memoria_txt += f\'\\n[{m["agente"]}]: {m["aporte"][:200]}\'')
+    L.append('        output_limpio = extraer_numeros_clave(output_raw)')
+    L.append('        prompt = (')
+    L.append('            f"Agente especialista en {NOMBRE}.\\n"')
+    L.append('            f"Rol: {subtarea[\'objetivo\']}\\n"')
+    L.append('            f"Equipo sabe:{memoria_txt if memoria_txt else \' (eres el primero)\'}\\n\\n"')
+    L.append('            f"Datos:\\n{output_limpio}\\n\\n"')
+    L.append('            "Extrae 3-5 datos clave con numeros exactos. Max 100 palabras. Sin markdown."')
+    L.append('        )')
+    L.append('        return ia(prompt) or output_limpio[:300]')
+    L.append('')
+    # director_sintetizar
+    L.append('    def director_sintetizar(self, consulta, params, contexto_previo=""):')
+    L.append('        aportes_txt = ""')
+    L.append('        for m in self.memoria_equipo:')
+    L.append('            aportes_txt += f\'\\n\\n[{m["agente"]}]\\n{m["aporte"]}\'')
+    L.append('        params_txt = " | ".join([f"{k}={v}" for k, v in params.items()])')
+    L.append('        ctx_txt    = f"\\nCONTEXTO PREVIO:\\n{contexto_previo}" if contexto_previo else ""')
+    L.append('        prompt = (')
+    L.append('            f"Director de {NOMBRE} ({MODELO}).\\n"')
+    L.append('            f"CONSULTA: {consulta}\\n"')
+    L.append('            f"PARAMETROS: {params_txt}\\n"')
+    L.append('            f"{ctx_txt}\\n"')
+    L.append('            f"APORTES:{aportes_txt}\\n\\n"')
+    L.append('            "Responde directamente al cliente:\\n"')
+    L.append('            "1. Resumen con 3 datos clave\\n"')
+    L.append('            "2. Analisis: conviene? por que?\\n"')
+    L.append('            "3. Recomendacion concreta en 1-2 lineas\\n"')
+    L.append('            "Max 250 palabras. Sin frases genericas. Sin nombres de archivos."')
+    L.append('        )')
+    L.append('        fallback = "\\n".join([f"• {m[\'agente\']}: {m[\'aporte\']}" for m in self.memoria_equipo])')
+    L.append('        return ia(prompt) or fallback')
+    L.append('')
+    # construir_contexto
+    L.append('    def construir_contexto(self):')
+    L.append('        if not self.historial:')
+    L.append('            return ""')
+    L.append('        ctx = []')
+    L.append('        for h in self.historial[-3:]:')
+    L.append('            ctx.append(f"Consulta: {h[\'consulta\']}\\nResultado: {h[\'resumen\'][:200]}")')
+    L.append('        return "\\n\\n".join(ctx)')
+    L.append('')
+    # respuesta_directa
+    L.append('    def respuesta_directa(self, consulta, contexto=""):')
+    L.append('        ctx_txt = f"\\nContexto previo:\\n{contexto}" if contexto else ""')
+    L.append('        prompt = f"Eres experto en {NOMBRE} ({MODELO}).{ctx_txt}\\nConsulta: {consulta}\\nDatos concretos. Max 200 palabras."')
+    L.append('        return ia(prompt) or "No pude procesar la consulta."')
+    L.append('')
+    # procesar
+    L.append('    def procesar(self, consulta):')
+    L.append('        print(f"\\n{\'-\'*55}")')
+    L.append('        print(f"[{NOMBRE}] {consulta[:70]}...")')
+    L.append('        log(f"Consulta: {consulta[:100]}")')
+    L.append('')
+    L.append('        seguimiento = es_seguimiento(consulta, self.historial)')
+    L.append('        contexto    = self.construir_contexto()')
+    L.append('')
+    L.append('        if seguimiento and self.params_previos:')
+    L.append('            log("Seguimiento detectado — heredando params previos")')
+    L.append('            params = extraer_parametros(consulta, self.params_previos)')
+    L.append('        else:')
+    L.append('            params = extraer_parametros(consulta)')
+    L.append('        self.params_previos = params')
+    L.append('')
+    L.append('        plan = self.director_seleccionar(consulta, params, contexto if seguimiento else "")')
+    L.append('        if not plan:')
+    L.append('            resultado = self.respuesta_directa(consulta, contexto)')
+    L.append('            self.historial.append({"consulta": consulta, "resumen": resultado[:200], "params": params})')
+    L.append('            return resultado')
+    L.append('')
+    L.append('        subtareas = plan.get("subtareas", [])')
+    L.append('        analisis  = plan.get("analisis", "")')
+    L.append('')
+    L.append('        if not subtareas:')
+    L.append('            resultado = self.respuesta_directa(consulta, contexto)')
+    L.append('            self.historial.append({"consulta": consulta, "resumen": resultado[:200], "params": params})')
+    L.append('            return resultado')
+    L.append('')
+    L.append('        equipo_str = " -> ".join([s["agente"] for s in subtareas])')
+    L.append('        print(f"   Equipo: {equipo_str}")')
+    L.append('        print(f"   {analisis}")')
+    L.append('        if seguimiento:')
+    L.append('            print("   (Continuando conversacion previa)")')
+    L.append('')
+    L.append('        self.memoria_equipo = []')
+    L.append('        agentes_fallidos    = []')
+    L.append('')
+    L.append('        for subtarea in subtareas:')
+    L.append('            paso       = subtarea["paso"]')
+    L.append('            agente     = subtarea["agente"]')
+    L.append('            params_str = subtarea.get("parametros", "")')
+    L.append('            print(f"\\n   [{paso}/{len(subtareas)}] {agente}")')
+    L.append('            if params_str:')
+    L.append('                print(f"   Args: {params_str}")')
+    L.append('')
+    L.append('            exito, output_raw = self.ejecutar_agente(agente, params_str)')
+    L.append('            if not exito:')
+    L.append('                log(f"[WARN] {agente} fallo: {output_raw[:80]}")')
+    L.append('                agentes_fallidos.append(agente)')
+    L.append('                continue')
+    L.append('')
+    L.append('            aporte = self.interpretar_aporte(subtarea, output_raw)')
+    L.append('            self.memoria_equipo.append({"paso": paso, "agente": agente, "aporte": aporte})')
+    L.append('            print(f"   [OK] {aporte[:100]}...")')
+    L.append('            time.sleep(0.5)')
+    L.append('')
+    L.append('        if agentes_fallidos:')
+    L.append('            log(f"Fallaron: {\', \'.join(agentes_fallidos)}")')
+    L.append('')
+    L.append('        if not self.memoria_equipo:')
+    L.append('            resultado = self.respuesta_directa(consulta, contexto)')
+    L.append('        else:')
+    L.append('            print("\\n   Sintetizando...")')
+    L.append('            resultado = self.director_sintetizar(consulta, params, contexto if seguimiento else "")')
+    L.append('')
+    L.append('        self.historial.append({')
+    L.append('            "consulta": consulta,')
+    L.append('            "resumen":  (resultado or "")[:300],')
+    L.append('            "params":   params,')
+    L.append('            "equipo":   equipo_str')
+    L.append('        })')
+    L.append('        log(f"Completado. Equipo: {equipo_str}")')
+    L.append('        return resultado')
+    L.append('')
+    # mostrar_historial
+    L.append('    def mostrar_historial(self):')
+    L.append('        if not self.historial:')
+    L.append('            print("Sin historial en esta sesion.")')
+    L.append('            return')
+    L.append('        print(f"\\n{\'-\'*55}")')
+    L.append('        print(f"HISTORIAL ({len(self.historial)} consultas):")')
+    L.append('        for i, h in enumerate(self.historial, 1):')
+    L.append('            params_txt = " | ".join([f"{k}={v}" for k, v in h["params"].items()])')
+    L.append('            print(f"\\n[{i}] {h[\'consulta\'][:60]}")')
+    L.append('            print(f"    Equipo: {h.get(\'equipo\', \'directo\')}")')
+    L.append('            print(f"    Params: {params_txt}")')
+    L.append('')
+    # ── Punto de entrada ───────────────────────────────────
+    L.append('# ============================================')
+    L.append('# PUNTO DE ENTRADA')
+    L.append('# ============================================')
+    L.append('if __name__ == "__main__":')
+    L.append('    if len(sys.argv) > 1 and sys.argv[1] not in ("--interactive", "-i"):')
+    L.append('        orq = OrquestadorProyecto()')
+    L.append('        print("\\n" + "="*55)')
+    L.append('        print(NOMBRE + " — Sistema de IA")')
+    L.append('        print("="*55)')
+    L.append('        resultado = orq.procesar(" ".join(sys.argv[1:]))')
+    L.append('        print("\\n" + resultado)')
+    L.append('        print("="*55)')
+    L.append('    else:')
+    L.append('        orq = OrquestadorProyecto()')
+    L.append('        print("+" + "="*53 + "+")')
+    L.append('        print(f"|  {NOMBRE:<51}  |")')
+    L.append('        print(f"|  {MODELO[:51]:<51}  |")')
+    L.append('        print("+" + "="*53 + "+")')
+    L.append('        print("|  \'historial\' -> ver consultas previas         |")')
+    L.append('        print("|  \'equipo\'    -> ver ultimo equipo             |")')
+    L.append('        print("|  \'salir\'     -> terminar                      |")')
+    L.append('        print("+" + "="*53 + "+\\n")')
+    L.append('        while True:')
+    L.append('            try:')
+    L.append('                consulta = input("Consulta: ").strip()')
+    L.append('                if not consulta: continue')
+    L.append('                if consulta.lower() in ("salir", "exit", "quit"): break')
+    L.append('                if consulta.lower() == "equipo":')
+    L.append('                    for m in orq.memoria_equipo:')
+    L.append('                        print(f"  [{m[\'paso\']}] {m[\'agente\']} -> {m[\'aporte\'][:100]}")')
+    L.append('                    continue')
+    L.append('                if consulta.lower() == "historial":')
+    L.append('                    orq.mostrar_historial()')
+    L.append('                    continue')
+    L.append('                resultado = orq.procesar(consulta)')
+    L.append('                print(f"\\n{\'=\'*55}")')
+    L.append('                print(resultado)')
+    L.append('                print(f"{\'=\'*55}\\n")')
+    L.append('            except KeyboardInterrupt:')
+    L.append('                print(f"\\n[{NOMBRE}] Apagado.")')
+    L.append('                break')
 
-try:
-    from llm_router import completar_simple as ia
-except ImportError:
-    from groq import Groq
-    _g = Groq(api_key=os.environ.get("GROQ_API_KEY", ""))
-    def ia(prompt, **kw):
-        r = _g.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.3, max_tokens=2000
-        )
-        return r.choices[0].message.content.strip()
-
-BASE    = os.path.dirname(os.path.abspath(__file__))
-NOMBRE  = "''' + negocio["nombre"] + '''"
-MODELO  = "''' + negocio["modelo"] + '''"
-AGENTES = ''' + lista_str + '''
-
-def log(msg):
-    print("[" + datetime.now().strftime("%H:%M:%S") + "] " + str(msg), flush=True)
-
-def ejecutar_agente(agente, params=""):
-    ruta = os.path.join(BASE, agente)
-    if not os.path.exists(ruta):
-        return None
-    cmd = [sys.executable, ruta]
-    if params:
-        cmd.extend(str(p) for p in params.split() if p)
-    try:
-        r = subprocess.run(cmd, capture_output=True, text=True,
-                          encoding="utf-8", errors="replace", timeout=30,
-                          cwd=BASE)
-        return (r.stdout or "").strip() or None
-    except Exception as e:
-        return None
-
-def seleccionar_agentes(consulta):
-    agentes_txt = "\\n".join(AGENTES)
-    prompt = (
-        "Eres el director de " + NOMBRE + ".\\n"
-        "Negocio: " + MODELO + "\\n"
-        "Consulta del cliente: " + consulta + "\\n\\n"
-        "Agentes disponibles:\\n" + agentes_txt + "\\n\\n"
-        "Selecciona 2-4 agentes mas utiles para esta consulta.\\n"
-        "Devuelve SOLO JSON: "
-        "[{\\"agente\\": \\"agentes/archivo.py\\", \\"params\\": \\"\\", \\"objetivo\\": \\"que busca\\"}]"
-    )
-    respuesta = ia(prompt)
-    if not respuesta:
-        return []
-    # Extraer JSON
-    import re
-    match = re.search(r"\\[.*\\]", respuesta, re.DOTALL)
-    if match:
-        try:
-            return json.loads(match.group())
-        except Exception:
-            pass
-    return []
-
-def sintetizar(consulta, resultados):
-    datos = "\\n\\n".join([r["agente"] + ":\\n" + r["output"] for r in resultados])
-    prompt = (
-        "Eres el asistente de " + NOMBRE + ".\\n"
-        "Consulta del cliente: " + consulta + "\\n\\n"
-        "Datos recopilados:\\n" + datos + "\\n\\n"
-        "Responde directamente al cliente con una propuesta clara y completa.\\n"
-        "Incluye precios, detalles y el siguiente paso a seguir.\\n"
-        "Maximo 300 palabras."
-    )
-    return ia(prompt) or datos
-
-def procesar(consulta):
-    log("Consulta: " + consulta[:80])
-
-    plan = seleccionar_agentes(consulta)
-    if not plan:
-        log("Sin plan — respuesta directa")
-        return ia("Eres asistente de " + NOMBRE + ". Responde: " + consulta)
-
-    log("Agentes seleccionados: " + str(len(plan)))
-    resultados = []
-
-    for paso in plan:
-        agente  = paso.get("agente", "")
-        params  = paso.get("params", "")
-        objetivo = paso.get("objetivo", "")
-        log("  Ejecutando " + agente + " — " + objetivo)
-        output = ejecutar_agente(agente, params)
-        if output:
-            resultados.append({"agente": agente, "output": output[:400]})
-            log("  [OK] " + output[:60])
-        else:
-            log("  [SKIP] Sin output")
-
-    if not resultados:
-        return ia("Eres asistente de " + NOMBRE + ". Responde sobre: " + consulta)
-
-    log("Sintetizando...")
-    return sintetizar(consulta, resultados)
-
-if __name__ == "__main__":
-    consulta = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "hola como puedo planear un viaje"
-    print("\\n" + "="*60)
-    print(NOMBRE + " — Sistema de IA")
-    print("="*60)
-    resultado = procesar(consulta)
-    print("\\n" + resultado)
-    print("="*60)
-'''
+    codigo = "\n".join(L)
 
     ruta = os.path.join(carpeta, "orquestador.py")
     with open(ruta, "w", encoding="utf-8") as f:
         f.write(codigo)
-    log("Orquestador generado: " + ruta)
+    log("Orquestador Clawbot-style generado: " + ruta)
     return ruta
 
 def generar_readme(negocio, reutilizados, creados, carpeta):

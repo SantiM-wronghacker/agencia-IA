@@ -179,6 +179,31 @@ AREAS_TEMAS = {
         "calculadora_ptu_empleados", "analizador_deducciones_fiscales",
         "calculadora_regimen_fiscal_adecuado", "generador_balance_general_simple",
     ],
+    # ─── UTILIDADES REUTILIZABLES ───────────────────────────────────────────
+    # Agentes micro-tarea: max 60 lineas, output 1 linea parseable,
+    # con funcion importable del mismo nombre para que otros agentes los usen.
+    "MICRO_TAREAS": [
+        "formateador_moneda_mx",          # float → "$1,234.56 MXN"
+        "validador_rfc_mexico",           # string → "VALIDO" / "INVALIDO:razon"
+        "validador_curp_mexico",          # string → "VALIDO" / "INVALIDO:razon"
+        "calculadora_iva_rapida",         # monto → "subtotal|IVA|total"
+        "parseador_fecha_espanol",        # "15 enero 2026" → "2026-01-15"
+        "formateador_telefono_mx",        # "5512345678" → "+52-55-1234-5678"
+        "extractor_numeros_texto",        # texto → JSON array de numeros
+        "calculadora_isr_mensual_rapido", # ingreso → "base|retencion|neto"
+        "normalizador_nombre_persona",    # "juan garcia" → "Garcia, Juan"
+        "generador_folio_consecutivo",    # "FACT" 1 → "FACT-2026-0001"
+        "calculadora_descuento_precio",   # precio pct → "original|descuento|final"
+        "calculadora_diferencia_fechas",  # fecha1 fecha2 → "X dias"
+        "detector_tipo_contribuyente",    # rfc → "PERSONA_FISICA"/"PERSONA_MORAL"
+        "calculadora_comision_rapida",    # monto pct → "comision|total"
+        "validador_clabe_bancaria",       # clabe → "VALIDO:BBVA" / "INVALIDO"
+        "calculadora_imss_empleado",      # salario_diario → "obrero|patron|total"
+        "parseador_monto_texto",          # "me costo 2 mil 500" → "2500.0"
+        "formateador_numero_palabras_mx", # 2500 → "dos mil quinientos pesos"
+        "generador_clave_producto",       # "Zapato Sport Blanco" → "ZAP-SPO-BLA"
+        "calculadora_plazo_vencimiento",  # fecha_inicio dias → "YYYY-MM-DD"
+    ],
 }
 
 
@@ -244,7 +269,9 @@ def limpiar_codigo(texto):
         return texto.split("```")[1].split("```")[0].strip()
     return texto.strip()
 
-def probar_agente(ruta):
+def probar_agente(ruta, area=""):
+    # Micro-tareas: output de 1 sola linea es valido (puede ser "0" o un string corto)
+    min_output = 1 if area == "MICRO_TAREAS" else 10
     try:
         r = subprocess.run(
             [sys.executable, ruta],
@@ -252,7 +279,7 @@ def probar_agente(ruta):
             encoding="utf-8", errors="replace", timeout=25
         )
         salida = (r.stdout or "").strip()
-        if len(salida) < 10:
+        if len(salida) < min_output:
             err = (r.stderr or "").strip()
             return False, err[:200] or "Output vacío o muy corto"
         return True, salida[:200]
@@ -266,7 +293,8 @@ def probar_agente(ruta):
 # ---------------------------------------------
 
 def generar_plan_lote(numero_lote, existentes):
-    areas_base   = ["FINANZAS", "REAL ESTATE", "CEREBRO", "HERRAMIENTAS"]
+    # MICRO_TAREAS incluida como area base para garantizar 2 micro-utilidades por lote
+    areas_base   = ["FINANZAS", "REAL ESTATE", "CEREBRO", "HERRAMIENTAS", "MICRO_TAREAS"]
     areas_extras = [a for a in AREAS_TEMAS if a not in areas_base]
 
     plan = []
@@ -307,6 +335,51 @@ def generar_plan_lote(numero_lote, existentes):
 # ---------------------------------------------
 
 def generar_codigo(spec):
+    # ── Prompt especial para MICRO_TAREAS ─────────────────────────────────
+    if spec.get("area") == "MICRO_TAREAS":
+        nombre_fn = spec['archivo'].replace(".py", "")
+        prompt = f"""Eres experto Python creando utilidades reutilizables para Agencia Santi.
+
+ARCHIVO: {spec['archivo']}
+ÁREA: MICRO_TAREAS
+FUNCIÓN: {spec['tema']}
+
+REGLAS ABSOLUTAS (micro-tarea):
+1. Encabezado:
+\"\"\"
+ÁREA: MICRO_TAREAS
+DESCRIPCIÓN: Utilidad que realiza {spec['tema']}
+TECNOLOGÍA: Python estándar
+\"\"\"
+2. Solo stdlib: sys, re, math, datetime, json
+3. OBLIGATORIO — define la funcion principal con el nombre exacto del archivo (sin .py):
+   def {nombre_fn}(*args):
+       # logica pura, sin prints, sin side effects
+       ...
+   Esta funcion puede ser importada por otros agentes con:
+       from {nombre_fn} import {nombre_fn}
+4. main() SOLO llama la funcion e imprime el resultado:
+   def main():
+       param = sys.argv[1] if len(sys.argv) > 1 else "default"
+       print({nombre_fn}(param))
+5. Imprime EXACTAMENTE 1 linea (el resultado limpio, sin labels)
+6. El resultado debe ser parseable: numero, "VALIDO"/"INVALIDO", JSON, o string limpio
+7. Maximo 60 lineas totales — conciso y directo
+8. Corre en menos de 100ms (sin sleeps, sin web)
+9. if __name__ == "__main__": main()
+
+EJEMPLO de estructura correcta para formateador_moneda_mx:
+def formateador_moneda_mx(valor, decimales=2):
+    return f"${float(valor):,.{{decimales}}f} MXN"
+def main():
+    v = sys.argv[1] if len(sys.argv) > 1 else "1000"
+    print(formateador_moneda_mx(v))
+
+DEVUELVE SOLO CÓDIGO PYTHON. Sin markdown. Sin explicaciones."""
+        r = ia(prompt)
+        return limpiar_codigo(r) if r else None
+
+    # ── Prompt estándar para todas las demás áreas ─────────────────────────
     prompt = f"""Eres experto Python creando agentes para Agencia Santi (México).
 
 ARCHIVO: {spec['archivo']}
@@ -414,7 +487,7 @@ def procesar_agente(spec, numero, total):
         with open(ruta_temp, "w", encoding="utf-8") as f:
             f.write(codigo)
 
-        exito, output = probar_agente(ruta_temp)
+        exito, output = probar_agente(ruta_temp, area=area)
 
         if exito:
             # ¡Aprobado!

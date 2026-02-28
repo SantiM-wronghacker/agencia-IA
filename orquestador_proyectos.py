@@ -18,6 +18,14 @@ import re
 import io as _io
 from datetime import datetime
 
+# File locking nativo
+try:
+    import msvcrt
+    _WINDOWS = True
+except ImportError:
+    import fcntl
+    _WINDOWS = False
+
 # Fix Unicode para Windows (cp1252)
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -295,23 +303,42 @@ def probar_agente(ruta):
     except Exception as e:
         return False, str(e)
 
+def _lock_file(f):
+    if _WINDOWS:
+        msvcrt.locking(f.fileno(), msvcrt.LK_LOCK, 1)
+    else:
+        fcntl.flock(f, fcntl.LOCK_EX)
+
+def _unlock_file(f):
+    if _WINDOWS:
+        try:
+            f.seek(0)
+            msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+        except Exception:
+            pass
+    else:
+        fcntl.flock(f, fcntl.LOCK_UN)
+
 def agregar_a_misiones(archivo, funcion, area):
     """
-    Agrega un agente fallido a misiones.txt en el formato que espera auto_run.py:
-    archivo.py;instruccion
+    Agrega un agente fallido a misiones.txt con file locking.
+    Formato: archivo.py;instruccion
     """
     instruccion = f"Crear agente {area}: {funcion}"
     mision = f"{archivo};{instruccion}"
     try:
-        # Leer existentes para no duplicar
-        existentes = set()
-        if os.path.exists(MISIONES):
-            with open(MISIONES, "r", encoding="utf-8", errors="replace") as f:
+        # Abrir con locking para evitar race conditions
+        modo = "r+" if os.path.exists(MISIONES) else "w+"
+        with open(MISIONES, modo, encoding="utf-8", errors="replace") as f:
+            _lock_file(f)
+            try:
                 existentes = set(l.strip() for l in f if l.strip())
-        if mision not in existentes:
-            with open(MISIONES, "a", encoding="utf-8") as f:
-                f.write(mision + "\n")
-            log("  [MISION] Agregado a misiones.txt: " + archivo)
+                if mision not in existentes:
+                    f.seek(0, 2)  # Ir al final
+                    f.write(mision + "\n")
+                    log("  [MISION] Agregado a misiones.txt: " + archivo)
+            finally:
+                _unlock_file(f)
     except Exception as e:
         log("  [WARN] No se pudo agregar a misiones: " + str(e))
 

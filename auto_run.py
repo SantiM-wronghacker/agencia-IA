@@ -15,6 +15,14 @@ import os
 import time
 import io as _io
 
+# File locking nativo
+try:
+    import msvcrt
+    _WINDOWS = True
+except ImportError:
+    import fcntl
+    _WINDOWS = False
+
 try:
     import web_bridge as web
     WEB = web.WEB  # True si hay conexion a internet
@@ -52,36 +60,59 @@ def registrar_log(mensaje):
 # ============================================================
 # LECTURA Y LIMPIEZA DE MISIONES
 # ============================================================
+def _lock_file(f):
+    if _WINDOWS:
+        msvcrt.locking(f.fileno(), msvcrt.LK_LOCK, 1)
+    else:
+        fcntl.flock(f, fcntl.LOCK_EX)
+
+def _unlock_file(f):
+    if _WINDOWS:
+        try:
+            f.seek(0)
+            msvcrt.locking(f.fileno(), msvcrt.LK_UNLCK, 1)
+        except Exception:
+            pass
+    else:
+        fcntl.flock(f, fcntl.LOCK_UN)
+
 def leer_misiones():
     """
-    Lee misiones.txt, elimina duplicados preservando orden y reescribe el archivo.
+    Lee misiones.txt con file locking, elimina duplicados preservando orden.
     Retorna lista de líneas únicas válidas.
-    Previene el procesamiento repetido de las mismas misiones.
     """
     if not os.path.exists(ARCHIVO_MISIONES):
         registrar_log(f"[WARN] {ARCHIVO_MISIONES} no existe. Nada que procesar.")
         return []
     try:
-        with open(ARCHIVO_MISIONES, "r", encoding="utf-8", errors="replace") as f:
-            todas = [l.strip() for l in f if l.strip()]
-
-        unicas = list(dict.fromkeys(todas))  # preserva orden, elimina dupes
-        duplicados = len(todas) - len(unicas)
-        if duplicados > 0:
-            registrar_log(f"[INFO] Deduplicando: {len(todas):,} lineas -> {len(unicas)} unicas ({duplicados:,} duplicados eliminados)")
-            with open(ARCHIVO_MISIONES, "w", encoding="utf-8") as f:
-                f.write("\n".join(unicas) + "\n" if unicas else "")
-
+        with open(ARCHIVO_MISIONES, "r+", encoding="utf-8", errors="replace") as f:
+            _lock_file(f)
+            try:
+                todas = [l.strip() for l in f if l.strip()]
+                unicas = list(dict.fromkeys(todas))
+                duplicados = len(todas) - len(unicas)
+                if duplicados > 0:
+                    registrar_log(f"[INFO] Deduplicando: {len(todas):,} lineas -> {len(unicas)} unicas ({duplicados:,} duplicados eliminados)")
+                    f.seek(0)
+                    f.truncate()
+                    f.write("\n".join(unicas) + "\n" if unicas else "")
+            finally:
+                _unlock_file(f)
         return unicas
     except Exception as e:
         registrar_log(f"[ERROR] Error leyendo {ARCHIVO_MISIONES}: {e}")
         return []
 
 def limpiar_misiones_procesadas():
-    """Vacia misiones.txt tras procesar todas. Nuevas misiones se agregan después."""
+    """Vacia misiones.txt con file locking tras procesar todas."""
     try:
-        with open(ARCHIVO_MISIONES, "w", encoding="utf-8") as f:
-            f.write("")
+        with open(ARCHIVO_MISIONES, "r+", encoding="utf-8") as f:
+            _lock_file(f)
+            try:
+                f.seek(0)
+                f.truncate()
+            finally:
+                _unlock_file(f)
         registrar_log("[INFO] misiones.txt vaciado — listo para nuevas misiones.")
     except Exception as e:
         registrar_log(f"[WARN] No se pudo vaciar {ARCHIVO_MISIONES}: {e}")

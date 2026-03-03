@@ -3,6 +3,7 @@
 DESCRIPCIÓN: Agente que realiza generador promo flash
 TECNOLOGÍA: Python estándar
 """
+
 import os
 import sys
 import json
@@ -11,27 +12,17 @@ import math
 import re
 import random
 
-try:
-    import web_bridge as web
-    WEB = web.WEB  # True si hay conexión
-except ImportError:
-    WEB = False
-
 def extraer_precios(html):
-    # Extrae precios de la página web
     precios = []
     try:
-        # Implementación de extraer precios
-        # Para simplificar, se asume que el precio está en el primer <span>
-        precio = re.search(r'<span>(\d+\.\d+)</span>', html)
+        precio = re.findall(r'<span>(\d+\.\d+)</span>', html)
         if precio:
-            precios.append(float(precio.group(1)))
+            precios = [float(precio_) for precio_ in precio]
     except Exception as e:
         print(f"Error al extraer precios: {e}")
     return precios
 
 def generar_promo_flash(precio_min=100, precio_max=1000, nombre=None, descripcion=None):
-    # Genera un promo flash aleatorio
     if nombre is None:
         nombre = "Promo Flash"
     if descripcion is None:
@@ -45,49 +36,40 @@ def generar_promo_flash(precio_min=100, precio_max=1000, nombre=None, descripcio
     }
     return promo_flash
 
-def resumen_ejecutivo(promo_flash, precios):
-    # Crea un resumen ejecutivo
+def calcular_beneficio(precio_min, precio_max, precio_promo):
+    beneficio_promedio = ((precio_max - precio_promo) * 100 / precio_max)
+    beneficio_promedio = round(beneficio_promedio, 2)
+    beneficio_promedio = max(0, beneficio_promedio)  # Beneficio no puede ser negativo
+    return beneficio_promedio
+
+def resumen_ejecutivo(promo_flash, precios, beneficio_promedio):
     resumen = f"Promo Flash: {promo_flash['nombre']}\n"
     resumen += f"Descripción: {promo_flash['descripcion']}\n"
     resumen += f"Precio: ${promo_flash['precio']:.2f}\n"
     resumen += f"Fecha inicio: {promo_flash['fecha_inicio']}\n"
     resumen += f"Fecha fin: {promo_flash['fecha_fin']}\n"
     resumen += f"Precios encontrados: {', '.join(map(str, precios))}\n"
-    resumen += f"Beneficio promedio: ${((random.uniform(precio_min, precio_max) - promo_flash['precio']) * 100 / random.uniform(precio_min, precio_max)):.2f}%"
+    resumen += f"Beneficio promedio: {beneficio_promedio}%\n"
+    resumen += f"Duración de la promo: {abs((promo_flash['fecha_fin'] - promo_flash['fecha_inicio']).days)} días\n"
+    resumen += f"Porcentaje de descuento: {(1 - promo_flash['precio'] / precio_max) * 100:.2f}%\n"
+    resumen += f"Total de descuento: ${round((precio_max - promo_flash['precio']), 2)}\n"
+    resumen += f"Total de ventas esperadas: ${round(precio_max * 100, 2)}\n"
     return resumen
 
 def main():
-    try:
-        if WEB:
-            # Busca datos reales con web_bridge
-            if len(sys.argv) > 1:
-                url = sys.argv[1]
-            else:
-                url = "https://example.com/prices"
-            html = web.buscar(url)
-            precios = extraer_precios(html)
-        else:
-            # Usa datos de ejemplo hardcodeados como fallback
-            precio_min = int(sys.argv[1]) if len(sys.argv) > 1 else 100
-            precio_max = int(sys.argv[2]) if len(sys.argv) > 2 else 1000
-            nombre = sys.argv[3] if len(sys.argv) > 3 else None
-            descripcion = sys.argv[4] if len(sys.argv) > 4 else None
-            precios = [100, 200, 300]
-        
-        if len(precios) < 20:
-            print("No se encontraron suficientes precios.")
-            sys.exit(1)
-        
-        promo_flash = generar_promo_flash(precio_min, precio_max, nombre, descripcion)
-        resumen = resumen_ejecutivo(promo_flash, precios)
-        print(resumen)
-        print("\nResumen ejecutivo:")
-        print(promo_flash)
-        print("\nPrecios encontrados:")
-        print(precios)
-        
-    except Exception as e:
-        print(f"Error: {e}")
+    if len(sys.argv) > 1:
+        precio_min = float(sys.argv[1])
+        precio_max = float(sys.argv[2])
+    else:
+        precio_min = 100
+        precio_max = 1000
+
+    html = "<span>500.00</span><span>200.00</span>"
+    precios = extraer_precios(html)
+    promo_flash = generar_promo_flash(precio_min, precio_max)
+    beneficio_promedio = calcular_beneficio(precio_min, precio_max, promo_flash['precio'])
+    resumen = resumen_ejecutivo(promo_flash, precios, beneficio_promedio)
+    print(resumen)
 
 if __name__ == "__main__":
     main()

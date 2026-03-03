@@ -1,8 +1,7 @@
-"""
-ÁREA: HERRAMIENTAS
-DESCRIPCIÓN: Agente que realiza generador de prompts optimizados
-TECNOLOGÍA: Python estándar
-"""
+#!/usr/bin/env python3
+# ÁREA: HERRAMIENTAS
+# DESCRIPCIÓN: Agente que realiza generador de prompts optimizados
+# TECNOLOGÍA: Python estándar
 
 import sys
 import json
@@ -55,17 +54,19 @@ def main():
         print(f"Longitud promedio de los prompts: {sum(len(prompt) for prompt in prompts) / len(prompts):.2f}")
         print(f"Longitud máxima de los prompts generados: {max(len(prompt) for prompt in prompts)}")
         print(f"Longitud mínima de los prompts generados: {min(len(prompt) for prompt in prompts)}")
-        print(f"Promedios de longitudes: {math.ceil(sum(len(prompt) for prompt in prompts) / len(prompts))} y {math.floor(sum(len(prompt) for prompt in prompts) / len(prompts))}")
-        print(f"Promedios de longitudes: {math.ceil(sum(len(prompt) for prompt in prompts) / len(prompts))} y {math.floor(sum(len(prompt) for prompt in prompts) / len(prompts))}")
-        print(f"Promedios de longitudes: {math.ceil(sum(len(prompt) for prompt in prompts) / len(prompts))} y {math.floor(sum(len(prompt) for prompt in prompts) / len(prompts))}")
+        print(f"Promedio de frecuencia de letras 'a' en los prompts: {sum(prompt.count('a') for prompt in prompts) / len(prompts):.2f}")
+        print(f"Promedio de frecuencia de letras 'e' en los prompts: {sum(prompt.count('e') for prompt in prompts) / len(prompts):.2f}")
+        print(f"Promedio de frecuencia de letras 'i' en los prompts: {sum(prompt.count('i') for prompt in prompts) / len(prompts):.2f}")
+        print(f"Promedio de frecuencia de letras 'o' en los prompts: {sum(prompt.count('o') for prompt in prompts) / len(prompts):.2f}")
+        print(f"Promedio de frecuencia de letras 'u' en los prompts: {sum(prompt.count('u') for prompt in prompts) / len(prompts):.2f}")
 
         # Resumen ejecutivo
         print("\nResumen ejecutivo:")
-        print(f"Se generaron {len(prompts)} prompts con longitudes entre {longitud_min} y {longitud_max} caracteres.")
-        print(f"La longitud promedio de los prompts es de {sum(len(prompt) for prompt in prompts) / len(prompts):.2f} caracteres.")
+        print(f"El agente ha generado {len(prompts)} prompts con longitudes entre {longitud_min} y {longitud_max} caracteres.")
+        print(f"El promedio de frecuencia de letras 'a', 'e', 'i', 'o' y 'u' en los prompts es de {sum(prompt.count('a') for prompt in prompts) / len(prompts):.2f}, {sum(prompt.count('e') for prompt in prompts) / len(prompts):.2f}, {sum(prompt.count('i') for prompt in prompts) / len(prompts):.2f}, {sum(prompt.count('o') for prompt in prompts) / len(prompts):.2f} y {sum(prompt.count('u') for prompt in prompts) / len(prompts):.2f}, respectivamente.")
 
     except ValueError as e:
-        print(f"Error: {e}")
+        print(f"Error de validación: {e}")
     except Exception as e:
         print(f"Error inesperado: {e}")
 

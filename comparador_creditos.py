@@ -6,12 +6,6 @@ AREA = "HERRAMIENTAS"
 DESCRIPCION = "Comparador de Créditos"
 TECNOLOGIA = "Python"
 
-try:
-    import web_bridge as web
-    WEB = web.WEB  # True si hay conexión a internet
-except ImportError:
-    WEB = False
-
 def calcular_pago_mensual(monto, tasa, plazo):
     return monto * (tasa / 100 / 12) / (1 - math.pow(1 + tasa / 100 / 12, -plazo * 12))
 
@@ -50,25 +44,26 @@ def main():
 
         print(f"Resumen de opciones de crédito:")
         print(f"Opción 1: Tasa de interés {tasa1}%, plazo {plazo} años, monto {monto}")
-        print(f"  - Pago mensual: {pago_mensual1:.2f}")
-        print(f"  - Costo total: {costo_total1:.2f}")
+        print(f"  - Pago mensual: ${pago_mensual1:.2f}")
+        print(f"  - Costo total: ${costo_total1:.2f}")
         print(f"  - CAT: {cat1:.2f}%")
+        print()
         print(f"Opción 2: Tasa de interés {tasa2}%, plazo {plazo} años, monto {monto}")
-        print(f"  - Pago mensual: {pago_mensual2:.2f}")
-        print(f"  - Costo total: {costo_total2:.2f}")
+        print(f"  - Pago mensual: ${pago_mensual2:.2f}")
+        print(f"  - Costo total: ${costo_total2:.2f}")
         print(f"  - CAT: {cat2:.2f}%")
+        print()
         print(f"Opción 3: Tasa de interés {tasa3}%, plazo {plazo} años, monto {monto}")
-        print(f"  - Pago mensual: {pago_mensual3:.2f}")
-        print(f"  - Costo total: {costo_total3:.2f}")
+        print(f"  - Pago mensual: ${pago_mensual3:.2f}")
+        print(f"  - Costo total: ${costo_total3:.2f}")
         print(f"  - CAT: {cat3:.2f}%")
-
-        print(f"\nResumen ejecutivo:")
-        print(f"El crédito con la tasa de interés más baja ({tasa1}%) resulta ser la opción más asequible, con un pago mensual de {pago_mensual1:.2f} y un costo total de {costo_total1:.2f}. El CAT de esta opción es de {cat1:.2f}%.")
-
+        print()
+        print("Resumen ejecutivo:")
+        print(f"La opción más barata es la opción 1 con un pago mensual de ${pago_mensual1:.2f} y un costo total de ${costo_total1:.2f}.")
+        print(f"La opción más cara es la opción 3 con un pago mensual de ${pago_mensual3:.2f} y un costo total de ${costo_total3:.2f}.")
+        print(f"La diferencia entre la opción más barata y la opción más cara es de ${costo_total3 - costo_total1:.2f} en el costo total.")
     except ValueError:
-        print("Error: Los valores de entrada deben ser números.")
-    except IndexError:
-        print("Error: Faltan argumentos de entrada.")
+        print("Error: Los parámetros deben ser números.")
     except Exception as e:
         print(f"Error: {str(e)}")
 

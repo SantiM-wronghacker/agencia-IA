@@ -61,22 +61,24 @@ def main():
         cobertura *= factor_edad * factor_sexo
 
         coaseguro_aplicado = cobertura * coaseguro
-        cobertura_final = cobertura - coaseguro_aplicado
 
-        # Impresión de resultados
-        print(f"Análisis de cobertura de gastos médicos - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"Monto asegurado: ${monto_asegurado:,.2f} MXN")
-        print(f"Total de gastos médicos: ${total_gastos:,.2f} MXN")
-        print(f"Gastos médicos detallados:")
-        for gasto, monto in gastos.items():
-            print(f"  - {gasto.capitalize()}: ${monto:,.2f} MXN")
-        print(f"Cobertura después de deducible (${deducible:,.2f} MXN): ${cobertura:,.2f} MXN")
-        print(f"Coaseguro aplicado: {coaseguro*100:.2f}%")
-        print(f"Cobertura final: ${cobertura_final:,.2f} MXN")
-        print(f"Factor de ajuste por edad: {factor_edad:.2f}")
-        print(f"Factor de ajuste por sexo: {factor_sexo:.2f}")
-        print(f"Resumen ejecutivo: La cobertura final es de ${cobertura_final:,.2f} MXN, considerando un monto asegurado de ${monto_asegurado:,.2f} MXN y un total de gastos médicos de ${total_gastos:,.2f} MXN.")
-
+        print("Resumen de gastos médicos:")
+        print(f"Hospitalización: ${gastos['hospitalizacion']:.2f}")
+        print(f"Medicamentos: ${gastos['medicamentos']:.2f}")
+        print(f"Consultas: ${gastos['consultas']:.2f}")
+        print(f"Laboratorio: ${gastos['laboratorio']:.2f}")
+        print(f"Cirugía: ${gastos['cirugia']:.2f}")
+        print(f"Total de gastos: ${total_gastos:.2f}")
+        print(f"Monto asegurado: ${monto_asegurado:.2f}")
+        print(f"Deducible: ${deducible:.2f}")
+        print(f"Cobertura: ${cobertura:.2f}")
+        print(f"Coaseguro: {coaseguro*100}%")
+        print(f"Coaseguro aplicado: ${coaseguro_aplicado:.2f}")
+        print(f"Factor de ajuste por edad: {factor_edad}")
+        print(f"Factor de ajuste por sexo: {factor_sexo}")
+        print("Resumen ejecutivo:")
+        print(f"El total de gastos médicos es de ${total_gastos:.2f}, con un monto asegurado de ${monto_asegurado:.2f} y un deducible de ${deducible:.2f}.")
+        print(f"La cobertura es de ${cobertura:.2f}, aplicando un coaseguro de {coaseguro*100}% y factores de ajuste por edad y sexo.")
     except Exception as e:
         print(f"Error: {str(e)}")
 

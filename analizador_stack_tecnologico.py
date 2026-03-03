@@ -28,6 +28,7 @@ def main():
                 stack_tecnologico = json.loads(sys.argv[1])
             except json.JSONDecodeError:
                 print("Error: Argumento no es JSON válido")
+                return
 
         # Análisis del stack tecnológico
         total = sum(stack_tecnologico.values())
@@ -46,6 +47,9 @@ def main():
         empresas_tecnologicas_yahoo = random.randint(200, 500)
         empresas_tecnologicas_google = random.randint(100, 300)
         desarrolladores_java = random.randint(20000, 40000)
+        desarrolladores_javascript = random.randint(40000, 60000)
+        proyectos_de_investigacion = random.randint(50, 100)
+        empresas_de_software = random.randint(800, 1200)
 
         # Salida de resultados
         print(f"ÁREA: TECNOLOGÍA")
@@ -54,21 +58,25 @@ def main():
         print(f"Fecha de análisis: {fecha_actual}")
         print(f"Proyectos tecnológicos en México (2023): {proyectos_2023}")
         print(f"Empresas tecnológicas en México: {empresas_tecnologicas_mx}")
-        print(f"Desarrolladores Python en México: {desarrolladores_python}")
-        print(f"Desarrolladores Java en México: {desarrolladores_java}")
-        print(f"Inversión tecnológica: ${inversion_tecnologica}")
-        print(f"Crecimiento anual: {crecimiento_anual*100}%")
-        print(f"Empresas de startup en México: {empresas_startup}")
+        print(f"Desarrolladores de Python en México: {desarrolladores_python}")
+        print(f"Crecimiento anual del sector tecnológico: {crecimiento_anual}%")
+        print(f"Inversión en tecnología en México: ${inversion_tecnologica}")
+        print(f"Empresas startup en México: {empresas_startup}")
         print(f"Eventos tecnológicos en México: {eventos_tecnologicos}")
-        print(f"Empresas tecnológicas de Yahoo en México: {empresas_tecnologicas_yahoo}")
-        print(f"Empresas tecnológicas de Google en México: {empresas_tecnologicas_google}")
+        print(f"Empresas tecnológicas en Yahoo: {empresas_tecnologicas_yahoo}")
+        print(f"Empresas tecnológicas en Google: {empresas_tecnologicas_google}")
+        print(f"Desarrolladores de Java en México: {desarrolladores_java}")
+        print(f"Desarrolladores de JavaScript en México: {desarrolladores_javascript}")
+        print(f"Proyectos de investigación en tecnología: {proyectos_de_investigacion}")
+        print(f"Empresas de software en México: {empresas_de_software}")
 
         # Resumen ejecutivo
-        print("\nResumen ejecutivo:")
-        print(f"El análisis del stack tecnológico en México muestra un dominio del 75% para Python, seguido del 65% para Java.")
-        print(f"Se estima que en 2023 habrá entre 150 y 250 proyectos tecnológicos en México.")
-        print(f"La inversión tecnológica se estima en entre $5 y $10 millones.")
-        print(f"El crecimiento anual se estima en un 5%.")
+        print("\nResumen Ejecutivo:")
+        print(f"El sector tecnológico en México ha experimentado un crecimiento anual del {crecimiento_anual}%.")
+        print(f"La inversión en tecnología en México ha alcanzado los ${inversion_tecnologica}.")
+        print(f"El número de empresas tecnológicas en México es de {empresas_tecnologicas_mx}.")
+        print(f"El número de desarrolladores de Python en México es de {desarrolladores_python}.")
+        print(f"El número de proyectos tecnológicos en México es de {proyectos_2023}.")
 
     except Exception as e:
         print(f"Error: {str(e)}")

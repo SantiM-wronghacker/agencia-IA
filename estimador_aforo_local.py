@@ -62,22 +62,27 @@ def estimar_aforo(dia_semana, hora, zona, ajuste_estacional=1.0, ajuste_temporad
             aforo = base * ajuste * ajuste_estacional * (1 + random.uniform(-0.05, 0.05)) * 800
         elif zona.lower() == "santa_fe":
             aforo = base * ajuste * ajuste_estacional * (1 + random.uniform(-0.05, 0.05)) * 900
-    except TypeError:
-        print("Error: zona no válida")
+        return aforo
+    except Exception as e:
+        print(f"Error: {e}")
         return None
 
-    return aforo
-
 def main():
-    parser = argparse.ArgumentParser(description="Estimador de aforo local")
-    parser.add_argument("--zona", type=str, required=True, help="Zona para estimar aforo")
-    parser.add_argument("--dia_semana", type=str, required=True, help="Día de la semana para estimar aforo")
-    parser.add_argument("--hora", type=int, required=True, help="Hora para estimar aforo")
-    parser.add_argument("--ajuste_estacional", type=float, default=1.0, help="Ajuste estacional para estimar aforo")
-    parser.add_argument("--ajuste_temporada", type=float, default=None, help="Ajuste temporal para estimar aforo")
-    args = parser.parse_args()
+    if len(sys.argv) > 1:
+        zona = sys.argv[1]
+        dia_semana = sys.argv[2]
+        hora = int(sys.argv[3])
+        ajuste_estacional = float(sys.argv[4]) if len(sys.argv) > 4 else 1.0
+        ajuste_temporada = sys.argv[5] if len(sys.argv) > 5 else None
+    else:
+        zona = "polanco"
+        dia_semana = "lunes"
+        hora = 10
+        ajuste_estacional = 1.0
+        ajuste_temporada = None
 
-    aforo = estimar_aforo(args.dia_semana, args.hora, args.zona, args.ajuste_estacional, args.ajuste_temporada)
-    if aforo is not None:
-        print(f"Zona: {args.zona}")
-        print
+    aforo = estimar_aforo(dia_semana, hora, zona, ajuste_estacional, ajuste_temporada)
+    if aforo:
+        print(f"Aforo estimado en {zona} el {dia_semana} a las {hora}: {aforo} personas")
+        print(f"Zona: {zona}")
+        print(f"Día de la semana: {dia_semana}")

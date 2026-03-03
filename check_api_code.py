@@ -3,10 +3,13 @@
 AREA: HERRAMIENTAS
 DESCRIPCION: Verificar la existencia y contenido del archivo api_agencia.py
 TECNOLOGIA: Python"""
+
 import sys
 import os
 import datetime
 import math
+import json
+import re
 
 # Add current dir to path
 sys.path.insert(0, os.getcwd())
@@ -54,29 +57,43 @@ def main():
             last_access_time = datetime.datetime.fromtimestamp(os.path.getatime(api_path))
             print(f"API file last access time: {last_access_time}")
 
-            # Get file last modification time
-            last_modification_time = datetime.datetime.fromtimestamp(os.path.getmtime(api_path))
-            print(f"API file last modification time: {last_modification_time}")
+            # Get file creation time
+            creation_time = datetime.datetime.fromtimestamp(os.path.getctime(api_path))
+            print(f"API file creation time: {creation_time}")
+
+            # Get file metadata
+            metadata = os.stat(api_path)
+            print(f"API file metadata: {metadata}")
+
+            # Get file lines of code
+            lines_of_code = len(content.splitlines())
+            print(f"API file lines of code: {lines_of_code}")
+
+            # Get file functions and classes
+            functions = re.findall(r'def\s+\w+\s*\(', content)
+            classes = re.findall(r'class\s+\w+\s*:', content)
+            print(f"API file functions: {len(functions)}")
+            print(f"API file classes: {len(classes)}")
+
+            # Get file imports
+            imports = re.findall(r'import\s+\w+', content)
+            print(f"API file imports: {len(imports)}")
+
+            # Resumen ejecutivo
+            print("\nResumen ejecutivo:")
+            print(f"Archivo: {api_path}")
+            print(f"Tamano: {file_size_mb} MB")
+            print(f"Ultima modificacion: {mod_time}")
+            print(f"Numero de lineas de codigo: {lines_of_code}")
+            print(f"Numero de funciones: {len(functions)}")
+            print(f"Numero de clases: {len(classes)}")
+            print(f"Numero de imports: {len(imports)}")
 
         else:
-            print("\nEl archivo api_agencia.py no existe en el directorio actual.")
+            print("El archivo api_agencia.py no existe")
 
-    except FileNotFoundError as e:
-        print(f"\nError: {e}")
-    except PermissionError as e:
-        print(f"\nError: {e}")
     except Exception as e:
-        print(f"\nError: {e}")
-
-    print("\nResumen ejecutivo:")
-    print("Se ha verificado la existencia y contenido del archivo api_agencia.py.")
-    print("Se han obtenido los metadatos del archivo, como tamaño, fecha de modificación, permisos, propietario, última accesión, última modificación.")
-    print("Se ha buscado la presencia del endpoint /test-19-cats en el archivo.")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--help":
-        print("Usage: python check_api_code.py")
-        print("Options:")
-        print("  --help  Show this message and exit")
-    else:
-        main()
+    main()

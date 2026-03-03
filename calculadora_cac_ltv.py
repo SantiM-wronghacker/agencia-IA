@@ -4,8 +4,8 @@ import math
 def main():
     try:
         # Parámetros por defecto con valores realistas para México
-        cac = float(sys.argv[1]) if len(sys.argv) > 1 else 500.0  # CAC en MXN
-        ltv = float(sys.argv[2]) if len(sys.argv) > 2 else 1500.0  # LTV en MXN
+        cac = float(sys.argv[1]) if len(sys.argv) > 1 else 50000.0  # CAC en MXN
+        ltv = float(sys.argv[2]) if len(sys.argv) > 2 else 1500000.0  # LTV en MXN
         meses = int(sys.argv[3]) if len(sys.argv) > 3 else 12  # Periodo en meses
         tasa_descuento = float(sys.argv[4]) if len(sys.argv) > 4 else 10.0  # Tasa de descuento para el cálculo del valor presente
 
@@ -41,7 +41,7 @@ def main():
         print(f"Crecimiento anual: {crecimiento_anual:.1f}%")
         print(f"LTV anual: ${ltv_anual:.2f} MXN")
         print(f"Meses para recuperar la inversión: {payback_period:.1f} meses")
-        print(f"Valor presente del LTV: ${valor_presente:.2f} MXN")
+        print(f"Valor presente: ${valor_presente:.2f} MXN")
         print(f"Tasa de retorno: {tasa_de_retorno:.1f}%")
         print(f"Periodo de recuperación: {periodo_de_recuperacion:.1f} meses")
         print(f"Ingresos netos: ${ingresos_netos:.2f} MXN")
@@ -51,13 +51,16 @@ def main():
 
         # Resumen ejecutivo
         print("\nResumen ejecutivo:")
-        print(f"La inversión en LTV de ${ltv:.2f} MXN tiene un retorno esperado de {tasa_de_retorno:.1f}% y un periodo de recuperación de {periodo_de_recuperacion:.1f} meses.")
-        print(f"El margen por cliente es de ${margen:.2f} MXN y la utilidad neta es de {utilidad_neta:.1f}%.")
+        print(f"El proyecto tiene un LTV de ${ltv:.2f} MXN y un CAC de ${cac:.2f} MXN.")
+        print(f"El ratio LTV/CAC es de {ratio:.2f} y el payback period es de {payback_period:.1f} meses.")
+        print(f"La tasa de recuperación es de {tasa_recuperacion:.1f}% y el punto de equilibrio es de {punto_equilibrio:.1f}%.")
 
     except IndexError:
-        print("Error: Faltan parámetros de entrada.")
+        print("Error: Faltan argumentos de entrada.")
     except ValueError:
-        print("Error: Los parámetros de entrada deben ser números.")
+        print("Error: Los argumentos de entrada deben ser números.")
+    except Exception as e:
+        print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
     main()

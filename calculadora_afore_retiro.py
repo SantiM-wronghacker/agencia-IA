@@ -21,6 +21,12 @@ def calcular_total_aportaciones(aportacion_mensual, años):
 def calcular_total_intereses_ganados(ahorro_proyectado, total_aportaciones):
     return ahorro_proyectado - total_aportaciones
 
+def calcular_cantidad_retiro(ahorro_proyectado, años_retiro):
+    return ahorro_proyectado / años_retiro
+
+def calcular_cantidad_mensual_retiro(cantidad_retiro, años_retiro):
+    return cantidad_retiro / años_retiro
+
 def main():
     try:
         edad = int(sys.argv[1]) if len(sys.argv) > 1 else 30
@@ -45,19 +51,25 @@ def main():
         ahorro_proyectado = calcular_ahorro_proyectado(aportacion_mensual, tasa_interes, años_retiro)
         total_aportaciones = calcular_total_aportaciones(aportacion_mensual, años_retiro)
         total_intereses_ganados = calcular_total_intereses_ganados(ahorro_proyectado, total_aportaciones)
+        cantidad_retiro = calcular_cantidad_retiro(ahorro_proyectado, años_retiro)
+        cantidad_mensual_retiro = calcular_cantidad_mensual_retiro(cantidad_retiro, años_retiro)
 
+        print(f"Área: FINANZAS")
+        print(f"Descripción: Agente que realiza calculadora afore retiro")
+        print(f"Tecnología: Python estándar")
         print(f"Edad actual: {edad} años")
         print(f"Edad de retiro: {edad + años_retiro} años")
-        print(f"Ahorro proyectado al retiro: ${math.floor(ahorro_proyectado)}")
-        print(f"Aportación mensual: ${math.floor(aportacion_mensual)}")
-        print(f"Tasa de interés anual: {tasa_interes*100}%")
-        print(f"Salario mensual: ${math.floor(salario/12)}")
-        print(f"Aportación anual: ${math.floor(aportacion_mensual * 12)}")
-        print(f"Años hasta el retiro: {años_retiro} años")
-        print(f"Total de aportaciones: ${math.floor(total_aportaciones)}")
-        print(f"Total de intereses ganados: ${math.floor(total_intereses_ganados)}")
-        print(f"Retiro mensual proyectado: ${math.floor(ahorro_proyectado / años_retiro)}")
-        print(f"Resumen ejecutivo: El usuario tiene un ahorro proyectado de ${math.floor(ahorro_proyectado)} al retiro, con un total de aportaciones de ${math.floor(total_aportaciones)} y un total de intereses ganados de ${math.floor(total_intereses_ganados)}")
+        print(f"Salario: ${salario:.2f}")
+        print(f"Aplicación de aportación: {aportacion * 100}%")
+        print(f"Tasa de interés: {tasa_interes * 100}%")
+        print(f"Años hasta el retiro: {años_retiro}")
+        print(f"Aportación mensual: ${aportacion_mensual:.2f}")
+        print(f"Ahorro proyectado: ${ahorro_proyectado:.2f}")
+        print(f"Total de aportaciones: ${total_aportaciones:.2f}")
+        print(f"Total de intereses ganados: ${total_intereses_ganados:.2f}")
+        print(f"Cantidad de retiro: ${cantidad_retiro:.2f}")
+        print(f"Cantidad mensual de retiro: ${cantidad_mensual_retiro:.2f}")
+        print(f"Resumen ejecutivo: El cálculo anterior muestra la cantidad de dinero que se aportará mensualmente y la cantidad total de dinero que se habrá aportado hasta el retiro.")
 
     except ValueError as e:
         print(f"Error: {e}")

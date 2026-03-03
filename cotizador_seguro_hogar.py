@@ -60,26 +60,32 @@ def main():
         seguro_adicional_total = seguro_adicional_casa + seguro_adicional_ubicacion
 
         # Cálculo del seguro de defensa
-        seguro_defensa_total = seguro_defensa * (valor_casa / 1000000)
+        seguro_defensa_total = seguro_defensa * factor_ubicacion * factor_antiguedad
 
-        # Imprimir resultados
+        # Impresión de resultados
+        print("Resumen de la cotización del seguro de hogar:")
         print(f"Valor de la casa: {valor_casa} pesos mexicanos")
         print(f"Ubicación: {ubicacion}")
-        print(f"Antiguedad: {antiguedad} años")
+        print(f"Antigüedad: {antiguedad} años")
         print(f"Tipo de casa: {tipo_casa}")
-        print(f"Precio del seguro básico: {precio_base} pesos mexicanos")
-        print(f"Precio del seguro adicional: {seguro_adicional_total:.2f} pesos mexicanos")
-        print(f"Precio del seguro de defensa: {seguro_defensa_total:.2f} pesos mexicanos")
-        print(f"Precio total del seguro: {precio_seguro + seguro_adicional_total + seguro_defensa_total:.2f} pesos mexicanos")
+        print(f"Precio base del seguro: {precio_base} pesos mexicanos")
+        print(f"Factor de ubicación: {factor_ubicacion}")
+        print(f"Factor de antigüedad: {factor_antiguedad}")
+        print(f"Factor de tipo de casa: {factor_tipo_casa}")
+        print(f"Precio del seguro: {precio_seguro} pesos mexicanos")
+        print(f"Seguro adicional por casa: {seguro_adicional_casa} pesos mexicanos")
+        print(f"Seguro adicional por ubicación: {seguro_adicional_ubicacion} pesos mexicanos")
+        print(f"Seguro adicional total: {seguro_adicional_total} pesos mexicanos")
+        print(f"Seguro de defensa total: {seguro_defensa_total} pesos mexicanos")
 
         # Resumen ejecutivo
         print("\nResumen ejecutivo:")
-        print(f"El seguro hogar para una casa de valor {valor_casa} pesos mexicanos en {ubicacion} con {antiguedad} años de antigüedad y tipo de casa {tipo_casa} tiene un precio total de {precio_seguro + seguro_adicional_total + seguro_defensa_total:.2f} pesos mexicanos.")
+        print(f"El precio del seguro de hogar para una casa de {valor_casa} pesos mexicanos en {ubicacion} con {antiguedad} años de antigüedad y tipo {tipo_casa} es de {precio_seguro} pesos mexicanos.")
+        print(f"El seguro adicional total es de {seguro_adicional_total} pesos mexicanos.")
+        print(f"El seguro de defensa total es de {seguro_defensa_total} pesos mexicanos.")
 
-    except ValueError as e:
-        print(f"Error: {e}")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
-    main()
+    main

@@ -36,6 +36,9 @@ def generar_titulares_ab(noticias, precios, tipo_de_cambio):
         print(f'Índice de desempleo: {random.uniform(5, 15)}%')
         print(f'Índice de inflación subyacente: {random.uniform(50, 80)}%')
         print(f'Índice de inflación no subyacente: {random.uniform(20, 40)}%')
+        print(f'Índice de producción industrial: {random.uniform(100, 150)}')
+        print(f'Índice de comercio exterior: {random.uniform(100, 150)}')
+        print(f'Índice de inversión extranjera directa: {random.uniform(100, 150)}')
         
         # Casos edge
         if cantidad_de_noticias == 0:
@@ -46,32 +49,29 @@ def generar_titulares_ab(noticias, precios, tipo_de_cambio):
             print('No hay tipo de cambio disponible')
         elif precios['dólar'] < 20:
             print('El dólar está muy bajo')
-        elif precios['euro'] > 25:
+        elif precios['dólar'] > 25:
+            print('El dólar está muy alto')
+        elif precios['euro'] < 25:
+            print('El euro está muy bajo')
+        elif precios['euro'] > 30:
             print('El euro está muy alto')
-        elif random.uniform(100, 150) < 100:
-            print('El IPC está muy bajo')
-        elif random.uniform(0.5, 1.5) * 100 < 0.5:
-            print('La inflación mensual está muy baja')
         
         # Calculos precisos y realistas para México
-        ipc_real = random.uniform(100, 150)
-        inflacion_real = (ipc_real - 100) / 100 * 100
-        print(f'IPC real: {ipc_real}')
+        ipc_real = (random.uniform(100, 150) - 100) / 100 * 100
+        inflacion_real = ipc_real / 100 * 12
         print(f'Inflación real: {inflacion_real}%')
         
+        # Resumen ejecutivo
+        print('Resumen Ejecutivo:')
+        print('La situación económica en México es compleja y dinámica. El tipo de cambio y los precios de las divisas están afectando la inflación y la producción industrial.')
+        
     except Exception as e:
-        print(f'Error: {e}')
-
-def calcular_inflacion(ipc, fecha):
-    # Calculo de inflación real para México
-    ipc_real = ipc
-    inflacion_real = (ipc_real - 100) / 100 * 100
-    return ipc_real, inflacion_real
+        print(f'Ocurrió un error: {str(e)}')
 
 def main():
     if len(sys.argv) != 4:
-        print("Usage: python generador_titulares_ab.py <noticias> <precios> <tipo_de_cambio>")
-        sys.exit(1)
+        print('Uso: python generador_titulares_ab.py <noticias> <precios> <tipo_de_cambio>')
+        return
     
     noticias = sys.argv[1].split(',')
     precios = json.loads(sys.argv[2])

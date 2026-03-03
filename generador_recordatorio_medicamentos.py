@@ -25,6 +25,7 @@ def main():
         dosis = [2, 1, 1]
         frecuencia = [8, 12, 24]
         hora_actual = datetime.datetime.now().hour
+        lugar = "Ciudad de México"
 
         # Procesar argumentos de la línea de comandos
         if len(sys.argv) > 1:
@@ -33,6 +34,10 @@ def main():
                 dosis = [int(x) for x in sys.argv[2].split(",")]
                 if len(sys.argv) > 3:
                     frecuencia = [int(x) for x in sys.argv[3].split(",")]
+                if len(sys.argv) > 4:
+                    hora_actual = int(sys.argv[4])
+                if len(sys.argv) > 5:
+                    lugar = sys.argv[5]
 
         # Validar argumentos
         if len(medicamentos) != len(dosis) or len(medicamentos) != len(frecuencia):
@@ -50,25 +55,18 @@ def main():
                 print(f"    * Dosis diarias recomendadas: {math.ceil(24 / frecuencia[i]) * dosis[i]} tabletas")
                 print(f"    * Cantidad de tabletas necesarias para un día: {math.ceil(24 / frecuencia[i]) * dosis[i]} tabletas")
                 print(f"    * Frecuencia de toma: {frecuencia[i]} horas")
-                print(f"    * Hora de la última dosis: {(hora_actual - frecuencia[i]) % 24}:00 hrs")
-                print(f"    * Días de tratamiento recomendados: {math.ceil(30 / (24 / frecuencia[i]))} días")
-                print(f"    * Cantidad de tabletas necesarias para un mes: {math.ceil(30 / (24 / frecuencia[i])) * dosis[i]} tabletas")
+                print(f"    * Hora de la última dosis: {hora_actual}:00 hrs")
+                print(f"    * Lugar de toma: {lugar}")
+                print(f"    * Dosis máxima diaria recomendada: {dosis[i] * 2} tabletas")
+                print(f"    * Dosis mínima diaria recomendada: {dosis[i] / 2} tabletas")
             except ValueError:
-                print(f"Error al calcular la próxima dosis de {medicamentos[i]}")
+                print(f"Error: La frecuencia de toma {frecuencia[i]} no es válida")
 
-        # Calcular el costo total de los medicamentos
-        costo_total = 0
-        for i in range(len(medicamentos)):
-            costo_total += dosis[i] * 10  # Asumir un costo de 10 pesos por tableta
-        print(f"Costo total de los medicamentos: {costo_total} pesos")
-
-        # Calcular el costo diario de los medicamentos
-        costo_diario = costo_total / 30
-        print(f"Costo diario de los medicamentos: {costo_diario} pesos")
-
-        print(f"Fecha actual: {datetime.datetime.now().strftime('%Y-%m-%d')}")
-        print("Resumen ejecutivo:")
-        print(f"El tratamiento con {', '.join(medicamentos)} durante 30 días costará {costo_total} pesos, lo que representa un costo diario de {costo_diario} pesos.")
+        # Resumen ejecutivo
+        print("\nResumen ejecutivo:")
+        print(f"La cantidad de medicamentos es {len(medicamentos)}")
+        print(f"La hora actual es {hora_actual}:00 hrs")
+        print(f"El lugar de toma es {lugar}")
 
     except Exception as e:
         print(f"Error: {str(e)}")

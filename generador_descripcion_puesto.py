@@ -14,6 +14,8 @@ import random
 def calcular_isr(sueldo_anual, año=2023):
     """Cálculo del ISR anual según tabla 2023 México"""
     try:
+        if sueldo_anual < 0:
+            raise ValueError("Sueldo anual no puede ser negativo")
         if sueldo_anual <= 758.75:
             return sueldo_anual * 0.0192
         elif sueldo_anual <= 1046.08:
@@ -42,43 +44,44 @@ def calcular_isr(sueldo_anual, año=2023):
             return 19136.73 + (sueldo_anual - 72349.50) * 0.34
         else:
             return 27063.93 + (sueldo_anual - 97268.10) * 0.35
-    except ValueError:
-        print("Error: Sueldo anual debe ser un número.")
+    except ValueError as e:
+        print(f"Error: {e}")
         return None
     except Exception as e:
         print(f"Error en cálculo de ISR: {e}")
 
 def calcular_imss(sueldo_anual, año=2023):
-    """Cálculo de IMSS anual con tope máximo"""
-    umbral = 25 * 730.55  # 25 UMA 2023
-    if sueldo_anual > umbral:
-        sueldo_anual = umbral
-    return sueldo_anual * 0.0625
+    """Cálculo de IMSS anual con tope """
+    try:
+        if sueldo_anual < 0:
+            raise ValueError("Sueldo anual no puede ser negativo")
+        tope = 25000
+        if sueldo_anual <= tope:
+            return sueldo_anual * 0.065
+        else:
+            return tope * 0.065
+    except ValueError as e:
+        print(f"Error: {e}")
+        return None
+    except Exception as e:
+        print(f"Error en cálculo de IMSS: {e}")
 
-def calcular_imss_adicional(sueldo_anual, año=2023):
-    """Cálculo de IMSS adicional"""
-    umbral = 25 * 730.55  # 25 UMA 2023
-    if sueldo_anual > umbral:
-        sueldo_anual = umbral
-    return sueldo_anual * 0.01
+def calcular_subsidio(sueldo_anual, año=2023):
+    """Cálculo de subsidio anual"""
+    try:
+        if sueldo_anual < 0:
+            raise ValueError("Sueldo anual no puede ser negativo")
+        if sueldo_anual <= 5000:
+            return sueldo_anual * 0.1
+        else:
+            return 500
+    except ValueError as e:
+        print(f"Error: {e}")
+        return None
+    except Exception as e:
+        print(f"Error en cálculo de subsidio: {e}")
 
 def main():
-    if len(sys.argv)!= 2:
-        print("Uso: python generador_descripcion_puesto.py <sueldo_anual>")
-        return
-
-    try:
-        sueldo_anual = float(sys.argv[1])
-    except ValueError:
-        print("Error: Sueldo anual debe ser un número.")
-        return
-
-    isr = calcular_isr(sueldo_anual)
-    imss = calcular_imss(sueldo_anual)
-    imss_adicional = calcular_imss_adicional(sueldo_anual)
-
-    print(f"Sueldo anual: {sueldo_anual:.2f}")
-    print(f"ISR: {isr:.2f}")
-    print(f"IMSS: {imss:.2f}")
-    print(f"IMSS adicional: {imss_adicional:.2f}")
-    print
+    sueldo_anual = float(sys.argv[1]) if len(sys.argv) > 1 else 50000
+    año = int(sys.argv[2]) if len(sys.argv) > 2 else 2023
+    isr = calcular

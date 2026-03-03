@@ -31,30 +31,25 @@ def main():
 
         # Output
         print("Cálculo de costo de carrera en México")
+        print(f"Área: Finanzas")
         print(f"Carrera: {carrera}")
+        print(f"Número de semestres: {semestres}")
         print(f"Costo por semestre: ${costo_semestre:,.2f} MXN")
         print(f"Costo total estimado: ${costo_total:,.2f} MXN")
         print(f"Costo mensual estimado: ${costo_mensual:,.2f} MXN")
         print(f"Costo anual estimado: ${costo_anual:,.2f} MXN")
+        print(f"Costo total estimado con inflación: ${costo_total_estimado_inflacion:,.2f} MXN")
         print(f"Costo de libros por semestre: ${costo_libros:,.2f} MXN")
         print(f"Costo de transporte por semestre: ${costo_transporte:,.2f} MXN")
         print(f"Costo de alojamiento por semestre: ${costo_alojamiento:,.2f} MXN")
         print(f"Costo de comida por semestre: ${costo_comida:,.2f} MXN")
-        print(f"Tasa de inflación anual: {tasa_inflacion*100:.2f}%")
-        print(f"Cantidad de semestres: {semestres}")
-        print(f"Cantidad de años: {(semestres/2):.2f}")
+        print("Resumen Ejecutivo:")
+        print(f"El costo total estimado para la carrera de {carrera} es de ${costo_total_estimado_inflacion:,.2f} MXN, considerando {semestres} semestres y una tasa de inflación anual del {tasa_inflacion*100}%.")
 
-        # Resumen ejecutivo
-        print("\nResumen ejecutivo:")
-        print(f"El costo total estimado de la carrera en México es de ${costo_total_estimado:,.2f} MXN.")
-        print(f"Considerando una tasa de inflación anual de {tasa_inflacion*100:.2f}%, el costo total estimado en {semestres} semestres es de ${costo_total_estimado_inflacion:,.2f} MXN.")
-
-    except IndexError:
-        print("Error: Faltan argumentos necesarios.")
     except ValueError:
-        print("Error: Los argumentos deben ser números.")
-    except Exception as e:
-        print("Error:", str(e))
+        print("Error: Los parámetros deben ser numéricos.")
+    except IndexError:
+        print("Error: Faltan parámetros. Por favor, ingrese los parámetros necesarios.")
 
 if __name__ == "__main__":
     main()

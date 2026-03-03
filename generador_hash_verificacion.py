@@ -1,6 +1,6 @@
 """
 ÁREA: HERRAMIENTAS
-DESCRIPCIÓN: Agente que realiza generador hash verificacion
+DESCRIPCIÓN: Agente que realiza generador hash verificación
 TECNOLOGÍA: Python estándar
 """
 
@@ -9,6 +9,7 @@ import json
 import hashlib
 import random
 import datetime
+import math
 
 def main():
     try:
@@ -16,6 +17,7 @@ def main():
         num_hash = 5
         longitud_hash = 10
         algoritmo_hash = "sha256"
+        fecha_inicio = datetime.datetime.now()
 
         # Obtener parámetros de la línea de comandos
         if len(sys.argv) > 1:
@@ -28,6 +30,30 @@ def main():
         # Verificar algoritmo de hash válido
         if algoritmo_hash not in ["sha256", "md5", "sha1"]:
             raise ValueError("Algoritmo de hash no válido")
+
+        # Verificar longitud de hash válida
+        if longitud_hash < 1:
+            raise ValueError("Longitud de hash debe ser mayor a 0")
+
+        # Verificar número de hashes válidos
+        if num_hash < 1:
+            raise ValueError("Número de hashes debe ser mayor a 0")
+
+        # Verificar si la longitud del hash es mayor a la longitud del algoritmo de hash
+        if longitud_hash > 64:
+            raise ValueError("La longitud del hash no puede ser mayor a la longitud del algoritmo de hash")
+
+        # Verificar si la longitud del hash es un número entero
+        if not isinstance(longitud_hash, int):
+            raise ValueError("La longitud del hash debe ser un número entero")
+
+        # Verificar si el algoritmo de hash es un string
+        if not isinstance(algoritmo_hash, str):
+            raise ValueError("El algoritmo de hash debe ser un string")
+
+        # Verificar si el número de hashes es un número entero
+        if not isinstance(num_hash, int):
+            raise ValueError("El número de hashes debe ser un número entero")
 
         # Generar hashes de verificación
         hashes = []
@@ -43,32 +69,23 @@ def main():
             hashes.append(hash_hex)
 
         # Imprimir resultados
-        print("Fecha y hora de generación:", datetime.datetime.now())
-        print("Número de hashes generados:", num_hash)
-        print("Longitud de cada hash:", longitud_hash)
-        print("Algoritmo de hash utilizado:", algoritmo_hash)
-        print("Hashes de verificación:")
-        for i, hash_value in enumerate(hashes):
-            print(f"Hash {i+1}: {hash_value}")
-        print("Resumen de operación:")
-        print(json.dumps({"num_hash": num_hash, "longitud_hash": longitud_hash, "algoritmo_hash": algoritmo_hash}, indent=4))
-        print("Detalle de hashes generados:")
-        for i, hash_value in enumerate(hashes):
-            print(f"Hash {i+1} (detalles):")
-            print(f"  Valor: {hash_value}")
-            print(f"  Longitud: {len(hash_value)}")
-            print(f"  Tipo: {type(hash_value)}")
-        print("Estadísticas de hashes generados:")
-        print(f"  Media de longitud: {sum(len(hash_value) for hash_value in hashes) / len(hashes)}")
-        print(f"  Desviación estándar de longitud: {math.sqrt(sum((len(hash_value) - sum(len(hash_value) for hash_value in hashes) / len(hashes)) ** 2 for hash_value in hashes) / len(hashes))}")
+        print("ÁREA: HERRAMIENTAS")
+        print("DESCRIPCIÓN: Agente que realiza generador hash verificación")
+        print("TECNOLOGÍA: Python estándar")
+        print("Fecha de inicio:", fecha_inicio)
+        print("Número de hashes:", num_hash)
+        print("Longitud del hash:", longitud_hash)
+        print("Algoritmo de hash:", algoritmo_hash)
+        print("Hashes generados:")
+        for i, hash in enumerate(hashes):
+            print(f"Hash {i+1}: {hash}")
         print("Resumen ejecutivo:")
-        print(f"Se han generado {num_hash} hashes de verificación con un algoritmo {algoritmo_hash} y longitud {longitud_hash}.")
-        print(f"Los hashes generados tienen una media de longitud de {sum(len(hash_value) for hash_value in hashes) / len(hashes)} y una desviación estándar de {math.sqrt(sum((len(hash_value) - sum(len(hash_value) for hash_value in hashes) / len(hashes)) ** 2 for hash_value in hashes) / len(hashes))}.")
+        print("El agente ha generado", num_hash, "hashes de verificación utilizando el algoritmo", algoritmo_hash, "con una longitud de", longitud_hash, "caracteres.")
+
     except ValueError as e:
-        print(f"Error: {e}")
+        print("Error:", e)
     except Exception as e:
-        print(f"Error inesperado: {e}")
+        print("Error inesperado:", e)
 
 if __name__ == "__main__":
-    import math
     main()

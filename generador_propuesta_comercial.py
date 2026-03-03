@@ -10,12 +10,6 @@ import random
 from datetime import datetime, timedelta
 import math
 
-try:
-    import web_bridge as web
-    WEB = web.WEB  # True si hay conexión a internet
-except ImportError:
-    WEB = False
-
 def main():
     try:
         # Parámetros por línea de comandos con defaults
@@ -33,7 +27,9 @@ def main():
         fecha_entrega = (datetime.now() + timedelta(days=random.randint(1, 15))).strftime("%Y-%m-%d")
         descuento = random.uniform(0.05, 0.20)
         iva = 0.16
-        total = monto_inicial * (1 - descuento) * (1 + iva)
+        subtotal = monto_inicial * (1 - descuento)
+        impuestos = subtotal * iva
+        total = subtotal + impuestos
 
         # Generar datos de contacto
         contactos = [
@@ -49,6 +45,8 @@ def main():
             "monto_inicial": monto_inicial,
             "descuento": descuento,
             "iva": iva,
+            "subtotal": subtotal,
+            "impuestos": impuestos,
             "total": total,
             "contactos": contactos,
             "condiciones": [
@@ -58,33 +56,30 @@ def main():
             ]
         }
 
-        # Calcular subtotal y total con más precisión
-        subtotal = monto_inicial * (1 - descuento)
-        impuestos = subtotal * iva
-        total = subtotal + impuestos
-
-        # Generar resumen ejecutivo
-        resumen_ejecutivo = f"Se propone la adquisición de {nombre_propuesta} por un monto total de {total:.2f} pesos, con un descuento del {descuento*100:.2f}% y un impuesto del {iva*100:.2f}%."
-
-        # Mostrar propuesta
-        print("Propuesta Comercial Generada")
-        print(f"Nombre: {propuesta['nombre']}")
-        print(f"Fecha de Creación: {propuesta['fecha_creacion']}")
-        print(f"Fecha de Entrega: {propuesta['fecha_entrega']}")
-        print(f"Monto Inicial: {propuesta['monto_inicial']:.2f} pesos")
+        # Imprimir propuesta
+        print(f"Nombre de la propuesta: {propuesta['nombre']}")
+        print(f"Fecha de creación: {propuesta['fecha_creacion']}")
+        print(f"Fecha de entrega: {propuesta['fecha_entrega']}")
+        print(f"Monto inicial: ${propuesta['monto_inicial']:.2f}")
         print(f"Descuento: {propuesta['descuento']*100:.2f}%")
-        print(f"IVA: {propuesta['iva']*100:.2f}%")
-        print(f"Total: {propuesta['total']:.2f} pesos")
-        print(f"Contactos:")
+        print(f"Subtotal: ${propuesta['subtotal']:.2f}")
+        print(f"Impuestos (16%): ${propuesta['impuestos']:.2f}")
+        print(f"Total: ${propuesta['total']:.2f}")
+        print("Contactos:")
         for contacto in propuesta['contactos']:
-            print(f"  - {contacto['nombre']} ({contacto['puesto']}) - {contacto['telefono']}")
-        print(f"Condiciones:")
+            print(f"  - {contacto['nombre']}: {contacto['puesto']}, Tel. {contacto['telefono']}")
+        print("Condiciones:")
         for condicion in propuesta['condiciones']:
             print(f"  - {condicion}")
-        print(f"Resumen Ejecutivo:\n{resumen_ejecutivo}")
+
+        # Resumen ejecutivo
+        print("\nResumen Ejecutivo:")
+        print(f"La propuesta {propuesta['nombre']} tiene un monto inicial de ${propuesta['monto_inicial']:.2f} con un descuento de {propuesta['descuento']*100:.2f}%.")
+        print(f"El subtotal es de ${propuesta['subtotal']:.2f} y los impuestos son de ${propuesta['impuestos']:.2f}.")
+        print(f"El total es de ${propuesta['total']:.2f} y la fecha de entrega es {propuesta['fecha_entrega']}.")
 
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
     main()

@@ -3,8 +3,6 @@ import sys
 import json
 from datetime import datetime
 import math
-import re
-import random
 
 def cotizador_seguro_empresarial(empresa=None, seguro=None, premio=None, descuento=None, fecha_vigencia=None, tipo_cambio=None):
     try:
@@ -20,7 +18,7 @@ def cotizador_seguro_empresarial(empresa=None, seguro=None, premio=None, descuen
         if fecha_vigencia is None:
             fecha_vigencia = datetime.now().strftime("%Y-%m-%d")
         if tipo_cambio is None:
-            tipo_cambio = 20.00
+            tipo_cambio = float(sys.argv[5]) if len(sys.argv) > 5 else 20.00
 
         # Verificar si los valores son válidos
         if premio < 0:
@@ -34,6 +32,14 @@ def cotizador_seguro_empresarial(empresa=None, seguro=None, premio=None, descuen
 
         # Calculo del premio final con descuento
         premio_final = premio * (1 - descuento)
+        iva = premio_final * 0.16
+        total = premio_final + iva
+        impuestos = premio_final * 0.16
+        descuentos = premio_final * 0.10
+        beneficios = premio_final * 0.05
+        impuestos_nacionales = premio_final * 0.10
+        impuestos_estatales = premio_final * 0.05
+        impuestos_municipales = premio_final * 0.02
 
         # Impresion de resultados
         print("ÁREA: SEGUROS")
@@ -43,31 +49,29 @@ def cotizador_seguro_empresarial(empresa=None, seguro=None, premio=None, descuen
         print(f"Seguro: {seguro}")
         print(f"Precio: ${premio:.2f}")
         print(f"Descuento: {descuento*100}%")
-        print(f"Precio final: ${premio_final:.2f}")
+        print(f"Tipo de cambio: {tipo_cambio}")
         print(f"Fecha de vigencia: {fecha_vigencia}")
-        print(f"Tipo de cambio: ${tipo_cambio:.2f}")
-        print(f"Valor de cambio (MXN): ${premio_final * tipo_cambio:.2f}")
-        print(f"Comisión de agente: ${premio_final * 0.05:.2f}")
-        print(f"Total a pagar: ${premio_final + (premio_final * 0.05):.2f}")
-        print(f"Valor de seguro por día: ${premio_final / 365:.2f}")
-        print(f"Valor de seguro por mes: ${premio_final / 30:.2f}")
-        print(f"Valor de seguro por año: ${premio_final:.2f}")
+        print(f"Precio final: ${premio_final:.2f}")
+        print(f"Impuestos: ${iva:.2f}")
+        print(f"Total: ${total:.2f}")
+        print(f"Descuentos: ${descuentos:.2f}")
+        print(f"Beneficios: ${beneficios:.2f}")
+        print(f"Impuestos nacionales: ${impuestos_nacionales:.2f}")
+        print(f"Impuestos estatales: ${impuestos_estatales:.2f}")
+        print(f"Impuestos municipales: ${impuestos_municipales:.2f}")
 
         # Resumen ejecutivo
-        print("\nResumen Ejecutivo:")
-        print(f"La empresa {empresa} ha contratado el seguro de responsabilidad civil por un precio de ${premio:.2f}.")
-        print(f"Después de aplicar un descuento del {descuento*100}% se obtiene un precio final de ${premio_final:.2f}.")
-        print(f"El tipo de cambio utilizado fue de ${tipo_cambio:.2f} y el valor de cambio en pesos mexicanos fue de ${premio_final * tipo_cambio:.2f}.")
+        print("\nResumen ejecutivo:")
+        print(f"El seguro de {seguro} para la empresa {empresa} tiene un precio final de ${premio_final:.2f} después de aplicar un descuento del {descuento*100}%.")
+        print(f"Los impuestos totales son de ${iva + impuestos_nacionales + impuestos_estatales + impuestos_municipales:.2f}.")
+        print(f"Los beneficios totales son de ${beneficios:.2f}.")
 
+    except IndexError:
+        print("Falta de argumentos")
     except ValueError as e:
         print(f"Error: {e}")
-    except IndexError:
-        print("Error: Faltan argumentos")
     except Exception as e:
         print(f"Error: {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        cotizador_seguro_empresarial(*sys.argv[1:])
-    else:
-        print("Error: Faltan argumentos")
+    cotizador_seguro_empresarial()

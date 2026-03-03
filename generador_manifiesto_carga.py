@@ -14,7 +14,7 @@ import os
 
 try:
     import web_bridge as web
-    WEB = web.WEB  # True si hay conexion a internet
+    WEB = web.WEB  # True si hay conexión a internet
 except ImportError:
     WEB = False
 
@@ -48,33 +48,40 @@ def main():
                 "valor": round(random.uniform(1000, 10000), 2),
                 "impuesto": round(random.uniform(1000, 10000) * impuesto, 2),
                 "total": round(random.uniform(1000, 10000) + random.uniform(1000, 10000) * impuesto, 2),
-                "descripcion": f"Carga de {random.choice(['electrónicos', 'textiles', 'alimentos'])} con un peso de {round(random.uniform(100, 1000), 2)} kg"
+                "descripcion": f"Carga de {random.choice(['electrónicos', 'textiles', 'alimentos'])} con un peso de {round(random.uniform(100, 1000), 2)} kg",
+                "transporte": random.choice(["Tren", "Camión", "Avión"]),
+                "conductor": f"Conductor {random.randint(1, 10000)}",
+                "vehiculo": f"Vehículo {random.randint(1, 10000)}"
             }
             manifiesto.append(carga)
 
         # Imprimir manifiesto
-        print("Manifiesto de Carga:")
+        print("# Manifiesto de Carga")
+        print(f"Fecha inicial: {fecha_inicial}")
+        print(f"Fecha final: {fecha_final}")
+        print(f"Cantidad de cargas: {cantidad_cargas}")
+        print(f"Impuesto: {impuesto*100}%")
+        print()
+        print("# Detalle de Cargas")
         for carga in manifiesto:
             print(f"ID: {carga['id']}")
             print(f"Fecha: {carga['fecha']}")
             print(f"Origen: {carga['origen']}")
             print(f"Destino: {carga['destino']}")
             print(f"Peso: {carga['peso']} kg")
-            print(f"Valor: ${carga['valor']:.2f} MXN")
-            print(f"Impuesto ({impuesto*100}%): ${carga['impuesto']:.2f} MXN")
-            print(f"Total: ${carga['total']:.2f} MXN")
+            print(f"Valor: ${carga['valor']}")
+            print(f"Impuesto: ${carga['impuesto']}")
+            print(f"Total: ${carga['total']}")
             print(f"Descripción: {carga['descripcion']}")
-            print("-" * 50)
+            print(f"Transporte: {carga['transporte']}")
+            print(f"Conductor: {carga['conductor']}")
+            print(f"Vehículo: {carga['vehiculo']}")
+            print()
+        print("# Resumen Ejecutivo")
+        print(f"Cantidad de cargas generadas: {len(manifiesto)}")
+        print(f"Total de peso: {sum(carga['peso'] for carga in manifiesto)} kg")
+        print(f"Total de valor: ${sum(carga['valor'] for carga in manifiesto)}")
 
-        # Resumen ejecutivo
-        print("\nResumen Ejecutivo:")
-        print(f"Total de cargas: {len(manifiesto)}")
-        print(f"Total de valor: ${sum(carga['valor'] for carga in manifiesto):.2f} MXN")
-        print(f"Total de impuesto: ${sum(carga['impuesto'] for carga in manifiesto):.2f} MXN")
-        print(f"Total general: ${sum(carga['total'] for carga in manifiesto):.2f} MXN")
-
-    except ValueError as e:
-        print(f"Error de formato: {e}")
     except Exception as e:
         print(f"Error: {e}")
 

@@ -6,7 +6,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:46:30"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "_encode.py": {
         "descripcion": "Encode y decode de cadenas utilizando base64",
@@ -15,7 +15,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:46:30"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "agenda_reuniones.py": {
         "descripcion": "Agente para gestionar una agenda de reuniones",
@@ -24,7 +24,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:46:31",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agenda reuniones"
         ]
@@ -36,7 +36,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:46:31",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent files"
         ]
@@ -48,7 +48,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:46:32",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent rag"
         ]
@@ -60,7 +60,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:46:32",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent router"
         ]
@@ -72,7 +72,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:46:32",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent router memory"
         ]
@@ -84,7 +84,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent router memory pro"
         ]
@@ -96,7 +96,7 @@
         "tecnologia": [
             "Web/API"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent router projects"
         ]
@@ -108,7 +108,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent router state autoscale"
         ]
@@ -121,7 +121,7 @@
             "Groq (Nube)",
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent router state pro"
         ]
@@ -133,7 +133,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agent team"
         ]
@@ -145,7 +145,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agente arquitecto web"
         ]
@@ -157,7 +157,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agente estrategia"
         ]
@@ -169,7 +169,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agente fact checking"
         ]
@@ -181,7 +181,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agente memoria contextual"
         ]
@@ -193,7 +193,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agente resumen ejecutivo"
         ]
@@ -205,7 +205,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "agente validacion resultados"
         ]
@@ -217,7 +217,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analisis estados financieros"
         ]
@@ -229,7 +229,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analisis punto equilibrio"
         ]
@@ -241,7 +241,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador 5s"
         ]
@@ -253,7 +253,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador ab test"
         ]
@@ -265,7 +265,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador anomalias"
         ]
@@ -277,7 +277,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador avance obra"
         ]
@@ -289,7 +289,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador balances"
         ]
@@ -301,7 +301,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador buyer persona"
         ]
@@ -313,7 +313,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador capacidad planta"
         ]
@@ -325,7 +325,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador carrito abandonado"
         ]
@@ -337,7 +337,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador cartera propiedades"
         ]
@@ -349,7 +349,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador churn"
         ]
@@ -361,7 +361,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador ciclo venta"
         ]
@@ -373,7 +373,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador cierre ventas"
         ]
@@ -385,7 +385,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador clausulas riesgo"
         ]
@@ -397,7 +397,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador clima laboral"
         ]
@@ -409,7 +409,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador clima organizacional"
         ]
@@ -421,7 +421,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador cobertura gastos medicos"
         ]
@@ -433,7 +433,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador competencia digital"
         ]
@@ -445,7 +445,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador correlacion"
         ]
@@ -457,7 +457,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador costo ultima milla"
         ]
@@ -469,7 +469,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador costos indirectos"
         ]
@@ -481,7 +481,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador costos seguro medico"
         ]
@@ -493,7 +493,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador cuellos botella"
         ]
@@ -505,7 +505,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador cumplimiento fiscal"
         ]
@@ -517,7 +517,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador deducciones fiscales"
         ]
@@ -529,7 +529,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador defectos"
         ]
@@ -541,7 +541,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador demanda"
         ]
@@ -553,7 +553,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador deuda empresarial"
         ]
@@ -565,7 +565,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador deuda tecnica"
         ]
@@ -577,7 +577,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador estilos aprendizaje"
         ]
@@ -589,7 +589,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador flujo caja"
         ]
@@ -601,7 +601,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador flujo efectivo"
         ]
@@ -613,7 +613,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador funnel conversion"
         ]
@@ -625,7 +625,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador funnel ventas"
         ]
@@ -637,7 +637,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador habitos saludables"
         ]
@@ -649,7 +649,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador hashtags instagram"
         ]
@@ -661,7 +661,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador kpis operativos"
         ]
@@ -673,7 +673,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador local comercial"
         ]
@@ -685,7 +685,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador merma"
         ]
@@ -697,7 +697,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador merma desperdicio"
         ]
@@ -709,7 +709,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador metricas campana"
         ]
@@ -721,7 +721,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador nps"
         ]
@@ -733,7 +733,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador objeciones"
         ]
@@ -745,7 +745,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador plagas"
         ]
@@ -757,7 +757,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador platillos rentables"
         ]
@@ -769,7 +769,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador plusvalia colonia"
         ]
@@ -781,7 +781,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador portafolio acciones"
         ]
@@ -793,7 +793,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador precio cosecha"
         ]
@@ -805,7 +805,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador proveedores"
         ]
@@ -817,7 +817,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador razones financieras"
         ]
@@ -829,7 +829,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador regulatorio"
         ]
@@ -841,7 +841,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador rendimiento grupo"
         ]
@@ -853,7 +853,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador reviews"
         ]
@@ -865,7 +865,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador riesgo legal"
         ]
@@ -877,7 +877,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador seguridad basica"
         ]
@@ -889,7 +889,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador sentimiento marca"
         ]
@@ -901,7 +901,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador seo keywords"
         ]
@@ -913,7 +913,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador signos vitales"
         ]
@@ -925,7 +925,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador siniestros"
         ]
@@ -937,7 +937,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador stack tecnologico"
         ]
@@ -949,7 +949,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador tecnicas aprendizaje"
         ]
@@ -961,7 +961,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador temporadas"
         ]
@@ -973,7 +973,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador tendencias"
         ]
@@ -985,7 +985,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador tendencias mercado inmobiliario"
         ]
@@ -997,7 +997,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador tendencias soporte"
         ]
@@ -1009,7 +1009,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador territorio ventas"
         ]
@@ -1021,7 +1021,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador tiempos respuesta"
         ]
@@ -1033,7 +1033,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "analizador zonas industria cdmx"
         ]
@@ -1046,7 +1046,7 @@
             "Groq (Nube)",
             "Web/API"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "api"
         ]
@@ -1059,7 +1059,7 @@
             "Web",
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "api agencia",
             "iniciar api"
@@ -1073,7 +1073,7 @@
             "Groq (Nube)",
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "app"
         ]
@@ -1086,7 +1086,7 @@
             "Web/API",
             "Base de Datos"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "app dashboard"
         ]
@@ -1099,7 +1099,7 @@
             "Groq (Nube)",
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "asistente estudio finanzas"
         ]
@@ -1111,7 +1111,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "asistente iva"
         ]
@@ -1123,7 +1123,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "asistente iva contable"
         ]
@@ -1135,7 +1135,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "auditor tokens"
         ]
@@ -1147,7 +1147,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "auto evolucion"
         ]
@@ -1159,7 +1159,7 @@
         "tecnologia": [
             "Base de Datos"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "auto evolucion pro"
         ]
@@ -1172,7 +1172,7 @@
             "Groq (Nube)",
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "bus_mensajes.py": {
         "descripcion": "Bus de mensajes central. Sistema nervioso de la agencia — permite que los agentes se comuniquen entre sí depositando y recogiendo resultados sin depen",
@@ -1181,7 +1181,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "buscador_plusvalia.py": {
         "descripcion": "Busca el crecimiento porcentual promedio de precios de vivienda en las colonias principales de CDMX.",
@@ -1190,7 +1190,7 @@
         "tecnologia": [
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "buscador plusvalia"
         ]
@@ -1202,7 +1202,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora acero"
         ]
@@ -1214,7 +1214,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora afore retiro"
         ]
@@ -1226,7 +1226,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora becas disponibles"
         ]
@@ -1238,7 +1238,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora break even producto"
         ]
@@ -1250,7 +1250,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora cac ltv"
         ]
@@ -1262,7 +1262,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora calificaciones"
         ]
@@ -1274,7 +1274,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora calorias actividad"
         ]
@@ -1286,7 +1286,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora cap rate inmueble"
         ]
@@ -1298,7 +1298,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora capacidad almacen"
         ]
@@ -1310,7 +1310,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora capacidad instalada"
         ]
@@ -1322,7 +1322,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora capacidad produccion"
         ]
@@ -1334,7 +1334,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora comision"
         ]
@@ -1346,7 +1346,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora comision rapida"
         ]
@@ -1358,7 +1358,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora comisiones"
         ]
@@ -1370,7 +1370,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora concreto"
         ]
@@ -1382,7 +1382,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora contrato arrendamiento comercial"
         ]
@@ -1394,7 +1394,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo carrera mexico"
         ]
@@ -1406,7 +1406,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo empleado mexico"
         ]
@@ -1418,7 +1418,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo envio mexico"
         ]
@@ -1430,7 +1430,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo importacion"
         ]
@@ -1442,7 +1442,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo infraestructura cloud"
         ]
@@ -1454,7 +1454,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo operacion"
         ]
@@ -1466,7 +1466,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo platillo"
         ]
@@ -1478,7 +1478,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo produccion agro"
         ]
@@ -1490,7 +1490,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo receta"
         ]
@@ -1502,7 +1502,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costo tratamiento"
         ]
@@ -1514,7 +1514,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora costos envio"
         ]
@@ -1526,7 +1526,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora depreciacion"
         ]
@@ -1538,7 +1538,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora descuento precio"
         ]
@@ -1550,7 +1550,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora descuentos margen"
         ]
@@ -1562,7 +1562,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora diferencia fechas"
         ]
@@ -1574,7 +1574,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora dosis"
         ]
@@ -1586,7 +1586,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora dosis medicamento"
         ]
@@ -1598,7 +1598,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora eficiencia operativa"
         ]
@@ -1610,7 +1610,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora enganche credito infonavit"
         ]
@@ -1622,7 +1622,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora estadisticas"
         ]
@@ -1634,7 +1634,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora evapotranspiracion"
         ]
@@ -1646,7 +1646,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora fee viaje"
         ]
@@ -1658,7 +1658,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora fertilizante"
         ]
@@ -1670,7 +1670,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora finiquito"
         ]
@@ -1682,7 +1682,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora food cost"
         ]
@@ -1694,7 +1694,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora forecast mensual"
         ]
@@ -1706,7 +1706,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora gastos escrituracion"
         ]
@@ -1718,7 +1718,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora horas extra"
         ]
@@ -1730,7 +1730,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora imc riesgo"
         ]
@@ -1742,7 +1742,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora imss empleado"
         ]
@@ -1754,7 +1754,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora indemnizacion imss"
         ]
@@ -1766,7 +1766,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora isr basica"
         ]
@@ -1778,7 +1778,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora isr mensual rapido"
         ]
@@ -1790,7 +1790,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora iva desglosado"
         ]
@@ -1802,7 +1802,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora iva rapida"
         ]
@@ -1814,7 +1814,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora licencias software"
         ]
@@ -1826,7 +1826,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora liquidacion laboral"
         ]
@@ -1838,7 +1838,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora lote economico"
         ]
@@ -1850,7 +1850,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora margen producto"
         ]
@@ -1862,7 +1862,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora materiales"
         ]
@@ -1874,7 +1874,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora nomina"
         ]
@@ -1886,7 +1886,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora ocupacion renta"
         ]
@@ -1898,7 +1898,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora oee"
         ]
@@ -1910,7 +1910,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora penalizaciones"
         ]
@@ -1922,7 +1922,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora peso volumetrico"
         ]
@@ -1934,7 +1934,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora pipeline ventas"
         ]
@@ -1946,7 +1946,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora plazo vencimiento"
         ]
@@ -1958,7 +1958,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora plusvalia"
         ]
@@ -1970,7 +1970,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora porciones"
         ]
@@ -1982,7 +1982,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora precio venta platillo"
         ]
@@ -1994,7 +1994,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora prestaciones"
         ]
@@ -2006,7 +2006,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora prestaciones ley"
         ]
@@ -2018,7 +2018,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora presupuesto publicitario"
         ]
@@ -2030,7 +2030,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora presupuesto viaje"
         ]
@@ -2042,7 +2042,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora prima"
         ]
@@ -2054,7 +2054,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora prima seguro"
         ]
@@ -2066,7 +2066,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora ptu empleados"
         ]
@@ -2078,7 +2078,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora punto equilibrio restaurante"
         ]
@@ -2090,7 +2090,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora punto reorden"
         ]
@@ -2102,7 +2102,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora regalias franquicia"
         ]
@@ -2114,7 +2114,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora regimen fiscal adecuado"
         ]
@@ -2126,7 +2126,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora rendimiento cultivo"
         ]
@@ -2138,7 +2138,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora renta justa m2"
         ]
@@ -2150,7 +2150,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora renta oficina cdmx"
         ]
@@ -2162,7 +2162,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora retorno desarrollo obra"
         ]
@@ -2174,7 +2174,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora riesgo cardiovascular"
         ]
@@ -2186,7 +2186,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora roi"
         ]
@@ -2198,7 +2198,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora roi agro"
         ]
@@ -2210,7 +2210,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora roi automatizacion"
         ]
@@ -2222,7 +2222,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora roi bodega industrial"
         ]
@@ -2234,7 +2234,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora roi campanas"
         ]
@@ -2246,7 +2246,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora roi educativo"
         ]
@@ -2258,7 +2258,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora roi mexico"
         ]
@@ -2270,7 +2270,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora roi renta vacacional"
         ]
@@ -2282,7 +2282,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora rotacion"
         ]
@@ -2294,7 +2294,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora rotacion mesa"
         ]
@@ -2306,7 +2306,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora rotacion personal"
         ]
@@ -2318,7 +2318,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora scrap rate"
         ]
@@ -2330,7 +2330,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora seguro vida mexico"
         ]
@@ -2342,7 +2342,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora shipping internacional"
         ]
@@ -2354,7 +2354,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora sla uptime"
         ]
@@ -2366,7 +2366,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora takt time"
         ]
@@ -2378,7 +2378,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora tasa efectiva anual"
         ]
@@ -2390,7 +2390,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora tiempo produccion"
         ]
@@ -2402,7 +2402,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora tiempo transito"
         ]
@@ -2414,7 +2414,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora tipo cambio viaje"
         ]
@@ -2426,7 +2426,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculadora volumetria tierra"
         ]
@@ -2438,7 +2438,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculo capital trabajo"
         ]
@@ -2450,7 +2450,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculo depreciacion activos"
         ]
@@ -2462,7 +2462,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculo impuesto sobre renta mensual"
         ]
@@ -2474,7 +2474,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculo nomina mensual mexico"
         ]
@@ -2486,7 +2486,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calculo rendimiento fondos"
         ]
@@ -2498,7 +2498,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "calificador leads"
         ]
@@ -2510,7 +2510,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "celery app"
         ]
@@ -2522,7 +2522,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "chatbot faq"
         ]
@@ -2534,7 +2534,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "checklist_consulta_medica.py": {
         "descripcion": "Agente que realiza checklist consulta medica",
@@ -2543,7 +2543,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "checklist consulta medica"
         ]
@@ -2555,7 +2555,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "checklist contratacion seguro"
         ]
@@ -2567,7 +2567,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "checklist cumplimiento sat"
         ]
@@ -2579,7 +2579,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "checklist due diligence"
         ]
@@ -2591,7 +2591,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "checklist requisitos notariales"
         ]
@@ -2603,7 +2603,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "clasificador intencion usuario"
         ]
@@ -2615,7 +2615,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "clasificador prioridad tareas"
         ]
@@ -2627,7 +2627,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "clasificador tickets"
         ]
@@ -2639,7 +2639,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "clasificador viviendas"
         ]
@@ -2651,7 +2651,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "comparador creditos"
         ]
@@ -2663,7 +2663,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "comparador escenarios decision"
         ]
@@ -2675,7 +2675,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "comparador hipotecas bancos mexico"
         ]
@@ -2687,7 +2687,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "comparador hospedaje"
         ]
@@ -2699,7 +2699,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:17",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "comparador instrumentos inversion"
         ]
@@ -2711,7 +2711,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "comparador seguros auto"
         ]
@@ -2723,7 +2723,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "comparador zonas comerciales"
         ]
@@ -2735,7 +2735,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "comparador zonas inversion cdmx"
         ]
@@ -2747,7 +2747,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "compresor archivador logs"
         ]
@@ -2759,7 +2759,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "config.py": {
         "descripcion": "Centralized configuration for the multi-agent system.",
@@ -2768,7 +2768,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "consola_maestra.py": {
         "descripcion": "Agente que procesa órdenes y muestra resultados",
@@ -2777,7 +2777,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "consola maestra"
         ]
@@ -2789,7 +2789,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "control presupuesto mensual"
         ]
@@ -2801,7 +2801,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "convenio prestacion servicios"
         ]
@@ -2813,7 +2813,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "conversor formatos datos"
         ]
@@ -2825,7 +2825,7 @@
         "tecnologia": [
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "conversor pesos dolar"
         ]
@@ -2837,7 +2837,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "coordinador cadena"
         ]
@@ -2849,7 +2849,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "coordinador pipeline datos"
         ]
@@ -2861,7 +2861,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "cotizador_paquete_turistico.py": {
         "descripcion": "Agente que realiza cotizador paquete turistico",
@@ -2870,7 +2870,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "cotizador paquete turistico"
         ]
@@ -2882,7 +2882,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "cotizador poliza auto"
         ]
@@ -2894,19 +2894,19 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "cotizador poliza vida"
         ]
     },
     "cotizador_seguro_empresarial.py": {
-        "descripcion": "Cotizador Seguro Empresarial",
+        "descripcion": "Verificar si se recibieron parametros por sys.argv",
         "categoria": "HERRAMIENTAS",
         "salud": "OK",
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "cotizador seguro empresarial"
         ]
@@ -2918,7 +2918,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "cotizador seguro hogar"
         ]
@@ -2930,7 +2930,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "cotizador viaje"
         ]
@@ -2942,7 +2942,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "dashboard",
             "abrir dashboard"
@@ -2955,7 +2955,7 @@
         "tecnologia": [
             "Base de Datos"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "database"
         ]
@@ -2967,7 +2967,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "detector oportunidades compra"
         ]
@@ -2979,7 +2979,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "detector_tipo_contribuyente.py": {
         "descripcion": "detector tipo contribuyente",
@@ -2988,7 +2988,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "detector tipo contribuyente"
         ]
@@ -3000,7 +3000,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "dispatcher_multiagente.py": {
         "descripcion": "Agente que realiza dispatcher multiagente con asignación optimizada",
@@ -3009,7 +3009,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "dispatcher multiagente"
         ]
@@ -3021,7 +3021,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "ejecutar mision"
         ]
@@ -3033,7 +3033,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "encriptador claves"
         ]
@@ -3045,7 +3045,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "escalador tickets"
         ]
@@ -3057,7 +3057,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "estimador aforo local"
         ]
@@ -3069,7 +3069,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "estimador costos remodelacion"
         ]
@@ -3081,7 +3081,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "estimador valor empresa"
         ]
@@ -3093,7 +3093,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "evaluador credito puente"
         ]
@@ -3105,7 +3105,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "evaluador desempeno"
         ]
@@ -3117,7 +3117,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "evaluador riesgo"
         ]
@@ -3129,7 +3129,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "evaluador zona"
         ]
@@ -3141,7 +3141,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "exportador csv json"
         ]
@@ -3153,7 +3153,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "extractor numeros texto"
         ]
@@ -3167,7 +3167,7 @@
             "Web",
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "fabrica",
             "crear agentes",
@@ -3181,7 +3181,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:53"
     },
     "filtrador_cv.py": {
         "descripcion": "Agente que realiza filtrador cv",
@@ -3190,7 +3190,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "filtrador cv"
         ]
@@ -3202,7 +3202,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "fix unicode",
             "arreglar unicode"
@@ -3215,7 +3215,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "formateador codigo limpio"
         ]
@@ -3227,7 +3227,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "formateador moneda mx"
         ]
@@ -3239,7 +3239,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "formateador numero palabras mx"
         ]
@@ -3251,7 +3251,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:53",
         "ordenes": [
             "formateador telefono mx"
         ]
@@ -3263,7 +3263,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador acta acuerdos"
         ]
@@ -3275,7 +3275,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador acta constitutiva"
         ]
@@ -3287,7 +3287,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador amef"
         ]
@@ -3299,7 +3299,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador argumentario ventas"
         ]
@@ -3311,7 +3311,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador aviso privacidad"
         ]
@@ -3323,7 +3323,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador backups automaticos"
         ]
@@ -3335,7 +3335,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador balance general simple"
         ]
@@ -3347,7 +3347,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador base conocimiento"
         ]
@@ -3359,7 +3359,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador bio redes sociales"
         ]
@@ -3371,7 +3371,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador bitacora campo"
         ]
@@ -3383,7 +3383,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador bitacora obra"
         ]
@@ -3395,7 +3395,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador bitacora vehiculos"
         ]
@@ -3407,7 +3407,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador brief creativo"
         ]
@@ -3419,7 +3419,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador briefing diario"
         ]
@@ -3431,7 +3431,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador buyer persona pro"
         ]
@@ -3443,7 +3443,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador calendario editorial"
         ]
@@ -3455,7 +3455,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador carta poder"
         ]
@@ -3467,7 +3467,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador carta presentacion"
         ]
@@ -3479,7 +3479,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador carta vinos"
         ]
@@ -3491,7 +3491,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador caso exito"
         ]
@@ -3503,7 +3503,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador certificado"
         ]
@@ -3515,7 +3515,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador checklist procesos"
         ]
@@ -3527,7 +3527,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador checklist viaje"
         ]
@@ -3539,7 +3539,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador clave producto"
         ]
@@ -3551,7 +3551,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador comparativa seguros"
         ]
@@ -3563,7 +3563,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador consentimiento informado"
         ]
@@ -3575,7 +3575,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador contrato arrendamiento"
         ]
@@ -3587,7 +3587,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador contrato arrendamiento comercial"
         ]
@@ -3599,7 +3599,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador contrato freelance"
         ]
@@ -3611,7 +3611,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador contrato laboral"
         ]
@@ -3623,7 +3623,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador contrato obra"
         ]
@@ -3635,7 +3635,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador contrato servicios"
         ]
@@ -3647,7 +3647,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador copy facebook"
         ]
@@ -3659,7 +3659,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador copy facebook ads"
         ]
@@ -3671,7 +3671,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador copy google ads"
         ]
@@ -3683,7 +3683,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador copy instagram"
         ]
@@ -3695,7 +3695,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador copy propiedades"
         ]
@@ -3707,7 +3707,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador cotizacion"
         ]
@@ -3719,7 +3719,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador dashboard data"
         ]
@@ -3731,7 +3731,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador descripcion categoria"
         ]
@@ -3743,7 +3743,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador descripcion puesto"
         ]
@@ -3755,7 +3755,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador descripcion tour"
         ]
@@ -3767,7 +3767,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador dictamen siniestro"
         ]
@@ -3779,7 +3779,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador documentacion api"
         ]
@@ -3791,7 +3791,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador due diligence inmobiliario"
         ]
@@ -3803,7 +3803,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador ejercicios practica"
         ]
@@ -3815,7 +3815,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador email cotizacion"
         ]
@@ -3827,7 +3827,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador email marketing"
         ]
@@ -3839,7 +3839,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador email postventa"
         ]
@@ -3851,7 +3851,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador email prospecto"
         ]
@@ -3863,7 +3863,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador encuesta"
         ]
@@ -3875,7 +3875,7 @@
         "tecnologia": [
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador encuesta csat"
         ]
@@ -3887,7 +3887,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador encuesta satisfaccion"
         ]
@@ -3899,7 +3899,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador especificaciones tecnicas"
         ]
@@ -3911,7 +3911,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador estado resultados"
         ]
@@ -3923,7 +3923,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador estado resultados proyectado"
         ]
@@ -3935,7 +3935,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador estimacion"
         ]
@@ -3947,7 +3947,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador estrategia referidos"
         ]
@@ -3959,7 +3959,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador evaluacion desempenio"
         ]
@@ -3971,7 +3971,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador examen"
         ]
@@ -3983,7 +3983,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador factura conceptos"
         ]
@@ -3995,7 +3995,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador faq producto"
         ]
@@ -4007,7 +4007,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador faq soporte"
         ]
@@ -4019,7 +4019,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador ficha producto"
         ]
@@ -4031,7 +4031,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador ficha tecnica receta"
         ]
@@ -4043,7 +4043,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador fichas tecnicas"
         ]
@@ -4055,7 +4055,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador finiquito laboral"
         ]
@@ -4067,7 +4067,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador folio consecutivo"
         ]
@@ -4079,7 +4079,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador followup email"
         ]
@@ -4091,7 +4091,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador guia destino"
         ]
@@ -4103,19 +4103,19 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador guia envio"
         ]
     },
     "generador_hash_verificacion.py": {
-        "descripcion": "Agente que realiza generador hash verificacion",
+        "descripcion": "Agente que realiza generador hash verificación",
         "categoria": "HERRAMIENTAS",
         "salud": "OK",
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador hash verificacion"
         ]
@@ -4127,7 +4127,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador historial clinico"
         ]
@@ -4139,7 +4139,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador instructivo trabajo"
         ]
@@ -4151,7 +4151,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador itinerario"
         ]
@@ -4163,7 +4163,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador itinerario viaje"
         ]
@@ -4175,7 +4175,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador landing page"
         ]
@@ -4187,7 +4187,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador macro soporte"
         ]
@@ -4199,7 +4199,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador manifiesto carga"
         ]
@@ -4211,7 +4211,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador material didactico"
         ]
@@ -4223,7 +4223,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador menu precios"
         ]
@@ -4235,7 +4235,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador menu semanal"
         ]
@@ -4247,7 +4247,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador nda"
         ]
@@ -4259,7 +4259,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador newsletter"
         ]
@@ -4271,7 +4271,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador nota evolucion"
         ]
@@ -4283,7 +4283,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador onboarding"
         ]
@@ -4295,7 +4295,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador orden compra"
         ]
@@ -4307,7 +4307,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador orden produccion"
         ]
@@ -4319,7 +4319,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador organigrama"
         ]
@@ -4331,7 +4331,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador paquete turistico"
         ]
@@ -4343,7 +4343,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador pivot table"
         ]
@@ -4355,7 +4355,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador plan clase"
         ]
@@ -4367,7 +4367,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador plan contenidos"
         ]
@@ -4379,7 +4379,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador plan estudio"
         ]
@@ -4391,7 +4391,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador plan nutricional"
         ]
@@ -4403,7 +4403,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador plan onboarding"
         ]
@@ -4415,7 +4415,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador plan rotacion cultivos"
         ]
@@ -4427,7 +4427,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador poder notarial"
         ]
@@ -4439,7 +4439,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador politica devolucion"
         ]
@@ -4451,7 +4451,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador politica envio"
         ]
@@ -4463,7 +4463,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador politica rrhh"
         ]
@@ -4475,7 +4475,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador poliza"
         ]
@@ -4487,7 +4487,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador preguntas entrevista"
         ]
@@ -4499,7 +4499,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador presentacion ventas"
         ]
@@ -4511,7 +4511,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador presupuesto obra"
         ]
@@ -4523,7 +4523,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador procedimientos sop"
         ]
@@ -4535,7 +4535,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador programa obra"
         ]
@@ -4547,7 +4547,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador promo flash"
         ]
@@ -4559,7 +4559,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador prompts optimizados"
         ]
@@ -4571,7 +4571,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador propuesta comercial"
         ]
@@ -4583,7 +4583,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador propuesta valor"
         ]
@@ -4595,7 +4595,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador protocolo higiene"
         ]
@@ -4607,7 +4607,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador receta estandarizada"
         ]
@@ -4619,7 +4619,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador receta medica"
         ]
@@ -4631,7 +4631,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador receta nutricion"
         ]
@@ -4643,7 +4643,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador reclamacion"
         ]
@@ -4655,7 +4655,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador recordatorio medicamentos"
         ]
@@ -4667,7 +4667,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador reporte automatico"
         ]
@@ -4679,7 +4679,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador reporte avance"
         ]
@@ -4691,7 +4691,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador reporte kpi"
         ]
@@ -4703,7 +4703,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador reporte siniestro"
         ]
@@ -4715,7 +4715,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador reportes csv"
         ]
@@ -4727,7 +4727,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador resena destino"
         ]
@@ -4739,7 +4739,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador respuesta ticket"
         ]
@@ -4751,7 +4751,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador retroalimentacion"
         ]
@@ -4763,7 +4763,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador rubrica"
         ]
@@ -4775,7 +4775,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador rubrica evaluacion"
         ]
@@ -4787,7 +4787,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador script ventas"
         ]
@@ -4799,7 +4799,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador sla reporte"
         ]
@@ -4811,7 +4811,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador spc"
         ]
@@ -4823,7 +4823,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador temario curso"
         ]
@@ -4835,7 +4835,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador terminos condiciones"
         ]
@@ -4847,7 +4847,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador titulares ab"
         ]
@@ -4859,7 +4859,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador vacante"
         ]
@@ -4871,7 +4871,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "generador voucher"
         ]
@@ -4883,7 +4883,7 @@
         "tecnologia": [
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "gestor_inventario_basico.py": {
         "descripcion": "Agente que realiza gestor inventario basico",
@@ -4892,7 +4892,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "gestor inventario basico"
         ]
@@ -4904,7 +4904,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "gestor ordenes trabajo"
         ]
@@ -4916,7 +4916,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "gestor proveedores"
         ]
@@ -4928,7 +4928,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "guia constitucion empresa mexico"
         ]
@@ -4940,7 +4940,7 @@
         "tecnologia": [
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "hub control"
         ]
@@ -4952,7 +4952,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "limpiador_archivos_temporales.py": {
         "descripcion": "Agente que realiza limpieza de archivos temporales",
@@ -4961,7 +4961,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "limpiador archivos temporales"
         ]
@@ -4973,7 +4973,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "limpiador backups antiguos"
         ]
@@ -4985,7 +4985,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "limpiador datos"
         ]
@@ -4998,7 +4998,7 @@
             "Groq (Nube)",
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "logging_config.py": {
         "descripcion": "Centralized logging configuration.",
@@ -5007,7 +5007,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "maestro_ceo.py": {
         "descripcion": "CEO orquestador principal. Recibe órdenes del usuario, coordina agentes especializados en cadena y sintetiza un resultado final coherente usando Groq.",
@@ -5017,7 +5017,7 @@
             "Groq (Nube)",
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "maestro ceo"
         ]
@@ -5030,7 +5030,7 @@
             "Groq (Nube)",
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "main"
         ]
@@ -5043,7 +5043,7 @@
             "Groq (Nube)",
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "main chat backup"
         ]
@@ -5055,7 +5055,7 @@
         "tecnologia": [
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "mapa competencia"
         ]
@@ -5072,7 +5072,7 @@
             "Base de Datos",
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "memory_manager.py": {
         "descripcion": "Gestiona la memoria de conversaciones y actualiza resúmenes.",
@@ -5081,7 +5081,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "memory manager"
         ]
@@ -5093,7 +5093,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "monitor cambios directorio"
         ]
@@ -5105,7 +5105,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "monitor gpu"
         ]
@@ -5117,7 +5117,7 @@
         "tecnologia": [
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "monitor internet"
         ]
@@ -5129,7 +5129,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "monitor performance agentes"
         ]
@@ -5141,7 +5141,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "monitor salud sistema"
         ]
@@ -5153,7 +5153,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "monitor uso apis"
         ]
@@ -5165,7 +5165,7 @@
         "tecnologia": [
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "noche total"
         ]
@@ -5177,7 +5177,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "normalizador nombre persona"
         ]
@@ -5189,7 +5189,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "notificador alertas consola"
         ]
@@ -5201,7 +5201,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "optimizador precios"
         ]
@@ -5213,7 +5213,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "optimizador ruta entregas"
         ]
@@ -5225,7 +5225,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "optimizador rutas entrega"
         ]
@@ -5237,7 +5237,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "organizador descargas"
         ]
@@ -5249,7 +5249,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "orquestador agentes industria"
         ]
@@ -5262,7 +5262,7 @@
             "Groq (Nube)",
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "orquestador_proyectos.py": {
         "descripcion": "Orquestador de Proyectos v3.0. Recibe descripcion de un negocio,",
@@ -5272,7 +5272,7 @@
             "Groq (Nube)",
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "parseador_fecha_espanol.py": {
         "descripcion": "Parseador Fecha Espanol",
@@ -5281,7 +5281,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "parseador fecha espanol"
         ]
@@ -5293,7 +5293,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "parseador monto texto"
         ]
@@ -5305,7 +5305,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "parser archivos configuracion"
         ]
@@ -5317,7 +5317,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "patcher pro"
         ]
@@ -5329,7 +5329,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "plan comercializacion propiedad"
         ]
@@ -5341,7 +5341,7 @@
         "tecnologia": [
             "Base de Datos"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "plan migracion cloud"
         ]
@@ -5353,7 +5353,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador academico"
         ]
@@ -5365,7 +5365,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador almacen"
         ]
@@ -5377,7 +5377,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador capacitacion"
         ]
@@ -5389,7 +5389,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador citas medicas"
         ]
@@ -5401,7 +5401,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador compras cocina"
         ]
@@ -5413,7 +5413,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador contenido mensual"
         ]
@@ -5425,7 +5425,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador curso"
         ]
@@ -5437,7 +5437,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador dieta"
         ]
@@ -5449,7 +5449,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador grupos"
         ]
@@ -5461,7 +5461,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador mantenimiento"
         ]
@@ -5473,7 +5473,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador produccion semanal"
         ]
@@ -5485,7 +5485,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador redes sociales"
         ]
@@ -5497,7 +5497,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador riego"
         ]
@@ -5509,7 +5509,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador siembra"
         ]
@@ -5521,7 +5521,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "planificador turnos restaurante"
         ]
@@ -5533,7 +5533,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "proyeccion utilidades"
         ]
@@ -5545,7 +5545,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "proyector flujo caja 3 anos"
         ]
@@ -5557,7 +5557,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "proyector flujo caja 3 años"
         ]
@@ -5569,7 +5569,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "rag index"
         ]
@@ -5581,7 +5581,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "rag pro"
         ]
@@ -5593,7 +5593,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "rag query"
         ]
@@ -5605,7 +5605,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "reparador_masivo.py": {
         "descripcion": "Reparador masivo automático. Analiza todos los agentes con problemas y los repara uno por uno usando Groq. Elimina input(), agrega sys.argv, corrige i",
@@ -5614,7 +5614,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "reporte_avaluo_basico.py": {
         "descripcion": "Agente que realiza reporte avaluo básico con cálculos mejorados para el mercado inmobiliario mexicano",
@@ -5623,7 +5623,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "reporte avaluo basico"
         ]
@@ -5635,7 +5635,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "reporte diario"
         ]
@@ -5647,7 +5647,7 @@
         "tecnologia": [
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "resumen_diario_agente.py": {
         "descripcion": "Genera un reporte de texto con todas las tareas que el sistema completó durante el día.",
@@ -5656,7 +5656,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "resumen diario agente"
         ]
@@ -5668,7 +5668,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "root assistant"
         ]
@@ -5680,7 +5680,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "router consultas complejidad"
         ]
@@ -5692,7 +5692,7 @@
         "tecnologia": [
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "scheduler_tareas_programadas.py": {
         "descripcion": "Agente que realiza scheduler tareas programadas",
@@ -5701,7 +5701,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "scheduler tareas programadas"
         ]
@@ -5713,7 +5713,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "script cierre ventas"
         ]
@@ -5725,7 +5725,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "script llamada ventas"
         ]
@@ -5737,7 +5737,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "seguimiento pipeline"
         ]
@@ -5749,7 +5749,7 @@
         "tecnologia": [
             "Base de Datos"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "seguimiento whatsapp"
         ]
@@ -5761,7 +5761,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "simulador ahorro meta personal"
         ]
@@ -5773,7 +5773,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "simulador crowdfunding inmobiliario"
         ]
@@ -5785,7 +5785,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "simulador fondo emergencia"
         ]
@@ -5797,7 +5797,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "simulador hipoteca"
         ]
@@ -5809,7 +5809,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "simulador inversion cetes"
         ]
@@ -5821,7 +5821,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "sintetizador reportes"
         ]
@@ -5833,7 +5833,7 @@
         "tecnologia": [
             "Sistema"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "sistema maestro",
             "iniciar sistema",
@@ -5847,7 +5847,7 @@
         "tecnologia": [
             "Groq (Nube)"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "supervisor qa"
         ]
@@ -5859,7 +5859,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "template contrato servicios profesionales"
         ]
@@ -5871,7 +5871,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "test_crear_expansion.py": {
         "descripcion": "Test: Modo CREAR inteligente con plan de expansión",
@@ -5880,7 +5880,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "test_evolucion.py": {
         "descripcion": "Agente de auto-evolución para mejorar la funcionalidad de patcher_pro.py",
@@ -5889,7 +5889,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "test evolucion"
         ]
@@ -5901,7 +5901,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     },
     "tracker_inventario.py": {
         "descripcion": "Agente que realiza tracker inventario",
@@ -5910,7 +5910,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "tracker inventario"
         ]
@@ -5922,7 +5922,7 @@
         "tecnologia": [
             "Web"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "tracker metas ventas"
         ]
@@ -5934,7 +5934,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "tracker pedidos"
         ]
@@ -5946,7 +5946,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "tracker pedidos basico"
         ]
@@ -5958,7 +5958,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "tracker seguimiento prospectos"
         ]
@@ -5970,7 +5970,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "validador cfdi"
         ]
@@ -5982,7 +5982,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "validador clabe bancaria"
         ]
@@ -5994,7 +5994,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "validador curp mexico"
         ]
@@ -6006,7 +6006,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "validador datos entrada"
         ]
@@ -6018,7 +6018,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "validador formato rfc mexico"
         ]
@@ -6030,7 +6030,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "validador leads"
         ]
@@ -6042,7 +6042,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "validador rfc mexico"
         ]
@@ -6054,7 +6054,7 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18",
+        "ultima_actualizacion": "2026-03-03 10:17:54",
         "ordenes": [
             "verificador documentacion"
         ]
@@ -6066,6 +6066,6 @@
         "tecnologia": [
             "Python estándar"
         ],
-        "ultima_actualizacion": "2026-03-02 20:45:18"
+        "ultima_actualizacion": "2026-03-03 10:17:54"
     }
 }

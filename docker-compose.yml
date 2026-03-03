@@ -1,0 +1,72 @@
+version: "3.8"
+
+services:
+  api:
+    image: python:3.11-slim
+    container_name: agencia-api
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - SECRET_KEY=${SECRET_KEY:-change-me}
+    command: >
+      bash -c "pip install --no-cache-dir -r requirements.txt &&
+               uvicorn api:app --host 0.0.0.0 --port 8000"
+    networks:
+      - agencia-net
+
+  dashboard-api:
+    image: python:3.11-slim
+    container_name: agencia-dashboard-api
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8001"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - SECRET_KEY=${SECRET_KEY:-change-me}
+    command: >
+      bash -c "pip install --no-cache-dir -r requirements.txt &&
+               uvicorn src.agencia.api.dashboard:app --host 0.0.0.0 --port 8001"
+    networks:
+      - agencia-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: agencia-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - dashboard-api
+    networks:
+      - agencia-net
+
+  flask-dashboard:
+    image: python:3.11-slim
+    container_name: agencia-flask-dashboard
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - SECRET_KEY=${SECRET_KEY:-change-me}
+    command: >
+      bash -c "pip install --no-cache-dir -r requirements.txt &&
+               python app_dashboard.py"
+    networks:
+      - agencia-net
+
+networks:
+  agencia-net:
+    driver: bridge

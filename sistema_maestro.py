@@ -19,6 +19,8 @@ import shutil
 import re
 from datetime import datetime
 
+from src.agencia.core.router import DynamicRouter  # consolidated router
+
 # File locking nativo de Windows (sin pip)
 try:
     import msvcrt

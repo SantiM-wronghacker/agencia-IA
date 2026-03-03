@@ -16,7 +16,8 @@ from math import pi, sin, cos
 from logging_config import setup_logging
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
-from agent_router_projects import (
+from src.agencia.core.router import DynamicRouter  # consolidated router
+from src.agencia.core.router import (
     ensure_project,
     load_state,
     save_state,

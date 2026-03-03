@@ -40,6 +40,7 @@ projects/*/memory_db/
 projects/*/*.sqlite3
 projects/*/*/runs/
 projects/*/*/memory_db/
+projects/*/*/config.json
 
 # IDE y OS
 .vscode/

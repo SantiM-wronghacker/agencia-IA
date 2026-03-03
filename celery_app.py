@@ -11,6 +11,8 @@ import math
 import re
 import random
 
+from src.agencia.core.router import DynamicRouter  # consolidated router
+
 try:
     import web_bridge as web
     WEB = web.WEB  # True si hay conexion a internet

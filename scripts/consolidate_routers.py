@@ -68,8 +68,10 @@ def main():
     target = repo_root / TARGET_FILE
 
     if not target.exists():
-        print(f"ERROR: Target {TARGET_FILE} does not exist. "
-              "Run this after creating the src/ package structure.")
+        print(
+            f"ERROR: Target {TARGET_FILE} does not exist. "
+            "Run this after creating the src/ package structure."
+        )
         sys.exit(1)
 
     target_source = target.read_text(encoding="utf-8")

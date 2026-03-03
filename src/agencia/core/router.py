@@ -250,6 +250,12 @@ class DynamicRouter:
 
         if self.auto_escalate and needs_escalation(answer, route=route):
             logger.info("Escalating from %s to %s", MODEL_FAST, MODEL_STRONG)
-            answer = handler()  # retry (model selection handled internally)
+            # Re-run with the strong model via direct llm call
+            prefix = build_context_prefix(state)
+            recent = format_recent(state, n_msgs=10)
+            prompt = (
+                f"{prefix}\nRECENTE:\n{recent}\n\nMENSAJE:\n{user_text}"
+            )
+            answer = llm(SYSTEM_CHAT, prompt, model=MODEL_STRONG)
 
         return answer

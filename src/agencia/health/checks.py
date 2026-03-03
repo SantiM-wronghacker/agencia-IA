@@ -26,7 +26,7 @@ def _http_check(url: str, timeout: float = 3.0) -> bool:
     """Return ``True`` if a GET request to *url* returns 2xx."""
     try:
         resp = urllib.request.urlopen(url, timeout=timeout)
-        return 200 <= resp.status < 300
+        return 200 <= resp.getcode() < 300
     except Exception:
         return False
 

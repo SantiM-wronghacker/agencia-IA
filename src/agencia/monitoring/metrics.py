@@ -81,6 +81,7 @@ class _Histogram:
             self._counts[key] = self._counts.get(key, 0) + 1
             if key not in self._bucket_counts:
                 self._bucket_counts[key] = [0] * len(self.buckets)
+            # Cumulative: every bucket whose bound >= value is incremented.
             for i, b in enumerate(self.buckets):
                 if value <= b:
                     self._bucket_counts[key][i] += 1

@@ -83,9 +83,12 @@ class SanitizeFilter(logging.Filter):
     REDACTED = "***REDACTED***"
 
     def filter(self, record: logging.LogRecord) -> bool:
+        # Resolve the full message first (handles %-formatting with args),
+        # then sanitise the resolved text.
         msg = record.getMessage()
         for pattern in _SENSITIVE_PATTERNS:
             msg = pattern.sub(lambda m: m.group(1) + self.REDACTED, msg)
         record.msg = msg
-        record.args = None
+        # Clear args only after getMessage() so we don't break the message.
+        record.args = ()
         return True

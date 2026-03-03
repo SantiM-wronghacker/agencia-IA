@@ -9,6 +9,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from fastapi.testclient import TestClient
 
+from src.agencia.api.dashboard.models import TaskStatus
 from src.agencia.api.dashboard.routes import app, _task_store
 
 
@@ -90,7 +91,7 @@ def test_cancel_completed_task(client):
     create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Done task"})
     task_id = create_resp.json()["id"]
     # Manually mark as completed
-    _task_store[task_id]["status"] = "completed"
+    _task_store[task_id].status = TaskStatus.COMPLETED
     resp = client.post(f"/api/v2/dashboard/tasks/{task_id}/cancel")
     assert resp.status_code == 400
 
@@ -115,7 +116,7 @@ def test_metrics(client):
     resp = client.get("/api/v2/dashboard/metrics")
     assert resp.status_code == 200
     data = resp.json()
-    assert data["total"] == 2
+    assert data["total_tasks"] == 2
     assert data["pending"] == 2
 
 

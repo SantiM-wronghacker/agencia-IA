@@ -1,0 +1,3 @@
+-- Initial migration placeholder
+-- Run with: psql -U agencia -d agencia_ia -f database/migrations/001_initial.sql
+-- This migration creates the base schema. See schema.sql for the full schema.

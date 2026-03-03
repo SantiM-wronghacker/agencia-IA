@@ -47,13 +47,13 @@ const MetricsPanel: React.FC = () => {
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium">Success Rate</span>
           <span className="text-sm font-bold">
-            {(metrics.success_rate * 100).toFixed(1)}%
+            {metrics.success_rate.toFixed(1)}%
           </span>
         </div>
         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
           <div
             className="bg-green-500 h-3 rounded-full transition-all duration-500"
-            style={{ width: `${metrics.success_rate * 100}%` }}
+            style={{ width: `${metrics.success_rate}%` }}
           />
         </div>
         {metrics.avg_completion_time != null && (

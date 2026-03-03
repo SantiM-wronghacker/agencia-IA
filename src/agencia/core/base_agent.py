@@ -119,7 +119,7 @@ class BaseAgent(ABC):
 
     def _make_cache_key(self, input_data: dict[str, Any]) -> str:
         raw = str(sorted(input_data.items()))
-        return hashlib.md5(raw.encode()).hexdigest()  # noqa: S324
+        return hashlib.sha256(raw.encode()).hexdigest()
 
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} name={self.name!r} category={self.category!r}>"

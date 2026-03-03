@@ -1,4 +1,4 @@
-import { WebSocketService } from '../src/services/websocketService';
+import WebSocketService from '../src/services/websocketService';
 
 describe('WebSocketService', () => {
   test('is a singleton', () => {

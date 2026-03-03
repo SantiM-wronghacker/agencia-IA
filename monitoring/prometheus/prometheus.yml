@@ -1,0 +1,29 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: "api_agencia"
+    static_configs:
+      - targets: ["api_agencia:8000"]
+    metrics_path: /metrics
+
+  - job_name: "dashboard_web"
+    static_configs:
+      - targets: ["dashboard_web:8080"]
+    metrics_path: /metrics
+
+  - job_name: "app_dashboard"
+    static_configs:
+      - targets: ["app_dashboard:5000"]
+    metrics_path: /metrics
+
+  - job_name: "sistema_maestro"
+    static_configs:
+      - targets: ["sistema_maestro:9100"]
+    metrics_path: /metrics
+
+  - job_name: "health_monitor"
+    static_configs:
+      - targets: ["health_monitor:9101"]
+    metrics_path: /metrics

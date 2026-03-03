@@ -1,0 +1,26 @@
+# ═══════════════════════════════════════════════════════════════
+# Dockerfile - Celery Worker
+# ═══════════════════════════════════════════════════════════════
+FROM python:3.13-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir \
+    psycopg2-binary \
+    redis \
+    prometheus-client \
+    opentelemetry-api \
+    opentelemetry-sdk \
+    opentelemetry-exporter-jaeger \
+    python-json-logger \
+    celery[redis]
+
+COPY . .
+
+CMD ["python", "-m", "celery", "-A", "celery_app", "worker", "--loglevel=info", "--concurrency=4"]

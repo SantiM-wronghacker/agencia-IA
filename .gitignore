@@ -53,6 +53,8 @@ desktop.ini
 
 # Pytest
 .pytest_cache/
+.coverage
+htmlcov/
 
 # Bases de datos y vectores de runtime
 *.db

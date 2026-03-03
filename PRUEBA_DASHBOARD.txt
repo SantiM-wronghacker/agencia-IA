@@ -1,0 +1,201 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                   DASHBOARD INTEGRADO - INSTRUCCIONES DE PRUEBA             ║
+║                                                                            ║
+║  Sistema: Agencia Santi v2.0                    Fecha: 2026-03-02         ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+PASO 1: VERIFICACIÓN RÁPIDA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Abre el archivo: C:\Users\Santi\agentes-local\test_dashboard.bat
+
+Debería mostrar:
+  ✓ dashboard_standalone.html existe
+  ✓ api_agencia.py existe
+  ✓ Sintaxis de Python correcta
+  ✓ [Luego inicia el servidor...]
+
+Si todo es ✓, continúa al Paso 2
+
+
+PASO 2: INICIAR EL SISTEMA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ejecuta: C:\Users\Santi\agentes-local\arrancar_simple.bat
+
+Debería mostrar:
+  [1/3] Limpiando procesos previos...
+  [2/3] Iniciando API + Dashboard (puerto 8000)...
+  [3/3] Abriendo dashboard en navegador...
+  ============================================
+  API:       http://localhost:8000/status
+  DASHBOARD: http://localhost:8000/dashboard
+  ============================================
+
+Espera 5-10 segundos a que aparezca el navegador
+
+
+PASO 3: VERIFICAR DASHBOARD EN TU COMPUTADORA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+El navegador debería abrir: http://localhost:8000/dashboard
+
+Deberías ver:
+  ┌─────────────────────────────────────────┐
+  │ ⚙️ Agencia Santi v2         [Online]    │
+  ├─────────────────────────────────────────┤
+  │                                         │
+  │  Estado        Agentes       Saludables │
+  │   Online         503            284      │
+  │                                         │
+  │  Microagentes   Categorías      Modo   │
+  │   206/206          20         MEJORAR  │
+  │                                         │
+  ├─────────────────────────────────────────┤
+  │  📊 Categorías                          │
+  │  ┌──────────────────────────────────┐   │
+  │  │ Categoría | Agentes | OK        │   │
+  │  ├──────────────────────────────────┤   │
+  │  │ FINANZAS  | 25      | 25        │   │
+  │  │ CEREBRO   | 12      | 12        │   │
+  │  │ [más...]  | ...     | ...       │   │
+  │  └──────────────────────────────────┘   │
+  │                                         │
+  │  📝 Últimas Actividades                │
+  │  [log de sistema con 15 líneas]        │
+  │                                         │
+  └─────────────────────────────────────────┘
+
+✅ Si ves esto, el dashboard funciona correctamente en LOCAL
+
+
+PASO 4: VERIFICAR ACCESO REMOTO (desde otro dispositivo)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+a) Obtén tu IP:
+   - Abre Command Prompt (cmd)
+   - Escribe: ipconfig
+   - Busca "IPv4 Address" (verás algo como: 192.168.1.100)
+
+b) En otro dispositivo (teléfono, tablet, otra PC):
+   - Abre navegador
+   - Escribe: http://192.168.1.100:8000/dashboard
+     (reemplaza 192.168.1.100 con tu IP)
+   - Debería ver el MISMO dashboard que en tu computadora
+
+✅ Si lo ves desde otro dispositivo, el acceso remoto funciona
+
+
+PASO 5: VERIFICAR QUE ACTUALIZA EN TIEMPO REAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+a) Mantén el dashboard abierto en tu navegador
+b) En otra ventana, ejecuta un agente:
+   python "C:\Users\Santi\agentes-local\calculadora_saldo_mx.py" 10000
+
+c) Vuelve al dashboard
+d) El log en la sección "Últimas Actividades" debería actualizar
+
+✅ Si el log se actualiza, las updates automáticas funcionan
+
+
+SOLUCIÓN DE PROBLEMAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROBLEMA: "Conectando..." indefinidamente
+───────────────────────────────────────
+Solución:
+  1. Presiona Ctrl+C en la ventana del servidor para detenerlo
+  2. Ejecuta: C:\Users\Santi\agentes-local\limpiar_sistema.bat
+  3. Espera a que diga "Sistema limpio"
+  4. Ejecuta nuevamente: arrancar_simple.bat
+
+
+PROBLEMA: "Error: network failed" o "refused connection"
+──────────────────────────────────────────────────────
+Solución:
+  1. Verifica que arrancar_simple.bat está corriendo
+  2. Abre comando: http://localhost:8000/status en el navegador
+  3. Si muestra JSON, el API funciona
+  4. Intenta refrescar la página del dashboard (F5)
+
+
+PROBLEMA: Puedo acceder desde mi PC pero no desde otro dispositivo
+─────────────────────────────────────────────────────────────────
+Solución:
+  1. Verifica que ambos dispositivos están en la misma red WiFi
+  2. Obtén tu IP correcta: ipconfig (en Command Prompt)
+  3. Prueba en el otro dispositivo: http://<IP>:8000/ping
+     (Debería mostrar: {"pong": true, ...})
+  4. Si pong funciona pero dashboard no, el firewall está bloqueando:
+     - Abre: Windows Defender Firewall
+     - Click: "Allow an app through firewall"
+     - Busca y permite: Python
+
+
+PROBLEMA: "dashboard_standalone.html not found"
+──────────────────────────────────────────────
+Solución:
+  1. Verifica que el archivo existe:
+     C:\Users\Santi\agentes-local\dashboard_standalone.html
+  2. Si no existe, descárgalo nuevamente
+  3. Reinicia arrancar_simple.bat
+
+
+INFORMACIÓN ADICIONAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Para acceder a datos JSON (si necesitas debugging):
+  http://localhost:8000/status        → Estado general
+  http://localhost:8000/categorias    → Breakdown de categorías
+  http://localhost:8000/expansion     → Plan de expansión
+  http://localhost:8000/modo          → Modo actual
+
+
+RESUMEN DE ARCHIVOS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Archivos importantes en C:\Users\Santi\agentes-local\:
+
+  arrancar_simple.bat             ← EJECUTAR ESTO para iniciar
+  limpiar_sistema.bat             ← Si hay conflictos
+  test_dashboard.bat              ← Para verificar
+  dashboard_standalone.html       ← El dashboard (archivo)
+  api_agencia.py                  ← El servidor (modificado)
+  INSTRUCCIONES_DASHBOARD.txt     ← Guía completa
+  DASHBOARD_SETUP.md              ← Documentación técnica
+  STATUS.md                       ← Estado del sistema
+  RESUMEN_CAMBIOS.md              ← Qué cambió
+
+
+DESPUÉS DE VERIFICAR QUE FUNCIONA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Una vez que hayas verificado:
+  ✅ Dashboard funciona en localhost
+  ✅ Dashboard funciona en acceso remoto
+  ✅ Los datos se actualizan cada 10 segundos
+
+Puedes:
+  1. Eliminar arrancar_con_menu.bat (ya no se usa)
+  2. Cambiar arrancar_simple.bat por tu script favorito
+  3. Continuar con las siguientes fases del proyecto
+
+
+CONTACTO / SOPORTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Si algo no funciona, proporciona:
+  - Qué paso falló (1, 2, 3, 4 o 5)
+  - Qué mensaje de error viste
+  - Output de la consola (copia y pega)
+  - Tu IP (ipconfig)
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                         ¡LISTO PARA PROBAR! 🎉                             ║
+║                                                                            ║
+║  Ejecuta: arrancar_simple.bat                                              ║
+║  Abre:    http://localhost:8000/dashboard                                  ║
+╚════════════════════════════════════════════════════════════════════════════╝

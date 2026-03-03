@@ -8,12 +8,6 @@ import sys
 import datetime
 import random
 
-try:
-    import web_bridge as web
-    WEB = web.WEB  # True si hay conexion a internet
-except ImportError:
-    WEB = False
-
 def generar_fecha_seguimiento(etapa):
     if etapa.lower() == 'frío':
         return datetime.date.today() + datetime.timedelta(days=14)
@@ -29,6 +23,14 @@ def generar_prioridad(etapa):
         'caliente': 'Alta'
     }
     return prioridades.get(etapa.lower(), 'Media')
+
+def generar_precio(tipo_propiedad):
+    precios = {
+        'casa': 500000,
+        'departamento': 300000,
+        'terreno': 200000
+    }
+    return precios.get(tipo_propiedad.lower(), 0)
 
 def main():
     try:
@@ -48,33 +50,35 @@ def main():
         if etapa_funnel.lower() not in etapas_validas:
             raise ValueError(f'Etapa del embudo debe ser: {", ".join(etapas_validas)}')
 
+        tipo_propiedades_validas = ['casa', 'departamento', 'terreno']
+        if tipo_propiedad.lower() not in tipo_propiedades_validas:
+            raise ValueError(f'Tipo de propiedad debe ser: {", ".join(tipo_propiedades_validas)}')
+
+        fecha_seguimiento = generar_fecha_seguimiento(etapa_funnel)
+        prioridad = generar_prioridad(etapa_funnel)
+        precio = generar_precio(tipo_propiedad)
+
         emails = [
             f'Hola {nombre_prospecto}, gracias por considerar nuestra {tipo_propiedad}. ¿Te gustaría agendar una visita?',
             f'Estimado {nombre_prospecto}, ¿necesitas más información sobre nuestra {tipo_propiedad} en {random.choice(["Zona Norte", "Centro", "Sur"])}, {random.choice(["CDMX", "Estado de México", "Querétaro"])}?',
-            f'Sr. {nombre_prospecto}, su {tipo_propiedad} {etapa_funnel} está lista para ser visitada. ¿Qué día te conviene más?'
+            f'Sr. {nombre_prospecto}, su {tipo_propiedad} {etapa_funnel} está lista para ser visitada. ¿Qué día te conviene?'
         ]
 
-        print(f'Fecha de hoy: {datetime.date.today()}')
         print(f'Nombre del prospecto: {nombre_prospecto}')
-        print(f'Etapa del embudo: {etapa_funnel.capitalize()}')
+        print(f'Etapa del embudo: {etapa_funnel}')
         print(f'Tipo de propiedad: {tipo_propiedad}')
-        print(f'Ubicación sugerida: {random.choice(["Residencial", "Comercial", "Industrial"])}')
-
+        print(f'Fecha de seguimiento: {fecha_seguimiento}')
+        print(f'Prioridad: {prioridad}')
+        print(f'Precio aproximado: ${precio:,.2f}')
+        print('Secuencia de emails:')
         for i, email in enumerate(emails):
             print(f'Email {i+1}: {email}')
-
-        print('\nResumen ejecutivo:')
-        print(f'Prospecto: {nombre_prospecto} - Etapa: {etapa_funnel.capitalize()} - Propiedad: {tipo_propiedad}')
-        print(f'Fecha de seguimiento: {generar_fecha_seguimiento(etapa_funnel)}')
-        print(f'Prioridad: {generar_prioridad(etapa_funnel)}')
-        print(f'Recomendación: {random.choice(["Contactar por WhatsApp", "Enviar catálogo digital", "Agendar visita presencial"])}')
-
-    except Exception as e:
+        print('Resumen ejecutivo:')
+        print(f'El prospecto {nombre_prospecto} se encuentra en la etapa {etapa_funnel} del embudo y ha mostrado interés en una {tipo_propiedad}. Se le ha asignado una fecha de seguimiento para {fecha_seguimiento} y una prioridad de {prioridad}. El precio aproximado de la propiedad es de ${precio:,.2f}.')
+    except ValueError as e:
         print(f'Error: {e}')
-    except IndexError:
-        print('Error: No se proporcionaron los parámetros necesarios.')
-    except ValueError as ve:
-        print(f'Error de validación: {ve}')
+    except Exception as e:
+        print(f'Error inesperado: {e}')
 
 if __name__ == "__main__":
     main()

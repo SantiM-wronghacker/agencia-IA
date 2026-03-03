@@ -39,13 +39,18 @@ def main():
             tiempo_respuesta = round(random.uniform(0.1, 2.0), 2)  # en segundos
             memoria_usada = round(random.uniform(100, 500), 2)  # en MB
             cpu_usada = round(random.uniform(10, 90), 2)  # en porcentaje
+            disco_usado = round(random.uniform(10, 90), 2)  # en porcentaje
+            red_usada = round(random.uniform(10, 90), 2)  # en porcentaje
             datos = {
                 "agente": f"Agente {i+1}",
                 "tiempo_respuesta": tiempo_respuesta,
                 "memoria_usada": memoria_usada,
                 "cpu_usada": cpu_usada,
-                "disco_usado": round(random.uniform(10, 90), 2),  # en porcentaje
-                "red_usada": round(random.uniform(10, 90), 2)  # en porcentaje
+                "disco_usado": disco_usado,
+                "red_usada": red_usada,
+                "procesos_actuales": round(random.uniform(1, 10), 2),
+                "hilos_actuales": round(random.uniform(1, 10), 2),
+                "uso_bateria": round(random.uniform(1, 100), 2)
             }
             datos_monitoreo.append(datos)
 
@@ -61,22 +66,18 @@ def main():
             print(f"    * CPU usada: {datos['cpu_usada']}%")
             print(f"    * Disco usado: {datos['disco_usado']}%")
             print(f"    * Red usada: {datos['red_usada']}%")
-        print(f"Monitoreo finalizado con éxito")
-
-        # Resumen ejecutivo
-        print("\nResumen Ejecutivo:")
-        print(f"Total de agentes monitoreados: {num_agentes}")
-        promedio_tiempo_respuesta = sum(datos["tiempo_respuesta"] for datos in datos_monitoreo) / num_agentes
-        print(f"Promedio de tiempo de respuesta: {promedio_tiempo_respuesta} segundos")
-        promedio_memoria_usada = sum(datos["memoria_usada"] for datos in datos_monitoreo) / num_agentes
-        print(f"Promedio de memoria usada: {promedio_memoria_usada} MB")
-        promedio_cpu_usada = sum(datos["cpu_usada"] for datos in datos_monitoreo) / num_agentes
-        print(f"Promedio de CPU usada: {promedio_cpu_usada}%")
-
-    except ValueError as e:
-        print(f"Error de valor: {str(e)}")
+            print(f"    * Procesos actuales: {datos['procesos_actuales']}")
+            print(f"    * Hilos actuales: {datos['hilos_actuales']}")
+            print(f"    * Uso de bateria: {datos['uso_bateria']}%")
+            print()
+        print("Resumen ejecutivo:")
+        print(f"  - Tiempo de respuesta promedio: {sum([datos['tiempo_respuesta'] for datos in datos_monitoreo]) / num_agentes} segundos")
+        print(f"  - Memoria usada promedio: {sum([datos['memoria_usada'] for datos in datos_monitoreo]) / num_agentes} MB")
+        print(f"  - CPU usada promedio: {sum([datos['cpu_usada'] for datos in datos_monitoreo]) / num_agentes}%")
+        print(f"  - Disco usado promedio: {sum([datos['disco_usado'] for datos in datos_monitoreo]) / num_agentes}%")
+        print(f"  - Red usada promedio: {sum([datos['red_usada'] for datos in datos_monitoreo]) / num_agentes}%")
     except Exception as e:
-        print(f"Error durante el monitoreo: {str(e)}")
+        print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
     main()

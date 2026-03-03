@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Way2TheUnknown — Descubre el Mundo</title>
+<style>
+:root {
+  --verde:       #647D63;
+  --verde-claro: #A9C5A0;
+  --negro:       #1A1A1A;
+  --gris:        #333333;
+  --beige:       #E1D9C8;
+  --beige-claro: #ece6da;
+  --blanco:      #faf9f7;
+  --naranja:     #f7630c;
+  --dorado:      #f5a524;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Georgia,sans-serif;background:var(--blanco);color:var(--negro)}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{background:rgba(250,249,247,0.95);backdrop-filter:blur(8px);
+     border-bottom:1px solid var(--gris-claro,#D9D9D9);
+     padding:16px 40px;display:flex;justify-content:space-between;align-items:center;
+     position:sticky;top:0;z-index:100}
+.logo{font-size:1.35rem;font-weight:700;color:var(--verde);letter-spacing:1px}
+.logo span{color:var(--naranja)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:.9rem;color:var(--gris);font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--verde)}
+.nav-cta{background:var(--verde);color:var(--blanco) !important;
+          padding:9px 22px;border-radius:25px;font-weight:600 !important}
+.nav-cta:hover{background:#4a6349 !important}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--beige) 0%,var(--beige-claro) 60%,var(--verde-claro) 100%);
+       padding:100px 40px;text-align:center;min-height:70vh;display:flex;
+       flex-direction:column;justify-content:center;align-items:center}
+.hero h1{font-size:3rem;font-weight:800;color:var(--verde);margin-bottom:16px;line-height:1.15}
+.hero h1 span{color:var(--naranja)}
+.hero p{font-size:1.15rem;color:var(--gris);max-width:580px;margin:0 auto 32px;line-height:1.7}
+.btn{display:inline-block;padding:14px 32px;border-radius:30px;font-size:1rem;
+      font-weight:600;cursor:pointer;border:none;transition:all .25s}
+.btn-primary{background:var(--verde);color:#fff}
+.btn-primary:hover{background:#4a6349;transform:translateY(-2px)}
+.btn-secondary{background:transparent;border:2px solid var(--verde);color:var(--verde);margin-left:12px}
+.btn-secondary:hover{background:var(--verde);color:#fff}
+
+/* SECCIONES */
+section{padding:80px 40px;max-width:1200px;margin:0 auto}
+.section-title{text-align:center;margin-bottom:48px}
+.section-title h2{font-size:2rem;color:var(--verde);margin-bottom:10px}
+.section-title p{color:var(--gris);font-size:1rem}
+
+/* GRID DESTINOS */
+.destinos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.destino-card{background:#fff;border-radius:14px;overflow:hidden;
+               box-shadow:0 4px 16px rgba(0,0,0,.07);transition:transform .25s,box-shadow .25s}
+.destino-card:hover{transform:translateY(-5px);box-shadow:0 8px 28px rgba(0,0,0,.12)}
+.destino-img{height:180px;background:var(--verde-claro);display:flex;align-items:center;
+              justify-content:center;font-size:3rem}
+.destino-body{padding:20px}
+.destino-body h3{font-size:1.1rem;color:var(--negro);margin-bottom:6px}
+.destino-body p{font-size:.85rem;color:var(--gris);margin-bottom:14px;line-height:1.5}
+.destino-price{font-size:1.1rem;font-weight:700;color:var(--verde)}
+.destino-price span{font-size:.78rem;color:var(--gris);font-weight:400} 
+.tag{background:var(--beige);color:var(--verde);font-size:.72rem;
+      padding:3px 10px;border-radius:12px;font-weight:600}
+
+/* STATS */
+.stats-bar{background:var(--verde);padding:48px 40px}
+.stats-inner{max-width:1000px;margin:0 auto;display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;text-align:center}
+.stat h3{font-size:2.5rem;font-weight:800;color:var(--dorado)}
+.stat p{color:rgba(255,255,255,.8);font-size:.9rem;margin-top:4px}
+
+/* FORM */
+.form-box{background:#fff;border-radius:16px;padding:40px;
+           box-shadow:0 4px 24px rgba(0,0,0,.08);max-width:700px;margin:0 auto}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:.85rem;color:var(--gris);font-weight:600}
+.form-group input,.form-group select,.form-group textarea{
+  border:1.5px solid var(--gris-claro,#D9D9D9);border-radius:8px;
+  padding:11px 14px;font-size:.9rem;color:var(--negro);
+  background:#fff;transition:border .2s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  outline:none;border-color:var(--verde)}
+.form-group textarea{resize:vertical;min-height:90px}
+.fee-box{background:var(--beige);border-radius:10px;padding:16px;margin:16px 0;
+          font-size:.88rem;color:var(--gris)}
+.fee-box strong{color:var(--verde)}
+
+/* FOOTER */
+footer{background:var(--negro);color:rgba(255,255,255,.7);
+        padding:48px 40px;text-align:center}
+footer .logo{color:var(--verde-claro);font-size:1.4rem;font-weight:700;margin-bottom:12px}
+footer p{font-size:.85rem;line-height:1.8}
+footer a{color:var(--naranja)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .hero h1{font-size:2rem}
+  .nav-links{display:none}
+  section{padding:48px 20px}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Way2The<span>Unknown</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" style="color:var(--verde)">Inicio</a></li>
+    <li><a href="destinos.html" >Destinos</a></li>
+    <li><a href="servicios.html" >Servicios</a></li>
+    <li><a href="servicios.html" class="nav-cta">Cotizar Ahora</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <h1>Viaja hacia lo <span>Desconocido</span></h1>
+  <p>Agencia boutique especializada en experiencias únicas. Destinos exclusivos, itinerarios personalizados y el mejor precio garantizado con solo el 8% de fee.</p>
+  <div>
+    <a href="destinos.html" class="btn btn-primary">Ver Destinos</a>
+    <a href="servicios.html" class="btn btn-secondary">Cotizar Gratis</a>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><h3>500+</h3><p>Viajeros felices</p></div>
+    <div class="stat"><h3>45</h3><p>Destinos disponibles</p></div>
+    <div class="stat"><h3>8%</h3><p>Fee transparente</p></div>
+    <div class="stat"><h3>24/7</h3><p>Soporte en viaje</p></div>
+  </div>
+</div>
+
+<section>
+  <div class="section-title">
+    <h2>Destinos Destacados</h2>
+    <p>Los favoritos de nuestros viajeros este 2026</p>
+  </div>
+  <div class="destinos-grid">
+    <div class="destino-card">
+      <div class="destino-img">🗻</div>
+      <div class="destino-body">
+        <span class="tag">Asia</span>
+        <h3>Japón Clásico</h3>
+        <p>Tokyo, Kioto y Osaka. Tradición y modernidad en perfecta armonía.</p>
+        <div class="destino-price">Desde $42,000 MXN <span>/ persona</span></div>
+      </div>
+    </div>
+    <div class="destino-card">
+      <div class="destino-img">🏖️</div>
+      <div class="destino-body">
+        <span class="tag">México</span>
+        <h3>Riviera Maya</h3>
+        <p>Cancún, Tulum y Playa del Carmen. El Caribe mexicano en su máximo esplendor.</p>
+        <div class="destino-price">Desde $18,000 MXN <span>/ persona</span></div>
+      </div>
+    </div>
+    <div class="destino-card">
+      <div class="destino-img">🏰</div>
+      <div class="destino-body">
+        <span class="tag">Europa</span>
+        <h3>Gran Tour Europa</h3>
+        <p>París, Roma, Barcelona y Amsterdam. La esencia del viejo continente.</p>
+        <div class="destino-price">Desde $68,000 MXN <span>/ persona</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:36px">
+    <a href="destinos.html" class="btn btn-primary">Ver Todos los Destinos</a>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">Way2TheUnknown</div>
+  <p>Agencia de viajes especializada en destinos únicos &amp; experiencias memorables<br>
+  México · <a href="mailto:hola@way2theunknown.com">hola@way2theunknown.com</a> · Fee: 8% sobre el viaje</p>
+  <p style="margin-top:16px;font-size:.75rem;color:rgba(255,255,255,.4)">
+    © 2026 Way2TheUnknown — Generado por Agencia Santi IA
+  </p>
+</footer>
+</body></html>

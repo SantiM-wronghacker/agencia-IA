@@ -1,0 +1,189 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║                         ✨ AGENCIA SANTI — INICIO RÁPIDO ✨                 ║
+║                                                                               ║
+║                    Solución Completa de Arranque y Dashboard                 ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+                          RESPUESTA A TU PREGUNTA
+                          ══════════════════════════
+
+"¿Ahora puedo abrir siempre el dashboard aunque no esté encendido arrancar?"
+
+✅ SÍ. Ahora tienes 3 formas de hacerlo:
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║                   OPCIÓN 1️⃣: INICIO RÁPIDO (RECOMENDADO)                   ║
+║                                                                               ║
+║  Haz doble clic en: → arrancar.bat                                           ║
+║                                                                               ║
+║  Resultado:                                                                  ║
+║    ✓ Sistema se inicia automáticamente                                      ║
+║    ✓ Verifica que API responda                                              ║
+║    ✓ ABRE AUTOMÁTICAMENTE el dashboard en tu navegador                      ║
+║    ✓ Muestra URLs de acceso                                                 ║
+║                                                                               ║
+║  Dashboard disponible en: http://localhost:8080                              ║
+║  API disponible en:       http://localhost:8000                              ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║               OPCIÓN 2️⃣: AUTO-INICIO (Cada vez que enciendes PC)           ║
+║                                                                               ║
+║  1. Abre CMD como ADMINISTRADOR (click derecho → "Ejecutar como admin")     ║
+║  2. cd C:\Users\Santi\agentes-local                                          ║
+║  3. activar_autostart.bat                                                    ║
+║                                                                               ║
+║  Resultado:                                                                  ║
+║    ✓ Sistema se inicia automáticamente al encender tu PC                    ║
+║    ✓ No necesitas acordarte de nada                                         ║
+║    ✓ Dashboard siempre disponible                                           ║
+║                                                                               ║
+║  Para desactivar: desactivar_autostart.bat (como Admin)                     ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║              OPCIÓN 3️⃣: MENÚ CENTRAL (Todo en un lugar)                    ║
+║                                                                               ║
+║  Haz doble clic en: → LAUNCHER_MENU.bat                                     ║
+║                                                                               ║
+║  Opciones disponibles:                                                       ║
+║    1. Iniciar SISTEMA COMPLETO                                              ║
+║    2. Abrir DASHBOARD (si ya está corriendo)                               ║
+║    3. Ver ESTADO DEL SISTEMA                                               ║
+║    4. Configurar AUTO-INICIO                                                ║
+║    5. Desactivar AUTO-INICIO                                                ║
+║    6. Ver LOGS                                                              ║
+║    7. Limpiar PROCESOS                                                      ║
+║    8. Abrir CARPETA DEL PROYECTO                                            ║
+║    9. Abrir GUIA COMPLETA                                                   ║
+║    0. SALIR                                                                 ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                            🎯 MI RECOMENDACIÓN
+
+  SI QUIERES FACILIDAD MÁXIMA:
+    1. Abre CMD como ADMINISTRADOR
+    2. cd C:\Users\Santi\agentes-local
+    3. activar_autostart.bat
+    4. ✅ Listo. Desde ahora se inicia solo al encender tu PC
+    5. Nunca más tienes que hacer nada
+
+  SI PREFIERES CONTROL MANUAL:
+    → Haz doble clic en arrancar.bat cada vez que lo necesites
+    → Dashboard se abre automáticamente
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+📁 ARCHIVOS PRINCIPALES
+
+  arrancar.bat                    ← INICIA TODO (opción 1)
+  LAUNCHER_MENU.bat               ← MENÚ CENTRAL (opción 3)
+  activar_autostart.bat           ← AUTO-INICIO (opción 2)
+  desactivar_autostart.bat        ← Desactivar auto-inicio
+  abrir_dashboard.bat             ← Abre dashboard si ya corre
+  estado_sistema.bat              ← Ver estado + opciones
+
+  GUIA_ARRANQUE.txt               ← Guía detallada en español
+  RESUMEN_SOLUCION_ARRANQUE.md   ← Documentación técnica
+
+
+📊 ESTADO DEL SISTEMA AHORA
+
+  ✅ API:      Corriendo en http://localhost:8000
+  ✅ Dashboard: Corriendo en http://localhost:8080
+  ✅ Agentes:   284 activos
+  ✅ Expansión: 206 micros planificados (6.3% completado)
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+                          ¿QUÉ NECESITAS HACER?
+
+  [ ] Paso 1: Lee este archivo (EMPEZAR_AQUI.txt) ← YA HECHO ✓
+
+  [ ] Paso 2: Elige una opción:
+      • Opción 1 (Recomendado): Haz doble clic en arrancar.bat
+      • Opción 2 (Auto-inicio):  Corre activar_autostart.bat (como Admin)
+      • Opción 3 (Menú):         Haz doble clic en LAUNCHER_MENU.bat
+
+  [ ] Paso 3: ¡Disfruta! Ahora tienes:
+      • Dashboard con CRUD de agentes
+      • Panel de expansión
+      • Gestión de categorías
+      • Ver status del sistema
+      • Y mucho más...
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+                          🚀 EMPEZAR AHORA MISMO
+
+  ► Haz doble clic en:  arrancar.bat
+
+  En 5 segundos:
+    ✓ El dashboard se abre automáticamente en tu navegador
+    ✓ Sistema listo para usar
+    ✓ Todo corriendo en background
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+❓ PREGUNTAS FRECUENTES
+
+P: ¿Puedo usar el dashboard sin estar corriendo arrancar.bat?
+R: No. El API y Dashboard necesitan estar activos. Usa arrancar.bat primero.
+
+P: ¿Se cerrará el sistema si cierro la ventana de CMD?
+R: No. El sistema sigue corriendo en background. Solo cierra la ventana.
+
+P: ¿Cómo me aseguro de que el sistema está corriendo?
+R: Abre estado_sistema.bat. Te muestra el estado actual.
+
+P: ¿Dónde están los logs si algo falla?
+R: En sistema_maestro.log. Abre con cualquier editor de texto.
+
+P: ¿Puedo ver los últimos logs?
+R: Sí. estado_sistema.bat → opción 2 (Ver logs)
+
+P: ¿Cómo desactivo el auto-inicio?
+R: desactivar_autostart.bat (como Admin). Vuelve a inicio manual.
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+                        📖 MÁS INFORMACIÓN
+
+  Para documentación completa, abre:
+    → GUIA_ARRANQUE.txt
+    → RESUMEN_SOLUCION_ARRANQUE.md
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+
+                      ✨ ¡Listo para empezar! ✨
+
+                   Haz doble clic en:  arrancar.bat
+
+
+═══════════════════════════════════════════════════════════════════════════════

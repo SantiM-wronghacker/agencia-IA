@@ -1,0 +1,160 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                         QUICK START — 3 PASOS                                ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+PASO 1: ARRANCAR EL SISTEMA
+═════════════════════════════════════════════════════════════════════════════════
+
+Doble clic en: C:\Users\Santi\agentes-local\arrancar_con_menu.bat
+
+Verás un menú (selecciona [1-5]):
+
+   1. CREAR - Generar nuevos agentes PRIORIZANDO el plan de 206 micros
+   2. MEJORAR - Optimizar los agentes existentes
+   3. BALANCEADO - 60% crear, 40% mejorar
+   4. EXPANSION - SOLO los 206 micros del plan
+   5. NOCHE - Todas las tareas (default)
+
+→ Selecciona: 1 (CREAR)
+→ El sistema arranca automáticamente
+
+
+PASO 2: MONITOREAR PROGRESO
+═════════════════════════════════════════════════════════════════════════════════
+
+Dashboard automático se abre en: http://localhost:8080
+
+Ves la información en tiempo real:
+
+  Tab "Expansion":
+    • Progreso: X/206 micros (Y%)
+    • Lista de micros creados
+    • Lista de micros pendientes
+    • Estimado de tiempo
+
+  Tab "Admin" → "Modo de Fabrica":
+    • Dropdown para cambiar modo
+    • Status actual: "Modo: CREAR"
+    • Botón "Cambiar" si quieres otro modo
+
+  Tab "Logs":
+    • Scroll para ver últimas acciones
+    • Busca [EXPANSION] para ver solo micros
+
+
+PASO 3: DEJAR QUE CORRA
+═════════════════════════════════════════════════════════════════════════════════
+
+El sistema automáticamente:
+
+  1. Crea ~5 micros del plan cada lote
+  2. Crea ~10 agentes normales cada lote
+  3. Muestra progreso: "Expansion: X/206 (Y%)"
+  4. Cuando alcanza 500 agentes + 206 micros completados:
+     → Automáticamente cambia a MEJORAR
+     → Hito: "[HITO] 500 agentes + 206 micros completados!"
+
+Estimado:
+  • CREAR mode: 4-6 horas para completar
+  • Cada lote: ~5-6 minutos
+  • Lotes necesarios: 15-20
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+QUÉ HACE EL MODO CREAR INTELIGENTE:
+═════════════════════════════════════════════════════════════════════════════════
+
+ANTES:
+  • Creaba agentes al azar hasta 500
+  • Sin priorización del plan de expansion
+  • Sin tracking de micros
+
+AHORA:
+  • Prioriza los 206 micros del expansion_plan.json
+  • Cada lote: 5 micros + 10 agentes normales
+  • Tracking en tiempo real: "Expansion: X/206 (Y%)"
+  • Automáticamente identifica cuáles micros ya existen
+  • Cuando completa ambas metas (500 + 206), cambia a MEJORAR
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+ESTADO ACTUAL:
+═════════════════════════════════════════════════════════════════════════════════
+
+  • Total agentes: 305
+  • Micros creados: 13/206 (6%)
+  • Micros pendientes: 193
+  • Modo actual: CREAR (puedes cambiar en Dashboard)
+  • Status: Listo para arrancar
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+CAMBIAR MODO SIN REINICIAR:
+═════════════════════════════════════════════════════════════════════════════════
+
+1. Dashboard abierto: http://localhost:8080
+2. Tab "Admin" → "Modo de Fabrica"
+3. Dropdown: Selecciona nuevo modo
+4. Botón "Cambiar"
+5. Status: "Modo: [nombre]. Aplicará en próximo ciclo."
+6. Próximo lote (en 1-5 min) usa el nuevo modo
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+PARAR EL SISTEMA (SEGURO):
+═════════════════════════════════════════════════════════════════════════════════
+
+En la ventana del CMD: Presiona Ctrl+C
+
+Sistema mostrará:
+  [FÁBRICA] Fábrica detenida.
+  [FÁBRICA] Lotes procesados: X
+  [FÁBRICA] Agentes creados: Y
+  [FÁBRICA] Total en agencia: Z
+  [FÁBRICA] Expansion: A/206 micros (B%)
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+ÚTILES:
+═════════════════════════════════════════════════════════════════════════════════
+
+Ver logs completos:
+  C:\Users\Santi\agentes-local\registro_noche.txt
+
+Ver solo logs de micros:
+  Abre registro_noche.txt y busca: [EXPANSION]
+
+Verificar sistema OK:
+  python test_crear_expansion.py
+
+Cambiar modo manualmente:
+  Edita: C:\Users\Santi\agentes-local\.fabricamode
+  (Escribe: CREAR, MEJORAR, BALANCEADO, EXPANSION, o NOCHE)
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+DOCUMENTACIÓN COMPLETA:
+═════════════════════════════════════════════════════════════════════════════════
+
+Para leer después:
+  • GUIA_USAR_CREAR_EXPANSION.txt - Completa, con FAQs
+  • CREAR_EXPANSION_PLAN.txt - Documentación técnica
+  • RESUMEN_IMPLEMENTACION.txt - Lo que se implementó
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+                    ¡LISTO! Ahora:
+
+                    arrancar_con_menu.bat
+                         Opción: 1
+                        Espera...
+
+═════════════════════════════════════════════════════════════════════════════════

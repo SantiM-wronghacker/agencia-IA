@@ -1,0 +1,10 @@
+
+Nombre: Producto 1
+Descripción: Este es un producto de prueba
+Precio Unitario: $199.99
+Precio Total: $399.98
+Descuento: 15.00%
+Cantidad: 6
+Subtotal: $1199.94
+Impuestos: $191.99
+Total: $1391.93

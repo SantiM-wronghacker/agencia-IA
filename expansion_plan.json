@@ -1,0 +1,1058 @@
+{
+  "version": "1.0",
+  "meta": {
+    "objetivo": "Expandir la agencia de 284 a 500+ agentes cubriendo todas las verticales de negocio",
+    "fecha_inicio": "2026-03-01",
+    "total_planificados": 206
+  },
+  "categorias_nuevas": [
+    "MARKETING",
+    "VENTAS",
+    "RRHH",
+    "LEGAL",
+    "LOGISTICA",
+    "ECOMMERCE",
+    "SALUD",
+    "EDUCACION",
+    "RESTAURANTES",
+    "MANUFACTURA",
+    "SOPORTE",
+    "DATOS",
+    "SEGUROS",
+    "TURISMO",
+    "AGRICULTURA",
+    "CONSTRUCCION"
+  ],
+  "micros": [
+    {
+      "nombre": "generador_copy_facebook.py",
+      "categoria": "MARKETING",
+      "descripcion": "Genera copy publicitario optimizado para Facebook Ads con CTA y segmentacion"
+    },
+    {
+      "nombre": "generador_copy_instagram.py",
+      "categoria": "MARKETING",
+      "descripcion": "Genera copy para Instagram Reels, Stories y Posts con hashtags relevantes"
+    },
+    {
+      "nombre": "generador_copy_google_ads.py",
+      "categoria": "MARKETING",
+      "descripcion": "Genera titulos y descripciones para Google Ads respetando limites de caracteres"
+    },
+    {
+      "nombre": "analizador_seo_keywords.py",
+      "categoria": "MARKETING",
+      "descripcion": "Analiza y sugiere keywords SEO por nicho con volumen estimado y dificultad"
+    },
+    {
+      "nombre": "planificador_contenido_mensual.py",
+      "categoria": "MARKETING",
+      "descripcion": "Genera calendario editorial mensual con temas, formatos y plataformas"
+    },
+    {
+      "nombre": "generador_email_marketing.py",
+      "categoria": "MARKETING",
+      "descripcion": "Crea secuencias de email marketing con subject lines y cuerpos persuasivos"
+    },
+    {
+      "nombre": "analizador_competencia_digital.py",
+      "categoria": "MARKETING",
+      "descripcion": "Analiza presencia digital de competidores y sugiere diferenciadores"
+    },
+    {
+      "nombre": "generador_landing_page.py",
+      "categoria": "MARKETING",
+      "descripcion": "Genera estructura y copy para landing pages de alta conversion"
+    },
+    {
+      "nombre": "calculadora_roi_campanas.py",
+      "categoria": "MARKETING",
+      "descripcion": "Calcula ROI de campanas publicitarias dado presupuesto, CPC y tasa de conversion"
+    },
+    {
+      "nombre": "generador_buyer_persona_pro.py",
+      "categoria": "MARKETING",
+      "descripcion": "Crea buyer personas detallados con datos demograficos, pain points y motivaciones"
+    },
+    {
+      "nombre": "planificador_redes_sociales.py",
+      "categoria": "MARKETING",
+      "descripcion": "Planifica horarios optimos de publicacion por red social y audiencia"
+    },
+    {
+      "nombre": "generador_titulares_ab.py",
+      "categoria": "MARKETING",
+      "descripcion": "Genera variantes A/B de titulares para testeo de engagement"
+    },
+    {
+      "nombre": "analizador_sentimiento_marca.py",
+      "categoria": "MARKETING",
+      "descripcion": "Analiza texto de resenas y comentarios para determinar sentimiento hacia la marca"
+    },
+    {
+      "nombre": "generador_propuesta_comercial.py",
+      "categoria": "VENTAS",
+      "descripcion": "Genera propuestas comerciales profesionales personalizadas por industria"
+    },
+    {
+      "nombre": "calificador_leads.py",
+      "categoria": "VENTAS",
+      "descripcion": "Califica leads con scoring automatico basado en criterios configurables"
+    },
+    {
+      "nombre": "generador_script_ventas.py",
+      "categoria": "VENTAS",
+      "descripcion": "Crea scripts de ventas por telefono con manejo de objeciones por industria"
+    },
+    {
+      "nombre": "seguimiento_pipeline.py",
+      "categoria": "VENTAS",
+      "descripcion": "Genera reporte de pipeline de ventas con probabilidades y forecast"
+    },
+    {
+      "nombre": "generador_cotizacion.py",
+      "categoria": "VENTAS",
+      "descripcion": "Genera cotizaciones profesionales con desglose de costos y terminos"
+    },
+    {
+      "nombre": "analizador_cierre_ventas.py",
+      "categoria": "VENTAS",
+      "descripcion": "Analiza tasa de cierre y sugiere mejoras en el proceso de ventas"
+    },
+    {
+      "nombre": "generador_followup_email.py",
+      "categoria": "VENTAS",
+      "descripcion": "Genera emails de seguimiento personalizados segun etapa del funnel"
+    },
+    {
+      "nombre": "calculadora_comisiones.py",
+      "categoria": "VENTAS",
+      "descripcion": "Calcula comisiones de vendedores segun estructura de compensacion variable"
+    },
+    {
+      "nombre": "generador_presentacion_ventas.py",
+      "categoria": "VENTAS",
+      "descripcion": "Genera estructura de pitch deck / presentacion de ventas por producto"
+    },
+    {
+      "nombre": "analizador_objeciones.py",
+      "categoria": "VENTAS",
+      "descripcion": "Identifica objeciones comunes por industria y genera respuestas efectivas"
+    },
+    {
+      "nombre": "tracker_metas_ventas.py",
+      "categoria": "VENTAS",
+      "descripcion": "Trackea progreso de metas de ventas por vendedor, equipo y periodo"
+    },
+    {
+      "nombre": "generador_caso_exito.py",
+      "categoria": "VENTAS",
+      "descripcion": "Genera casos de exito (case studies) a partir de datos del cliente"
+    },
+    {
+      "nombre": "generador_vacante.py",
+      "categoria": "RRHH",
+      "descripcion": "Genera descripciones de vacantes optimizadas para atraccion de talento"
+    },
+    {
+      "nombre": "filtrador_cv.py",
+      "categoria": "RRHH",
+      "descripcion": "Filtra y rankea CVs segun criterios de la vacante automaticamente"
+    },
+    {
+      "nombre": "generador_preguntas_entrevista.py",
+      "categoria": "RRHH",
+      "descripcion": "Genera preguntas de entrevista por puesto, nivel y competencias requeridas"
+    },
+    {
+      "nombre": "calculadora_nomina.py",
+      "categoria": "RRHH",
+      "descripcion": "Calcula nomina con deducciones ISR, IMSS, Infonavit segun ley mexicana"
+    },
+    {
+      "nombre": "generador_onboarding.py",
+      "categoria": "RRHH",
+      "descripcion": "Genera plan de onboarding personalizado por puesto con checklist y timeline"
+    },
+    {
+      "nombre": "evaluador_desempeno.py",
+      "categoria": "RRHH",
+      "descripcion": "Genera evaluaciones de desempeno 360 con KPIs por puesto"
+    },
+    {
+      "nombre": "calculadora_finiquito.py",
+      "categoria": "RRHH",
+      "descripcion": "Calcula finiquito y liquidacion segun LFT mexicana con todos los conceptos"
+    },
+    {
+      "nombre": "generador_politica_rrhh.py",
+      "categoria": "RRHH",
+      "descripcion": "Genera politicas de RRHH (home office, vacaciones, codigo de conducta)"
+    },
+    {
+      "nombre": "planificador_capacitacion.py",
+      "categoria": "RRHH",
+      "descripcion": "Planifica programas de capacitacion por competencias y areas"
+    },
+    {
+      "nombre": "analizador_clima_laboral.py",
+      "categoria": "RRHH",
+      "descripcion": "Analiza resultados de encuestas de clima laboral y genera plan de accion"
+    },
+    {
+      "nombre": "calculadora_prestaciones.py",
+      "categoria": "RRHH",
+      "descripcion": "Calcula costo total de prestaciones por empleado (aguinaldo, prima, PTU)"
+    },
+    {
+      "nombre": "generador_organigrama.py",
+      "categoria": "RRHH",
+      "descripcion": "Genera estructura de organigrama basado en puestos y jerarquias"
+    },
+    {
+      "nombre": "generador_contrato_servicios.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera contratos de prestacion de servicios profesionales personalizados"
+    },
+    {
+      "nombre": "generador_contrato_laboral.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera contratos laborales segun tipo (determinado, indeterminado, capacitacion)"
+    },
+    {
+      "nombre": "analizador_riesgo_legal.py",
+      "categoria": "LEGAL",
+      "descripcion": "Identifica riesgos legales en documentos y contratos existentes"
+    },
+    {
+      "nombre": "generador_aviso_privacidad.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera avisos de privacidad conforme a LFPDPPP mexicana"
+    },
+    {
+      "nombre": "generador_terminos_condiciones.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera terminos y condiciones para sitios web y apps"
+    },
+    {
+      "nombre": "generador_nda.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera acuerdos de confidencialidad (NDA) bilaterales y unilaterales"
+    },
+    {
+      "nombre": "calculadora_penalizaciones.py",
+      "categoria": "LEGAL",
+      "descripcion": "Calcula penalizaciones por incumplimiento contractual segun clausulas"
+    },
+    {
+      "nombre": "generador_acta_constitutiva.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera borrador de acta constitutiva para sociedades mercantiles"
+    },
+    {
+      "nombre": "analizador_cumplimiento_fiscal.py",
+      "categoria": "LEGAL",
+      "descripcion": "Verifica cumplimiento de obligaciones fiscales por tipo de regimen"
+    },
+    {
+      "nombre": "generador_poder_notarial.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera borradores de poderes notariales por tipo (general, especial, pleitos)"
+    },
+    {
+      "nombre": "validador_cfdi.py",
+      "categoria": "LEGAL",
+      "descripcion": "Valida estructura y datos de CFDI contra esquema SAT"
+    },
+    {
+      "nombre": "generador_contrato_arrendamiento_comercial.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera contratos de arrendamiento comercial con clausulas especializadas"
+    },
+    {
+      "nombre": "optimizador_rutas_entrega.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Optimiza rutas de entrega para minimizar distancia y tiempo"
+    },
+    {
+      "nombre": "calculadora_costos_envio.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Calcula costos de envio por paqueteria nacional e internacional"
+    },
+    {
+      "nombre": "tracker_inventario.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Trackea niveles de inventario con alertas de reorden automatico"
+    },
+    {
+      "nombre": "planificador_almacen.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Optimiza layout de almacen y ubicacion de productos por rotacion"
+    },
+    {
+      "nombre": "generador_guia_envio.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Genera guias de envio con datos formateados para las principales paqueterias"
+    },
+    {
+      "nombre": "analizador_demanda.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Analiza patrones de demanda y predice necesidades de inventario"
+    },
+    {
+      "nombre": "calculadora_punto_reorden.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Calcula punto de reorden optimo considerando lead time y demanda"
+    },
+    {
+      "nombre": "generador_orden_compra.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Genera ordenes de compra a proveedores con terminos y especificaciones"
+    },
+    {
+      "nombre": "tracker_pedidos.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Trackea estado de pedidos desde orden hasta entrega con timeline"
+    },
+    {
+      "nombre": "analizador_proveedores.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Evalua y compara proveedores por precio, calidad, tiempo de entrega"
+    },
+    {
+      "nombre": "calculadora_lote_economico.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Calcula EOQ (lote economico de pedido) para optimizar costos de inventario"
+    },
+    {
+      "nombre": "generador_ficha_producto.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Genera fichas de producto optimizadas para SEO con titulo, desc y bullets"
+    },
+    {
+      "nombre": "optimizador_precios.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Sugiere precios optimos basado en costos, competencia y margenes objetivo"
+    },
+    {
+      "nombre": "generador_politica_devolucion.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Genera politicas de devolucion claras y profesionales por tipo de producto"
+    },
+    {
+      "nombre": "analizador_carrito_abandonado.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Analiza patrones de abandono de carrito y genera estrategias de recuperacion"
+    },
+    {
+      "nombre": "generador_descripcion_categoria.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Genera descripciones SEO para categorias de tienda online"
+    },
+    {
+      "nombre": "calculadora_margen_producto.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Calcula margenes por producto incluyendo costos ocultos (envio, comisiones, impuestos)"
+    },
+    {
+      "nombre": "generador_email_postventa.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Genera secuencias de email post-venta para reviews, upsell y retencion"
+    },
+    {
+      "nombre": "analizador_reviews.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Analiza reviews de productos para extraer insights y areas de mejora"
+    },
+    {
+      "nombre": "generador_faq_producto.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Genera preguntas frecuentes por producto basado en caracteristicas"
+    },
+    {
+      "nombre": "calculadora_shipping_internacional.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Calcula costos de envio internacional con impuestos de importacion"
+    },
+    {
+      "nombre": "generador_promo_flash.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Genera copy y estructura para promociones flash y ofertas limitadas"
+    },
+    {
+      "nombre": "generador_receta_medica.py",
+      "categoria": "SALUD",
+      "descripcion": "Genera formato de receta medica con datos del paciente y prescripcion"
+    },
+    {
+      "nombre": "calculadora_imc_riesgo.py",
+      "categoria": "SALUD",
+      "descripcion": "Calcula IMC y nivel de riesgo cardiovascular con recomendaciones"
+    },
+    {
+      "nombre": "planificador_citas_medicas.py",
+      "categoria": "SALUD",
+      "descripcion": "Optimiza agenda de citas medicas por duracion de consulta y especialidad"
+    },
+    {
+      "nombre": "generador_historial_clinico.py",
+      "categoria": "SALUD",
+      "descripcion": "Genera formato de historial clinico estructurado para primera consulta"
+    },
+    {
+      "nombre": "calculadora_dosis.py",
+      "categoria": "SALUD",
+      "descripcion": "Calcula dosis de medicamento por peso, edad y condicion del paciente"
+    },
+    {
+      "nombre": "generador_consentimiento_informado.py",
+      "categoria": "SALUD",
+      "descripcion": "Genera formatos de consentimiento informado por tipo de procedimiento"
+    },
+    {
+      "nombre": "analizador_signos_vitales.py",
+      "categoria": "SALUD",
+      "descripcion": "Analiza rangos de signos vitales y genera alertas por anormalidades"
+    },
+    {
+      "nombre": "generador_nota_evolucion.py",
+      "categoria": "SALUD",
+      "descripcion": "Genera notas de evolucion medica en formato SOAP estructurado"
+    },
+    {
+      "nombre": "calculadora_costo_tratamiento.py",
+      "categoria": "SALUD",
+      "descripcion": "Estima costo de tratamientos medicos con desglose por concepto"
+    },
+    {
+      "nombre": "planificador_dieta.py",
+      "categoria": "SALUD",
+      "descripcion": "Genera plan de alimentacion personalizado por condicion y objetivos"
+    },
+    {
+      "nombre": "generador_plan_clase.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Genera planes de clase con objetivo, actividades, evaluacion y recursos"
+    },
+    {
+      "nombre": "generador_examen.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Genera examenes con preguntas variadas (opcion multiple, abierta, V/F)"
+    },
+    {
+      "nombre": "generador_rubrica.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Genera rubricas de evaluacion por competencia con niveles de desempeno"
+    },
+    {
+      "nombre": "planificador_curso.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Genera syllabus completo de curso con temas, sesiones y bibliografia"
+    },
+    {
+      "nombre": "generador_retroalimentacion.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Genera retroalimentacion personalizada por estudiante segun desempeno"
+    },
+    {
+      "nombre": "analizador_rendimiento_grupo.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Analiza rendimiento de grupo y detecta estudiantes en riesgo"
+    },
+    {
+      "nombre": "generador_material_didactico.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Genera materiales didacticos (resumen, guia, ejercicios) por tema"
+    },
+    {
+      "nombre": "calculadora_calificaciones.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Calcula calificaciones finales con ponderacion por criterio de evaluacion"
+    },
+    {
+      "nombre": "generador_certificado.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Genera certificados de curso/taller con datos personalizados"
+    },
+    {
+      "nombre": "planificador_academico.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Planifica calendario academico semestral con fechas clave y entregables"
+    },
+    {
+      "nombre": "generador_menu_semanal.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Genera menu semanal con costos, precios sugeridos y margenes por platillo"
+    },
+    {
+      "nombre": "calculadora_costo_receta.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Calcula costo unitario de recetas con desglose de ingredientes"
+    },
+    {
+      "nombre": "planificador_compras_cocina.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Genera lista de compras semanal basada en menu y porciones estimadas"
+    },
+    {
+      "nombre": "analizador_platillos_rentables.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Analiza rentabilidad por platillo (ingenieria de menu)"
+    },
+    {
+      "nombre": "generador_ficha_tecnica_receta.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Genera fichas tecnicas de receta con procedimiento, tiempos y rendimiento"
+    },
+    {
+      "nombre": "calculadora_food_cost.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Calcula food cost porcentual y sugiere ajustes de precio o porcion"
+    },
+    {
+      "nombre": "planificador_turnos_restaurante.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Planifica turnos de personal de cocina y servicio por dia y horario"
+    },
+    {
+      "nombre": "generador_encuesta_satisfaccion.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Genera encuestas de satisfaccion para restaurantes con metricas NPS"
+    },
+    {
+      "nombre": "analizador_merma.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Analiza merma de alimentos y sugiere estrategias de reduccion"
+    },
+    {
+      "nombre": "generador_protocolo_higiene.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Genera protocolos de higiene y seguridad alimentaria por area"
+    },
+    {
+      "nombre": "calculadora_oee.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Calcula OEE (Overall Equipment Effectiveness) con disponibilidad, rendimiento y calidad"
+    },
+    {
+      "nombre": "generador_orden_produccion.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Genera ordenes de produccion con BOM (bill of materials) y secuencia"
+    },
+    {
+      "nombre": "analizador_defectos.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Clasifica y analiza defectos de produccion con diagrama de Pareto"
+    },
+    {
+      "nombre": "planificador_mantenimiento.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Genera plan de mantenimiento preventivo por equipo con frecuencias"
+    },
+    {
+      "nombre": "calculadora_capacidad_produccion.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Calcula capacidad de produccion por linea considerando cuellos de botella"
+    },
+    {
+      "nombre": "generador_spc.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Genera graficos de control estadistico de proceso (SPC) con limites"
+    },
+    {
+      "nombre": "analizador_5s.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Genera checklist y evaluacion 5S por area de trabajo"
+    },
+    {
+      "nombre": "calculadora_scrap_rate.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Calcula tasa de desperdicio y costo por material/proceso"
+    },
+    {
+      "nombre": "generador_instructivo_trabajo.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Genera instrucciones de trabajo estandarizadas paso a paso"
+    },
+    {
+      "nombre": "planificador_produccion_semanal.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Planifica produccion semanal balanceando demanda, capacidad e inventario"
+    },
+    {
+      "nombre": "generador_respuesta_ticket.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Genera respuestas profesionales a tickets de soporte por tipo de incidencia"
+    },
+    {
+      "nombre": "clasificador_tickets.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Clasifica tickets de soporte por prioridad, categoria y departamento"
+    },
+    {
+      "nombre": "generador_base_conocimiento.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Genera articulos de base de conocimiento a partir de tickets resueltos"
+    },
+    {
+      "nombre": "analizador_tiempos_respuesta.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Analiza SLAs y tiempos de respuesta por agente y categoria"
+    },
+    {
+      "nombre": "generador_faq_soporte.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Genera FAQs automaticas basadas en preguntas mas frecuentes de soporte"
+    },
+    {
+      "nombre": "escalador_tickets.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Determina si un ticket debe escalarse segun reglas de negocio y urgencia"
+    },
+    {
+      "nombre": "generador_encuesta_csat.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Genera encuestas CSAT (Customer Satisfaction) post-interaccion"
+    },
+    {
+      "nombre": "analizador_tendencias_soporte.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Detecta tendencias en tickets para prevenir problemas recurrentes"
+    },
+    {
+      "nombre": "generador_sla_reporte.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Genera reportes de cumplimiento de SLA por periodo y equipo"
+    },
+    {
+      "nombre": "chatbot_faq.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Chatbot que responde preguntas frecuentes usando base de conocimiento"
+    },
+    {
+      "nombre": "generador_reporte_kpi.py",
+      "categoria": "DATOS",
+      "descripcion": "Genera reportes ejecutivos de KPIs con semaforo de cumplimiento"
+    },
+    {
+      "nombre": "analizador_tendencias.py",
+      "categoria": "DATOS",
+      "descripcion": "Detecta tendencias en datos historicos con proyecciones simples"
+    },
+    {
+      "nombre": "generador_dashboard_data.py",
+      "categoria": "DATOS",
+      "descripcion": "Genera datos formateados para dashboards (JSON para graficos)"
+    },
+    {
+      "nombre": "limpiador_datos.py",
+      "categoria": "DATOS",
+      "descripcion": "Limpia y normaliza datasets (duplicados, formatos, valores nulos)"
+    },
+    {
+      "nombre": "analizador_correlacion.py",
+      "categoria": "DATOS",
+      "descripcion": "Detecta correlaciones entre variables en datasets tabulares"
+    },
+    {
+      "nombre": "generador_reporte_automatico.py",
+      "categoria": "DATOS",
+      "descripcion": "Genera reportes narrativos automaticos a partir de datos numericos"
+    },
+    {
+      "nombre": "calculadora_estadisticas.py",
+      "categoria": "DATOS",
+      "descripcion": "Calcula estadisticas descriptivas completas (media, mediana, std, percentiles)"
+    },
+    {
+      "nombre": "analizador_anomalias.py",
+      "categoria": "DATOS",
+      "descripcion": "Detecta anomalias y outliers en series de datos con alertas"
+    },
+    {
+      "nombre": "generador_encuesta.py",
+      "categoria": "DATOS",
+      "descripcion": "Genera encuestas con preguntas validadas por objetivo de investigacion"
+    },
+    {
+      "nombre": "exportador_csv_json.py",
+      "categoria": "DATOS",
+      "descripcion": "Convierte y exporta datos entre formatos CSV, JSON, Excel"
+    },
+    {
+      "nombre": "cotizador_poliza_auto.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Cotiza polizas de seguro automotriz segun modelo, ano y cobertura"
+    },
+    {
+      "nombre": "cotizador_poliza_vida.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Cotiza seguro de vida segun edad, genero, suma asegurada y plazo"
+    },
+    {
+      "nombre": "generador_poliza.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Genera borrador de poliza de seguro con clausulas por tipo de cobertura"
+    },
+    {
+      "nombre": "analizador_siniestros.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Analiza datos de siniestros para detectar patrones y riesgo"
+    },
+    {
+      "nombre": "calculadora_prima.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Calcula prima de seguro basado en factores de riesgo y tablas actuariales"
+    },
+    {
+      "nombre": "generador_reclamacion.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Genera formato de reclamacion de seguro con checklist de documentos"
+    },
+    {
+      "nombre": "evaluador_riesgo.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Evalua nivel de riesgo de asegurado con scoring multicriterio"
+    },
+    {
+      "nombre": "cotizador_seguro_hogar.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Cotiza seguro de hogar segun ubicacion, valor, tipo de construccion"
+    },
+    {
+      "nombre": "generador_comparativa_seguros.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Genera tabla comparativa de coberturas y precios entre aseguradoras"
+    },
+    {
+      "nombre": "generador_itinerario.py",
+      "categoria": "TURISMO",
+      "descripcion": "Genera itinerarios de viaje completos con actividades, tiempos y costos"
+    },
+    {
+      "nombre": "cotizador_paquete_turistico.py",
+      "categoria": "TURISMO",
+      "descripcion": "Cotiza paquetes turisticos con hotel, vuelos, tours y transfers"
+    },
+    {
+      "nombre": "generador_descripcion_tour.py",
+      "categoria": "TURISMO",
+      "descripcion": "Genera descripciones atractivas de tours y experiencias turisticas"
+    },
+    {
+      "nombre": "analizador_temporadas.py",
+      "categoria": "TURISMO",
+      "descripcion": "Analiza temporadas alta/baja por destino para optimizar precios"
+    },
+    {
+      "nombre": "generador_voucher.py",
+      "categoria": "TURISMO",
+      "descripcion": "Genera vouchers de hotel, tour y transfer con datos de reservacion"
+    },
+    {
+      "nombre": "planificador_grupos.py",
+      "categoria": "TURISMO",
+      "descripcion": "Planifica logistica de viajes grupales con asignaciones y costos"
+    },
+    {
+      "nombre": "generador_resena_destino.py",
+      "categoria": "TURISMO",
+      "descripcion": "Genera resenas y guias informativas de destinos turisticos"
+    },
+    {
+      "nombre": "calculadora_tipo_cambio_viaje.py",
+      "categoria": "TURISMO",
+      "descripcion": "Calcula presupuesto de viaje con conversion de monedas y tips"
+    },
+    {
+      "nombre": "generador_checklist_viaje.py",
+      "categoria": "TURISMO",
+      "descripcion": "Genera checklists personalizados de preparacion de viaje por destino"
+    },
+    {
+      "nombre": "calculadora_rendimiento_cultivo.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Estima rendimiento de cultivo por hectarea segun tipo, region y temporada"
+    },
+    {
+      "nombre": "planificador_siembra.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Genera calendario de siembra optimo por cultivo y zona geografica"
+    },
+    {
+      "nombre": "calculadora_fertilizante.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Calcula cantidad de fertilizante por hectarea segun analisis de suelo"
+    },
+    {
+      "nombre": "analizador_precio_cosecha.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Analiza precios historicos de cosechas y proyecta precio de venta"
+    },
+    {
+      "nombre": "calculadora_costo_produccion_agro.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Calcula costo total de produccion agricola por hectarea"
+    },
+    {
+      "nombre": "generador_bitacora_campo.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Genera bitacoras de campo con registro de actividades y aplicaciones"
+    },
+    {
+      "nombre": "planificador_riego.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Planifica calendario de riego segun tipo de suelo, cultivo y clima"
+    },
+    {
+      "nombre": "analizador_plagas.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Identifica plagas por sintomas y sugiere tratamientos con dosis"
+    },
+    {
+      "nombre": "calculadora_roi_agro.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Calcula retorno de inversion por cultivo considerando todos los costos"
+    },
+    {
+      "nombre": "generador_presupuesto_obra.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Genera presupuestos de obra con catalogo de conceptos y precios unitarios"
+    },
+    {
+      "nombre": "calculadora_materiales.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Calcula cantidad de materiales (concreto, acero, block) por volumen de obra"
+    },
+    {
+      "nombre": "generador_programa_obra.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Genera programa de obra con ruta critica, duraciones y dependencias"
+    },
+    {
+      "nombre": "analizador_avance_obra.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Compara avance real vs programado y genera reporte de desviaciones"
+    },
+    {
+      "nombre": "generador_estimacion.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Genera estimaciones de obra para cobro con volumenes y montos"
+    },
+    {
+      "nombre": "calculadora_concreto.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Calcula volumen de concreto, proporcion de mezcla y costo por elemento"
+    },
+    {
+      "nombre": "generador_bitacora_obra.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Genera bitacora de obra diaria con actividades, personal y clima"
+    },
+    {
+      "nombre": "analizador_costos_indirectos.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Calcula costos indirectos de obra (admin, financiamiento, utilidad, fianzas)"
+    },
+    {
+      "nombre": "generador_contrato_obra.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Genera contratos de obra por tipo (precio alzado, precios unitarios, admin)"
+    },
+    {
+      "nombre": "calculadora_acero.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Calcula kg de acero por elemento estructural con despiece y merma"
+    },
+    {
+      "nombre": "generador_newsletter.py",
+      "categoria": "MARKETING",
+      "descripcion": "Genera newsletters profesionales con secciones, CTAs y diseño responsive"
+    },
+    {
+      "nombre": "analizador_funnel_conversion.py",
+      "categoria": "MARKETING",
+      "descripcion": "Analiza funnel de conversion y detecta puntos de fuga con recomendaciones"
+    },
+    {
+      "nombre": "generador_carta_presentacion.py",
+      "categoria": "VENTAS",
+      "descripcion": "Genera cartas de presentacion corporativa personalizadas por industria"
+    },
+    {
+      "nombre": "analizador_territorio_ventas.py",
+      "categoria": "VENTAS",
+      "descripcion": "Analiza y segmenta territorios de ventas por potencial y cobertura"
+    },
+    {
+      "nombre": "generador_descripcion_puesto.py",
+      "categoria": "RRHH",
+      "descripcion": "Genera descripciones de puesto detalladas con competencias y requisitos"
+    },
+    {
+      "nombre": "calculadora_rotacion.py",
+      "categoria": "RRHH",
+      "descripcion": "Calcula indice de rotacion de personal con analisis de causas y costos"
+    },
+    {
+      "nombre": "generador_carta_poder.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera cartas poder simples para tramites administrativos"
+    },
+    {
+      "nombre": "analizador_regulatorio.py",
+      "categoria": "LEGAL",
+      "descripcion": "Analiza requisitos regulatorios por industria y tipo de negocio"
+    },
+    {
+      "nombre": "calculadora_peso_volumetrico.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Calcula peso volumetrico para envios aereos y terrestres"
+    },
+    {
+      "nombre": "generador_manifiesto_carga.py",
+      "categoria": "LOGISTICA",
+      "descripcion": "Genera manifiestos de carga con detalle de bultos, peso y destino"
+    },
+    {
+      "nombre": "generador_politica_envio.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Genera politicas de envio claras para tiendas online por zona"
+    },
+    {
+      "nombre": "calculadora_break_even_producto.py",
+      "categoria": "ECOMMERCE",
+      "descripcion": "Calcula punto de equilibrio por producto en tienda online"
+    },
+    {
+      "nombre": "generador_receta_nutricion.py",
+      "categoria": "SALUD",
+      "descripcion": "Genera recetas nutricionales personalizadas por condicion de salud"
+    },
+    {
+      "nombre": "calculadora_riesgo_cardiovascular.py",
+      "categoria": "SALUD",
+      "descripcion": "Calcula riesgo cardiovascular usando escalas clinicas validadas"
+    },
+    {
+      "nombre": "generador_plan_estudio.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Genera planes de estudio personalizados con horarios y tecnicas"
+    },
+    {
+      "nombre": "analizador_estilos_aprendizaje.py",
+      "categoria": "EDUCACION",
+      "descripcion": "Identifica estilos de aprendizaje y sugiere estrategias pedagogicas"
+    },
+    {
+      "nombre": "calculadora_porciones.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Calcula porciones por evento segun numero de comensales y menu"
+    },
+    {
+      "nombre": "generador_carta_vinos.py",
+      "categoria": "RESTAURANTES",
+      "descripcion": "Genera carta de vinos con maridajes sugeridos por platillo"
+    },
+    {
+      "nombre": "calculadora_takt_time.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Calcula takt time y balancea lineas de produccion"
+    },
+    {
+      "nombre": "generador_amef.py",
+      "categoria": "MANUFACTURA",
+      "descripcion": "Genera Analisis de Modo y Efecto de Falla (AMEF) por proceso"
+    },
+    {
+      "nombre": "generador_macro_soporte.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Genera macros y plantillas de respuesta rapida por tipo de ticket"
+    },
+    {
+      "nombre": "analizador_nps.py",
+      "categoria": "SOPORTE",
+      "descripcion": "Analiza Net Promoter Score con segmentacion y plan de mejora"
+    },
+    {
+      "nombre": "generador_pivot_table.py",
+      "categoria": "DATOS",
+      "descripcion": "Genera tablas pivot y resumen de datos tabulares automaticamente"
+    },
+    {
+      "nombre": "analizador_ab_test.py",
+      "categoria": "DATOS",
+      "descripcion": "Analiza resultados de tests A/B con significancia estadistica"
+    },
+    {
+      "nombre": "cotizador_seguro_empresarial.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Cotiza seguros empresariales (RC, incendio, robo) por giro"
+    },
+    {
+      "nombre": "generador_dictamen_siniestro.py",
+      "categoria": "SEGUROS",
+      "descripcion": "Genera borrador de dictamen de siniestro con datos del caso"
+    },
+    {
+      "nombre": "generador_guia_destino.py",
+      "categoria": "TURISMO",
+      "descripcion": "Genera guias completas de destino con tips, costos y recomendaciones"
+    },
+    {
+      "nombre": "calculadora_presupuesto_viaje.py",
+      "categoria": "TURISMO",
+      "descripcion": "Calcula presupuesto detallado de viaje por destino y duracion"
+    },
+    {
+      "nombre": "calculadora_evapotranspiracion.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Calcula evapotranspiracion para determinar necesidades hidricas del cultivo"
+    },
+    {
+      "nombre": "generador_plan_rotacion_cultivos.py",
+      "categoria": "AGRICULTURA",
+      "descripcion": "Genera plan de rotacion de cultivos para optimizar suelo y rendimiento"
+    },
+    {
+      "nombre": "calculadora_volumetria_tierra.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Calcula volumenes de tierra (corte y relleno) para movimiento de tierras"
+    },
+    {
+      "nombre": "generador_reporte_avance.py",
+      "categoria": "CONSTRUCCION",
+      "descripcion": "Genera reportes de avance de obra con fotos, porcentajes y costos"
+    },
+    {
+      "nombre": "generador_brief_creativo.py",
+      "categoria": "MARKETING",
+      "descripcion": "Genera briefs creativos para campanas publicitarias con objetivos y KPIs"
+    },
+    {
+      "nombre": "analizador_churn.py",
+      "categoria": "VENTAS",
+      "descripcion": "Analiza tasa de churn de clientes e identifica factores de riesgo"
+    },
+    {
+      "nombre": "generador_contrato_freelance.py",
+      "categoria": "LEGAL",
+      "descripcion": "Genera contratos para freelancers con entregables, pagos y propiedad intelectual"
+    },
+    {
+      "nombre": "calculadora_depreciacion.py",
+      "categoria": "FINANZAS",
+      "descripcion": "Calcula depreciacion de activos por metodo lineal, doble saldo y unidades"
+    },
+    {
+      "nombre": "analizador_flujo_efectivo.py",
+      "categoria": "FINANZAS",
+      "descripcion": "Analiza flujo de efectivo proyectado con escenarios optimista/pesimista"
+    },
+    {
+      "nombre": "generador_estado_resultados.py",
+      "categoria": "FINANZAS",
+      "descripcion": "Genera estado de resultados pro-forma a partir de datos de ingresos y gastos"
+    }
+  ]
+}

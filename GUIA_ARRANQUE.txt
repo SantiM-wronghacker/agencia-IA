@@ -1,0 +1,175 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                 GUÍA RÁPIDA DE ARRANQUE — AGENCIA SANTI                        ║
+║                         Dashboard + API + Agentes                              ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+RESPUESTA A TU PREGUNTA:
+─────────────────────────────────────────────────────────────────────────────────
+"¿Ahora puedo abrir siempre el dashboard aunque no esté encendido arrancar?"
+
+ANTES:
+  - No. Tenías que correr arrancar.bat PRIMERO para iniciar el API y sistema
+  - Solo DESPUÉS podías acceder al dashboard
+
+AHORA (mejorado):
+  - arrancar.bat automaticamente abre el dashboard en tu navegador
+  - Verifica que el API responda antes de abrir el dashboard
+  - Tienes 3 opciones: Manual, Auto-inicio al boot, o verificar estado
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                            OPCIÓN 1: INICIO MANUAL                            ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+PASO 1: Haz doble clic en:
+        → arrancar.bat
+
+RESULTADO:
+  ✓ Inicia el sistema en segundo plano
+  ✓ Verifica que API responda
+  ✓ Abre AUTOMÁTICAMENTE el dashboard en tu navegador
+  ✓ Muestra las URLs donde está corriendo todo
+  ✓ Sistema sigue funcionando en background
+
+PARA DETENER:
+  - Cierra la ventana de CMD, o
+  - Ejecuta: estado_sistema.bat → opción 3 (matar procesos)
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                  OPCIÓN 2: AUTO-INICIO (cada vez que enciendes)              ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+VENTAJA: El sistema se inicia automáticamente cuando enciendas tu PC
+         No necesitas acordarte de correr arrancar.bat
+
+CONFIGURACIÓN:
+  1. Abre CMD como ADMINISTRADOR (click derecho → "Ejecutar como administrador")
+  2. Navega a la carpeta:
+     > cd C:\Users\Santi\agentes-local
+  3. Ejecuta:
+     > activar_autostart.bat
+
+RESULTADO:
+  ✓ Se crea una "Tarea Programada" en Windows
+  ✓ Sistema se inicia automáticamente al loguear
+  ✓ API + Dashboard listos sin hacer nada
+
+PARA DESACTIVAR:
+  1. CMD como ADMINISTRADOR
+  2. cd C:\Users\Santi\agentes-local
+  3. > desactivar_autostart.bat
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                       OPCIÓN 3: VERIFICAR ESTADO                              ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+Haz doble clic en:
+  → estado_sistema.bat
+
+MUESTRA:
+  - Si Python está corriendo
+  - Si API está accesible
+  - Si Dashboard está accesible
+  - URLs donde acceder a todo
+
+OPCIONES:
+  1. Iniciar sistema
+  2. Ver ultimos logs
+  3. Matar procesos Python y limpiar
+  4. Verificar expansion_plan.json
+  5. Salir
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                           UBICACIONES IMPORTANTES                             ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+API:               http://localhost:8000
+  - API Docs:      http://localhost:8000/docs (documentación interactiva)
+  - Health Check:  http://localhost:8000/health
+
+Dashboard:         http://localhost:8080
+  - Ver agentes
+  - CRUD (crear/editar/eliminar agentes)
+  - Gestionar categorías
+  - Ver progreso de expansión (206 micros planificados)
+
+Archivos del Sistema:
+  - sistema_maestro.log     → Logs detallados del sistema
+  - habilidades.json        → Base de datos de agentes (se actualiza automáticamente)
+  - expansion_plan.json     → Plan de 206 micros a crear
+
+Scripts:
+  - arrancar.bat            → Inicia todo (USAR ESTO)
+  - estado_sistema.bat      → Ver estado y opciones
+  - activar_autostart.bat   → Configurar auto-inicio
+  - desactivar_autostart.bat→ Desactivar auto-inicio
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                           FLUJO TÍPICO DE USO                                 ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+PRIMERA VEZ:
+  1. Abre arrancar.bat (o estado_sistema.bat → opción 1)
+  2. Espera a que se abra el dashboard automáticamente
+  3. ¡Listo! Puedes usar el dashboard
+
+SIGUIENTES VECES:
+  - Opción A (Manual): Abre arrancar.bat cada que quieras usar
+  - Opción B (Auto): Configura activar_autostart.bat UNA SOLA VEZ
+             Luego se inicia solo al encender tu PC
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                        SOLUCIÓN DE PROBLEMAS                                  ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+PROBLEMA: "Hago clic en arrancar.bat pero no abre el dashboard"
+SOLUCIÓN:
+  1. Abre estado_sistema.bat
+  2. Opción 3 (matar procesos Python)
+  3. Intenta arrancar.bat de nuevo
+
+PROBLEMA: "El dashboard abre pero está en blanco"
+SOLUCIÓN:
+  - Espera 5 segundos (el API tarda en iniciar)
+  - Refresca la página (F5 o Ctrl+R)
+
+PROBLEMA: "Dice que el API no respondió en 30 segundos"
+SOLUCIÓN:
+  1. Abre estado_sistema.bat → opción 2 (ver logs)
+  2. Busca mensajes de ERROR en el log
+  3. Si el problema persiste, la configuración del .env podría tener issues
+
+PROBLEMA: "Quiero ver qué está haciendo el sistema"
+SOLUCIÓN:
+  - Abre estado_sistema.bat → opción 2 (ver logs)
+  - O abre el archivo: sistema_maestro.log (con cualquier editor de texto)
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                            RESUMEN RÁPIDO                                     ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+¿QUIERES USAR SIEMPRE?
+  → activar_autostart.bat (UNA SOLA VEZ como ADMIN)
+    Listo. Desde ahora se inicia automáticamente.
+
+¿QUIERES USAR CUANDO NECESITES?
+  → arrancar.bat (cada vez que lo necesites)
+    Inicia todo y abre el dashboard automáticamente.
+
+¿QUIERES VER CÓMO ESTÁ?
+  → estado_sistema.bat
+    Muestra el estado actual y opciones.
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+
+                    ¿DUDAS? Lee sistema_maestro.log
+                       para ver detalles del sistema
+
+╚═══════════════════════════════════════════════════════════════════════════════╝

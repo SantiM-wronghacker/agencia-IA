@@ -1,0 +1,20 @@
+{
+  "inicio": "2026-03-02 19:37:23",
+  "fabrica_activa": true,
+  "noche_activa": true,
+  "proyectos_activo": true,
+  "lotes_generados": 206,
+  "agentes_total": 510,
+  "agentes_con_web": 263,
+  "ciclos_noche": 607,
+  "errores": 282,
+  "errores_consecutivos_fabrica": 4,
+  "ultimo_ciclo": "20:38:27",
+  "ultimo_agente": "—",
+  "log_size_mb": 2.89,
+  "misiones_pendientes": 0,
+  "proyectos_creados": 1,
+  "ultimo_proyecto": "—",
+  "disco_libre_gb": 641.94,
+  "ultimo_guardado": "2026-03-02 20:47:34"
+}

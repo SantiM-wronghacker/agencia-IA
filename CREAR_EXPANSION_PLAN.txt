@@ -1,0 +1,315 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║          MODO CREAR INTELIGENTE — INTEGRACIÓN CON PLAN DE EXPANSIÓN           ║
+║                                                                               ║
+║         El modo CREAR ahora trabaja de la mano con el plan de 206 micros     ║
+║         Prioriza crear los micros planificados, luego alcanza 500 agentes    ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+QUÉ CAMBIÓ EN fabrica_agentes.py:
+═════════════════════════════════════════════════════════════════════════════════
+
+1. IMPORTACIONES Y CONFIGURACIÓN NUEVA
+   ✓ Importa fabrica_config.py para leer modo del usuario
+   ✓ Nueva constante: EXPANSION_PLAN = "expansion_plan.json"
+   ✓ Nueva constante: TARGET_TOTAL_AGENTES = 500
+
+2. NUEVAS FUNCIONES PARA GESTIÓN DE EXPANSIÓN PLAN
+
+   cargar_expansion_plan()
+   ──────────────────────
+   - Lee expansion_plan.json
+   - Retorna dict con lista de 206 micros planificados
+   - Fallback: retorna {"micros": []} si no existe
+
+   obtener_micros_pendientes(plan)
+   ──────────────────────────────
+   - Compara lista de expansion_plan contra habilidades.json
+   - Retorna SOLO los micros que aún no han sido creados
+   - Usa agentes_existentes() para validación
+
+   obtener_progreso_expansion()
+   ───────────────────────────
+   - Retorna dict con:
+     * total_planificados: 206
+     * creados: X micros ya en habilidades.json
+     * pendientes: 206 - creados
+     * progreso_pct: (creados * 100) / 206
+
+3. MODO MEJORADO: generar_plan_lote()
+   ───────────────────────────────────
+   Ahora acepta parámetros: modo, plan_expansion
+
+   PASO 1 - Si modo CREAR + hay plan_expansion:
+     → Agrega hasta 5 micros PENDIENTES del plan al inicio del lote
+     → Marca estos con "es_expansion": True para tracking
+
+   PASO 2 - Llenar resto del lote:
+     → Agrega 2 agentes por área base (FINANZAS, REAL ESTATE, etc)
+     → Mantiene MICRO_TAREAS para garantizar utilidades reutilizables
+
+   PASO 3 - Completar hasta TAMAÑO_LOTE:
+     → Rota por otras áreas (MARKETING, VENTAS, RRHH, etc)
+
+   RESULTADO: Cada lote en CREAR tiene ~5 micros prioritarios + agentes normales
+
+4. PROCESAMIENTO CON EXPANSION TRACKING
+
+   procesar_agente()
+   ─────────────────
+   - Nuevo parámetro: etiqueta=""
+   - Si es micros de expansion, muestra: "[EXPANSION]" en logs
+
+   procesar_lote()
+   ───────────────
+   - Nuevo parámetro: modo, plan_expansion
+   - Si modo CREAR + expansion:
+     * Muestra progreso: "Expansion: X/206 micros (Y%)"
+     * Al final del lote, actualiza y reporta progreso
+
+5. MODOS SOPORTADOS EN detectar_modo()
+   ────────────────────────────────────
+   Ahora intenta leer de fabrica_config.py:
+
+   • CREAR: Genera nuevos agentes, prioriza expansion plan primero,
+            luego alcanza 500 total
+   • MEJORAR: Optimiza los agentes existentes
+   • BALANCEADO: 60% crear (con expansion priority), 40% mejorar
+   • EXPANSION: SOLO los 206 micros del plan de expansion
+   • NOCHE: Todas las tareas (default, similar a balanceado)
+
+6. BUCLE INFINITO INTELIGENTE: bucle_infinito()
+   ──────────────────────────────────────────────
+
+   Carga expansion_plan.json al inicio y muestra estadísticas:
+     Total micros: 206
+     Creados: X
+     Pendientes: Y
+     Progreso: Z%
+
+   MODO CREAR:
+   - Genera plan con prioridad de expansion micros
+   - Muestra: "MODO CREAR | Agentes: actual/500"
+   - Reporta: "Expansion: X/206 micros (Y%)"
+   - Cuando alcanza 500 AND todos los micros están creados:
+     → Muestra hito: "[HITO] 500 agentes alcanzados + 206 micros completados!"
+     → Cambia automáticamente a MEJORAR
+
+   MODO EXPANSION:
+   - SOLO crea los 206 micros del plan
+   - Ignora otros agentes
+   - Cuando termina, cambia a CREAR
+
+   MODO BALANCEADO:
+   - 60% de lotes: crear (con expansion priority)
+   - 40% de lotes: mejorar
+
+   MODO NOCHE:
+   - Similar a balanceado
+   - Fue la opción default anterior
+
+   MODO MEJORAR:
+   - Sin cambios
+
+7. COMMAND-LINE INTERFACE
+   ───────────────────────
+   python fabrica_agentes.py                  → Leer de fabrica_config.py o auto
+   python fabrica_agentes.py crear            → Forzar CREAR (con expansion)
+   python fabrica_agentes.py mejorar          → Forzar MEJORAR
+   python fabrica_agentes.py balanceado       → Forzar BALANCEADO
+   python fabrica_agentes.py expansion        → Forzar EXPANSION (solo micros)
+   python fabrica_agentes.py noche            → Forzar NOCHE
+
+
+FLUJO DE TRABAJO DEL USUARIO:
+═════════════════════════════════════════════════════════════════════════════════
+
+OPCIÓN A: Arranque con selección de modo
+─────────────────────────────────────────
+1. Doble clic en: arrancar_con_menu.bat
+2. Seleccionar opción [1-5]
+3. Sistema arranca fabrica_agentes.py con el modo seleccionado
+4. Fábrica prioriza expansion plan en modo CREAR
+
+OPCIÓN B: Arranque normal
+─────────────────────────
+1. Doble clic en: arrancar.bat
+2. Sistema arranca en modo NOCHE (default)
+3. Fábrica alterna 60% crear (con expansion priority) + 40% mejorar
+
+OPCIÓN C: Cambiar modo desde Dashboard
+────────────────────────────────────────
+1. Abrir http://localhost:8080
+2. Tab "Admin" → "Modo de Fabrica"
+3. Seleccionar nuevo modo en dropdown
+4. Clic en "Cambiar"
+5. Sistema continúa con nuevo modo en próximo ciclo
+
+
+CASOS DE USO:
+═════════════════════════════════════════════════════════════════════════════════
+
+CASO 1: "Quiero completar primero los 206 micros del plan"
+──────────────────────────────────────────────────────────
+1. arrancar_con_menu.bat → Opción 4 (EXPANSION)
+2. Fábrica SOLO crea los 206 micros pendientes
+3. Ignora otros agentes
+4. Cuando termina, cambia a CREAR
+
+CASO 2: "Quiero alcanzar 500 agentes Y terminar el plan de micros"
+───────────────────────────────────────────────────────────────────
+1. arrancar_con_menu.bat → Opción 1 (CREAR)
+2. Cada lote:
+   - Agrega 5 micros pendientes del plan
+   - Agrega 10 agentes normales (FINANZAS, CEREBRO, etc)
+   - Total: 15 agentes por lote
+3. Prioridad: Micros primero, luego otros agentes
+4. Meta: 500 total + 206 micros completados
+5. Cuando alcanza ambas metas, cambia a MEJORAR
+
+CASO 3: "Quiero balancear entre crear y mejorar, respetando expansion"
+───────────────────────────────────────────────────────────────────────
+1. arrancar_con_menu.bat → Opción 3 (BALANCEADO)
+2. Sistema alterna:
+   - 60% de lotes: crear (con priority micros)
+   - 40% de lotes: mejorar existentes
+3. Resultado: Expande mientras pulenta calidad
+
+CASO 4: "Dashboard + selección de modo"
+──────────────────────────────────────
+1. arrancar.bat (abre dashboard automáticamente)
+2. Sistema corre en modo NOCHE (default)
+3. Tab Admin → Modo de Fabrica → Seleccionar CREAR
+4. Próximo lote continúa con CREAR + expansion priority
+
+
+INTEGRACIÓN CON OTROS COMPONENTES:
+═════════════════════════════════════════════════════════════════════════════════
+
+1. fabrica_config.py
+   ────────────────
+   - leer_modo_usuario(): Lee .fabricamode si existe
+   - traducir_modo(): Describe el modo en lenguaje amigable
+   - Soporta 5 modos: CREAR, MEJORAR, BALANCEADO, EXPANSION, NOCHE
+
+2. api_agencia.py (FastAPI)
+   ────────────────────────
+   - GET /modo: Retorna modo actual
+   - POST /modo: Cambia modo (guarda en .fabricamode)
+   - GET /expansion: Retorna progreso de expansion
+   - Todos los endpoints respetan el nuevo sistema
+
+3. dashboard_web.py
+   ────────────────
+   - Tab "Admin" → "Modo de Fabrica"
+   - Dropdown con 5 opciones
+   - Botón "Cambiar" llama POST /modo
+   - Tab "Expansion" muestra progreso en tiempo real
+
+4. arrancar_con_menu.bat
+   ─────────────────────
+   - Pregunta al usuario qué modo quiere
+   - Guarda en .fabricamode
+   - Llama a arrancar.bat que inicia sistema_maestro.py
+
+5. sistema_maestro.py
+   ──────────────────
+   - Inicia API (puerto 8000)
+   - Inicia Dashboard (puerto 8080)
+   - Inicia fabrica_agentes.py en background
+   - fabrica_agentes.py lee .fabricamode automáticamente
+
+
+TRACKING Y LOGS:
+═════════════════════════════════════════════════════════════════════════════════
+
+Cada acción se registra en: registro_noche.txt
+
+Ejemplos de logs:
+
+[2026-03-01 10:15:30] [FÁBRICA] Modo usuario: CREAR (Generar nuevos agentes...)
+[2026-03-01 10:15:31] [FÁBRICA] Expansion Plan Cargado:
+[2026-03-01 10:15:31] [FÁBRICA]   Total micros: 206
+[2026-03-01 10:15:31] [FÁBRICA]   Creados: 13
+[2026-03-01 10:15:31] [FÁBRICA]   Pendientes: 193
+[2026-03-01 10:15:31] [FÁBRICA]   Progreso: 6%
+
+[2026-03-01 10:15:35] [FÁBRICA] MODO CREAR | Agentes: 304/500
+[2026-03-01 10:15:40] [FÁBRICA] [1/15] [EXPANSION] generador_copy_facebook.py [MARKETING]
+[2026-03-01 10:16:05] [FÁBRICA] [EXPANSION] APROBADO generador_copy_facebook.py...
+...
+[2026-03-01 10:20:45] [FÁBRICA] [OK] LOTE #1 COMPLETO
+[2026-03-01 10:20:45] [FÁBRICA]     Expansion: 18/206 micros (8%)
+
+[2026-03-01 11:45:00] [FÁBRICA] [HITO] 500 agentes alcanzados + 206 micros completados!
+[2026-03-01 11:45:00] [FÁBRICA] Cambiando a modo MEJORAR...
+
+
+ESTADÍSTICAS Y MONITOREO:
+═════════════════════════════════════════════════════════════════════════════════
+
+Dashboard → Tab "Expansion" → Muestra:
+- Progreso total: X/206 (Y%)
+- Lista de micros pendientes
+- Lista de micros creados
+- Estimado de tiempo para completar
+
+API Endpoint: GET /expansion
+Respuesta:
+{
+  "total_planificados": 206,
+  "creados": 13,
+  "pendientes": 193,
+  "progreso_pct": 6,
+  "categoria_progreso": {
+    "MARKETING": {"total": 13, "creados": 2, "pendientes": 11},
+    "VENTAS": {"total": 10, "creados": 3, "pendientes": 7},
+    ...
+  }
+}
+
+
+PROBLEMAS Y SOLUCIONES:
+═════════════════════════════════════════════════════════════════════════════════
+
+P: "El modo no está cambiando de CREAR a MEJORAR"
+R: Espera a que se complete un lote. El cambio ocurre cuando:
+   - Total agentes >= 500
+   - Y todos los 206 micros están creados
+
+P: "¿Qué pasa si mato el sistema en medio de un lote?"
+R: El archivo .fabricamode se conserva. Próximo arranque continuará con el modo
+   guardado. Los micros que ya están en habilidades.json se saltarán automáticamente.
+
+P: "¿Puedo cambiar modo mientras corre?"
+R: Sí. Desde el Dashboard o editando .fabricamode. El cambio toma efecto en el
+   próximo lote.
+
+P: "¿Cómo veo cuáles micros están faltando?"
+R: Dashboard → Tab "Expansion" → Muestra lista de pendientes
+   O: GET /expansion → Json con detalles por categoría
+
+
+RESUMEN TÉCNICO:
+═════════════════════════════════════════════════════════════════════════════════
+
+Antes:
+- CREAR simplemente creaba agentes hasta 500 o catálogo se agotaba
+- No había priorización de expansion plan
+- No había tracking de micros vs agentes normales
+
+Ahora:
+- CREAR prioriza los 206 micros del expansion_plan.json
+- Cada lote: ~5 micros + ~10 agentes normales
+- Tracking en tiempo real: "Expansion: X/206 (Y%)"
+- Transición automática a MEJORAR cuando alcanza 500 + 206 micros
+- Soporta 5 modos flexibles: CREAR, MEJORAR, BALANCEADO, EXPANSION, NOCHE
+- Se integra con Dashboard, API, y fabrica_config.py
+
+Código: ~150 líneas nuevas en fabrica_agentes.py
+       Actualización de generar_plan_lote(), bucle_infinito(), etc.
+
+═══════════════════════════════════════════════════════════════════════════════
+

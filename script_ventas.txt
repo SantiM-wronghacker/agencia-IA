@@ -1,0 +1,3 @@
+Venta de producto1 por 100.0 pesos
+Venta de producto2 por 200.0 pesos
+Venta de producto3 por 300.0 pesos

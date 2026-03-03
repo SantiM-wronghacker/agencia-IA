@@ -1,0 +1,6 @@
+Nombre: Tour de México
+Descripción: Visita los lugares más emblemáticos de México
+Precio adulto: 500 MXN
+Precio niño: 300 MXN
+Fecha de inicio: 2026-03-01
+Fecha de fin: 2026-03-01

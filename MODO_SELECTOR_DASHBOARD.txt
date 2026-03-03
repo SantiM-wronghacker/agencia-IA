@@ -1,0 +1,167 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║              SELECTOR DE MODO EN EL DASHBOARD — GUÍA DE USO                 ║
+║                                                                               ║
+║              Ahora puedes cambiar el modo de fabrica directamente            ║
+║              desde el Dashboard, sin necesidad de scripts                    ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+HOW TO USE:
+===========
+
+1. Abre el Dashboard:
+   → Doble clic en arrancar.bat (o arrancar_con_menu.bat)
+   → O navega a: http://localhost:8080
+
+2. Ve al tab "Admin":
+   → Click en la pestaña "Admin"
+
+3. Busca la sección "Modo de Fabrica" (primera seccion):
+   → Es una caja azul en la parte superior del panel Admin
+
+4. Selecciona el modo que quieres:
+   → CREAR - Generar nuevos agentes
+   → MEJORAR - Optimizar existentes
+   → BALANCEADO - 60% crear, 40% mejorar
+   → EXPANSION - Solo los 206 micros
+   → NOCHE - Todas las tareas
+
+5. Haz click en el boton "Cambiar":
+   → El sistema confirma que el modo fue cambiado
+   → El cambio toma efecto en el proximo ciclo de la fabrica
+
+═══════════════════════════════════════════════════════════════════════════════
+
+VENTAJAS:
+═════════
+
+✓ NO necesitas abrir scripts separados
+✓ Cambio instantaneo desde el dashboard
+✓ Visualizas el modo actual en tiempo real
+✓ Confirmacion visual del cambio
+✓ Ideal para cambiar rapidamente sin reiniciar
+
+═══════════════════════════════════════════════════════════════════════════════
+
+EJEMPLO PRACTICO:
+═════════════════
+
+ESCENARIO: "Quiero pasar de MEJORAR a CREAR"
+
+1. Dashboard abierto en http://localhost:8080
+2. Click en tab "Admin"
+3. Ves la seccion "Modo de Fabrica":
+   ┌─────────────────────────────────────────────────────────┐
+   │ Modo de Fabrica                                         │
+   ├─────────────────────────────────────────────────────────┤
+   │ Modo Actual:  [MEJORAR - Optimizar existentes]  [Cambiar]
+   │                                                          │
+   │ ⓘ Cambio de modo toma efecto en el proximo ciclo      │
+   └─────────────────────────────────────────────────────────┘
+
+4. Click en el dropdown y selecciona: "CREAR"
+5. Haz click en "Cambiar"
+6. Ves confirmacion: "Modo: CREAR. Aplicara en proximo ciclo."
+7. ¡Listo! Proxima vez que la fabrica cree un lote, usara CREAR
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CAMBIOS INTERNOS:
+═════════════════
+
+Cuando cambias el modo desde el dashboard:
+
+1. Dashboard enviA POST /modo con el nuevo modo
+2. API guarda el modo en archivo .fabricamode
+3. La fabrica lee .fabricamode en el proximo ciclo
+4. Se aplica el nuevo modo
+5. Ves el cambio en los logs (registro_noche.txt)
+
+Todo esto sin necesidad de reiniciar el sistema!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ENDPOINTS NUEVOS EN LA API:
+═══════════════════════════
+
+GET /modo
+─────────
+Obtiene el modo actual de fabrica
+
+Respuesta:
+{
+  "modo_actual": "MEJORAR",
+  "modos_disponibles": ["CREAR", "MEJORAR", "BALANCEADO", "EXPANSION", "NOCHE"],
+  "descripcion": {...}
+}
+
+Uso:
+  curl http://localhost:8000/modo \
+    -H "Authorization: Bearer santi-agencia-2026"
+
+
+POST /modo
+──────────
+Cambia el modo de fabrica
+
+Body:
+{
+  "modo": "CREAR"
+}
+
+Respuesta:
+{
+  "exito": true,
+  "modo_nuevo": "CREAR",
+  "mensaje": "Modo cambiado a CREAR. La fabrica lo aplicara en el proximo ciclo."
+}
+
+Uso:
+  curl -X POST http://localhost:8000/modo \
+    -H "Authorization: Bearer santi-agencia-2026" \
+    -H "Content-Type: application/json" \
+    -d '{"modo":"CREAR"}'
+
+═══════════════════════════════════════════════════════════════════════════════
+
+VELOCIDAD DE APLICACION:
+═════════════════════════
+
+¿Cuanto tarda en aplicarse el cambio?
+  → El cambio se aplica en el PROXIMO CICLO de la fabrica
+  → Ciclos tipicos: cada 30-60 segundos (configurable)
+  → No es instantaneo, pero rapido
+
+¿Puedo ver el cambio inmediatamente?
+  → Si, el dropdown y mensaje se actualizan en el dashboard
+  → Pero la fabrica lo aplicara cuando inicie el proximo ciclo
+
+¿Que hago si no se aplica?
+  → Espera a que termine el lote actual
+  → O reinicia el sistema (arrancar.bat)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+COMPATIBILIDAD:
+════════════════
+
+Esto REEMPLAZA (pero no elimina) las opciones anteriores:
+
+✓ Aun funciona: arrancar_con_menu.bat (menu interactivo)
+✓ Aun funciona: .fabricamode (archivo config manual)
+✓ NUEVO: Dashboard Admin tab (lo mas conveniente)
+
+Todas las formas funcionan juntas!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+RECOMENDACION:
+═══════════════
+
+Para cambiar modos rapidamente:
+  1. Usa el Dashboard (Admin tab)
+  2. Es la forma mas cómoda y rápida
+  3. No necesitas scripts ni CLI
+
+═══════════════════════════════════════════════════════════════════════════════

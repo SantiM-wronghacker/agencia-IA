@@ -1,0 +1,8 @@
+
+Nota de Evolución del Paciente Juan Pérez
+Fecha: 2026-03-01
+Medicamento: Ibuprofeno (150.00 MXN por unidad)
+Cantidad: 10 unidades
+Peso: 70.0 kg
+Temperatura: 36.5°C
+Presión Sanguínea: 1.5 mmHg

@@ -1,0 +1,132 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║                    ✅ SISTEMA PAUSADO Y LISTO PARA PROBAR                    ║
+║                                                                               ║
+║              Todos los procesos Python en background han sido detenidos      ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+ESTADO ACTUAL:
+──────────────────────────────────────────────────────────────────────────────
+
+  ✓ Sistema maestro:  PAUSADO
+  ✓ API (puerto 8000):  APAGADO
+  ✓ Dashboard (puerto 8080):  APAGADO
+  ✓ Fábrica de agentes:  PAUSADA
+  ✓ Modo noche:  PAUSADO
+
+  Archivos de datos:
+  ✓ habilidades.json:  304 agentes listos
+  ✓ expansion_plan.json:  206 micros planificados
+  ✓ registro_noche.txt:  Logs disponibles
+
+
+QUE PRUEBA PRIMERO:
+──────────────────────────────────────────────────────────────────────────────
+
+  OPCIÓN A: Prueba el MENU DE PRIORIDADES (RECOMENDADO)
+  ─────────────────────────────────────────────────────
+    1. Abre Explorador de Archivos
+    2. Ve a: C:\Users\Santi\agentes-local\
+    3. Doble clic en: arrancar_con_menu.bat
+
+    El script te preguntará:
+      "¿Qué quieres que haga el sistema?"
+
+      1 = CREAR nuevos agentes
+      2 = MEJORAR los existentes
+      3 = BALANCEADO (crear + mejorar)
+      4 = EXPANSION (solo los 206 micros)
+      5 = NOCHE (todas las tareas - default)
+
+    4. Selecciona una opción [1-5]
+    5. Sistema arranca + Dashboard se abre automáticamente
+    6. Observa los logs en el dashboard
+
+  OPCIÓN B: Prueba el ARRANQUE NORMAL (sin menu)
+  ──────────────────────────────────────────────
+    1. Doble clic en: arrancar.bat
+    2. Sistema arranca en modo NOCHE (default)
+    3. Dashboard se abre automáticamente
+
+
+QUE VAS A VER:
+──────────────────────────────────────────────────────────────────────────────
+
+  Ventana CMD (negra):
+    - Estado inicial del sistema
+    - Espera a que API responda
+    - Muestra "Sistema listo" cuando todo está OK
+
+  Dashboard (navegador):
+    - http://localhost:8080
+    - 304 agentes disponibles
+    - Panel de expansión (206 micros)
+    - Logs en tiempo real
+    - Tab "Expansion" muestra progreso
+
+
+DURANTE LA PRUEBA, PUEDES:
+──────────────────────────────────────────────────────────────────────────────
+
+  ✓ Ver agentes en el dashboard
+  ✓ Crear un nuevo agente (tab "Admin")
+  ✓ Editar un agente (click Edit)
+  ✓ Ver el progreso de expansión
+  ✓ Ver logs en tiempo real
+  ✓ Cambiar modo (cierra y rearranca con otra opción)
+
+  SI ALGO SALE MAL:
+  ✓ Revisa los logs: registro_noche.txt
+  ✓ O corre: estado_sistema.bat (verifica qué está funcionando)
+
+
+ARCHIVOS IMPORTANTES:
+──────────────────────────────────────────────────────────────────────────────
+
+  Principales:
+    arrancar.bat                    ← Arranque normal (sin menu)
+    arrancar_con_menu.bat           ← Arranque CON MENU (NUEVO!)
+    estado_sistema.bat              ← Ver estado + opciones
+
+  Documentación:
+    MENU_PRIORIDADES.txt            ← Guía del nuevo menu
+    EMPEZAR_AQUI.txt                ← Guía rápida general
+    GUIA_ARRANQUE.txt               ← Guía detallada
+
+  Config:
+    fabrica_config.py               ← Gestor de configuración
+    .fabricamode                    ← Archivo de modo (se crea al arrancar)
+
+
+ESTADO DE LA IMPLEMENTACION:
+──────────────────────────────────────────────────────────────────────────────
+
+  ✅ Dashboard mejorado con CRUD
+  ✅ API con 10+ endpoints nuevos
+  ✅ Plan de expansión (206 micros)
+  ✅ Sistema de arranque mejorado
+  ✅ Menu de prioridades (NUEVO)
+  ✅ Cooldown system para LLMs (evita cascadas 429)
+  ✅ Cerebras funcionando (llama3.1-8b)
+  ✅ 304 agentes saludables (100%)
+
+
+PRÓXIMOS PASOS (después de probar):
+──────────────────────────────────────────────────────────────────────────────
+
+  1. Prueba el arranque normal (arrancar.bat)
+  2. Navega por el dashboard
+  3. Revisa los logs
+  4. Si todo OK, configura el auto-inicio (activar_autostart.bat)
+  5. ¡Listo para producción!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                    ¡Listo! Ahora es tu turno de probar.
+
+                    Doble clic en: arrancar_con_menu.bat
+
+═══════════════════════════════════════════════════════════════════════════════

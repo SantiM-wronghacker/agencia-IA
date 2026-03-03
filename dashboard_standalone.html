@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agencia Santi - Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.6}
+header{background:#161b22;border-bottom:1px solid #30363d;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+h1{font-size:1.3rem;color:#58a6ff}
+.header-right{display:flex;align-items:center;gap:12px}
+.badge{display:inline-block;padding:6px 12px;border-radius:20px;font-size:.8rem;font-weight:600}
+.badge.online{background:#238636;color:#fff}
+.badge.offline{background:#da3633;color:#fff}
+.badge.connecting{background:#d29922;color:#fff}
+.last-update{font-size:.7rem;color:#8b949e}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;padding:20px 20px 0}
+.card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;transition:border-color .2s}
+.card:hover{border-color:#58a6ff}
+.card h3{font-size:.8rem;color:#8b949e;text-transform:uppercase;margin-bottom:6px;letter-spacing:.5px}
+.card .num{font-size:1.8rem;font-weight:700;color:#58a6ff}
+.card .sub{font-size:.72rem;color:#8b949e;margin-top:3px}
+
+.panel{padding:20px;max-width:1200px;margin:0 auto}
+.section{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:16px;margin-bottom:16px}
+.section h2{font-size:1.05rem;color:#58a6ff;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section h2 .count{font-size:.8rem;color:#8b949e;font-weight:400}
+
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #21262d}
+th{background:#0d1117;font-weight:600;color:#8b949e;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px}
+tr:hover{background:#21262d}
+td.cat-name{font-weight:600}
+
+.bar-cell{width:40%}
+.progress-bar{background:#21262d;border-radius:4px;height:8px;overflow:hidden;position:relative}
+.progress-fill{height:100%;border-radius:4px;transition:width .5s ease}
+.fill-green{background:#238636}
+.fill-yellow{background:#d29922}
+.fill-empty{background:#30363d}
+
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.dot-active{background:#3fb950}
+.dot-pending{background:#484f58}
+
+.log{background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:12px;font-size:.73rem;font-family:'Cascadia Code','Fira Code',monospace;height:280px;overflow-y:auto;color:#8b949e}
+.log-line{margin:3px 0;padding:2px 0;border-bottom:1px solid #161b22}
+.error{color:#f85149}
+.success{color:#3fb950}
+.warn{color:#d29922}
+
+.summary-row{display:flex;gap:20px;padding:8px 0;font-size:.85rem;color:#8b949e;border-top:1px solid #30363d;margin-top:8px}
+.summary-row span{color:#e6edf3;font-weight:600}
+
+@media(max-width:600px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px;padding:12px}
+  .card .num{font-size:1.4rem}
+  .bar-cell{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>&#9881;&#65039; Agencia Santi v2</h1>
+  <div class="header-right">
+    <span class="last-update" id="last-update"></span>
+    <span class="badge connecting" id="status-badge">Conectando...</span>
+  </div>
+</header>
+
+<div class="grid" id="stats">
+  <div class="card">
+    <h3>Estado</h3>
+    <div class="num" id="s-status">-</div>
+    <div class="sub">API</div>
+  </div>
+  <div class="card">
+    <h3>Agentes</h3>
+    <div class="num" id="s-agentes">-</div>
+    <div class="sub">totales</div>
+  </div>
+  <div class="card">
+    <h3>Saludables</h3>
+    <div class="num" id="s-ok">-</div>
+    <div class="sub">OK</div>
+  </div>
+  <div class="card">
+    <h3>Micros</h3>
+    <div class="num" id="s-micros">-</div>
+    <div class="sub" id="s-micros-sub">plan de expansion</div>
+  </div>
+  <div class="card">
+    <h3>Categorias</h3>
+    <div class="num" id="s-cats">-</div>
+    <div class="sub" id="s-cats-sub">activas</div>
+  </div>
+  <div class="card">
+    <h3>Modo</h3>
+    <div class="num" id="s-modo" style="font-size:1.1rem">-</div>
+    <div class="sub">fabrica</div>
+  </div>
+</div>
+
+<div class="panel">
+
+  <div class="section">
+    <h2>&#128202; Categorias <span class="count" id="cats-count"></span></h2>
+    <table id="cats-table">
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th>Agentes</th>
+          <th>OK</th>
+          <th class="bar-cell">Progreso</th>
+        </tr>
+      </thead>
+      <tbody id="cats-body">
+        <tr><td colspan="4" style="color:#8b949e">Cargando...</td></tr>
+      </tbody>
+    </table>
+    <div class="summary-row" id="cats-summary"></div>
+  </div>
+
+  <div class="section">
+    <h2>&#128221; Ultimas Actividades</h2>
+    <div class="log" id="log-container">
+      Cargando...
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API = location.origin;
+const KEY = 'santi-agencia-2026';
+let errCount = 0;
+
+async function api(endpoint) {
+  try {
+    const r = await fetch(API + endpoint, {
+      headers: { 'Authorization': 'Bearer ' + KEY }
+    });
+    if (!r.ok) return null;
+    errCount = 0;
+    return await r.json();
+  } catch (e) {
+    errCount++;
+    return null;
+  }
+}
+
+async function actualizar() {
+  // Status
+  const status = await api('/status');
+  if (status) {
+    document.getElementById('status-badge').className = 'badge online';
+    document.getElementById('status-badge').textContent = 'Online';
+    document.getElementById('s-status').textContent = 'Online';
+    document.getElementById('s-status').style.color = '#3fb950';
+    document.getElementById('s-agentes').textContent = status.agentes?.total || '-';
+    document.getElementById('s-ok').textContent = status.agentes?.saludables || '-';
+  } else {
+    document.getElementById('status-badge').className = errCount > 2 ? 'badge offline' : 'badge connecting';
+    document.getElementById('status-badge').textContent = errCount > 2 ? 'Offline' : 'Reconectando...';
+    document.getElementById('s-status').textContent = 'Offline';
+    document.getElementById('s-status').style.color = '#f85149';
+  }
+
+  // Timestamp
+  const now = new Date();
+  document.getElementById('last-update').textContent =
+    'Actualizado: ' + now.toLocaleTimeString('es-MX');
+
+  // Expansion
+  const exp = await api('/expansion');
+  if (exp) {
+    document.getElementById('s-micros').textContent = exp.creados + '/' + exp.total_planificados;
+    const pct = exp.progreso_pct || 0;
+    document.getElementById('s-micros-sub').textContent =
+      pct >= 100 ? 'completado' : pct + '% del plan';
+  }
+
+  // Categorias
+  const cats = await api('/categorias');
+  if (cats) {
+    const activas = cats.categorias_activas || 0;
+    const total = cats.total_categorias || 0;
+    document.getElementById('s-cats').textContent = activas + '/' + total;
+    document.getElementById('s-cats-sub').textContent = 'activas de ' + total;
+    document.getElementById('cats-count').textContent =
+      '(' + activas + ' activas, ' + (total - activas) + ' pendientes)';
+
+    const tbody = document.getElementById('cats-body');
+    tbody.innerHTML = '';
+
+    let totalAgentes = 0, totalOk = 0;
+    const maxAgentes = Math.max(1, ...Object.values(cats.categorias || {}).map(v => v.total || 0));
+
+    // Ordenar: primero las que tienen agentes (por total desc), luego las vacias
+    const entries = Object.entries(cats.categorias || {}).sort((a, b) => {
+      if (a[1].total > 0 && b[1].total === 0) return -1;
+      if (a[1].total === 0 && b[1].total > 0) return 1;
+      return b[1].total - a[1].total;
+    });
+
+    for (const [cat, info] of entries) {
+      const ok = info.ok || 0;
+      const t = info.total || 0;
+      totalAgentes += t;
+      totalOk += ok;
+
+      const pct = maxAgentes > 0 ? Math.round(t / maxAgentes * 100) : 0;
+      const isActive = t > 0;
+      const dotClass = isActive ? 'dot-active' : 'dot-pending';
+      const fillClass = t > 0 ? (ok === t ? 'fill-green' : 'fill-yellow') : 'fill-empty';
+      const countStyle = isActive ? '' : 'color:#484f58';
+
+      const row = document.createElement('tr');
+      row.innerHTML =
+        '<td class="cat-name"><span class="status-dot ' + dotClass + '"></span>' + cat + '</td>' +
+        '<td style="' + countStyle + '">' + t + '</td>' +
+        '<td class="' + (isActive ? 'success' : '') + '" style="' + countStyle + '">' + ok + '</td>' +
+        '<td class="bar-cell"><div class="progress-bar"><div class="progress-fill ' + fillClass + '" style="width:' + pct + '%"></div></div></td>';
+      tbody.appendChild(row);
+    }
+
+    document.getElementById('cats-summary').innerHTML =
+      'Total: <span>' + totalAgentes + '</span> agentes &nbsp;|&nbsp; ' +
+      'Saludables: <span>' + totalOk + '</span> &nbsp;|&nbsp; ' +
+      'Categorias activas: <span>' + activas + '/' + total + '</span>';
+  }
+
+  // Modo
+  const modo = await api('/modo');
+  if (modo) {
+    const m = modo.modo_actual || '-';
+    document.getElementById('s-modo').textContent = m;
+    // Color segun modo
+    const colores = {
+      'CREAR': '#3fb950', 'MEJORAR': '#58a6ff', 'BALANCEADO': '#d29922',
+      'EXPANSION': '#a371f7', 'NOCHE': '#8b949e'
+    };
+    document.getElementById('s-modo').style.color = colores[m] || '#58a6ff';
+  }
+
+  // Log
+  if (status && status.ultimas_actividades) {
+    const logEl = document.getElementById('log-container');
+    logEl.innerHTML = '';
+    status.ultimas_actividades.forEach(function(line) {
+      const div = document.createElement('div');
+      div.className = 'log-line';
+      if (line.includes('ERROR') || line.includes('FAIL') || line.includes('CRITICO'))
+        div.className += ' error';
+      else if (line.includes('[OK]') || line.includes('APROBADO') || line.includes('COMPLETO'))
+        div.className += ' success';
+      else if (line.includes('WARN') || line.includes('FIX'))
+        div.className += ' warn';
+      div.textContent = line;
+      logEl.appendChild(div);
+    });
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+}
+
+// Cargar al iniciar
+actualizar();
+
+// Actualizar cada 10 segundos
+setInterval(actualizar, 10000);
+</script>
+
+</body>
+</html>

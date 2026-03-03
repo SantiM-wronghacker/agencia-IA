@@ -1,17 +1,5 @@
-"""
-ÁREA: MARKETING
-DESCRIPCIÓN: Agente que realiza calculadora cac ltv
-TECNOLOGÍA: Python estándar
-"""
-
 import sys
 import math
-
-try:
-    import web_bridge as web
-    WEB = web.WEB  # True si hay conexion a internet
-except ImportError:
-    WEB = False
 
 def main():
     try:
@@ -28,11 +16,20 @@ def main():
         ltv_anual = ltv * 12 / meses
         margen = ltv - cac
         tasa_recuperacion = (ltv / cac) * 100
-        punto_equilibrio = (cac / (ltv - cac)) * 100
+        punto_equilibrio = (cac / (ltv - cac)) * 100 if ltv > cac else 0
         crecimiento_anual = ((ltv_anual - cac) / cac) * 100
         valor_presente = ltv / (1 + tasa_descuento/100)**meses
+        tasa_de_retorno = (ltv - cac) / cac * 100
+        periodo_de_recuperacion = payback_period * (1 + tasa_descuento/100)**meses
+        ingresos_netos = ltv - cac
+        utilidad_neta = ingresos_netos / ltv * 100
+        rentabilidad = ingresos_netos / cac * 100
+        ratio_inversión = cac / ltv
 
         # Resultados
+        print("ÁREA: FINANZAS")
+        print("DESCRIPCIÓN: Agente que realiza calculadora cac ltv")
+        print("TECNOLOGÍA: Python estándar")
         print(f"CAC: ${cac:.2f} MXN")
         print(f"LTV: ${ltv:.2f} MXN")
         print(f"Ratio LTV/CAC: {ratio:.2f}")
@@ -45,22 +42,22 @@ def main():
         print(f"LTV anual: ${ltv_anual:.2f} MXN")
         print(f"Meses para recuperar la inversión: {payback_period:.1f} meses")
         print(f"Valor presente del LTV: ${valor_presente:.2f} MXN")
-        print(f"Tasa de descuento: {tasa_descuento:.1f}%")
-        print(f"Período de recuperación de la inversión con descuento: {payback_period * (1 + tasa_descuento/100)**meses:.1f} meses")
+        print(f"Tasa de retorno: {tasa_de_retorno:.1f}%")
+        print(f"Periodo de recuperación: {periodo_de_recuperacion:.1f} meses")
+        print(f"Ingresos netos: ${ingresos_netos:.2f} MXN")
+        print(f"Utilidad neta: {utilidad_neta:.1f}%")
+        print(f"Rentabilidad: {rentabilidad:.1f}%")
+        print(f"Ratio inversión: {ratio_inversión:.2f}")
 
         # Resumen ejecutivo
-        print("\nResumen Ejecutivo:")
-        print(f"La relación LTV/CAC es de {ratio:.2f}, lo que indica que por cada peso invertido en adquisición de clientes, se genera un valor de ${ltv:.2f} MXN.")
-        print(f"El período de recuperación de la inversión es de {payback_period:.1f} meses, lo que significa que se recuperará la inversión en un plazo de {payback_period:.1f} meses.")
-        print(f"La tasa de crecimiento anual es de {crecimiento_anual:.1f}%, lo que indica un crecimiento significativo en la generación de valor por cliente.")
-        print(f"El valor presente del LTV es de ${valor_presente:.2f} MXN, lo que indica el valor actual del LTV considerando la tasa de descuento.")
+        print("\nResumen ejecutivo:")
+        print(f"La inversión en LTV de ${ltv:.2f} MXN tiene un retorno esperado de {tasa_de_retorno:.1f}% y un periodo de recuperación de {periodo_de_recuperacion:.1f} meses.")
+        print(f"El margen por cliente es de ${margen:.2f} MXN y la utilidad neta es de {utilidad_neta:.1f}%.")
 
+    except IndexError:
+        print("Error: Faltan parámetros de entrada.")
     except ValueError:
-        print("Error: Los parámetros deben ser números.")
-    except ZeroDivisionError:
-        print("Error: No se puede dividir por cero.")
-    except Exception as e:
-        print(f"Error: {e}")
+        print("Error: Los parámetros de entrada deben ser números.")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentes - Agencia Santi</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.6}
+
+header{background:#161b22;border-bottom:1px solid #30363d;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+h1{font-size:1.3rem;color:#58a6ff}
+.header-right{display:flex;align-items:center;gap:12px}
+.badge{display:inline-block;padding:6px 12px;border-radius:20px;font-size:.8rem;font-weight:600}
+.badge.online{background:#238636;color:#fff}
+.badge.offline{background:#da3633;color:#fff}
+.badge.connecting{background:#d29922;color:#fff}
+
+.container{max-width:1400px;margin:0 auto;padding:20px}
+
+.controls{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.filter-group{display:flex;gap:8px;align-items:center}
+.filter-group label{color:#8b949e;font-size:.9rem}
+select{background:#161b22;border:1px solid #30363d;color:#e6edf3;padding:8px 12px;border-radius:6px;font-size:.9rem;cursor:pointer}
+select:hover{border-color:#58a6ff}
+input[type="text"]{background:#161b22;border:1px solid #30363d;color:#e6edf3;padding:8px 12px;border-radius:6px;font-size:.9rem}
+input[type="text"]:focus{outline:none;border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,.1)}
+
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.stat-item{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center}
+.stat-value{font-size:1.8rem;font-weight:700;color:#58a6ff}
+.stat-label{font-size:.8rem;color:#8b949e;text-transform:uppercase;margin-top:4px}
+
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+#agents-container{display:block}
+.agent-card{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px;transition:all .2s}
+.agent-card:hover{border-color:#58a6ff;box-shadow:0 0 12px rgba(88,166,255,.15)}
+
+.agent-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.agent-name{font-weight:600;color:#58a6ff;font-size:.95rem;word-break:break-word;flex:1}
+.agent-category{display:inline-block;padding:2px 8px;background:#30363d;border-radius:4px;font-size:.7rem;color:#8b949e;margin-left:8px;white-space:nowrap}
+
+.health-badge{display:inline-block;padding:4px 8px;border-radius:4px;font-size:.7rem;font-weight:600;margin-top:6px}
+.health-ok{background:#238636;color:#fff}
+.health-warn{background:#d29922;color:#fff}
+.health-error{background:#da3633;color:#fff}
+
+.agent-desc{font-size:.8rem;color:#8b949e;margin-top:8px;line-height:1.4;max-height:60px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+
+.agent-meta{display:flex;gap:12px;margin-top:10px;font-size:.75rem;color:#484f58;border-top:1px solid #21262d;padding-top:8px}
+
+.category-section{margin-bottom:28px}
+.category-header{background:#161b22;border-left:4px solid #58a6ff;padding:12px 14px;margin-bottom:12px;border-radius:4px}
+.category-header h2{font-size:1rem;color:#58a6ff;margin:0;display:flex;justify-content:space-between;align-items:center}
+.category-count{color:#8b949e;font-weight:400;font-size:.9rem}
+.category-count .ok{color:#3fb950}
+.category-count .error{color:#da3633}
+
+.empty-state{text-align:center;padding:40px 20px;color:#8b949e}
+.empty-state-icon{font-size:3rem;margin-bottom:12px}
+
+.nav-tabs{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid #30363d;padding-bottom:12px}
+.nav-tab{padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;border:1px solid transparent;transition:all .2s}
+.nav-tab.active{background:#30363d;border-color:#58a6ff;color:#58a6ff}
+.nav-tab:hover{border-color:#58a6ff}
+
+#view-container{display:none}
+#view-container.active{display:block}
+
+@media(max-width:600px){
+  .agent-card{min-width:auto}
+  .agents-grid{grid-template-columns:1fr}
+  .control{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🤖 Agentes - Agencia Santi</h1>
+  <div class="header-right">
+    <span class="badge online" id="status-badge">Online</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="switchView('cards')">📇 Tarjetas</div>
+    <div class="nav-tab" onclick="switchView('table')">📋 Tabla</div>
+  </div>
+
+  <div class="controls">
+    <div class="filter-group">
+      <label>Categoría:</label>
+      <select id="category-filter" onchange="filtrarAgentes()">
+        <option value="">Todas</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Salud:</label>
+      <select id="health-filter" onchange="filtrarAgentes()">
+        <option value="">Todos</option>
+        <option value="OK">✓ OK</option>
+        <option value="WARNING">⚠ Warning</option>
+        <option value="ERROR">✗ Error</option>
+      </select>
+    </div>
+    <div class="filter-group" style="flex:1">
+      <input type="text" id="search-filter" placeholder="Buscar agente..." onkeyup="filtrarAgentes()">
+    </div>
+  </div>
+
+  <div class="stats-bar" id="stats-bar"></div>
+
+  <div id="view-cards" class="view-container active">
+    <div id="agents-container"></div>
+  </div>
+
+  <div id="view-table" class="view-container">
+    <table style="width:100%;border-collapse:collapse;font-size:.83rem;margin-top:20px">
+      <thead>
+        <tr style="background:#0d1117;border-bottom:1px solid #21262d">
+          <th style="padding:12px;text-align:left;color:#8b949e;font-size:.75rem;text-transform:uppercase">Agente</th>
+          <th style="padding:12px;text-align:left;color:#8b949e;font-size:.75rem;text-transform:uppercase">Categoría</th>
+          <th style="padding:12px;text-align:left;color:#8b949e;font-size:.75rem;text-transform:uppercase">Salud</th>
+          <th style="padding:12px;text-align:left;color:#8b949e;font-size:.75rem;text-transform:uppercase">Descripción</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr><td colspan="4" style="padding:20px;text-align:center;color:#8b949e">Cargando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+const API = location.origin;
+const KEY = 'santi-agencia-2026';
+
+// Estado global
+let todosLosAgentes = {};
+let categoriasDisponibles = [];
+
+function switchView(view) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
+  if (view === 'cards') {
+    document.getElementById('view-cards').classList.add('active');
+  } else {
+    document.getElementById('view-table').classList.add('active');
+  }
+}
+
+async function cargarAgentes() {
+  try {
+    const r = await fetch(API + '/agentes-list', {
+      headers: { 'Authorization': 'Bearer ' + KEY }
+    });
+    if (!r.ok) {
+      document.getElementById('agents-container').innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><p>No se pudo cargar la lista de agentes</p></div>';
+      return;
+    }
+    const data = await r.json();
+    todosLosAgentes = data.agentes || {};
+    categoriasDisponibles = data.categorias || [];
+
+    // Actualizar status
+    document.getElementById('status-badge').className = 'badge online';
+    document.getElementById('status-badge').textContent = 'Online';
+
+    // Llenar filtro de categorías
+    const catSelect = document.getElementById('category-filter');
+    categoriasDisponibles.forEach(cat => {
+      const opt = document.createElement('option');
+      opt.value = cat;
+      opt.textContent = cat;
+      catSelect.appendChild(opt);
+    });
+
+    // Mostrar estadísticas
+    mostrarEstadisticas();
+
+    // Mostrar agentes
+    filtrarAgentes();
+  } catch (e) {
+    console.error(e);
+    document.getElementById('status-badge').className = 'badge offline';
+    document.getElementById('status-badge').textContent = 'Offline';
+  }
+}
+
+function mostrarEstadisticas() {
+  const total = Object.keys(todosLosAgentes).length;
+  const ok = Object.values(todosLosAgentes).filter(a => a.salud === 'OK').length;
+  const warn = Object.values(todosLosAgentes).filter(a => a.salud === 'WARNING').length;
+  const err = Object.values(todosLosAgentes).filter(a => a.salud === 'ERROR').length;
+
+  document.getElementById('stats-bar').innerHTML = `
+    <div class="stat-item"><div class="stat-value">${total}</div><div class="stat-label">Total</div></div>
+    <div class="stat-item"><div class="stat-value" style="color:#3fb950">${ok}</div><div class="stat-label">Saludables</div></div>
+    <div class="stat-item"><div class="stat-value" style="color:#d29922">${warn}</div><div class="stat-label">Warnings</div></div>
+    <div class="stat-item"><div class="stat-value" style="color:#da3633">${err}</div><div class="stat-label">Errores</div></div>
+  `;
+}
+
+function filtrarAgentes() {
+  const categoria = document.getElementById('category-filter').value;
+  const salud = document.getElementById('health-filter').value;
+  const busqueda = document.getElementById('search-filter').value.toLowerCase();
+
+  let filtrados = {};
+  for (const [nombre, info] of Object.entries(todosLosAgentes)) {
+    if (categoria && info.categoria !== categoria) continue;
+    if (salud && info.salud !== salud) continue;
+    if (busqueda && !nombre.toLowerCase().includes(busqueda)) continue;
+    filtrados[nombre] = info;
+  }
+
+  mostrarAgentesEnVista(filtrados);
+}
+
+function mostrarAgentesEnVista(agentes) {
+  const cardsView = document.getElementById('view-cards').classList.contains('active');
+
+  if (cardsView) {
+    mostrarAgentesCards(agentes);
+  } else {
+    mostrarAgentesTabla(agentes);
+  }
+}
+
+function mostrarAgentesCards(agentes) {
+  const container = document.getElementById('agents-container');
+
+  if (Object.keys(agentes).length === 0) {
+    container.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="empty-state-icon">🔍</div><p>No se encontraron agentes</p></div>';
+    return;
+  }
+
+  // Agrupar por categoría
+  const porCategoria = {};
+  for (const [nombre, info] of Object.entries(agentes)) {
+    const cat = info.categoria || 'SIN_CATEGORIA';
+    if (!porCategoria[cat]) porCategoria[cat] = [];
+    porCategoria[cat].push([nombre, info]);
+  }
+
+  let html = '';
+  for (const [cat, items] of Object.entries(porCategoria).sort()) {
+    const okCount = items.filter(([_, i]) => i.salud === 'OK').length;
+    html += `
+      <div style="grid-column:1/-1">
+        <div class="category-header">
+          <h2>
+            ${cat}
+            <span class="category-count">
+              ${items.length} agentes
+              <span class="ok">✓${okCount}</span>
+              <span class="error">✗${items.length - okCount}</span>
+            </span>
+          </h2>
+        </div>
+        <div class="agents-grid" style="margin-top:12px">
+    `;
+
+    for (const [nombre, info] of items) {
+      const healthClass = info.salud === 'OK' ? 'health-ok' : (info.salud === 'WARNING' ? 'health-warn' : 'health-error');
+      const healthIcon = info.salud === 'OK' ? '✓' : (info.salud === 'WARNING' ? '⚠' : '✗');
+      html += `
+        <div class="agent-card">
+          <div class="agent-header">
+            <span class="agent-name">${nombre}</span>
+            <span class="agent-category">${info.categoria}</span>
+          </div>
+          <div class="health-badge ${healthClass}">${healthIcon} ${info.salud}</div>
+          <div class="agent-desc">${info.descripcion || 'Sin descripción'}</div>
+          <div class="agent-meta">
+            <span>Python</span>
+            <span>${nombre}.py</span>
+          </div>
+        </div>
+      `;
+    }
+
+    html += `
+        </div>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
+}
+
+function mostrarAgentesTabla(agentes) {
+  const tbody = document.getElementById('table-body');
+
+  if (Object.keys(agentes).length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="padding:20px;text-align:center;color:#8b949e">No se encontraron agentes</td></tr>';
+    return;
+  }
+
+  let html = '';
+  for (const [nombre, info] of Object.entries(agentes).sort()) {
+    const healthClass = info.salud === 'OK' ? 'success' : (info.salud === 'WARNING' ? 'warn' : 'error');
+    const healthIcon = info.salud === 'OK' ? '✓' : (info.salud === 'WARNING' ? '⚠' : '✗');
+    html += `
+      <tr style="border-bottom:1px solid #21262d;background:#161b22">
+        <td style="padding:10px">${nombre}</td>
+        <td style="padding:10px">${info.categoria || 'N/A'}</td>
+        <td style="padding:10px"><span class="health-badge ${healthClass}">${healthIcon} ${info.salud}</span></td>
+        <td style="padding:10px;color:#8b949e">${info.descripcion || '-'}</td>
+      </tr>
+    `;
+  }
+
+  tbody.innerHTML = html;
+}
+
+// Cargar al iniciar
+cargarAgentes();
+</script>
+
+</body>
+</html>

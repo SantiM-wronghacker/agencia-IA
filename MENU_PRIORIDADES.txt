@@ -1,0 +1,116 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                     MENU DE PRIORIDADES — GUÍA RÁPIDA                        ║
+║              Elige qué quieres que haga el sistema al arrancar               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+HOW TO USE:
+===========
+
+1. Haz doble clic en:  arrancar_con_menu.bat
+
+2. Selecciona una opción [1-5]:
+
+   1. CREAR - Generar nuevos agentes hasta 500
+      └─ Fábrica enfocada en CREAR nuevos
+      └─ Cuando llege a 500, cambia a MEJORAR
+      └─ Ideal para: Expandir rápidamente
+
+   2. MEJORAR - Optimizar los 304 agentes existentes
+      └─ Fábrica mejora y documenta agentes
+      └─ NUNCA crea nuevos
+      └─ Ideal para: Pulir la calidad
+
+   3. BALANCEADO - Crear Y mejorar simultáneamente
+      └─ 60% tiempo en CREAR, 40% en MEJORAR
+      └─ Genera nuevos pero optimiza los viejos
+      └─ Ideal para: Expandir manteniendo calidad
+
+   4. EXPANSION SOLO - Solo los 206 micros del plan
+      └─ Ignora otros agentes
+      └─ 100% enfoque en los micros planificados
+      └─ Ideal para: Completar el plan rápido
+
+   5. NOCHE COMPLETA - Todas las tareas (DEFAULT)
+      └─ Factory (CREAR) + Noche + Misiones + Auto-run
+      └─ Sistema completo operando
+      └─ Ideal para: Operación normal
+
+3. Sistema inicia con la prioridad seleccionada
+4. Dashboard abre automáticamente
+
+═══════════════════════════════════════════════════════════════════════════════
+
+QUÉ SUCEDE INTERNAMENTE:
+
+Cuando seleccionas una opción, el sistema:
+
+1. Guarda tu preferencia en: .fabricamode
+2. La fábrica lee esa preferencia
+3. Ajusta su comportamiento:
+   - Tamaño de lotes
+   - Modo (crear/mejorar/balanceado)
+   - Prioridades
+
+4. El archivo se usa SOLO MIENTRAS el sistema corre
+5. Próxima vez que arranques, vuelve a preguntar
+
+═══════════════════════════════════════════════════════════════════════════════
+
+EJEMPLOS DE USO:
+
+ESCENARIO 1: "Quiero llegar rápido a 500 agentes"
+  → Selecciona: 1 (CREAR)
+  → Sistema se enfoca en generar nuevos
+
+ESCENARIO 2: "Tengo 304 agentes, quiero mejorar la calidad"
+  → Selecciona: 2 (MEJORAR)
+  → Fábrica documenta y optimiza
+
+ESCENARIO 3: "Quiero terminar el plan de 206 micros"
+  → Selecciona: 4 (EXPANSION SOLO)
+  → Crea solo los micros faltantes
+
+ESCENARIO 4: "Operación normal, sin preferencias"
+  → Selecciona: 5 (DEFAULT) o espera (el menu es 5)
+  → Sistema completo
+
+═══════════════════════════════════════════════════════════════════════════════
+
+VER ESTADO ACTUAL:
+
+En el Dashboard (http://localhost:8080):
+  → Tab "Expansion" muestra progreso actual
+  → Puedes ver qué modo está activo en logs
+
+En Terminal:
+  python -c "from fabrica_config import *; print(traducir_modo(leer_modo_usuario()))"
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CAMBIAR PRIORIDAD:
+
+Si quieres cambiar la prioridad:
+  1. Mata el sistema (cierra ventana o ejecuta: taskkill /F /IM python.exe)
+  2. Doble clic en: arrancar_con_menu.bat
+  3. Selecciona nueva opción
+  4. Sistema reinicia con nueva prioridad
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ARCHIVOS RELACIONADOS:
+
+  arrancar_con_menu.bat      ← Nuevo: menu interactivo
+  fabrica_config.py          ← Nuevo: gestor de configuracion
+  .fabricamode               ← Archivo temporal (genera al arrancar)
+  arrancar.bat               ← Original (sin menu)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+RECOMENDACIÓN:
+
+Para la mayoría de usuarios:
+  ✓ Primera vez: Selecciona 1 (CREAR) para llegar a 500 rápido
+  ✓ Después: Selecciona 2 (MEJORAR) para pulir calidad
+  ✓ O: Selecciona 5 (NOCHE) para operación automática normal
+
+═══════════════════════════════════════════════════════════════════════════════

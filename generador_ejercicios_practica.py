@@ -1,49 +1,58 @@
 """
 ÁREA: EDUCACIÓN
-DESCRIPCIÓN: Agente que realiza generador ejercicios practica
+DESCRIPCIÓN: Agente que realiza generador de ejercicios de práctica
 TECNOLOGÍA: Python estándar
 """
 import sys
 import random
 import datetime
 import json
+import math
+import os
 
 try:
     import web_bridge as web
-    WEB = web.WEB  # True si hay conexion a internet
+    WEB = web.WEB  # True si hay conexión a internet
 except ImportError:
     WEB = False
 
-def generar_ejercicios(cantidad=5, temas=None, niveles=None):
+def generar_ejercicios(cantidad=5, temas=None, niveles=None, dificultad=None):
     if temas is None:
         temas = ["matemáticas", "español", "historia", "ciencias", "geografía"]
     if niveles is None:
         niveles = ["primaria", "secundaria", "preparatoria"]
+    if dificultad is None:
+        dificultad = ["baja", "media", "alta"]
     
     ejercicios = []
     for _ in range(cantidad):
         tema = random.choice(temas)
         nivel = random.choice(niveles)
         fecha = datetime.date.today().strftime("%d/%m/%Y")
-        ejercicios.append({
+        duracion = math.ceil(random.uniform(30, 90))  # Duración en minutos con precisión de 1 minuto
+        problemas = math.ceil(random.uniform(5, 20))  # Problemas entre 5 y 20
+        objetivos = [
+            f"Comprender conceptos básicos de {tema}",
+            f"Desarrollar habilidades de resolución de problemas en {tema}",
+            f"Aplicar conocimientos de {tema} en situaciones reales"
+        ]
+        materiales = [
+            f"Libro de texto de {tema}",
+            f"Cuaderno y lápiz",
+            f"Calculadora"
+        ]
+        ejercicio = {
             "tema": tema,
             "nivel": nivel,
             "fecha": fecha,
-            "ejercicio": f"Ejercicio de {tema} para {nivel} - {random.randint(1, 10)} problemas",
-            "duracion": f"{random.randint(30, 90)} minutos",
-            "dificultad": random.choice(["baja", "media", "alta"]),
-            "objetivos": [
-                f"Comprender conceptos básicos de {tema}",
-                f"Desarrollar habilidades de resolución de problemas en {tema}",
-                f"Aplicar conocimientos de {tema} en situaciones reales"
-            ],
-            "materiales": [
-                f"Libro de texto de {tema}",
-                f"Cuaderno y lápiz",
-                f"Calculadora"
-            ]
-        })
-
+            "ejercicio": f"Ejercicio de {tema} para {nivel} - {problemas} problemas",
+            "duracion": f"{duracion} minutos",
+            "dificultad": random.choice(dificultad),
+            "objetivos": objetivos,
+            "materiales": materiales
+        }
+        ejercicios.append(ejercicio)
+    
     return ejercicios
 
 def main():
@@ -55,22 +64,39 @@ def main():
         if len(sys.argv) > 2:
             temas = sys.argv[2].split(",")
         else:
-            temas = None
+            temas = ["matemáticas", "español", "historia", "ciencias", "geografía"]
         if len(sys.argv) > 3:
             niveles = sys.argv[3].split(",")
         else:
-            niveles = None
-        ejercicios = generar_ejercicios(cantidad, temas, niveles)
-        for idx, ejercicio in enumerate(ejercicios, 1):
-            print(f"{idx}. Tema: {ejercicio['tema']}, Nivel: {ejercicio['nivel']}, Fecha: {ejercicio['fecha']}, Ejercicio: {ejercicio['ejercicio']}, Duración: {ejercicio['duracion']}, Dificultad: {ejercicio['dificultad']}")
-            print(f"  Objetivos: {', '.join(ejercicio['objetivos'])}")
-            print(f"  Materiales: {', '.join(ejercicio['materiales'])}")
-        print("\nResumen Ejecutivo:")
-        print(f"Total de ejercicios generados: {len(ejercicios)}")
-        print(f"Temas cubiertos: {set([e['tema'] for e in ejercicios])}")
-        print(f"Niveles cubiertos: {set([e['nivel'] for e in ejercicios])}")
-        print(f"Duración total estimada: {sum([int(e['duracion'].split(' ')[0]) for e in ejercicios])} minutos")
-        print(f"Dificultad promedio: {sum([['baja', 'media', 'alta'].index(e['dificultad']) for e in ejercicios]) / len(ejercicios)}")
+            niveles = ["primaria", "secundaria", "preparatoria"]
+        if len(sys.argv) > 4:
+            dificultad = sys.argv[4].split(",")
+        else:
+            dificultad = ["baja", "media", "alta"]
+        
+        ejercicios = generar_ejercicios(cantidad, temas, niveles, dificultad)
+        
+        for i, ejercicio in enumerate(ejercicios):
+            print(f"Ejercicio {i+1}:")
+            print(f"Tema: {ejercicio['tema']}")
+            print(f"Nivel: {ejercicio['nivel']}")
+            print(f"Fecha: {ejercicio['fecha']}")
+            print(f"Ejercicio: {ejercicio['ejercicio']}")
+            print(f"Duración: {ejercicio['duracion']}")
+            print(f"Dificultad: {ejercicio['dificultad']}")
+            print(f"Objetivos:")
+            for objetivo in ejercicio['objetivos']:
+                print(f"- {objetivo}")
+            print(f"Materiales:")
+            for material in ejercicio['materiales']:
+                print(f"- {material}")
+            print("\n")
+        
+        print("Resumen ejecutivo:")
+        print(f"Se generaron {len(ejercicios)} ejercicios de práctica para {cantidad} temas.")
+    
+    except ValueError as e:
+        print(f"Error: {e}")
     except Exception as e:
         print(f"Error: {e}")
 

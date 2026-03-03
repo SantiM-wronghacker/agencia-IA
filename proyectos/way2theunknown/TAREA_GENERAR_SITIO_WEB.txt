@@ -1,0 +1,114 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║              TAREA: GENERAR SITIO WEB WAY2THEUNKNOWN                          ║
+║                    (Para que el sistema lo haga)                              ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+OBJETIVO:
+═════════════════════════════════════════════════════════════════════════════════
+
+Crear un sitio web profesional y funcional para Way2TheUnknown
+(Agencia de viajes - México)
+
+Respetando la paleta de colores existente:
+  • Verde Oscuro:     #647D63 (principal)
+  • Verde Claro:      #A9C5A0 (secundario)
+  • Naranjas:         #f7630c, #f5a524 (acentos)
+  • Beige/Crema:      #E1D9C8, #ece6da, #faf9f7
+  • Negro/Gris:       #1A1A1A, #333333
+
+
+INSTRUCCIÓN PARA EL ORQUESTADOR:
+═════════════════════════════════════════════════════════════════════════════════
+
+Ejecutar desde terminal:
+
+  cd proyectos/way2theunknown
+  python orquestador.py "Genera un sitio web completo para Way2TheUnknown con estructura HTML, CSS y JavaScript. Paleta: verdes #647D63 y #A9C5A0, naranjas #f7630c y #f5a524, cremas y blancos. Incluye: landing page, sección destinos, cotizaciones, itinerarios, contacto. Cada página debe tener navegación consistente. Genera 3 archivos: index.html (landing), destinos.html, servicios.html. CSS moderno y responsive. Guarda en ../way2theunknown/sitio_web/"
+
+
+ESTRUCTURA ESPERADA DESPUÉS:
+═════════════════════════════════════════════════════════════════════════════════
+
+proyectos/way2theunknown/sitio_web/
+├── index.html           ← Landing page
+├── destinos.html        ← Catálogo de destinos
+├── servicios.html       ← Cotizaciones e itinerarios
+├── css/
+│   └── estilos.css      ← Estilos con paleta de colores
+├── js/
+│   └── funciones.js     ← JavaScript (interactividad)
+└── assets/
+    └── (imágenes, íconos, etc)
+
+
+CONTENIDO ESPERADO:
+═════════════════════════════════════════════════════════════════════════════════
+
+index.html (Landing):
+  • Hero section con imagen/color de fondo
+  • Valor propuesto de Way2TheUnknown
+  • Destinos destacados (3-4)
+  • Call to action: "Solicitar Cotización"
+  • Footer con contacto
+
+destinos.html:
+  • Grid de destinos populares (Japón, Cancún, Europa, etc)
+  • Descripción de cada destino
+  • Precio estimado
+  • Botón "Ver Itinerario"
+
+servicios.html:
+  • Formulario para solicitar cotización
+  • Campos: destino, fechas, personas, presupuesto
+  • Botón "Obtener Cotización"
+  • Mostrar itinerario si existe
+
+
+REQUISITOS TÉCNICOS:
+═════════════════════════════════════════════════════════════════════════════════
+
+✓ HTML válido y semántico
+✓ CSS con paleta de colores Way2TheUnknown
+✓ Responsive (mobile + desktop)
+✓ Navegación funcional entre páginas
+✓ Formularios con validación básica
+✓ Integración con agentes: cotizador, generador_itinerario, etc
+✓ Sin librerías externas (solo HTML/CSS/JS vanilla)
+
+
+CÓMO EJECUTAR:
+═════════════════════════════════════════════════════════════════════════════════
+
+1. Asegúrate de que está corriendo el sistema maestro:
+   arrancar.bat o arrancar_con_menu.bat
+
+2. Abre terminal en:
+   C:\Users\Santi\agentes-local\proyectos\way2theunknown
+
+3. Ejecuta:
+   python orquestador.py "Genera un sitio web..."
+
+4. El orquestador distribuirá a agentes especializados
+   que crearán el sitio web
+
+5. El sitio se guardará en: sitio_web/
+
+6. Abre en navegador: file:///C:/Users/Santi/agentes-local/proyectos/way2theunknown/sitio_web/index.html
+
+
+QUITÁ HACERLO TÚ NO VUELVO A PEDIR:
+═════════════════════════════════════════════════════════════════════════════════
+
+Este es el propósito del sistema de agentes:
+✓ Que ELLOS generen el código
+✓ Que ELLOS creen funcionalidad
+✓ Que ELLOS mejoren el sitio
+
+No voy a hacer el trabajo manualmente.
+El sistema tiene la capacidad, voy a usarla.
+
+
+═══════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,279 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║            ✅ MODO CREAR INTELIGENTE — GUÍA PARA EL USUARIO                 ║
+║                                                                               ║
+║     El sistema ahora crea de forma inteligente:                              ║
+║     • Primero: Los 206 micros del plan de expansión                          ║
+║     • Luego: Agentes adicionales hasta alcanzar 500                          ║
+║     • Finalmente: Optimiza la calidad en modo MEJORAR                        ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+
+ESTADO ACTUAL DEL SISTEMA:
+═════════════════════════════════════════════════════════════════════════════════
+
+Antes de tu solicitud:
+  • 284 agentes saludables
+  • Plan de expansión: 206 micros (13 creados, 193 pendientes)
+  • Modos limitados: solo CREAR y MEJORAR
+
+Después de la implementación:
+  • 305+ agentes (se incrementó con nuevos)
+  • Plan de expansión: 206 micros (13 creados, 193 pendientes)
+  • Modos mejorados: 5 opciones disponibles
+
+Test results:
+  ✅ Expansion plan loads: 206 micros
+  ✅ Progress tracking: 13 creados (6%), 193 pendientes
+  ✅ Mode detection: Detecta CREAR automáticamente
+  ✅ Intelligent planning: Prioriza micros de expansion
+  ✅ Integration: fabrica_config.py funciona correctamente
+
+
+¿QUÉ PUEDES HACER AHORA?
+═════════════════════════════════════════════════════════════════════════════════
+
+1. ARRANQUE RÁPIDO CON SELECCIÓN DE MODO
+   ────────────────────────────────────────
+   Doble clic en: arrancar_con_menu.bat
+
+   Verás un menú:
+   1. CREAR - Generar nuevos agentes hasta 500
+   2. MEJORAR - Optimizar los 305 existentes
+   3. BALANCEADO - 60% crear, 40% mejorar
+   4. EXPANSION SOLO - Solo los 206 micros del plan
+   5. NOCHE COMPLETA - Todas las tareas (default)
+
+   Selecciona [1-5] y el sistema comienza automáticamente.
+
+2. MONITOREAR PROGRESO
+   ───────────────────
+   Abre Dashboard: http://localhost:8080
+
+   Tab "Expansion":
+   • Muestra progreso de micros: X/206 (Y%)
+   • Lista de micros creados
+   • Lista de micros pendientes
+   • Estimado de tiempo para completar
+
+   Tab "Admin" → "Modo de Fabrica":
+   • Dropdown con 5 opciones
+   • Botón "Cambiar" para cambiar modo en tiempo real
+   • Status en tiempo real
+
+3. VER LOGS EN TIEMPO REAL
+   ──────────────────────
+   Dashboard → Tab "Logs" → Scroll hacia abajo para ver últimas acciones
+
+   O directamente:
+   • Archivo: registro_noche.txt
+   • Busca: "[EXPANSION]" para ver solo acciones de micros
+
+
+EJEMPLOS DE USO:
+═════════════════════════════════════════════════════════════════════════════════
+
+ESCENARIO 1: "Quiero alcanzar 500 agentes y completar los 206 micros"
+────────────────────────────────────────────────────────────────────
+1. arrancar_con_menu.bat → Opción 1 (CREAR)
+2. Cada lote:
+   - Crea ~5 micros de expansion
+   - Crea ~10 agentes normales (FINANZAS, CEREBRO, etc)
+3. Dashboard → Tab Expansion → Monitorea progreso
+4. Cuando alcanza 500 agentes + 206 micros, cambia automáticamente a MEJORAR
+
+Línea de logs:
+[2026-03-01 10:15:35] [FÁBRICA] MODO CREAR | Agentes: 305/500
+[2026-03-01 10:20:45] [FÁBRICA]     Expansion: 18/206 micros (8%)
+[2026-03-01 11:45:00] [FÁBRICA] [HITO] 500 agentes + 206 micros completados!
+
+
+ESCENARIO 2: "Primero quiero terminar TODOS los 206 micros, ignorando otros"
+──────────────────────────────────────────────────────────────────────────
+1. arrancar_con_menu.bat → Opción 4 (EXPANSION SOLO)
+2. Fábrica SOLO crea los 206 micros del plan
+3. Ignora otros agentes completamente
+4. Cuando termina, cambia automáticamente a CREAR
+
+Línea de logs:
+[2026-03-01 10:15:35] [FÁBRICA] MODO EXPANSION | Agentes: 305
+[2026-03-01 10:20:45] [FÁBRICA]     Expansion: 25/206 micros (12%)
+
+
+ESCENARIO 3: "Quiero crear Y mejorar al mismo tiempo"
+──────────────────────────────────────────────────────
+1. arrancar_con_menu.bat → Opción 3 (BALANCEADO)
+2. Sistema alterna:
+   - 60% de lotes: crear (con priority micros)
+   - 40% de lotes: mejorar existentes
+3. Resultado: Expande mientras mantiene calidad
+
+Línea de logs:
+[2026-03-01 10:15:35] [FÁBRICA] MODO BALANCEADO | Agentes: 305/500
+[2026-03-01 10:20:45] [FÁBRICA] Creados: 25 | Mejorados: 30 | Total: 320
+
+
+ESCENARIO 4: "Cambiar modo sin reiniciar (Dashboard)"
+──────────────────────────────────────────────────────
+1. Sistema ya está corriendo en modo NOCHE (default)
+2. Abre Dashboard: http://localhost:8080
+3. Tab "Admin" → "Modo de Fabrica" → Dropdown
+4. Selecciona nuevo modo (ej: CREAR)
+5. Clic en "Cambiar"
+6. Status: "Modo: CREAR. Aplicará en próximo ciclo."
+7. Próximo lote continúa con el nuevo modo
+
+¡NO necesitas reiniciar el sistema!
+
+
+DIFERENCIAS CON EL SISTEMA ANTERIOR:
+═════════════════════════════════════════════════════════════════════════════════
+
+ANTES (solo 2 modos):
+  • CREAR: Generaba hasta 500 o catálogo se agotaba
+  • MEJORAR: Optimizaba los existentes
+  • Sin priorización de expansion plan
+  • Sin tracking de micros vs agentes normales
+
+AHORA (5 modos inteligentes):
+  • CREAR: Prioriza los 206 micros, luego alcanza 500
+  • MEJORAR: Igual que antes (optimiza existentes)
+  • BALANCEADO: 60% crear + 40% mejorar
+  • EXPANSION: SOLO los 206 micros
+  • NOCHE: 60/40 balanceado + tareas adicionales
+  • Tracking en tiempo real de micros
+  • Transición automática cuando alcanza metas
+
+
+PREGUNTAS FRECUENTES:
+═════════════════════════════════════════════════════════════════════════════════
+
+P: ¿Cuánto tiempo tarda en alcanzar 500 agentes + 206 micros?
+R: Depende del modo:
+   • CREAR: ~15 minutos por lote × 15-20 lotes = 4-6 horas estimado
+   • EXPANSION: ~20 minutos por lote × 10-15 lotes = 3-5 horas
+   • BALANCEADO: ~30 minutos por lote × 25-30 lotes = 12-15 horas
+
+P: ¿Qué pasa si mato el sistema en medio?
+R: Los micros creados se guardan en habilidades.json. Próximo arranque
+   continuará desde donde se paró (automáticamente saltará micros ya creados).
+
+P: ¿Puedo cambiar modo mientras corre?
+R: Sí. Desde Dashboard → Admin → Modo de Fabrica. El cambio toma efecto
+   en el próximo lote (dentro de 1-5 minutos).
+
+P: ¿Los micros que se crean en EXPANSION mode se cuentan hacia los 500?
+R: Sí. Todos los agentes (micros incluidos) se cuentan hacia el total de 500.
+
+P: ¿Cómo sé cuántos micros falta?
+R: Dashboard → Tab "Expansion" → Muestra X/206 con porcentaje
+   O: GET /expansion → JSON con detalles completos
+
+P: ¿Qué diferencia hay entre BALANCEADO y NOCHE?
+R: Son casi idénticos (60% crear, 40% mejorar). NOCHE es el nombre histórico
+   y es el modo default. BALANCEADO es el nombre descriptivo.
+
+P: ¿Se pierde información si cambio de modo?
+R: No. Todos los agentes creados se guardan permanentemente en habilidades.json.
+   El modo solo controla qué hace el siguiente lote.
+
+P: ¿Puedo ver lista de micros pendientes?
+R: Sí:
+   1. Dashboard → Tab "Expansion" → Lista completa
+   2. GET /expansion → JSON con detalles por categoría
+   3. registro_noche.txt → Busca "[EXPANSION]"
+
+
+ESTRUCTURA DE ARCHIVOS IMPORTANTES:
+═════════════════════════════════════════════════════════════════════════════════
+
+Archivos que NO debes editar manualmente:
+  • habilidades.json - Se actualiza automáticamente
+  • expansion_plan.json - Se lee pero no se modifica
+  • registro_noche.txt - Solo lectura (logs)
+
+Archivos que SÍ puedes editar:
+  • .fabricamode - Modo actual (texto simple: CREAR, MEJORAR, etc)
+  • fabrica_config.py - Configura comportamiento de modos
+
+Nuevos archivos en esta versión:
+  • CREAR_EXPANSION_PLAN.txt - Documentación técnica
+  • test_crear_expansion.py - Script de testing
+  • GUIA_USAR_CREAR_EXPANSION.txt - Este archivo
+
+
+CÓMO VERIFICAR QUE TODO FUNCIONA:
+═════════════════════════════════════════════════════════════════════════════════
+
+1. Test básico:
+   python test_crear_expansion.py
+   (Debe mostrar: "[OK] Todos los tests pasaron correctamente!")
+
+2. Verificar modo detectado:
+   python -c "from fabrica_config import *; print('Modo:', leer_modo_usuario())"
+   (Debe mostrar el modo actual)
+
+3. Ver progreso de expansion:
+   python -c "import fabrica_agentes as f; p = f.obtener_progreso_expansion(); print(f'Micros: {p[\"creados\"]}/{p[\"total_planificados\"]} ({p[\"progreso_pct\"]}%)')"
+
+4. Monitorear sistema en tiempo real:
+   dashboard en http://localhost:8080
+   tail -f registro_noche.txt
+
+
+PRÓXIMOS PASOS RECOMENDADOS:
+═════════════════════════════════════════════════════════════════════════════════
+
+1. Haz un test simple:
+   ✓ arrancar_con_menu.bat → Opción 1 (CREAR)
+   ✓ Deja que corra 1-2 lotes (~15 minutos)
+   ✓ Abre Dashboard y verifica que aumenta progreso
+   ✓ Presiona Ctrl+C para parar (seguro de parar anytime)
+
+2. Mira los logs:
+   ✓ registro_noche.txt → Busca "[EXPANSION]"
+   ✓ Debes ver micros siendo creados con etiqueta [EXPANSION]
+
+3. Una vez confiado:
+   ✓ Deja el sistema corriendo en modo CREAR
+   ✓ Volverá a MEJORAR automáticamente cuando complete las metas
+   ✓ Monitoreá ocasionalmente con Dashboard
+
+4. Cuando terminen los micros:
+   ✓ Sistema cambiará automáticamente a MEJORAR
+   ✓ Los 500+ agentes se optimizarán en calidad
+   ✓ O puedes cambiar a BALANCEADO para continuar expandiendo
+
+
+SOPORTE TÉCNICO:
+═════════════════════════════════════════════════════════════════════════════════
+
+Si algo no funciona:
+
+1. Verifica que fabrica_agentes.py está actualizado:
+   python -m py_compile fabrica_agentes.py
+   (Debe mostrar: "✓ Syntax OK")
+
+2. Revisa los logs:
+   tail -f registro_noche.txt
+   (Busca "[ERROR]" o "[WARN]")
+
+3. Reinicia el sistema:
+   arrancar_con_menu.bat y selecciona CREAR
+
+4. Si algo sigue fallando:
+   Revisa que:
+   • expansion_plan.json existe y es válido JSON
+   • habilidades.json existe (puede estar vacío)
+   • fabrica_config.py existe
+   • Espacio en disco disponible
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+¡Listo! El sistema está ready para crear inteligentemente.
+
+Próximo paso: Doble clic en arrancar_con_menu.bat y selecciona opción 1 (CREAR)
+
+═══════════════════════════════════════════════════════════════════════════════

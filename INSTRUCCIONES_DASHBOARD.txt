@@ -1,0 +1,164 @@
+================================================================================
+  AGENCIA SANTI v2 - DASHBOARD INTEGRADO
+  ¡Sistema funcional! Accesible desde cualquier dispositivo
+================================================================================
+
+¿QUÉ CAMBIÓ?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ANTES (No funcionaba):
+  - dashboard_web.py en puerto 8080 (causaba conflictos)
+  - arrancar_con_menu.bat se quedaba cargando
+  - Múltiples procesos Python
+  - Solo funcionaba en localhost
+
+AHORA (Funciona):
+  - Dashboard integrado en api_agencia.py (puerto 8000)
+  - Un solo proceso Python
+  - Accesible desde cualquier dispositivo
+  - Updates automáticas cada 10 segundos
+
+
+INSTRUCCIONES RÁPIDAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. PARA USAR EN TU COMPUTADORA:
+   ─────────────────────────────
+   a) Haz doble clic en: arrancar_simple.bat
+   b) Espera a que aparezca el servidor
+   c) Se abrirá automáticamente: http://localhost:8000/dashboard
+   d) ¡Listo! El dashboard mostrará el estado del sistema
+
+
+2. PARA ACCEDER DESDE OTRO DISPOSITIVO (teléfono, tablet, otra PC):
+   ──────────────────────────────────────────────────────────────
+   a) En tu computadora:
+      - Ejecuta arrancar_simple.bat (como arriba)
+      - Abre "cmd" y escribe: ipconfig
+      - Busca "IPv4 Address" (verás algo como: 192.168.1.100)
+
+   b) En el otro dispositivo:
+      - Abre el navegador (Chrome, Safari, Firefox, etc.)
+      - Escribe: http://192.168.1.100:8000/dashboard
+      - (reemplaza 192.168.1.100 con el número que encontraste)
+
+   c) ¡Verás el dashboard en tiempo real desde otro dispositivo!
+
+
+3. SI HAY PROBLEMAS DE PUERTO:
+   ──────────────────────────
+   a) Ejecuta: limpiar_sistema.bat
+   b) Luego: arrancar_simple.bat
+
+
+METRICES DEL DASHBOARD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+El dashboard muestra:
+
+  ⚙️ ESTADO            → API Online/Offline
+  📊 AGENTES TOTALES   → Cuántos agentes existen
+  ✅ SALUDABLES       → Cuántos están en estado OK
+  🤖 MICROAGENTES     → 206/206 (del plan de expansión)
+  📂 CATEGORÍAS       → Cuántas categorías activas hay
+  🎯 MODO             → CREAR/MEJORAR/BALANCEADO/EXPANSION/NOCHE
+
+TABLA DE CATEGORÍAS:
+  - Agentes por categoría
+  - Status OK por categoría
+
+LOG DE ACTIVIDADES:
+  - Últimas 15 líneas del sistema
+  - Errores en rojo
+  - Éxitos en verde
+  - Warnings en amarillo
+
+
+ARCHIVOS IMPORTANTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  arrancar_simple.bat          ← Ejecutar para iniciar todo
+  limpiar_sistema.bat          ← Si hay conflictos de puerto
+  test_dashboard.bat           ← Para verificar que funciona
+  dashboard_standalone.html    ← El dashboard (archivo HTML)
+  api_agencia.py               ← El servidor (ahora sirve el dashboard)
+  DASHBOARD_SETUP.md           ← Guía técnica detallada
+  STATUS.md                    ← Estado actual del sistema
+
+
+URLS IMPORTANTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  http://localhost:8000/              → Info de la API (JSON)
+  http://localhost:8000/dashboard     → 📊 Dashboard (HTML)
+  http://localhost:8000/status        → Estado actual (JSON)
+  http://localhost:8000/categorias    → Categorías (JSON)
+  http://localhost:8000/expansion     → Plan de expansión (JSON)
+  http://localhost:8000/modo          → Modo actual (JSON)
+
+
+TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ "Conectando..." indefinidamente
+   → El puerto 8000 está siendo usado
+   → Ejecuta: limpiar_sistema.bat
+   → Luego: arrancar_simple.bat
+
+❓ "No puedo acceder desde otro dispositivo"
+   → Verifica que estés en la misma red WiFi
+   → Intenta: http://<tu-IP>:8000/dashboard
+   → El firewall de Windows podría estar bloqueando:
+     • Abre: Windows Defender Firewall
+     • Click: "Allow an app through firewall"
+     • Busca: Python.exe
+     • Asegúrate que esté permitido
+
+❓ "El dashboard no muestra datos"
+   → Verifica que api_agencia.py está corriendo
+   → Prueba: http://localhost:8000/status en el navegador
+   → Debería mostrar JSON con estado del sistema
+   → Mira la consola de api_agencia.py para errores
+
+❓ "¿Qué pasó con dashboard_web.py?"
+   → ¡Ya no es necesario!
+   → El dashboard ahora está integrado en api_agencia.py
+   → Es más simple, más rápido y más confiable
+
+
+COMANDOS ÚTILES (en Command Prompt)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Ver tu IP (para acceso remoto):
+  > ipconfig
+  (busca "IPv4 Address")
+
+Ver qué está usando puerto 8000:
+  > netstat -ano | findstr :8000
+
+Matar procesos Python:
+  > taskkill /F /IM python.exe
+
+Probar que el API funciona:
+  > curl http://localhost:8000/status
+
+
+RESUMEN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ El dashboard funciona
+✅ Se puede acceder desde cualquier dispositivo
+✅ Un solo servidor (sin conflictos)
+✅ Updates automáticas cada 10 segundos
+✅ Muestra estado real del sistema
+✅ Ya no necesitas dashboard_web.py
+
+¡LISTO PARA USAR! 🎉
+
+Ejecuta: arrancar_simple.bat
+
+
+================================================================================
+Última actualización: 2026-03-02
+Sistema: Agencia Santi v2.0
+================================================================================

@@ -1,71 +1,147 @@
 version: "3.8"
 
 services:
-  api:
-    image: python:3.11-slim
-    container_name: agencia-api
-    working_dir: /app
-    volumes:
-      - .:/app
+  agencia-api:
+    build: .
     ports:
       - "8000:8000"
     environment:
       - GROQ_API_KEY=${GROQ_API_KEY:-}
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-      - SECRET_KEY=${SECRET_KEY:-change-me}
-    command: >
-      bash -c "pip install --no-cache-dir -r requirements.txt &&
-               uvicorn api:app --host 0.0.0.0 --port 8000"
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - JAEGER_COLLECTOR_ENDPOINT=http://jaeger:14268/api/traces
+      - JAEGER_ENABLED=true
+      - REDIS_HOST=redis
+      - POSTGRES_HOST=postgres
+      - RABBITMQ_HOST=rabbitmq
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/live')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - agencia-net
 
-  dashboard-api:
-    image: python:3.11-slim
-    container_name: agencia-dashboard-api
-    working_dir: /app
-    volumes:
-      - .:/app
-    ports:
-      - "8001:8001"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
     environment:
-      - GROQ_API_KEY=${GROQ_API_KEY:-}
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-      - SECRET_KEY=${SECRET_KEY:-change-me}
-    command: >
-      bash -c "pip install --no-cache-dir -r requirements.txt &&
-               uvicorn src.agencia.api.dashboard:app --host 0.0.0.0 --port 8001"
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       - agencia-net
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: agencia-frontend
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5601/api/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - agencia-net
+
+  prometheus:
+    image: prom/prometheus:v2.49.0
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/alerts/alert_rules.yml:/etc/prometheus/alert_rules.yml
+      - prom-data:/prometheus
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9090/-/healthy || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - agencia-net
+
+  grafana:
+    image: grafana/grafana:10.3.0
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+      - grafana-data:/var/lib/grafana
     ports:
       - "3000:3000"
     depends_on:
-      - dashboard-api
+      prometheus:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - agencia-net
 
-  flask-dashboard:
-    image: python:3.11-slim
-    container_name: agencia-flask-dashboard
-    working_dir: /app
-    volumes:
-      - .:/app
-    ports:
-      - "5000:5000"
+  jaeger:
+    image: jaegertracing/all-in-one:1.54
     environment:
-      - GROQ_API_KEY=${GROQ_API_KEY:-}
-      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
-      - SECRET_KEY=${SECRET_KEY:-change-me}
-    command: >
-      bash -c "pip install --no-cache-dir -r requirements.txt &&
-               python app_dashboard.py"
+      - COLLECTOR_OTLP_ENABLED=true
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+      - "6831:6831/udp"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:16687/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - agencia-net
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    networks:
+      - agencia-net
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - agencia-net
+
+volumes:
+  es-data:
+  prom-data:
+  grafana-data:
 
 networks:
   agencia-net:

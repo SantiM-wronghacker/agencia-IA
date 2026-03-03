@@ -1,0 +1,66 @@
+{
+  "dashboard": {
+    "title": "System Overview",
+    "uid": "agencia-system-overview",
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "Overall System Health",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "up{job=\"agencia-api\"}",
+            "legendFormat": "API Status"
+          }
+        ]
+      },
+      {
+        "title": "Task Throughput (req/s)",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4},
+        "targets": [
+          {
+            "expr": "rate(agencia_tasks_total[5m])",
+            "legendFormat": "{{status}}"
+          }
+        ]
+      },
+      {
+        "title": "Error Rate",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+        "targets": [
+          {
+            "expr": "rate(agencia_errors_total[5m])",
+            "legendFormat": "{{error_type}} - {{agent}}"
+          }
+        ]
+      },
+      {
+        "title": "Queue Depth",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
+        "targets": [
+          {
+            "expr": "agencia_queue_depth",
+            "legendFormat": "{{queue_name}}"
+          }
+        ]
+      },
+      {
+        "title": "Task Duration (p95)",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(agencia_task_duration_seconds_bucket[5m]))",
+            "legendFormat": "p95"
+          }
+        ]
+      }
+    ],
+    "time": {"from": "now-1h", "to": "now"},
+    "refresh": "30s"
+  }
+}

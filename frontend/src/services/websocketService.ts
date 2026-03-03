@@ -78,7 +78,9 @@ class WebSocketService {
 
   private scheduleReconnect(): void {
     if (this.reconnectAttempts >= this.maxReconnectAttempts) return;
-    const delay = Math.min(1000 * Math.pow(2, this.reconnectAttempts), 30000);
+    const INITIAL_DELAY_MS = 1000;
+    const MAX_DELAY_MS = 30_000;
+    const delay = Math.min(INITIAL_DELAY_MS * Math.pow(2, this.reconnectAttempts), MAX_DELAY_MS);
     this.reconnectAttempts++;
     this.reconnectTimer = setTimeout(() => this.connect(), delay);
   }
@@ -107,4 +109,5 @@ class WebSocketService {
   }
 }
 
+export { WebSocketService };
 export default WebSocketService;

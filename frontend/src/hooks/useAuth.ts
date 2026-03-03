@@ -12,8 +12,8 @@ export function useAuth() {
 
   const isAuthenticated = !!token;
 
+  // NOTE: This is a mock login. Replace with a real API call in production.
   const login = useCallback(async (username: string, _password: string) => {
-    // Placeholder: replace with real API call
     const mockToken = 'placeholder-jwt-token';
     const mockUser: AuthUser = {
       sub: username,

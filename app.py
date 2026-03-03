@@ -4,7 +4,7 @@ import streamlit as st
 import requests
 
 from config import PROJECTS_DIR, GROQ_TIMEOUT, API_HOST, API_PORT
-from agent_router_projects import ensure_project
+from src.agencia.core.router import DynamicRouter, ensure_project  # consolidated router
 
 try:
     import web_bridge as web

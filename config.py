@@ -62,6 +62,30 @@ def load_config():
         print(f"Error loading config: {str(e)}")
         return None
 
+# ── Module-level exports ──────────────────────────────────────────────
+# These allow  ``from config import MODEL_FAST, ...``  to work without
+# having to call load_config() first.
+_cfg = load_config() or {}
+
+BASE_DIR = Path(_cfg.get("BASE_DIR", "."))
+RUNS_DIR = Path(_cfg.get("RUNS_DIR", "runs"))
+KB_DIR = Path(_cfg.get("KB_DIR", "kb"))
+MEMORY_DB_DIR = Path(_cfg.get("MEMORY_DB_DIR", "memory_db"))
+PROJECTS_DIR = Path(_cfg.get("PROJECTS_DIR", "projects"))
+MODEL_FAST = _cfg.get("MODEL_FAST", "llama3:8b")
+MODEL_STRONG = _cfg.get("MODEL_STRONG", "gpt-oss:20b")
+GROQ_API_KEY = _cfg.get("GROQ_API_KEY", "gsk_configurar_en_env")
+GROQ_TIMEOUT = _cfg.get("GROQ_TIMEOUT", 30)
+MAX_RECENT_TURNS = _cfg.get("MAX_RECENT_TURNS", 10)
+STATE_FILE = Path(_cfg.get("STATE_FILE", str(RUNS_DIR / "state.json")))
+EMBEDDING_MODEL = _cfg.get("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
+COLLECTION_NAME = _cfg.get("COLLECTION_NAME", "kb_store")
+CHUNK_SIZE = _cfg.get("CHUNK_SIZE", 900)
+CHUNK_OVERLAP = _cfg.get("CHUNK_OVERLAP", 120)
+API_HOST = _cfg.get("API_HOST", "127.0.0.1")
+API_PORT = _cfg.get("API_PORT", 8000)
+
+
 def main():
     config = load_config()
     if config is None:

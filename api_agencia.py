@@ -21,6 +21,8 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from socketserver import ThreadingMixIn
 from urllib.parse import urlparse, parse_qs
 
+from src.agencia.core.router import DynamicRouter  # consolidated router
+
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     """Servidor HTTP multi-threaded: cada request en su propio hilo."""

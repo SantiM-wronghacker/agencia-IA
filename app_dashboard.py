@@ -15,6 +15,8 @@ from database import SessionManager
 # Import Celery app to query task statuses
 from celery_app import celery_app
 
+from src.agencia.core.router import DynamicRouter  # consolidated router
+
 try:
     import web_bridge as web
     WEB = web.WEB  # True si hay conexion a internet

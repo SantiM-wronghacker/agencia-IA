@@ -1,0 +1,59 @@
+{
+  "dashboard": {
+    "title": "Agent Performance",
+    "uid": "agencia-agent-performance",
+    "timezone": "browser",
+    "panels": [
+      {
+        "title": "Agent Execution Times by Category",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(agencia_task_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{task_type}} p95"
+          }
+        ]
+      },
+      {
+        "title": "Success/Failure Rates by Agent",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [
+          {
+            "expr": "rate(agencia_agent_executions_total[5m])",
+            "legendFormat": "{{category}}/{{agent}}"
+          },
+          {
+            "expr": "rate(agencia_errors_total[5m])",
+            "legendFormat": "errors: {{agent}}"
+          }
+        ]
+      },
+      {
+        "title": "Most Used Agents (Top 10)",
+        "type": "bargauge",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+        "targets": [
+          {
+            "expr": "topk(10, agencia_agent_executions_total)",
+            "legendFormat": "{{agent}}"
+          }
+        ]
+      },
+      {
+        "title": "Slowest Agents (Top 10 by p99)",
+        "type": "bargauge",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+        "targets": [
+          {
+            "expr": "topk(10, histogram_quantile(0.99, rate(agencia_task_duration_seconds_bucket[5m])))",
+            "legendFormat": "{{task_type}}"
+          }
+        ]
+      }
+    ],
+    "time": {"from": "now-1h", "to": "now"},
+    "refresh": "30s"
+  }
+}

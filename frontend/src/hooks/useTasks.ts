@@ -2,6 +2,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getTasks, getTask, createTask, cancelTask } from '../services/dashboardApi';
 import { TaskCreate, TaskStatus } from '../types/task';
 
+const POLLING_INTERVAL = 10_000; // 10 seconds fallback polling
+
 export function useTasks(status?: TaskStatus, search?: string) {
   return useQuery({
     queryKey: ['tasks', status, search],
@@ -10,6 +12,7 @@ export function useTasks(status?: TaskStatus, search?: string) {
         status: status || undefined,
         search: search || undefined,
       }),
+    refetchInterval: POLLING_INTERVAL,
   });
 }
 
@@ -18,6 +21,7 @@ export function useTask(taskId: string) {
     queryKey: ['task', taskId],
     queryFn: () => getTask(taskId),
     enabled: !!taskId,
+    refetchInterval: POLLING_INTERVAL,
   });
 }
 

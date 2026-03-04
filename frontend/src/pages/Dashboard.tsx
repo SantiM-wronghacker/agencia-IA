@@ -2,6 +2,7 @@ import React from 'react';
 import MetricsPanel from '../components/MetricsPanel';
 import HealthStatus from '../components/HealthStatus';
 import RealtimeUpdates from '../components/RealtimeUpdates';
+import AlertsPanel from '../components/AlertsPanel';
 import PanicButton from '../components/PanicButton';
 import TaskCard from '../components/TaskCard';
 import { useTasks, useCancelTask } from '../hooks/useTasks';
@@ -17,6 +18,8 @@ const Dashboard: React.FC = () => {
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <PanicButton />
       </div>
+
+      <AlertsPanel />
 
       <MetricsPanel />
 

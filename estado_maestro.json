@@ -5,16 +5,16 @@
   "proyectos_activo": true,
   "lotes_generados": 206,
   "agentes_total": 510,
-  "agentes_con_web": 256,
-  "ciclos_noche": 919,
-  "errores": 375,
+  "agentes_con_web": 0,
+  "ciclos_noche": 943,
+  "errores": 407,
   "errores_consecutivos_fabrica": 15,
   "ultimo_ciclo": "10:04:21",
   "ultimo_agente": "—",
-  "log_size_mb": 1.5,
+  "log_size_mb": 1.59,
   "misiones_pendientes": 0,
   "proyectos_creados": 1,
   "ultimo_proyecto": "—",
-  "disco_libre_gb": 643.85,
-  "ultimo_guardado": "2026-03-03 10:17:44"
+  "disco_libre_gb": 635.97,
+  "ultimo_guardado": "2026-03-04 00:29:12"
 }

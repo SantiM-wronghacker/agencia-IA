@@ -25,7 +25,7 @@ def _setup_test_repo(tmp_path):
     yield repo
     _task_store.clear()
     # Reset repo so next test gets a fresh one
-    set_repo(None)  # type: ignore[arg-type]
+    set_repo(None)
 
 
 @pytest.fixture()

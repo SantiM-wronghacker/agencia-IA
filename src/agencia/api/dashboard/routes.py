@@ -82,7 +82,7 @@ def _load_alert_config() -> None:
     global _alert_config
     try:
         if os.path.exists(_ALERT_CONFIG_PATH):
-            with open(_ALERT_CONFIG_PATH, "r") as f:
+            with open(_ALERT_CONFIG_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
             _alert_config = AlertConfig(**data)
     except Exception:
@@ -93,7 +93,7 @@ def _save_alert_config() -> None:
     """Save alert configuration to file."""
     try:
         os.makedirs(os.path.dirname(_ALERT_CONFIG_PATH) or ".", exist_ok=True)
-        with open(_ALERT_CONFIG_PATH, "w") as f:
+        with open(_ALERT_CONFIG_PATH, "w", encoding="utf-8") as f:
             json.dump(_alert_config.model_dump(), f, indent=2)
     except Exception:
         logger.warning("Could not save alert config", exc_info=True)
@@ -107,7 +107,7 @@ def get_repo() -> TaskRepository:
     return _repo
 
 
-def set_repo(repo: TaskRepository) -> None:
+def set_repo(repo: Optional[TaskRepository]) -> None:
     """Override the repository (for testing)."""
     global _repo
     _repo = repo

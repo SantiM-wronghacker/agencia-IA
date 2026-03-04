@@ -12,7 +12,7 @@ Multi-agent AI system with a full-featured dashboard for task management, monito
 
 > Streamlit (`dashboard_streamlit.py`) is available as an optional lightweight alternative for quick Windows use.
 
-## Windows sin Docker – Setup from scratch
+## Windows sin Docker (without Docker) – Setup from scratch
 
 ### Prerequisites
 

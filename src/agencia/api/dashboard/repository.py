@@ -46,6 +46,7 @@ class TaskRepository:
     def _get_conn(self) -> sqlite3.Connection:
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
+        # WAL mode improves concurrent read performance and reduces lock contention
         conn.execute("PRAGMA journal_mode=WAL")
         return conn
 

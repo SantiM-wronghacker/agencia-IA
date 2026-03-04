@@ -93,7 +93,6 @@ class RoleAgent:
             "orden": orden,
             "status": "completado",
             "capacidades_usadas": list(self.capacidades),
-            "subagentes_internos": self.factory.to_dict()["subagents"],
         }
         self._resultados.append(resultado)
         return resultado

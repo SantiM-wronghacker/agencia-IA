@@ -25,7 +25,6 @@ class LegalRole(RoleAgent):
             "orden": orden,
             "status": "completado",
             "entregables": ["contrato_borrador", "checklist_compliance"],
-            "subagentes_internos": self.factory.to_dict()["subagents"],
         }
         self._resultados.append(resultado)
         return resultado

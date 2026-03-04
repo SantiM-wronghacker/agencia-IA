@@ -25,7 +25,6 @@ class TechRole(RoleAgent):
             "orden": orden,
             "status": "completado",
             "entregables": ["arquitectura_sistema", "plan_desarrollo", "infra_config"],
-            "subagentes_internos": self.factory.to_dict()["subagents"],
         }
         self._resultados.append(resultado)
         return resultado

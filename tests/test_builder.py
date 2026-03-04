@@ -103,6 +103,8 @@ class TestRoleAgent:
         result = role.ejecutar("hacer plan")
         assert result["status"] == "completado"
         assert result["role"] == "Estrategia"
+        # ejecutar() NO debe exponer subagentes internos
+        assert "subagentes_internos" not in result
 
     def test_info_no_expone_subagentes(self):
         role = FinanceRole()

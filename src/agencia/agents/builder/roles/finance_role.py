@@ -25,7 +25,6 @@ class FinanceRole(RoleAgent):
             "orden": orden,
             "status": "completado",
             "entregables": ["analisis_roi", "presupuesto", "proyecciones"],
-            "subagentes_internos": self.factory.to_dict()["subagents"],
         }
         self._resultados.append(resultado)
         return resultado

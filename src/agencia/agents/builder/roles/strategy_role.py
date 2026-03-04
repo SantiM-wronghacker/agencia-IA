@@ -25,7 +25,6 @@ class StrategyRole(RoleAgent):
             "orden": orden,
             "status": "completado",
             "entregables": ["plan_estrategico", "roadmap", "kpis"],
-            "subagentes_internos": self.factory.to_dict()["subagents"],
         }
         self._resultados.append(resultado)
         return resultado

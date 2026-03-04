@@ -25,7 +25,6 @@ class MarketingRole(RoleAgent):
             "orden": orden,
             "status": "completado",
             "entregables": ["plan_campana", "calendario_contenido", "estrategia_seo"],
-            "subagentes_internos": self.factory.to_dict()["subagents"],
         }
         self._resultados.append(resultado)
         return resultado

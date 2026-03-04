@@ -25,7 +25,6 @@ class OperationsRole(RoleAgent):
             "orden": orden,
             "status": "completado",
             "entregables": ["mapa_procesos", "plan_operativo", "metricas_calidad"],
-            "subagentes_internos": self.factory.to_dict()["subagents"],
         }
         self._resultados.append(resultado)
         return resultado

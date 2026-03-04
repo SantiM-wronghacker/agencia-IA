@@ -13,7 +13,7 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from .models import DashboardMetrics, HealthResponse, TaskCreate, TaskSchema, TaskStatus
+from .models import DashboardMetrics, HealthResponse, TaskCreate, TaskSchema, TaskStatus, TaskUpdate
 from .websocket import ConnectionManager
 
 logger = logging.getLogger(__name__)
@@ -144,6 +144,22 @@ async def cancel_task(task_id: str) -> TaskSchema:
     task.updated_at = datetime.now(timezone.utc)
     _task_store[task_id] = task
     await manager.broadcast({"event": "task_cancelled", "task": task.model_dump(mode="json")})
+    return task
+
+
+@app.patch("/api/v2/dashboard/tasks/{task_id}", response_model=TaskSchema)
+async def update_task(task_id: str, body: TaskUpdate) -> TaskSchema:
+    """Actualiza parcialmente una tarea existente."""
+    task = _task_store.get(task_id)
+    if task is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
+
+    update_data = body.model_dump(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(task, field, value)
+    task.updated_at = datetime.now(timezone.utc)
+    _task_store[task_id] = task
+    await manager.broadcast({"event": "task_updated", "task": task.model_dump(mode="json")})
     return task
 
 

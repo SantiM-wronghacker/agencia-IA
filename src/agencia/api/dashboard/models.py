@@ -32,6 +32,13 @@ class TaskCreate(BaseModel):
     description: Optional[str] = None
 
 
+class TaskUpdate(BaseModel):
+    """Esquema para actualizar una tarea (parcial)."""
+    name: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[TaskStatus] = None
+
+
 class TaskSchema(BaseModel):
     """Esquema completo de una tarea."""
     id: str

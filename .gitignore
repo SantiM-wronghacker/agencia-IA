@@ -54,6 +54,9 @@ desktop.ini
 # Pytest
 .pytest_cache/
 
+# Dashboard config
+config.json
+
 # Bases de datos y vectores de runtime
 *.db
 *.sqlite3

@@ -154,9 +154,11 @@ async def update_task(task_id: str, body: TaskUpdate) -> TaskSchema:
     if task is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
 
+    _allowed_fields = {"name", "description", "status"}
     update_data = body.model_dump(exclude_unset=True)
     for field, value in update_data.items():
-        setattr(task, field, value)
+        if field in _allowed_fields:
+            setattr(task, field, value)
     task.updated_at = datetime.now(timezone.utc)
     _task_store[task_id] = task
     await manager.broadcast({"event": "task_updated", "task": task.model_dump(mode="json")})

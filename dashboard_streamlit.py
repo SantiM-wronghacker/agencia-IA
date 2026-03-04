@@ -42,8 +42,10 @@ def load_config() -> dict[str, Any]:
         try:
             with open(CONFIG_PATH, encoding="utf-8") as fh:
                 return {**DEFAULT_CONFIG, **json.load(fh)}
-        except (json.JSONDecodeError, OSError):
-            pass
+        except (json.JSONDecodeError, OSError) as exc:
+            import logging as _logging
+
+            _logging.getLogger(__name__).warning("Error al leer config.json: %s", exc)
     return dict(DEFAULT_CONFIG)
 
 
@@ -246,10 +248,7 @@ if page == "📊 Dashboard":
     else:
         st.info("No hay tareas todavía.")
 
-    # Auto-refresh
-    interval = st.session_state.cfg.get("refresh_interval", 30)
-    if interval and interval > 0:
-        time.sleep(0.1)  # prevent tight loop
+    # Nota: para auto-refresh, usar el botón de Streamlit o st.rerun() manualmente.
 
 # ============================================================================
 # PAGE: Tareas
@@ -337,7 +336,7 @@ elif page == "📋 Tareas":
                         if edit_name != task["name"]:
                             patch_body["name"] = edit_name
                         if edit_desc != (task.get("description") or ""):
-                            patch_body["description"] = edit_desc or None
+                            patch_body["description"] = edit_desc if edit_desc else None
                         if edit_status != task["status"]:
                             patch_body["status"] = edit_status
 
@@ -410,8 +409,8 @@ elif page == "📈 Análisis":
     with col_line:
         st.subheader("Tareas por Fecha de Creación")
         if "created_at" in df.columns:
-            df["fecha"] = pd.to_datetime(df["created_at"], errors="coerce").dt.date
-            daily = df.groupby("fecha").size().reset_index(name="Cantidad")
+            df["date"] = pd.to_datetime(df["created_at"], errors="coerce").dt.date
+            daily = df.groupby("date").size().reset_index(name="Cantidad")
             daily.columns = ["Fecha", "Cantidad"]
             fig_line = px.line(
                 daily,

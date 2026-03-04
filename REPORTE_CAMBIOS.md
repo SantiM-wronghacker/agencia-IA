@@ -487,45 +487,81 @@ npm test -- --watchAll=false
 
 ---
 
-## Links (PR / Commits)
+## Links Verificados (datos obtenidos vía GitHub API)
 
-### PRs mergeados en main (últimas 24-48h)
+### 1) PR #11 — Este reporte
 
-| PR | Título | Estado |
-|----|--------|--------|
-| [#5](https://github.com/SantiM-wronghacker/agencia-IA/pull/5) | Migrate 510 Python files from root to `src/agencia/agents/` | ✅ Closed/Merged |
-| [#6](https://github.com/SantiM-wronghacker/agencia-IA/pull/6) | Add modern FastAPI + React dashboard (parallel with legacy Flask) | ✅ Closed/Merged |
-| [#7](https://github.com/SantiM-wronghacker/agencia-IA/pull/7) | Add monitoring, observability, and health checks | ✅ Closed/Merged |
+- **Link:** <https://github.com/SantiM-wronghacker/agencia-IA/pull/11>
+- **Estado:** 🟡 Open / **Draft** — **NO mergeado**
+- **Branch:** `copilot/generate-changelog-report`
+- **Head SHA:** `6b701d27d51079b8dca9ba0c235ba39db2de12b9`
+- **Base:** `main` (`e2f3c0a675917c2c24709fb26401456eebae7637`)
+- **Creado:** 2026-03-04T18:46:50Z
+- **Actualizado:** 2026-03-04T18:58:30Z
 
-### PRs abiertos (trabajo en progreso)
+### 2) Link directo al archivo REPORTE_CAMBIOS.md
 
-| PR | Título | Estado |
-|----|--------|--------|
-| [#8](https://github.com/SantiM-wronghacker/agencia-IA/pull/8) | Add Streamlit dashboard and PATCH endpoint | 🟡 Open |
-| [#9](https://github.com/SantiM-wronghacker/agencia-IA/pull/9) | Dashboard: SQLite persistence, WebSocket fixes, export, alerts | 🟡 Open |
-| [#10](https://github.com/SantiM-wronghacker/agencia-IA/pull/10) | Agencia Builder — roles-only TeamDirector | 🟡 Open |
-| [#11](https://github.com/SantiM-wronghacker/agencia-IA/pull/11) | Generate detailed changelog report (este reporte) | 🟡 Open |
+- **En branch (vista navegable):** <https://github.com/SantiM-wronghacker/agencia-IA/blob/copilot/generate-changelog-report/REPORTE_CAMBIOS.md>
+- **Commit exacto:** <https://github.com/SantiM-wronghacker/agencia-IA/blob/6b701d27d51079b8dca9ba0c235ba39db2de12b9/REPORTE_CAMBIOS.md>
+- **Blob SHA del archivo:** `6d337493360308ff65c5c61dd3c7aa483e49f371`
 
-### Commits principales (3-4 Mar 2026)
+> ⚠️ Este archivo **NO existe en `main`** todavía. Solo está en la branch `copilot/generate-changelog-report` (PR #11).
 
-| SHA | Fecha | Descripción |
-|-----|-------|-------------|
-| [`ffcf4fd`](https://github.com/SantiM-wronghacker/agencia-IA/commit/ffcf4fd1) | 3 Mar 02:48 | Primer subida de archivos (base completa) |
-| [`3cbcb11`](https://github.com/SantiM-wronghacker/agencia-IA/commit/3cbcb112) | 3 Mar 05:14 | Add FastAPI Dashboard API v2 backend |
-| [`36bcef9`](https://github.com/SantiM-wronghacker/agencia-IA/commit/36bcef9f) | 3 Mar 05:17 | Complete file migration to `src/agencia/agents/` |
-| [`e922b82`](https://github.com/SantiM-wronghacker/agencia-IA/commit/e922b82e) | 3 Mar 05:22 | Add React 18 + TypeScript + Tailwind CSS frontend |
-| [`3a60249`](https://github.com/SantiM-wronghacker/agencia-IA/commit/3a60249c) | 3 Mar 05:23 | Fix success_rate display |
-| [`6b24073`](https://github.com/SantiM-wronghacker/agencia-IA/commit/6b240732) | 3 Mar 05:28 | Add Docker, Nginx, docs, tests for Dashboard V2 |
-| [`50c1572`](https://github.com/SantiM-wronghacker/agencia-IA/commit/50c15724) | 3 Mar 05:29 | Fix WebSocketService import + Dockerfile |
-| [`8ea4866`](https://github.com/SantiM-wronghacker/agencia-IA/commit/8ea48665) | 3 Mar 05:31 | Fix integration test (TaskStatus enum) |
-| [`f0d4d27`](https://github.com/SantiM-wronghacker/agencia-IA/commit/f0d4d27c) | 3 Mar 05:32 | Code review: tsconfig es2017, WS named constants |
-| [`c730ffb`](https://github.com/SantiM-wronghacker/agencia-IA/commit/c730ffb2) | 3 Mar 05:44 | Add monitoring, observability, health checks |
-| [`4795970`](https://github.com/SantiM-wronghacker/agencia-IA/commit/47959701) | 3 Mar 05:45 | Fix code review: sanitize filters, histogram buckets |
-| [`777a0b0`](https://github.com/SantiM-wronghacker/agencia-IA/commit/777a0b0a) | 3 Mar 16:18 | Save local changes before merging |
-| [`b1cbc0b`](https://github.com/SantiM-wronghacker/agencia-IA/commit/b1cbc0b8) | 3 Mar 16:20 | Resolve conflicts: use migrated versions |
-| [`76d83d1`](https://github.com/SantiM-wronghacker/agencia-IA/commit/76d83d14) | 3 Mar 16:20 | Merge: dashboard |
-| [`0633fd5`](https://github.com/SantiM-wronghacker/agencia-IA/commit/0633fd59) | 3 Mar 16:21 | Resolve conflict: use agent's docker-compose.yml |
-| [`e2f3c0a`](https://github.com/SantiM-wronghacker/agencia-IA/commit/e2f3c0a6) | 4 Mar 00:42 | Update to match main branch |
+### 3) PR #8 — Streamlit + PATCH
+
+- **Link:** <https://github.com/SantiM-wronghacker/agencia-IA/pull/8>
+- **Estado:** 🟡 Open / **Draft** — **NO mergeado**
+- **Branch:** `copilot/add-advanced-dashboard-streamlit`
+- **Head SHA:** `1ecee6f59af300c8df92453c6b7b0d0d6ade1ed3`
+- **Creado:** 2026-03-04T06:52:20Z
+- **Actualizado:** 2026-03-04T06:59:45Z
+
+### 4) PRs MERGEADOS a main (últimas 48h) — verificado vía API
+
+| # | PR | Título | Merged at (UTC) | Merged by | Link |
+|---|-----|--------|-----------------|-----------|------|
+| 1 | #5 | Migrate 510 Python files from root to `src/agencia/agents/` package structure | 2026-03-03T16:20:45Z | SantiM-wronghacker | <https://github.com/SantiM-wronghacker/agencia-IA/pull/5> |
+| 2 | #6 | Add modern FastAPI + React dashboard running in parallel with legacy Flask dashboard | 2026-03-03T16:20:45Z | SantiM-wronghacker | <https://github.com/SantiM-wronghacker/agencia-IA/pull/6> |
+| 3 | #7 | Add monitoring, observability, and health checks infrastructure | 2026-03-03T16:21:25Z | SantiM-wronghacker | <https://github.com/SantiM-wronghacker/agencia-IA/pull/7> |
+
+> Solo estos 3 PRs fueron mergeados a `main` en las últimas 48 horas. Todos los demás (#1, #2, #3, #4, #8, #9, #10, #11) siguen abiertos como **Draft**.
+
+### 5) Commits en `main` del 2026-03-03 y 2026-03-04 — verificado vía API
+
+| # | SHA (completo) | Fecha (UTC) | Mensaje | Link |
+|---|----------------|-------------|---------|------|
+| 1 | `ffcf4fd16395cd0e51a3e6d7edc42b4dbfd22ef0` | 2026-03-03T02:48:51Z | Primer subida de archivos | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/ffcf4fd16395cd0e51a3e6d7edc42b4dbfd22ef0) |
+| 2 | `a3dd70273825ce5c2643364e1885f91957416ca1` | 2026-03-03T05:06:40Z | Initial plan | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/a3dd70273825ce5c2643364e1885f91957416ca1) |
+| 3 | `ea55799582d1ad5da89f5a29137c29ba8bae162c` | 2026-03-03T05:10:47Z | Initial plan | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/ea55799582d1ad5da89f5a29137c29ba8bae162c) |
+| 4 | `3cbcb1125b688549a68346c31a168e8f49074e69` | 2026-03-03T05:14:43Z | Add FastAPI Dashboard API v2 backend | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/3cbcb1125b688549a68346c31a168e8f49074e69) |
+| 5 | `36bcef9fe16765dea64d2b6ae48ae8b4f190a291` | 2026-03-03T05:17:34Z | feat: complete file migration to src/agencia/agents structure | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/36bcef9fe16765dea64d2b6ae48ae8b4f190a291) |
+| 6 | `e922b82e28a2aeeb9c0c28337a99eccf26c9fe7d` | 2026-03-03T05:22:52Z | feat: add complete React 18 + TypeScript + Tailwind CSS frontend dashboard | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/e922b82e28a2aeeb9c0c28337a99eccf26c9fe7d) |
+| 7 | `3a60249c3e3daabd09ff5710bca84935a58f6d24` | 2026-03-03T05:23:53Z | fix: correct success_rate display to match backend 0-100 range | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/3a60249c3e3daabd09ff5710bca84935a58f6d24) |
+| 8 | `6b2407322f95a42447cf984266c4da676ef5bb56` | 2026-03-03T05:28:15Z | Add Docker, Nginx, docs, and tests for Dashboard V2 | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/6b2407322f95a42447cf984266c4da676ef5bb56) |
+| 9 | `50c157241c33735c059525edb601adf61f1ca3bc` | 2026-03-03T05:29:16Z | Fix WebSocketService import and Dockerfile nginx config | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/50c157241c33735c059525edb601adf61f1ca3bc) |
+| 10 | `8ea486658c9c733bc3e87053f93bcdcf6fab5b70` | 2026-03-03T05:31:09Z | Fix integration test: use TaskStatus enum for status assignment and correct metrics field name | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/8ea486658c9c733bc3e87053f93bcdcf6fab5b70) |
+| 11 | `f0d4d27c92cd2c6e460baa2c24d1b33d020db3da` | 2026-03-03T05:32:34Z | Address code review: upgrade tsconfig target to es2017, add named constants for WebSocket delays, clarify mock auth | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/f0d4d27c92cd2c6e460baa2c24d1b33d020db3da) |
+| 12 | `3e8b14bb1434832842a47bf46c3e33757846fb33` | 2026-03-03T05:36:09Z | Initial plan | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/3e8b14bb1434832842a47bf46c3e33757846fb33) |
+| 13 | `c730ffb21470185fdc92e5231cfb07c1f7831698` | 2026-03-03T05:44:16Z | Add comprehensive monitoring, observability, health checks, and integration tests | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/c730ffb21470185fdc92e5231cfb07c1f7831698) |
+| 14 | `4795970103448e5fb3e38fbc3560ec5d0fbac7b4` | 2026-03-03T05:45:33Z | Fix code review findings: sanitize filter args, http check status, cumulative histogram buckets | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/4795970103448e5fb3e38fbc3560ec5d0fbac7b4) |
+| 15 | `777a0b0a1d65c8489d551db581445a5eb1514cd5` | 2026-03-03T16:18:13Z | Save local changes before merging | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/777a0b0a1d65c8489d551db581445a5eb1514cd5) |
+| 16 | `b1cbc0b8d522283ba16a2c91c84df026521bccdb` | 2026-03-03T16:20:04Z | Resolve conflicts: use agent's migrated versions | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/b1cbc0b8d522283ba16a2c91c84df026521bccdb) |
+| 17 | `76d83d14675d117aca80e9e452984399f47f4bb7` | 2026-03-03T16:20:15Z | Merge: dashboard | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/76d83d14675d117aca80e9e452984399f47f4bb7) |
+| 18 | `0633fd591a8a757daa3d406430a8ed348eab4a35` | 2026-03-03T16:21:15Z | Resolve conflict: use agent's docker-compose.yml | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/0633fd591a8a757daa3d406430a8ed348eab4a35) |
+| 19 | `e2f3c0a675917c2c24709fb26401456eebae7637` | 2026-03-04T06:42:40Z | Update to match main branch | [ver](https://github.com/SantiM-wronghacker/agencia-IA/commit/e2f3c0a675917c2c24709fb26401456eebae7637) |
+
+### PRs abiertos (todos en Draft)
+
+| PR | Título | Estado | Link |
+|----|--------|--------|------|
+| #1 | Add comprehensive repository document map | 🟡 Open/Draft | <https://github.com/SantiM-wronghacker/agencia-IA/pull/1> |
+| #2 | Fix MICROSERVICIOS.md: document actual microservices | 🟡 Open/Draft | <https://github.com/SantiM-wronghacker/agencia-IA/pull/2> |
+| #3 | Modernize to microservices: Docker, observability, agent registry, CI/CD | 🟡 Open/Draft | <https://github.com/SantiM-wronghacker/agencia-IA/pull/3> |
+| #4 | Modernize repo: migration scripts, consolidated router, pinned deps | 🟡 Open/Draft | <https://github.com/SantiM-wronghacker/agencia-IA/pull/4> |
+| #8 | Add Streamlit dashboard and PATCH endpoint for task updates | 🟡 Open/Draft | <https://github.com/SantiM-wronghacker/agencia-IA/pull/8> |
+| #9 | Dashboard: SQLite persistence, WebSocket realtime fixes, export, alerts API | 🟡 Open/Draft | <https://github.com/SantiM-wronghacker/agencia-IA/pull/9> |
+| #10 | feat: Agencia Builder — roles-only TeamDirector | 🟡 Open/Draft | <https://github.com/SantiM-wronghacker/agencia-IA/pull/10> |
+| #11 | Add REPORTE_CAMBIOS.md: detailed changelog report | 🟡 Open/Draft | <https://github.com/SantiM-wronghacker/agencia-IA/pull/11> |
 
 ---
 

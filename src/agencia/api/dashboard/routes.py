@@ -3,27 +3,52 @@ Rutas y aplicación FastAPI para el Dashboard API v2.
 """
 from __future__ import annotations
 
+import csv
+import io
+import json
 import logging
 import os
 import time
 import uuid
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 
-from .models import DashboardMetrics, HealthResponse, TaskCreate, TaskSchema, TaskStatus
+from .models import (
+    AlertConfig,
+    DashboardMetrics,
+    HealthResponse,
+    RunAgentRequest,
+    TaskCreate,
+    TaskSchema,
+    TaskStatus,
+    TaskUpdate,
+)
+from .repository import TaskRepository
 from .websocket import ConnectionManager
 
 logger = logging.getLogger(__name__)
 
 # --- Aplicación FastAPI -----------------------------------------------------
 
+@asynccontextmanager
+async def _lifespan(application: FastAPI):
+    """Initialize repository and load config on startup."""
+    get_repo()
+    _load_alert_config()
+    logger.info("Dashboard API v2 started with SQLite persistence")
+    yield
+
+
 app = FastAPI(
     title="Dashboard API v2",
     version="2.0.0",
     description="API para el dashboard de la agencia IA",
+    lifespan=_lifespan,
 )
 
 _allowed_origins = os.environ.get("DASHBOARD_CORS_ORIGINS", "*").split(",")
@@ -36,11 +61,57 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- Estado en memoria ------------------------------------------------------
+# --- Estado -----------------------------------------------------------------
 
 _start_time: float = time.time()
 _task_store: dict[str, TaskSchema] = {}
 manager = ConnectionManager()
+
+# SQLite repository (lazy-init to allow test override)
+_repo: Optional[TaskRepository] = None
+
+# Alert configuration (default values, can be updated via API)
+_alert_config = AlertConfig()
+_ALERT_CONFIG_PATH = os.environ.get(
+    "DASHBOARD_ALERT_CONFIG", os.path.join("data", "alert_config.json")
+)
+
+
+def _load_alert_config() -> None:
+    """Load alert configuration from file if it exists."""
+    global _alert_config
+    try:
+        if os.path.exists(_ALERT_CONFIG_PATH):
+            with open(_ALERT_CONFIG_PATH, "r") as f:
+                data = json.load(f)
+            _alert_config = AlertConfig(**data)
+    except Exception:
+        logger.warning("Could not load alert config, using defaults", exc_info=True)
+
+
+def _save_alert_config() -> None:
+    """Save alert configuration to file."""
+    try:
+        os.makedirs(os.path.dirname(_ALERT_CONFIG_PATH) or ".", exist_ok=True)
+        with open(_ALERT_CONFIG_PATH, "w") as f:
+            json.dump(_alert_config.model_dump(), f, indent=2)
+    except Exception:
+        logger.warning("Could not save alert config", exc_info=True)
+
+
+def get_repo() -> TaskRepository:
+    """Get or create the TaskRepository singleton."""
+    global _repo
+    if _repo is None:
+        _repo = TaskRepository()
+    return _repo
+
+
+def set_repo(repo: TaskRepository) -> None:
+    """Override the repository (for testing)."""
+    global _repo
+    _repo = repo
+
 
 # --- Endpoints --------------------------------------------------------------
 
@@ -54,6 +125,7 @@ async def health() -> HealthResponse:
         uptime=time.time() - _start_time,
         services={
             "api": "running",
+            "database": "sqlite",
             "websocket": f"{len(manager.active_connections)} conexiones",
         },
     )
@@ -61,13 +133,14 @@ async def health() -> HealthResponse:
 
 @app.get("/api/v2/dashboard/metrics", response_model=DashboardMetrics)
 async def metrics() -> DashboardMetrics:
-    """Métricas en tiempo real calculadas a partir del store de tareas."""
-    tasks = list(_task_store.values())
-    total = len(tasks)
-    completed = sum(1 for t in tasks if t.status == TaskStatus.COMPLETED)
-    failed = sum(1 for t in tasks if t.status == TaskStatus.FAILED)
-    pending = sum(1 for t in tasks if t.status == TaskStatus.PENDING)
-    running = sum(1 for t in tasks if t.status == TaskStatus.RUNNING)
+    """Métricas en tiempo real calculadas a partir de la base de datos."""
+    repo = get_repo()
+    counts = repo.count_by_status()
+    total = sum(counts.values())
+    completed = counts.get("completed", 0)
+    failed = counts.get("failed", 0)
+    pending = counts.get("pending", 0)
+    running = counts.get("running", 0)
     success_rate = (completed / total * 100.0) if total > 0 else 0.0
 
     return DashboardMetrics(
@@ -92,6 +165,9 @@ async def create_task(body: TaskCreate) -> TaskSchema:
         created_at=now,
         updated_at=now,
     )
+    repo = get_repo()
+    repo.create(task)
+    # Keep in-memory store in sync for backward compatibility
     _task_store[task.id] = task
     await manager.broadcast({"event": "task_created", "task": task.model_dump(mode="json")})
     return task
@@ -103,34 +179,78 @@ async def list_tasks(
     search: Optional[str] = Query(None),
 ) -> list[TaskSchema]:
     """Lista tareas con filtros opcionales de estado y búsqueda."""
-    tasks = list(_task_store.values())
+    repo = get_repo()
+    return repo.list_tasks(status_filter=status_filter, search=search)
 
-    if status_filter is not None:
-        tasks = [t for t in tasks if t.status == status_filter]
 
-    if search:
-        query = search.lower()
-        tasks = [
-            t for t in tasks
-            if query in t.name.lower() or (t.description and query in t.description.lower())
-        ]
+@app.get("/api/v2/dashboard/tasks/export")
+async def export_tasks(
+    format: str = Query("json", pattern="^(csv|json)$"),
+) -> StreamingResponse:
+    """Export tasks as CSV or JSON."""
+    repo = get_repo()
+    tasks = repo.list_tasks()
 
-    return tasks
+    if format == "csv":
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(["id", "name", "status", "description", "created_at", "updated_at", "result"])
+        for t in tasks:
+            writer.writerow([
+                t.id, t.name, t.status.value, t.description or "",
+                t.created_at.isoformat(), t.updated_at.isoformat(),
+                json.dumps(t.result) if t.result is not None else "",
+            ])
+        output.seek(0)
+        return StreamingResponse(
+            iter([output.getvalue()]),
+            media_type="text/csv",
+            headers={"Content-Disposition": "attachment; filename=tasks.csv"},
+        )
+    else:
+        data = [t.model_dump(mode="json") for t in tasks]
+        content = json.dumps(data, indent=2, default=str)
+        return StreamingResponse(
+            iter([content]),
+            media_type="application/json",
+            headers={"Content-Disposition": "attachment; filename=tasks.json"},
+        )
 
 
 @app.get("/api/v2/dashboard/tasks/{task_id}", response_model=TaskSchema)
 async def get_task(task_id: str) -> TaskSchema:
     """Obtiene una tarea por su ID."""
-    task = _task_store.get(task_id)
+    repo = get_repo()
+    task = repo.get(task_id)
     if task is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
+    return task
+
+
+@app.patch("/api/v2/dashboard/tasks/{task_id}", response_model=TaskSchema)
+async def update_task(task_id: str, body: TaskUpdate) -> TaskSchema:
+    """Actualiza parcialmente una tarea (PATCH)."""
+    repo = get_repo()
+    task = repo.get(task_id)
+    if task is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
+
+    update_data = body.model_dump(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(task, field, value)
+    task.updated_at = datetime.now(timezone.utc)
+
+    repo.update(task)
+    _task_store[task_id] = task
+    await manager.broadcast({"event": "task_updated", "task": task.model_dump(mode="json")})
     return task
 
 
 @app.post("/api/v2/dashboard/tasks/{task_id}/cancel", response_model=TaskSchema)
 async def cancel_task(task_id: str) -> TaskSchema:
     """Cancela una tarea si está en estado PENDING o RUNNING."""
-    task = _task_store.get(task_id)
+    repo = get_repo()
+    task = repo.get(task_id)
     if task is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
 
@@ -142,6 +262,7 @@ async def cancel_task(task_id: str) -> TaskSchema:
 
     task.status = TaskStatus.CANCELLED
     task.updated_at = datetime.now(timezone.utc)
+    repo.update(task)
     _task_store[task_id] = task
     await manager.broadcast({"event": "task_cancelled", "task": task.model_dump(mode="json")})
     return task
@@ -150,10 +271,97 @@ async def cancel_task(task_id: str) -> TaskSchema:
 @app.get("/api/v2/dashboard/tasks/{task_id}/logs", response_model=list[str])
 async def get_task_logs(task_id: str) -> list[str]:
     """Devuelve los logs de una tarea."""
-    task = _task_store.get(task_id)
+    repo = get_repo()
+    task = repo.get(task_id)
     if task is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
     return task.logs
+
+
+# --- Agent execution (stub) -------------------------------------------------
+
+
+@app.post("/api/v2/dashboard/run-agent", response_model=TaskSchema, status_code=status.HTTP_201_CREATED)
+async def run_agent(body: RunAgentRequest) -> TaskSchema:
+    """Execute an agent as a background task (stub implementation).
+
+    This endpoint creates a task linked to agent execution. In future
+    iterations it will run the agent via subprocess or direct import.
+    Currently it creates a task with status RUNNING and logs indicating
+    the agent execution is stubbed.
+    """
+    now = datetime.now(timezone.utc)
+    task = TaskSchema(
+        id=str(uuid.uuid4()),
+        name=f"Agent: {body.category}/{body.agent_name}",
+        description=f"Input: {body.input}",
+        status=TaskStatus.RUNNING,
+        created_at=now,
+        updated_at=now,
+        logs=[
+            f"[stub] Agent execution requested: {body.category}/{body.agent_name}",
+            f"[stub] Input: {body.input}",
+            "[stub] Real agent execution not yet implemented - task marked as completed",
+        ],
+        result={"stub": True, "message": "Agent execution not yet integrated"},
+    )
+    # Mark as completed since it's a stub
+    task.status = TaskStatus.COMPLETED
+    task.updated_at = datetime.now(timezone.utc)
+
+    repo = get_repo()
+    repo.create(task)
+    _task_store[task.id] = task
+    await manager.broadcast({"event": "task_created", "task": task.model_dump(mode="json")})
+    return task
+
+
+# --- Alerts configuration ---------------------------------------------------
+
+
+@app.get("/api/v2/dashboard/alerts/config", response_model=AlertConfig)
+async def get_alert_config() -> AlertConfig:
+    """Get current alert configuration."""
+    return _alert_config
+
+
+@app.put("/api/v2/dashboard/alerts/config", response_model=AlertConfig)
+async def update_alert_config(body: AlertConfig) -> AlertConfig:
+    """Update alert configuration."""
+    global _alert_config
+    _alert_config = body
+    _save_alert_config()
+    return _alert_config
+
+
+@app.get("/api/v2/dashboard/alerts")
+async def get_alerts() -> dict:
+    """Get current alerts based on metrics and alert config."""
+    repo = get_repo()
+    counts = repo.count_by_status()
+    total = sum(counts.values())
+    failed = counts.get("failed", 0)
+    completed = counts.get("completed", 0)
+    success_rate = (completed / total * 100.0) if total > 0 else 100.0
+
+    alerts = []
+    if failed > _alert_config.max_failed:
+        alerts.append({
+            "type": "failed_threshold",
+            "severity": "warning",
+            "message": f"Failed tasks ({failed}) exceed threshold ({_alert_config.max_failed})",
+        })
+    if total > 0 and success_rate < _alert_config.min_success_rate:
+        alerts.append({
+            "type": "low_success_rate",
+            "severity": "warning",
+            "message": f"Success rate ({success_rate:.1f}%) below threshold ({_alert_config.min_success_rate}%)",
+        })
+
+    return {"alerts": alerts, "config": _alert_config.model_dump()}
+
+
+# --- WebSocket ---------------------------------------------------------------
 
 
 @app.websocket("/api/v2/dashboard/ws")

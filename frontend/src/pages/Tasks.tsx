@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import TaskList from '../components/TaskList';
+import AlertsPanel from '../components/AlertsPanel';
 import { useCreateTask } from '../hooks/useTasks';
+import { getExportUrl } from '../services/dashboardApi';
 
 const Tasks: React.FC = () => {
   const [name, setName] = useState('');
@@ -23,7 +25,27 @@ const Tasks: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
-      <h1 className="text-2xl font-bold">Tasks</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Tasks</h1>
+        <div className="flex space-x-2">
+          <a
+            href={getExportUrl('csv')}
+            download="tasks.csv"
+            className="px-4 py-2 text-sm bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors"
+          >
+            Export CSV
+          </a>
+          <a
+            href={getExportUrl('json')}
+            download="tasks.json"
+            className="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+          >
+            Export JSON
+          </a>
+        </div>
+      </div>
+
+      <AlertsPanel />
 
       <form
         onSubmit={handleSubmit}

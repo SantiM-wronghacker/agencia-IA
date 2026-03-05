@@ -8,6 +8,9 @@ version = "1.0.0"
 description = "Multi-agent AI system"
 requires-python = ">=3.10"
 
+[project.optional-dependencies]
+dashboard = ["streamlit>=1.40.0"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

@@ -12,15 +12,22 @@ const RealtimeUpdates: React.FC = () => {
   const [events, setEvents] = useState<WsEvent[]>([]);
 
   const processMessage = useCallback((msg: unknown) => {
-    const event: WsEvent =
-      typeof msg === 'object' && msg !== null && 'type' in msg
-        ? (msg as WsEvent)
-        : { type: 'message', timestamp: new Date().toISOString(), data: msg };
-
-    if (!event.timestamp) {
-      event.timestamp = new Date().toISOString();
+    if (typeof msg !== 'object' || msg === null) {
+      setEvents((prev) =>
+        [{ type: 'message', timestamp: new Date().toISOString(), data: msg }, ...prev].slice(0, 10),
+      );
+      return;
     }
 
+    const raw = msg as Record<string, unknown>;
+
+    // Unified contract: backend sends { event, ts, payload }.
+    // Legacy compat: also accept { type, timestamp, data }.
+    const eventName = (raw.event as string) || (raw.type as string) || 'message';
+    const ts = (raw.ts as string) || (raw.timestamp as string) || new Date().toISOString();
+    const payload = raw.payload ?? raw.data ?? raw;
+
+    const event: WsEvent = { type: eventName, timestamp: ts, data: payload };
     setEvents((prev) => [event, ...prev].slice(0, 10));
   }, []);
 

@@ -104,3 +104,35 @@ El archivo `dashboard_web.py` ya **no es necesario**. El nuevo sistema:
 **Status**: ✅ Completado y listo para usar
 **Fecha**: 2026-03-02
 **Tested**: API sirve HTML correctamente
+
+---
+
+## Streamlit Dashboard (Opcional)
+
+Streamlit **no** está incluido en `requirements.txt` base. Para usarlo:
+
+```bash
+# Instalar la dependencia opcional
+pip install agencia-ia[dashboard]
+# o directamente:
+pip install streamlit>=1.40.0
+
+# Ejecutar el dashboard Streamlit (si existe un script)
+streamlit run <tu_script_streamlit>.py
+```
+
+## TeamDirector (CLI / endpoint)
+
+El módulo `team_director` permite asignar tareas por rol.
+
+```bash
+# Vía CLI
+python -m agencia.api.dashboard.team_director --role admin --task "Deploy v2"
+
+# Vía endpoint (dev)
+curl -X POST http://localhost:8001/api/v2/dashboard/director/assign \
+  -H "Content-Type: application/json" \
+  -d '{"role":"admin","task":"Deploy v2"}'
+```
+
+Roles registrados: `admin`, `user`, `viewer`. Cualquier otro rol es rechazado.

@@ -8,7 +8,7 @@ interface WsEvent {
 }
 
 /**
- * Normalise an incoming WebSocket message into a WsEvent.
+ * Normalize an incoming WebSocket message into a WsEvent.
  *
  * The backend sends the unified envelope ``{ event, ts, payload }``.
  * For backward compatibility we also accept ``{ type, ... }``.

@@ -38,6 +38,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Register TeamDirector endpoint (feature-flag gated)
+from ..agents_endpoint import register_team_director_routes
+
+register_team_director_routes(app)
+
 # --- Persistencia (SQLite) --------------------------------------------------
 
 _start_time: float = time.time()

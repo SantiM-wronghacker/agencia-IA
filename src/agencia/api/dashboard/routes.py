@@ -13,7 +13,15 @@ from typing import Optional
 from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from .models import DashboardMetrics, HealthResponse, TaskCreate, TaskSchema, TaskStatus
+from .models import (
+    DashboardMetrics,
+    DirectorAssignRequest,
+    DirectorAssignResponse,
+    HealthResponse,
+    TaskCreate,
+    TaskSchema,
+    TaskStatus,
+)
 from .store import TaskStore
 from .team_director import TeamDirector
 from .websocket import ConnectionManager
@@ -184,22 +192,14 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
 _director = TeamDirector()
 
 
-@app.post("/api/v2/dashboard/director/assign")
-async def director_assign(body: dict) -> dict:
+@app.post("/api/v2/dashboard/director/assign", response_model=DirectorAssignResponse)
+async def director_assign(body: DirectorAssignRequest) -> DirectorAssignResponse:
     """Assign a task via the TeamDirector (dev endpoint).
 
-    Expects ``{"role": "...", "task": "..."}``.
     Returns 400 if the role is not registered.
     """
-    role = body.get("role", "")
-    task_desc = body.get("task", "")
-    if not role or not task_desc:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Both 'role' and 'task' fields are required",
-        )
     try:
-        result = _director.assign(role, task_desc)
+        result = _director.assign(body.role, body.task)
     except ValueError as exc:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc))
-    return result
+    return DirectorAssignResponse(**result)

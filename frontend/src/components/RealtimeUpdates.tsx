@@ -23,8 +23,14 @@ const RealtimeUpdates: React.FC = () => {
 
     // Unified contract: backend sends { event, ts, payload }.
     // Legacy compat: also accept { type, timestamp, data }.
-    const eventName = (raw.event as string) || (raw.type as string) || 'message';
-    const ts = (raw.ts as string) || (raw.timestamp as string) || new Date().toISOString();
+    const eventName =
+      (typeof raw.event === 'string' && raw.event) ||
+      (typeof raw.type === 'string' && raw.type) ||
+      'message';
+    const ts =
+      (typeof raw.ts === 'string' && raw.ts) ||
+      (typeof raw.timestamp === 'string' && raw.timestamp) ||
+      new Date().toISOString();
     const payload = raw.payload ?? raw.data ?? raw;
 
     const event: WsEvent = { type: eventName, timestamp: ts, data: payload };

@@ -15,7 +15,7 @@ from src.agencia.api.dashboard.store import TaskStore
 
 
 @pytest.fixture(autouse=True)
-def _use_tmp_db(monkeypatch, tmp_path):
+def task_store(monkeypatch, tmp_path):
     """Point the dashboard store to a temporary SQLite DB for every test."""
     db_path = str(tmp_path / "test_dashboard.db")
 
@@ -95,13 +95,13 @@ def test_cancel_task(client):
     assert resp.json()["status"] == "cancelled"
 
 
-def test_cancel_completed_task(client, _use_tmp_db):
+def test_cancel_completed_task(client, task_store):
     create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Done task"})
     task_id = create_resp.json()["id"]
     # Manually mark as completed via the store
-    task = _use_tmp_db.get(task_id)
+    task = task_store.get(task_id)
     task.status = TaskStatus.COMPLETED
-    _use_tmp_db.update(task)
+    task_store.update(task)
     resp = client.post(f"/api/v2/dashboard/tasks/{task_id}/cancel")
     assert resp.status_code == 400
 
@@ -211,7 +211,7 @@ def test_ws_receives_task_cancelled_event(client):
 # ---- SQLite persistence ----
 
 
-def test_sqlite_crud(_use_tmp_db, client):
+def test_sqlite_crud(task_store, client):
     """Tasks survive in SQLite – full CRUD cycle."""
     # Create
     resp = client.post("/api/v2/dashboard/tasks", json={"name": "Persist me", "description": "d"})
@@ -293,13 +293,12 @@ def test_director_missing_fields(client):
         "/api/v2/dashboard/director/assign",
         json={"role": "admin"},
     )
-    assert resp.status_code == 400
+    assert resp.status_code == 422
 
 
 def test_team_director_class_rejects_unknown_role():
     """Unit-level: TeamDirector.assign raises ValueError for unknown roles."""
     from src.agencia.api.dashboard.team_director import TeamDirector
-    import pytest
 
     director = TeamDirector()
     with pytest.raises(ValueError, match="not registered"):

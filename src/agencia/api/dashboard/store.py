@@ -42,7 +42,7 @@ class TaskStore:
     def _get_conn(self) -> sqlite3.Connection:
         conn = getattr(self._local, "conn", None)
         if conn is None:
-            conn = sqlite3.connect(self._db_path, check_same_thread=False)
+            conn = sqlite3.connect(self._db_path)
             conn.row_factory = sqlite3.Row
             self._local.conn = conn
         return conn

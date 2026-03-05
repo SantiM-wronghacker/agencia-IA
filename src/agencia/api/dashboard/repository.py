@@ -164,13 +164,11 @@ class TaskRepository:
             row = cur.fetchone()
         total = row["total_tasks"] or 0
         completed = row["completed"] or 0
-        failed = row["failed"] or 0
-        finished = completed + failed
         return {
             "total_tasks": total,
             "completed": completed,
-            "failed": failed,
+            "failed": row["failed"] or 0,
             "pending": row["pending"] or 0,
             "running": row["running"] or 0,
-            "success_rate": (completed / finished) * 100.0 if finished else 0.0,
+            "success_rate": round((completed / total) * 100.0, 2) if total else 0.0,
         }

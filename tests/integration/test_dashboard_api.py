@@ -1,7 +1,9 @@
 """Integration tests for the Dashboard V2 FastAPI backend."""
 
+import json
 import os
 import sys
+import tempfile
 
 import pytest
 
@@ -10,20 +12,22 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 from fastapi.testclient import TestClient
 
 from src.agencia.api.dashboard.models import TaskStatus
-from src.agencia.api.dashboard.routes import app, _task_store
+from src.agencia.api.dashboard.repository import TaskRepository
+from src.agencia.api.dashboard import routes
 
 
 @pytest.fixture(autouse=True)
-def clear_task_store():
-    """Clear the in-memory task store before every test."""
-    _task_store.clear()
+def _use_tmp_db(tmp_path, monkeypatch):
+    """Point the repository at a temporary SQLite database for each test."""
+    db_path = str(tmp_path / "test.db")
+    new_repo = TaskRepository(db_path=db_path)
+    monkeypatch.setattr(routes, "repo", new_repo)
     yield
-    _task_store.clear()
 
 
 @pytest.fixture()
 def client():
-    return TestClient(app)
+    return TestClient(routes.app)
 
 
 # ---- Health ----
@@ -90,10 +94,34 @@ def test_cancel_task(client):
 def test_cancel_completed_task(client):
     create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Done task"})
     task_id = create_resp.json()["id"]
-    # Manually mark as completed
-    _task_store[task_id].status = TaskStatus.COMPLETED
+    # Use PATCH to mark as completed
+    client.patch(f"/api/v2/dashboard/tasks/{task_id}", json={"status": "completed"})
     resp = client.post(f"/api/v2/dashboard/tasks/{task_id}/cancel")
     assert resp.status_code == 400
+
+
+# ---- PATCH (update) ----
+
+
+def test_update_task_status(client):
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Patchable"})
+    task_id = create_resp.json()["id"]
+    resp = client.patch(f"/api/v2/dashboard/tasks/{task_id}", json={"status": "running"})
+    assert resp.status_code == 200
+    assert resp.json()["status"] == "running"
+
+
+def test_update_task_name(client):
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Old"})
+    task_id = create_resp.json()["id"]
+    resp = client.patch(f"/api/v2/dashboard/tasks/{task_id}", json={"name": "New"})
+    assert resp.status_code == 200
+    assert resp.json()["name"] == "New"
+
+
+def test_update_task_not_found(client):
+    resp = client.patch("/api/v2/dashboard/tasks/nope", json={"name": "X"})
+    assert resp.status_code == 404
 
 
 # ---- Logs ----
@@ -154,3 +182,43 @@ def test_websocket_connection(client):
         ws.send_text("hello")
         data = ws.receive_text()
         assert "hello" in data
+
+
+# ---- WebSocket event envelope ----
+
+
+def test_websocket_receives_task_created(client):
+    """WS client receives task_created with the unified envelope."""
+    with client.websocket_connect("/api/v2/dashboard/ws") as ws:
+        client.post("/api/v2/dashboard/tasks", json={"name": "WS test"})
+        raw = ws.receive_text()
+        msg = json.loads(raw)
+        assert msg["event"] == "task_created"
+        assert "ts" in msg
+        assert msg["payload"]["name"] == "WS test"
+
+
+def test_websocket_receives_task_updated(client):
+    """WS client receives task_updated after PATCH."""
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Upd"})
+    task_id = create_resp.json()["id"]
+
+    with client.websocket_connect("/api/v2/dashboard/ws") as ws:
+        client.patch(f"/api/v2/dashboard/tasks/{task_id}", json={"status": "running"})
+        raw = ws.receive_text()
+        msg = json.loads(raw)
+        assert msg["event"] == "task_updated"
+        assert msg["payload"]["status"] == "running"
+
+
+def test_websocket_receives_task_cancelled(client):
+    """WS client receives task_cancelled on cancel."""
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Canc"})
+    task_id = create_resp.json()["id"]
+
+    with client.websocket_connect("/api/v2/dashboard/ws") as ws:
+        client.post(f"/api/v2/dashboard/tasks/{task_id}/cancel")
+        raw = ws.receive_text()
+        msg = json.loads(raw)
+        assert msg["event"] == "task_cancelled"
+        assert msg["payload"]["status"] == "cancelled"

@@ -49,7 +49,8 @@ def analizador_regulatorio(dolar=None, euro=None, peso=None, noticias=None, coti
         datos = buscar_datos(noticias, cotizaciones)
         if datos:
             print(f"Últimas noticias: {', '.join(datos['noticias'])}")
-            print(f"Cotizaciones: {', '.join([f'{cotizacion['símbolo']} - {cotizacion['precio']}' for cotizacion in datos['cotizaciones']])}")
+            cotizaciones_str = ', '.join(f'{c["símbolo"]} - {c["precio"]}' for c in datos['cotizaciones'])
+            print(f"Cotizaciones: {cotizaciones_str}")
         
         # Realizar análisis
         if precios and datos:

@@ -63,13 +63,16 @@ def buscar_informacion(busqueda):
         return f"Error inesperado: {str(e)}"
 
 def generar_resumen_ejecutivo(busqueda, resultados, conexion_exitosa):
+    fecha = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    estado = 'EXITOSA' if conexion_exitosa else 'FALLIDA'
+    num_resultados = len(resultados.split('\n')) - 1 if conexion_exitosa else 0
     resumen = f"""
 === RESUMEN EJECUTIVO ===
-Fecha: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+Fecha: {fecha}
 Búsqueda realizada: {busqueda}
-Estado de conexión: {'EXITOSA' if conexion_exitosa else 'FALLIDA'}
-Resultados obtenidos: {len(resultados.split('\n')) - 1 if conexion_exitosa else 0}
-Última caída registrada: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+Estado de conexión: {estado}
+Resultados obtenidos: {num_resultados}
+Última caída registrada: {fecha}
 """
     return resumen
 

@@ -67,8 +67,10 @@ def seguimiento_pipeline(precios=None, tipo_de_cambio=None, noticias=None):
     print(f"Ganancias: ${ganancias_pesos:.2f} MXN")
     print(f"Pérdidas: ${pérdidas_pesos:.2f} MXN")
     print(f"Tipo de cambio: {tipo_de_cambio:.2f}")
-    print(f"Precios de productos: {', '.join(f'{precio["producto"]}: ${precio["precio"]:.2f} MXN' for precio in precios)}")
-    print(f"Noticias: {', '.join(f'{noticia["titulo"]}: ${noticia["precio"]:.2f} MXN' for noticia in noticias)}")
+    precios_str = ', '.join(f'{p["producto"]}: ${p["precio"]:.2f} MXN' for p in precios)
+    noticias_str = ', '.join(f'{n["titulo"]}: ${n["precio"]:.2f} MXN' for n in noticias)
+    print(f"Precios de productos: {precios_str}")
+    print(f"Noticias: {noticias_str}")
     print(f"Resumen ejecutivo: Las ganancias totales son de ${ganancias_pesos:.2f} MXN, mientras que las pérdidas totales son de ${pérdidas_pesos:.2f} MXN.")
 
 def main():

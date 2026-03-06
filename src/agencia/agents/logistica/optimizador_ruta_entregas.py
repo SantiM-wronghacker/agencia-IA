@@ -78,7 +78,8 @@ def main():
             distancia_total += distancia
             print(f"Distancia desde {ruta_optima[i]['lat']}, {ruta_optima[i]['lon']} a {ruta_optima[i+1]['lat']}, {ruta_optima[i+1]['lon']}: {distancia:.2f} km")
         print(f"Distancia total: {distancia_total:.2f} km")
-        print(f"Ruta óptima: {', '.join([f'{ubicacion['lat']}, {ubicacion['lon']}' for ubicacion in ruta_optima])}")
+        ruta_str = ', '.join(f'{u["lat"]}, {u["lon"]}' for u in ruta_optima)
+        print(f"Ruta óptima: {ruta_str}")
         print(f"Tiempo de ejecución: {datetime.datetime.now().strftime('%H:%M:%S')}")
     except json.JSONDecodeError:
         print("Error: formato de JSON inválido")

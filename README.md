@@ -4,18 +4,24 @@ Sistema de 500+ agentes IA especializados en 21 categorías de negocio. Automati
 
 ## ⚡ Quick Start (5 min)
 
-### Linux/Mac
+### Opción 1: Desarrollo Local (Recomendado)
 ```bash
 chmod +x start_dev.sh
-./start_dev.sh
+./start_dev.sh              # Linux/Mac
+# o
+start_dev.bat              # Windows
 ```
 
-### Windows
+### Opción 2: Con Podman (Servicios optimizados)
 ```bash
-start_dev.bat
+brew install podman         # Instalar Podman
+podman machine init         # Mac solamente
+chmod +x start_podman.sh
+./start_podman.sh           # Arranca Elasticsearch, Redis, etc
 ```
+Ver [PODMAN_SETUP.md](PODMAN_SETUP.md) para más detalles.
 
-### Manual
+### Opción 3: Manual
 ```bash
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate

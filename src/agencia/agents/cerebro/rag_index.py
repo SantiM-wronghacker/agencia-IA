@@ -8,9 +8,16 @@ import argparse
 import logging
 from pathlib import Path
 
-import chromadb
-from chromadb.config import Settings
-from sentence_transformers import SentenceTransformer
+try:
+    import chromadb
+    from chromadb.config import Settings
+    from sentence_transformers import SentenceTransformer
+    _RAG_AVAILABLE = True
+except ImportError:
+    chromadb = None
+    Settings = None
+    SentenceTransformer = None
+    _RAG_AVAILABLE = False
 
 from agencia.agents.herramientas.config import (
     KB_DIR, MEMORY_DB_DIR, COLLECTION_NAME, EMBEDDING_MODEL,

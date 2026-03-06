@@ -12,9 +12,16 @@ import math
 import random
 import re
 
-import chromadb
-from chromadb.config import Settings
-from sentence_transformers import SentenceTransformer
+try:
+    import chromadb
+    from chromadb.config import Settings
+    from sentence_transformers import SentenceTransformer
+    _RAG_AVAILABLE = True
+except ImportError:
+    chromadb = None
+    Settings = None
+    SentenceTransformer = None
+    _RAG_AVAILABLE = False
 
 try:
     import agencia.agents.herramientas.web_bridge as web
@@ -25,6 +32,9 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 def _get_collection(db_dir: str, collection_name: str):
+    if not _RAG_AVAILABLE:
+        logger.warning("chromadb no instalado — RAG deshabilitado")
+        return None
     try:
         client = chromadb.PersistentClient(
             path=db_dir,

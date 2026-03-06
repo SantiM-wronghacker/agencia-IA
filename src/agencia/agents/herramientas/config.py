@@ -18,9 +18,9 @@ PROJECTS_DIR = BASE_DIR / "projects"
 RUNS_DIR.mkdir(exist_ok=True)
 KB_DIR.mkdir(exist_ok=True)
 
-# Modelos Groq (nombres internos, se mapean en core.py)
-MODEL_FAST = os.getenv("MODEL_FAST", "llama3:8b")
-MODEL_STRONG = os.getenv("MODEL_STRONG", "gpt-oss:20b")
+# Modelos Groq
+MODEL_FAST = os.getenv("MODEL_FAST", "llama-3.1-70b-versatile")
+MODEL_STRONG = os.getenv("MODEL_STRONG", "llama-3.3-70b-versatile")
 
 # Groq API (ya no necesitamos Ollama local)
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "gsk_configurar_en_env")

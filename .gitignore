@@ -19,6 +19,9 @@ build/
 *.bak
 *.bak.*
 *.bak.mejora_*
+*.backup
+*.backup.*
+*.old
 misiones.txt.bak*
 
 # Archivos de runtime
@@ -33,6 +36,7 @@ lote_temporal/
 *.tmp
 
 # Datos de proyectos y memoria
+data/
 memory_db/
 runs/
 *.sqlite3

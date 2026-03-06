@@ -7,7 +7,7 @@ TECNOLOGÍA: Python, LLaMA, json, pathlib
 import json
 from datetime import datetime
 from pathlib import Path
-import llama
+import ollama
 import sys
 import time
 
@@ -75,7 +75,7 @@ def add_turn(history, role, content):
 
 # ---------- LLM helpers ----------
 def llm(messages, model=MODEL) -> str:
-    r = llama.chat(model=model, messages=messages)
+    r = ollama.chat(model=model, messages=messages)
     return r["message"]["content"].strip()
 
 def save_md(title: str, content: str) -> str:

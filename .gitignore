@@ -76,6 +76,11 @@ carta_poder_*.txt
 contrato_*.txt
 convenio_*.txt
 
+# Datos generados / runtime
+data/
+*.backup*
+*.old
+
 # Datos de runtime que cambian constantemente
 inventario.json
 ventas.json

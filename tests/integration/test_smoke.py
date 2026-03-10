@@ -21,19 +21,21 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 from fastapi.testclient import TestClient
 
 from src.agencia.api.dashboard.repository import TaskRepository
-from src.agencia.api.dashboard import routes
+from src.agencia.api.dashboard.routes import set_repo
 
 
 @pytest.fixture(autouse=True)
-def _use_tmp_db(tmp_path, monkeypatch):
+def _use_tmp_db(tmp_path):
     db_path = str(tmp_path / "smoke.db")
-    monkeypatch.setattr(routes, "repo", TaskRepository(db_path=db_path))
+    set_repo(TaskRepository(db_path=db_path))
     yield
+    set_repo(None)
 
 
 @pytest.fixture()
 def client():
-    return TestClient(routes.app)
+    from src.agencia.api.dashboard.routes import app
+    return TestClient(app)
 
 
 def test_full_lifecycle(client):

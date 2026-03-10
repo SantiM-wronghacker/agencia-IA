@@ -143,6 +143,31 @@ class TaskStore:
         conn.execute("DELETE FROM tasks")
         conn.commit()
 
+    def delete(self, task_id: str) -> bool:
+        """Delete a task by ID. Returns True if a row was deleted."""
+        conn = self._get_conn()
+        cursor = conn.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+        conn.commit()
+        return cursor.rowcount > 0
+
+    # -- dict-like interface ---------------------------------------------------
+
+    def __setitem__(self, task_id: str, task: TaskSchema) -> None:
+        existing = self.get(task_id)
+        if existing is None:
+            self.add(task)
+        else:
+            self.update(task)
+
+    def __getitem__(self, task_id: str) -> TaskSchema:
+        task = self.get(task_id)
+        if task is None:
+            raise KeyError(task_id)
+        return task
+
+    def __contains__(self, task_id: str) -> bool:
+        return self.get(task_id) is not None
+
     def close(self) -> None:
         conn = getattr(self._local, "conn", None)
         if conn is not None:

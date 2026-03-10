@@ -9,7 +9,7 @@ import os
 import sqlite3
 import threading
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Any, Optional
 
 from .models import TaskSchema, TaskStatus
 
@@ -156,16 +156,31 @@ class TaskRepository:
             conn.close()
         return task
 
-    def get(self, task_id: str) -> TaskSchema | None:
+    def delete(self, task_id: str) -> bool:
+        """Delete a task by ID. Returns True if a row was deleted."""
         conn = self._get_conn()
         try:
-            cur = conn.execute("SELECT * FROM tasks WHERE id = ?", (task_id,))
-            row = cur.fetchone()
+            cursor = conn.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+            conn.commit()
+            return cursor.rowcount > 0
         finally:
             conn.close()
-        if row is None:
-            return None
-        return self._row_to_task(row)
+
+    def metrics(self) -> dict[str, Any]:
+        """Return aggregated task metrics."""
+        counts = self.count_by_status()
+        total = sum(counts.values())
+        completed = counts.get("completed", 0)
+        failed = counts.get("failed", 0)
+        success_rate = (completed / total * 100.0) if total > 0 else 0.0
+        return {
+            "total_tasks": total,
+            "completed": completed,
+            "failed": failed,
+            "pending": counts.get("pending", 0),
+            "running": counts.get("running", 0),
+            "success_rate": round(success_rate, 2),
+        }
 
     def list_all(
         self,

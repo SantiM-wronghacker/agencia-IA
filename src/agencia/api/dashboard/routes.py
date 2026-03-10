@@ -162,7 +162,7 @@ async def create_task(body: TaskCreate) -> TaskSchema:
     repo.create(task)
     # Keep in-memory store in sync for backward compatibility
     _task_store[task.id] = task
-    await manager.broadcast({"event": "task_created", "task": task.model_dump(mode="json")})
+    await manager.broadcast(_ws_event("task_created", task.model_dump(mode="json")))
     return task
 
 
@@ -222,6 +222,28 @@ async def get_task(task_id: str) -> TaskSchema:
 
 
 
+@app.patch("/api/v2/dashboard/tasks/{task_id}", response_model=TaskSchema)
+async def update_task(task_id: str, body: TaskUpdate) -> TaskSchema:
+    """Actualiza parcialmente una tarea (nombre, descripción, estado)."""
+    repo = get_repo()
+    task = repo.get(task_id)
+    if task is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
+
+    if body.name is not None:
+        task.name = body.name
+    if body.description is not None:
+        task.description = body.description
+    if body.status is not None:
+        task.status = body.status
+    task.updated_at = datetime.now(timezone.utc)
+
+    repo.update(task)
+    _task_store[task.id] = task
+    await manager.broadcast(_ws_event("task_updated", task.model_dump(mode="json")))
+    return task
+
+
 @app.post("/api/v2/dashboard/tasks/{task_id}/cancel", response_model=TaskSchema)
 async def cancel_task(task_id: str) -> TaskSchema:
     """Cancela una tarea si está en estado PENDING o RUNNING."""
@@ -241,7 +263,7 @@ async def cancel_task(task_id: str) -> TaskSchema:
     task.updated_at = datetime.now(timezone.utc)
     repo.update(task)
     _task_store[task_id] = task
-    await manager.broadcast({"event": "task_cancelled", "task": task.model_dump(mode="json")})
+    await manager.broadcast(_ws_event("task_cancelled", task.model_dump(mode="json")))
     return task
 
 
@@ -289,7 +311,7 @@ async def run_agent(body: RunAgentRequest) -> TaskSchema:
     repo = get_repo()
     repo.create(task)
     _task_store[task.id] = task
-    await manager.broadcast({"event": "task_created", "task": task.model_dump(mode="json")})
+    await manager.broadcast(_ws_event("task_created", task.model_dump(mode="json")))
     return task
 
 
@@ -341,8 +363,17 @@ async def get_alerts() -> dict:
 # --- WebSocket ---------------------------------------------------------------
 
 
+def _ws_event(event_type: str, payload: Any) -> dict:
+    """Create a WebSocket event envelope with timestamp."""
+    return {
+        "event": event_type,
+        "payload": payload,
+        "ts": datetime.now(timezone.utc).isoformat(),
+    }
+
+
 def _event_envelope(event_type: str, data: Any) -> dict:
-    """Create a WebSocket event envelope."""
+    """Create a WebSocket event envelope (echo responses)."""
     return {"event": event_type, "data": data}
 
 

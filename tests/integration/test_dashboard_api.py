@@ -158,6 +158,30 @@ def test_metrics(client):
     assert data["pending"] == 2
 
 
+# ---- Update (PATCH) ----
+
+
+def test_update_task_name(client):
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Old Name"})
+    task_id = create_resp.json()["id"]
+    resp = client.patch(f"/api/v2/dashboard/tasks/{task_id}", json={"name": "New Name"})
+    assert resp.status_code == 200
+    assert resp.json()["name"] == "New Name"
+
+
+def test_update_task_status(client):
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Run me"})
+    task_id = create_resp.json()["id"]
+    resp = client.patch(f"/api/v2/dashboard/tasks/{task_id}", json={"status": "running"})
+    assert resp.status_code == 200
+    assert resp.json()["status"] == "running"
+
+
+def test_update_task_not_found(client):
+    resp = client.patch("/api/v2/dashboard/tasks/nonexistent", json={"name": "X"})
+    assert resp.status_code == 404
+
+
 # ---- Filtering & Search ----
 
 

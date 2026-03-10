@@ -1,0 +1,22 @@
+{
+  "cliente": "Mi Empresa",
+  "objetivo": "Lanzar una tienda en línea de productos orgánicos en CDMX",
+  "orden": "Crear plan completo de lanzamiento de e-commerce orgánico",
+  "requerimientos": [
+    "planificacion",
+    "analisis_mercado",
+    "presupuesto",
+    "roi",
+    "contratos",
+    "campanas",
+    "seo",
+    "desarrollo",
+    "infraestructura",
+    "logistica"
+  ],
+  "contexto": {
+    "industria": "e-commerce orgánico",
+    "ubicacion": "CDMX",
+    "presupuesto_inicial": 500000
+  }
+}

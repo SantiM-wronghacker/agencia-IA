@@ -83,9 +83,30 @@ def cargar_habilidades():
     except Exception:
         return {}
 
-def ejecutar_agente(archivo, params="", timeout=TIMEOUT_AGENTE):
+def buscar_agente(archivo):
+    """Busca un archivo de agente: primero en BASE_DIR, luego en categorias/."""
     ruta = os.path.join(BASE_DIR, archivo)
-    if not os.path.exists(ruta):
+    if os.path.exists(ruta):
+        return ruta
+    # Buscar en categorias/
+    cats_dir = os.path.join(BASE_DIR, "categorias")
+    if os.path.isdir(cats_dir):
+        for cat in os.listdir(cats_dir):
+            candidato = os.path.join(cats_dir, cat, archivo)
+            if os.path.exists(candidato):
+                return candidato
+    # Buscar en src/agencia/agents/
+    src_dir = os.path.join(BASE_DIR, "src", "agencia", "agents")
+    if os.path.isdir(src_dir):
+        for cat in os.listdir(src_dir):
+            candidato = os.path.join(src_dir, cat, archivo)
+            if os.path.exists(candidato):
+                return candidato
+    return None
+
+def ejecutar_agente(archivo, params="", timeout=TIMEOUT_AGENTE):
+    ruta = buscar_agente(archivo)
+    if ruta is None:
         return False, f"Agente {archivo} no encontrado"
     cmd = [sys.executable, ruta]
     if params:
@@ -94,7 +115,7 @@ def ejecutar_agente(archivo, params="", timeout=TIMEOUT_AGENTE):
         r = subprocess.run(
             cmd, capture_output=True, text=True,
             encoding="utf-8", errors="replace",
-            timeout=timeout, cwd=BASE_DIR
+            timeout=timeout, cwd=os.path.dirname(ruta)
         )
         salida = (r.stdout or "").strip()
         if not salida and r.stderr:
@@ -286,8 +307,8 @@ class AgenciaHandler(BaseHTTPRequestHandler):
                 info = habilidades[nombre]
                 # Leer primeras lineas del codigo
                 preview = ""
-                ruta_py = os.path.join(BASE_DIR, nombre)
-                if os.path.exists(ruta_py):
+                ruta_py = buscar_agente(nombre)
+                if ruta_py and os.path.exists(ruta_py):
                     with open(ruta_py, "r", encoding="utf-8", errors="replace") as f:
                         preview = "".join(f.readlines()[:15])
                 respuesta_json(self, 200, {

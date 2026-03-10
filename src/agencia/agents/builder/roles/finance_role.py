@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from agencia.agents.builder.role_agent import RoleAgent
+from agencia.agents.builder.role_agent import LegacyRoleAgent
 
 
-class FinanceRole(RoleAgent):
+class FinanceRole(LegacyRoleAgent):
     nombre = "Finanzas"
     dominio = "finanzas"
     capacidades = {

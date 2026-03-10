@@ -7,6 +7,7 @@ import json
 import logging
 import os
 import sqlite3
+import threading
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -41,6 +42,7 @@ class TaskRepository:
     def __init__(self, db_path: Optional[str] = None) -> None:
         self.db_path = db_path or _get_db_path()
         _ensure_dir(self.db_path)
+        self._lock = threading.Lock()
         self._init_db()
 
     def _get_conn(self) -> sqlite3.Connection:
@@ -143,13 +145,24 @@ class TaskRepository:
                     task.name,
                     task.status.value,
                     task.description,
-            self._conn.commit()
+                    task.updated_at.isoformat(),
+                    json.dumps(task.result) if task.result else None,
+                    json.dumps(task.logs),
+                    task.id,
+                ),
+            )
+            conn.commit()
+        finally:
+            conn.close()
         return task
 
     def get(self, task_id: str) -> TaskSchema | None:
-        with self._lock:
-            cur = self._conn.execute("SELECT * FROM tasks WHERE id = ?", (task_id,))
+        conn = self._get_conn()
+        try:
+            cur = conn.execute("SELECT * FROM tasks WHERE id = ?", (task_id,))
             row = cur.fetchone()
+        finally:
+            conn.close()
         if row is None:
             return None
         return self._row_to_task(row)
@@ -175,34 +188,14 @@ class TaskRepository:
 
         query += " ORDER BY created_at DESC"
 
-        with self._lock:
-            cur = self._conn.execute(query, params)
+        conn = self._get_conn()
+        try:
+            cur = conn.execute(query, params)
             rows = cur.fetchall()
-        return [self._row_to_task(row) for row in rows]
-
-    def update(self, task: TaskSchema) -> TaskSchema:
-        with self._lock:
-            self._conn.execute(
-                """
-                UPDATE tasks
-                   SET name = ?, description = ?, status = ?,
-                       updated_at = ?, result = ?, logs = ?
-                 WHERE id = ?
-                """,
-                (
-                    task.name,
-                    task.description,
-                    task.status.value,
-                    task.updated_at.isoformat(),
-                    json.dumps(task.result) if task.result is not None else None,
-                    json.dumps(task.logs),
-                    task.id,
-                ),
-            )
-            conn.commit()
-            return task
         finally:
             conn.close()
+        return [self._row_to_task(row) for row in rows]
+
 
     def count_by_status(self) -> dict[str, int]:
         """Get task counts grouped by status."""

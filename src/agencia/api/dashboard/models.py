@@ -88,3 +88,16 @@ class DirectorAssignResponse(BaseModel):
     role: str
     task: str
     status: str
+
+
+class AlertConfig(BaseModel):
+    """Alert configuration for the dashboard."""
+    max_failed: int = 5
+    min_success_rate: float = 80.0
+
+
+class RunAgentRequest(BaseModel):
+    """Request body for running an agent."""
+    category: str
+    agent_name: str
+    input: str

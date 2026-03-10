@@ -1,5 +1,6 @@
 """Roles concretos de la agencia."""
 
+from agencia.agents.builder.role_agent import LegacyRoleAgent
 from agencia.agents.builder.roles.strategy_role import StrategyRole
 from agencia.agents.builder.roles.finance_role import FinanceRole
 from agencia.agents.builder.roles.legal_role import LegalRole

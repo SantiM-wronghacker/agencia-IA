@@ -17,7 +17,7 @@ import tempfile
 import pytest
 
 from agencia.agents.builder.sub_agent_factory import SubAgent, SubAgentFactory
-from agencia.agents.builder.role_agent import RoleAgent
+from agencia.agents.builder.role_agent import RoleAgent, LegacyRoleAgent
 from agencia.agents.builder.role_registry import RoleRegistry
 from agencia.agents.builder.team_director import TeamDirector
 from agencia.agents.builder.roles import (
@@ -183,9 +183,9 @@ class TestTeamDirector:
     def test_seleccionar_roles_solo_roles(self):
         director = self._director()
         roles = director.seleccionar_roles({"roi", "contratos"})
-        # Solo debe devolver RoleAgents, nunca subagentes
+        # Solo debe devolver RoleAgents (modern or legacy), nunca subagentes
         for r in roles:
-            assert isinstance(r, RoleAgent)
+            assert isinstance(r, (RoleAgent, LegacyRoleAgent))
         nombres = {r.nombre for r in roles}
         assert "Finanzas" in nombres
         assert "Legal" in nombres

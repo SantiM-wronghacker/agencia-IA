@@ -59,6 +59,7 @@ desktop.ini
 *.sqlite3
 vector_db/
 agency_data.db
+data/dashboard.db
 data/
 
 # Reportes y logs generados

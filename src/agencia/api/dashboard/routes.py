@@ -14,8 +14,17 @@ from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnec
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from .models import DashboardMetrics, HealthResponse, TaskCreate, TaskSchema, TaskStatus
-from .repository import TaskRepository
+from .models import (
+    DashboardMetrics,
+    DirectorAssignRequest,
+    DirectorAssignResponse,
+    HealthResponse,
+    TaskCreate,
+    TaskSchema,
+    TaskStatus,
+)
+from .store import TaskStore
+from .team_director import TeamDirector
 from .websocket import ConnectionManager
 
 logger = logging.getLogger(__name__)
@@ -38,15 +47,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register TeamDirector endpoint (feature-flag gated)
-from ..agents_endpoint import register_team_director_routes
-
-register_team_director_routes(app)
-
-# --- Persistencia (SQLite) --------------------------------------------------
+# --- Persistent store (SQLite) ---------------------------------------------
 
 _start_time: float = time.time()
-repo = TaskRepository()
+_task_store = TaskStore()
 manager = ConnectionManager()
 
 
@@ -94,9 +98,23 @@ async def health() -> HealthResponse:
 
 @app.get("/api/v2/dashboard/metrics", response_model=DashboardMetrics)
 async def metrics() -> DashboardMetrics:
-    """Métricas en tiempo real calculadas vía query agregada SQLite."""
-    data = repo.metrics()
-    return DashboardMetrics(**data)
+    """Métricas en tiempo real calculadas a partir del store de tareas."""
+    tasks = _task_store.list_all()
+    total = len(tasks)
+    completed = sum(1 for t in tasks if t.status == TaskStatus.COMPLETED)
+    failed = sum(1 for t in tasks if t.status == TaskStatus.FAILED)
+    pending = sum(1 for t in tasks if t.status == TaskStatus.PENDING)
+    running = sum(1 for t in tasks if t.status == TaskStatus.RUNNING)
+    success_rate = (completed / total * 100.0) if total > 0 else 0.0
+
+    return DashboardMetrics(
+        total_tasks=total,
+        completed=completed,
+        failed=failed,
+        pending=pending,
+        running=running,
+        success_rate=round(success_rate, 2),
+    )
 
 
 @app.post("/api/v2/dashboard/tasks", response_model=TaskSchema, status_code=status.HTTP_201_CREATED)
@@ -111,10 +129,12 @@ async def create_task(body: TaskCreate) -> TaskSchema:
         created_at=now,
         updated_at=now,
     )
-    repo.create(task)
-    await manager.broadcast(
-        _event_envelope("task_created", task.model_dump(mode="json"))
-    )
+    _task_store.add(task)
+    await manager.broadcast({
+        "event": "task_created",
+        "ts": now.isoformat(),
+        "payload": task.model_dump(mode="json"),
+    })
     return task
 
 
@@ -124,8 +144,19 @@ async def list_tasks(
     search: Optional[str] = Query(None),
 ) -> list[TaskSchema]:
     """Lista tareas con filtros opcionales de estado y búsqueda."""
-    sf = status_filter.value if status_filter is not None else None
-    return repo.list_all(status_filter=sf, search=search)
+    tasks = _task_store.list_all()
+
+    if status_filter is not None:
+        tasks = [t for t in tasks if t.status == status_filter]
+
+    if search:
+        query = search.lower()
+        tasks = [
+            t for t in tasks
+            if query in t.name.lower() or (t.description and query in t.description.lower())
+        ]
+
+    return tasks
 
 
 @app.get("/api/v2/dashboard/tasks/{task_id}", response_model=TaskSchema)
@@ -172,12 +203,15 @@ async def cancel_task(task_id: str) -> TaskSchema:
             detail=f"No se puede cancelar una tarea con estado {task.status.value}",
         )
 
+    now = datetime.now(timezone.utc)
     task.status = TaskStatus.CANCELLED
-    task.updated_at = datetime.now(timezone.utc)
-    repo.update(task)
-    await manager.broadcast(
-        _event_envelope("task_cancelled", task.model_dump(mode="json"))
-    )
+    task.updated_at = now
+    _task_store.update(task)
+    await manager.broadcast({
+        "event": "task_cancelled",
+        "ts": now.isoformat(),
+        "payload": task.model_dump(mode="json"),
+    })
     return task
 
 
@@ -202,3 +236,21 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
             )
     except WebSocketDisconnect:
         manager.disconnect(websocket)
+
+
+# --- TeamDirector dev endpoint ----------------------------------------------
+
+_director = TeamDirector()
+
+
+@app.post("/api/v2/dashboard/director/assign", response_model=DirectorAssignResponse)
+async def director_assign(body: DirectorAssignRequest) -> DirectorAssignResponse:
+    """Assign a task via the TeamDirector (dev endpoint).
+
+    Returns 400 if the role is not registered.
+    """
+    try:
+        result = _director.assign(body.role, body.task)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc))
+    return DirectorAssignResponse(**result)

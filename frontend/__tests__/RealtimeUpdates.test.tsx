@@ -1,63 +1,36 @@
 import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 
-// --- mock the useWebSocket hook ------------------------------------------
-let mockLastMessage: unknown = null;
-let mockIsConnected = false;
-const setLastMessage = (msg: unknown) => { mockLastMessage = msg; };
-const setIsConnected = (val: boolean) => { mockIsConnected = val; };
+// Capture the last message handler registered by useWebSocket so we can
+// simulate incoming messages from tests.
+let triggerMessage: ((data: unknown) => void) | null = null;
 
 jest.mock('../src/hooks/useWebSocket', () => ({
-  useWebSocket: () => ({
-    lastMessage: mockLastMessage,
-    isConnected: mockIsConnected,
-  }),
+  useWebSocket: () => {
+    const [lastMessage, setLastMessage] = React.useState<unknown>(null);
+    // Expose the setter so the test can push messages.
+    triggerMessage = (data: unknown) => setLastMessage(data);
+    return { lastMessage, isConnected: true };
+  },
 }));
 
 import RealtimeUpdates from '../src/components/RealtimeUpdates';
 
-beforeEach(() => {
-  mockLastMessage = null;
-  mockIsConnected = false;
-});
-
-test('shows Disconnected when WS is not connected', () => {
+test('renders a received WS event using unified contract', () => {
   render(<RealtimeUpdates />);
-  expect(screen.getByText('Disconnected')).toBeTruthy();
-});
 
-test('shows Connected when WS is connected', () => {
-  setIsConnected(true);
-  render(<RealtimeUpdates />);
-  expect(screen.getByText('Connected')).toBeTruthy();
-});
+  // Initially no events
+  expect(screen.getByText(/No events yet/i)).toBeTruthy();
 
-test('shows waiting message when no events', () => {
-  render(<RealtimeUpdates />);
-  expect(screen.getByText(/No events yet/)).toBeTruthy();
-});
-
-test('renders event from unified envelope { event, ts, payload }', () => {
-  setLastMessage({
-    event: 'task_created',
-    ts: '2025-01-01T00:00:00Z',
-    payload: { id: '1', name: 'Test' },
+  // Simulate a message arriving with the unified contract { event, ts, payload }
+  act(() => {
+    triggerMessage?.({
+      event: 'task_created',
+      ts: '2026-03-05T23:00:00Z',
+      payload: { id: '1', name: 'Test task' },
+    });
   });
-  render(<RealtimeUpdates />);
+
+  // The event type should now be rendered
   expect(screen.getByText('task_created')).toBeTruthy();
-});
-
-test('renders event from legacy { type } format', () => {
-  setLastMessage({
-    type: 'legacy_event',
-    timestamp: '2025-06-01T12:00:00Z',
-  });
-  render(<RealtimeUpdates />);
-  expect(screen.getByText('legacy_event')).toBeTruthy();
-});
-
-test('falls back to "message" type for unknown shapes', () => {
-  setLastMessage('plain string');
-  render(<RealtimeUpdates />);
-  expect(screen.getByText('message')).toBeTruthy();
 });

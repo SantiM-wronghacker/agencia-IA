@@ -68,3 +68,16 @@ class TokenData(BaseModel):
     sub: str
     role: UserRole
     exp: datetime
+
+
+class DirectorAssignRequest(BaseModel):
+    """Request body for the TeamDirector assign endpoint."""
+    role: str
+    task: str
+
+
+class DirectorAssignResponse(BaseModel):
+    """Response from the TeamDirector assign endpoint."""
+    role: str
+    task: str
+    status: str

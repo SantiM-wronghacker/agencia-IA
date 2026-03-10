@@ -202,6 +202,7 @@ class AgenciaHandler(BaseHTTPRequestHandler):
                     "POST /ejecutar         — ejecutar un agente",
                     "POST /crear-proyecto   — crear nuevo proyecto",
                     "POST /consulta         — lenguaje natural al Clawbot",
+                    "POST /director/asignar — TeamDirector con 6 roles IA (strategy, finance, legal, marketing, tech, ops)",
                 ]
             }
             respuesta_json(self, 200, data)
@@ -1137,6 +1138,90 @@ class AgenciaHandler(BaseHTTPRequestHandler):
                 "status": nueva_tarea["status"],
                 "resultado": resultado_texto,
                 "mensaje": f"Tarea {'completada' if nueva_tarea['status']=='completada' else 'registrada'}"
+            })
+
+        # POST /director/asignar
+        # Body: {"rol": "strategy", "tarea": "Crea plan de 90 días para duplicar ingresos"}
+        elif ruta == "/director/asignar":
+            _ROLES_VALIDOS = {"strategy", "finance", "legal", "marketing", "tech", "ops"}
+            _ROLE_PROMPTS = {
+                "strategy": (
+                    "Eres el Director Estratégico con 20+ años en consultoría (McKinsey, BCG). "
+                    "Dominas OKRs, SWOT, ventaja competitiva y estrategia Blue Ocean. "
+                    "Das respuestas concretas, accionables y estructuradas. Responde en español."
+                ),
+                "finance": (
+                    "Eres el CFO experto en ROI, flujo de caja, EBITDA, CAC/LTV y proyecciones "
+                    "financieras. Trabajas con números precisos y escenarios claros. Responde en español."
+                ),
+                "legal": (
+                    "Eres el Asesor Legal Senior en derecho corporativo, GDPR, propiedad intelectual "
+                    "y regulación empresarial en Latinoamérica. Responde en español."
+                ),
+                "marketing": (
+                    "Eres el Director de Marketing con expertise en growth hacking, Meta/Google Ads, "
+                    "SEO, funnels y branding. Das estrategias medibles con ROI claro. Responde en español."
+                ),
+                "tech": (
+                    "Eres el CTO experto en sistemas distribuidos, cloud, APIs, seguridad y escalabilidad. "
+                    "Piensas en trade-offs técnicos y mejores prácticas. Responde en español."
+                ),
+                "ops": (
+                    "Eres el COO experto en Lean, automatización, KPIs y eficiencia operacional. "
+                    "Das planes de acción concretos con métricas. Responde en español."
+                ),
+            }
+
+            rol = body.get("rol", body.get("role", "")).strip().lower()
+            tarea = body.get("tarea", body.get("task", "")).strip()
+
+            if not rol or rol not in _ROLES_VALIDOS:
+                respuesta_json(self, 400, {
+                    "error": f"Rol '{rol}' no válido. Roles: {', '.join(sorted(_ROLES_VALIDOS))}",
+                    "roles_validos": sorted(_ROLES_VALIDOS)
+                })
+                return
+
+            if not tarea:
+                respuesta_json(self, 400, {"error": "Falta campo 'tarea'"})
+                return
+
+            log(f"[DIRECTOR] Rol: {rol} | Tarea: {tarea[:80]}...")
+
+            resultado = None
+            proveedor = "none"
+            try:
+                cerebro_dir = os.path.join(BASE_DIR, "categorias", "CEREBRO")
+                if cerebro_dir not in sys.path:
+                    sys.path.insert(0, cerebro_dir)
+                import llm_router as _llm_mod  # noqa
+                sistema = _ROLE_PROMPTS.get(rol, "Eres un experto consultor de negocios.")
+                resultado = _llm_mod.completar_simple(
+                    tarea, sistema=sistema, temperatura=0.7, max_tokens=800,
+                )
+                if resultado:
+                    resultado = resultado.strip()
+                    proveedor = "llm_router"
+                    log(f"[DIRECTOR] OK — {len(resultado)} chars")
+            except Exception as e:
+                log(f"[DIRECTOR] LLM error: {e}")
+                resultado = None
+
+            if not resultado:
+                resultado = (
+                    f"[Director {rol.upper()}] Tarea registrada: {tarea}\n\n"
+                    "⚠️ Motor LLM no disponible. Configura una API key en .env "
+                    "(GROQ_API_KEY, GEMINI_API_KEY, MISTRAL_API_KEY, etc.)"
+                )
+
+            respuesta_json(self, 200, {
+                "exito": True,
+                "rol": rol,
+                "tarea": tarea,
+                "status": "completed" if proveedor != "none" else "queued",
+                "resultado": resultado,
+                "proveedor": proveedor,
+                "timestamp": datetime.now().isoformat()
             })
 
         else:

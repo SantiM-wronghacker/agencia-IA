@@ -100,6 +100,10 @@ footer{text-align:center;color:#30363d;font-size:.73rem;padding:16px}
 .toast{position:fixed;bottom:20px;right:20px;background:#238636;color:#fff;padding:12px 20px;border-radius:8px;font-size:.85rem;z-index:2000;display:none;box-shadow:0 4px 12px rgba(0,0,0,.4)}
 .toast.error{background:#da3633}
 .toast.show{display:block;animation:fadeIn .3s}
+/* Director AI role buttons */
+.dir-role{background:#21262d;border:1px solid #30363d;color:#8b949e;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:.82rem;transition:all .2s}
+.dir-role:hover{background:#1f3a5f;color:#79c0ff;border-color:#58a6ff}
+.dir-role.active{background:#1f3a5f;color:#58a6ff;border-color:#58a6ff;font-weight:600}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 /* Expansion cat cards */
 .exp-cat{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:14px}
@@ -154,6 +158,7 @@ footer{text-align:center;color:#30363d;font-size:.73rem;padding:16px}
         <div class="menu-item" onclick="menuNav('expansion',event)"><span class="icon">&#128200;</span><div><div>Expansion</div><div class="desc">Progreso del plan 206 micros</div></div></div>
         <div class="menu-item" onclick="menuNav('proyectos',event)"><span class="icon">&#128188;</span><div><div>Proyectos</div><div class="desc">Clientes y negocios</div></div></div>
         <div class="menu-item" onclick="menuNav('clawbot',event)"><span class="icon">&#128172;</span><div><div>Clawbot</div><div class="desc">Chat con IA</div></div></div>
+        <div class="menu-item" onclick="menuNav('director',event)"><span class="icon">&#127919;</span><div><div>Director AI</div><div class="desc">Super Agente — 6 roles IA</div></div></div>
         <div class="menu-divider"></div>
         <div class="menu-item" onclick="menuNav('ejecutar',event)"><span class="icon">&#9654;</span><div><div>Ejecutar</div><div class="desc">Correr un agente</div></div></div>
         <div class="menu-item" onclick="menuNav('credenciales',event)"><span class="icon">&#128273;</span><div><div>Credenciales</div><div class="desc">APIs, hosting, redes sociales</div></div></div>
@@ -401,7 +406,54 @@ footer{text-align:center;color:#30363d;font-size:.73rem;padding:16px}
   <div id="log-box"></div>
 </div>
 
-<footer>Agencia Santi v2 — API :8000 | Dashboard :8080</footer>
+<!-- PANEL: DIRECTOR AI -->
+<div class="panel" id="panel-director">
+  <div style="border:1px solid #30363d;border-radius:10px;padding:20px;background:#161b22;margin-bottom:20px">
+    <h2 style="font-size:1rem;color:#58a6ff;margin-bottom:4px">&#127919; TeamDirector — Super Agente Orquestador con IA Real</h2>
+    <p style="font-size:.78rem;color:#8b949e;margin-bottom:16px">Delega tareas a 6 roles especializados impulsados por IA. Cada director tiene expertise profunda en su dominio y responde con análisis profesional.</p>
+
+    <div style="margin-bottom:14px">
+      <label style="display:block;font-size:.75rem;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Selecciona un Rol Especializado</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" id="dir-roles">
+        <button class="dir-role active" data-role="strategy" onclick="selectRole(this,'strategy')">&#128202; Strategy</button>
+        <button class="dir-role" data-role="finance" onclick="selectRole(this,'finance')">&#128176; Finance</button>
+        <button class="dir-role" data-role="legal" onclick="selectRole(this,'legal')">&#9878;&#65039; Legal</button>
+        <button class="dir-role" data-role="marketing" onclick="selectRole(this,'marketing')">&#128226; Marketing</button>
+        <button class="dir-role" data-role="tech" onclick="selectRole(this,'tech')">&#9881;&#65039; Tech</button>
+        <button class="dir-role" data-role="ops" onclick="selectRole(this,'ops')">&#128295; Ops</button>
+      </div>
+      <div id="dir-role-desc" style="margin-top:8px;font-size:.78rem;color:#8b949e;padding:8px 12px;background:#0d1117;border-radius:6px;border-left:3px solid #58a6ff">Estrategia de negocio, planes de crecimiento, expansión de mercado y ventaja competitiva.</div>
+    </div>
+
+    <div class="field" style="margin-bottom:12px">
+      <label>Describe tu tarea, pregunta o desafío</label>
+      <textarea id="dir-tarea" style="min-height:90px;resize:vertical" placeholder="Ej: Crea un plan de 90 días para duplicar los ingresos de una agencia de marketing digital en Latinoamérica. Incluye estrategias de pricing, canales de adquisición y métricas clave..."></textarea>
+    </div>
+
+    <button onclick="enviarAlDirector()" id="dir-btn" style="width:100%;padding:11px;font-size:.88rem">
+      <span id="dir-btn-text">&#9658; Enviar al Director</span>
+      <span id="dir-spinner" class="spinner" style="display:none;margin-left:8px"></span>
+    </button>
+  </div>
+
+  <div id="dir-resultado-box" style="display:none;border:1px solid #238636;border-radius:10px;padding:20px;background:#161b22;margin-bottom:20px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h3 style="font-size:.9rem;color:#58a6ff" id="dir-resultado-titulo">Respuesta del Director</h3>
+      <button class="sec" style="padding:4px 10px;font-size:.72rem" onclick="limpiarDirector()">Limpiar</button>
+    </div>
+    <div id="dir-resultado" style="background:#0d1117;border:1px solid #21262d;border-radius:6px;padding:14px;font-size:.83rem;white-space:pre-wrap;line-height:1.6;color:#e6edf3;min-height:80px;max-height:520px;overflow-y:auto"></div>
+    <div id="dir-meta" style="margin-top:8px;font-size:.72rem;color:#8b949e;display:flex;gap:16px;flex-wrap:wrap"></div>
+  </div>
+
+  <div>
+    <h3 style="font-size:.9rem;color:#8b949e;margin-bottom:10px">&#128203; Historial de Consultas</h3>
+    <div id="dir-hist-lista" style="max-height:340px;overflow-y:auto">
+      <div style="color:#8b949e;text-align:center;padding:20px;font-size:.82rem">Sin consultas aún. Envía tu primera tarea arriba.</div>
+    </div>
+  </div>
+</div>
+
+<footer>Agencia Santi v2 — API :8000 | Dashboard :8080 | Director AI: 6 Roles</footer>
 
 <!-- MODAL EDITAR AGENTE -->
 <div class="modal-bg" id="modal-editar">
@@ -457,8 +509,8 @@ function toast(msg,isError){
 }
 
 // == Menu Hamburguesa ==
-const TABS=['tareas','agentes','expansion','admin','ejecutar','proyectos','clawbot','logs'];
-const LABELS={'tareas':'Solicitar Tarea','agentes':'Agentes','expansion':'Expansion','admin':'Admin','ejecutar':'Ejecutar','proyectos':'Proyectos','clawbot':'Clawbot','logs':'Logs'};
+const TABS=['tareas','agentes','expansion','admin','ejecutar','proyectos','clawbot','director','logs'];
+const LABELS={'tareas':'Solicitar Tarea','agentes':'Agentes','expansion':'Expansion','admin':'Admin','ejecutar':'Ejecutar','proyectos':'Proyectos','clawbot':'Clawbot','director':'Director AI','logs':'Logs'};
 let menuOpen=false;
 
 function toggleMenu(){
@@ -499,6 +551,7 @@ function tab(nombre){
   if(nombre==='admin')cargarAdmin();
   if(nombre==='credenciales')initCredenciales();
   if(nombre==='tareas')cargarTareasRecientes();
+  if(nombre==='director')initDirector();
 }
 
 // == Tareas ==
@@ -1062,6 +1115,111 @@ async function crearProyecto(){
     document.getElementById('prj-nombre').value='';document.getElementById('prj-descripcion').value='';
     setTimeout(()=>{st.textContent='';cargarProyectos();},2000);
   }else{st.textContent=data?.error||'Error';st.style.color='#f85149';}
+}
+
+// == Director AI ==
+let dirRole='strategy';
+let dirHistorial=JSON.parse(localStorage.getItem('dir_historial')||'[]');
+const DIR_ROLES_DESC={
+  strategy:'Estrategia de negocio, planes de crecimiento, expansión de mercado y ventaja competitiva.',
+  finance:'Análisis financiero, ROI, proyecciones, flujo de caja, EBITDA y valoración.',
+  legal:'Asesoría legal, contratos, GDPR, propiedad intelectual y compliance regulatorio.',
+  marketing:'Campañas digitales, growth hacking, branding, SEO, funnels y conversión.',
+  tech:'Arquitectura técnica, cloud, APIs, escalabilidad y mejores prácticas de ingeniería.',
+  ops:'Optimización de procesos, automatización, KPIs operacionales y eficiencia empresarial.',
+};
+const DIR_EMOJI={strategy:'📊',finance:'💰',legal:'⚖️',marketing:'📢',tech:'⚙️',ops:'🔧'};
+
+function selectRole(btn,role){
+  dirRole=role;
+  document.querySelectorAll('.dir-role').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('dir-role-desc').textContent=DIR_ROLES_DESC[role]||'';
+}
+
+async function enviarAlDirector(){
+  const tarea=document.getElementById('dir-tarea').value.trim();
+  if(!tarea){toast('Escribe una tarea o pregunta',true);return;}
+  const btn=document.getElementById('dir-btn');
+  const btnText=document.getElementById('dir-btn-text');
+  const spinner=document.getElementById('dir-spinner');
+  btn.disabled=true;btnText.textContent='Consultando Director...';spinner.style.display='inline-block';
+  const ts=new Date().toLocaleString();
+  const resBox=document.getElementById('dir-resultado-box');
+  const resEl=document.getElementById('dir-resultado');
+  resBox.style.display='block';
+  resEl.textContent='⏳ Procesando con IA real...';
+  resEl.style.color='#d29922';
+  try{
+    const ctrl=new AbortController();
+    const timer=setTimeout(()=>ctrl.abort(),90000);
+    const resp=await fetch(API+'/director/asignar',{
+      method:'POST',headers:H,
+      body:JSON.stringify({rol:dirRole,tarea:tarea}),
+      signal:ctrl.signal
+    });
+    clearTimeout(timer);
+    const data=await resp.json();
+    const resultado=data.resultado||data.error||'Sin respuesta del Director';
+    const status=data.status||'unknown';
+    const prov=data.proveedor||'none';
+    resEl.textContent=resultado;
+    resEl.style.color='#e6edf3';
+    document.getElementById('dir-resultado-titulo').textContent=`${DIR_EMOJI[dirRole]||'🎯'} Respuesta del ${dirRole.toUpperCase()} Director`;
+    document.getElementById('dir-meta').innerHTML=
+      `<span>Rol: <b style="color:#58a6ff">${esc(dirRole)}</b></span>`+
+      `<span>Status: <b style="color:${status==='completed'?'#3fb950':'#d29922'}">${esc(status)}</b></span>`+
+      (prov!=='none'?`<span>LLM: <b style="color:#79c0ff">${esc(prov)}</b></span>`:'')+
+      `<span style="color:#8b949e">${esc(ts)}</span>`;
+    dirHistorial.unshift({rol:dirRole,tarea:tarea,resultado:resultado,ts:ts,status:status});
+    if(dirHistorial.length>20)dirHistorial=dirHistorial.slice(0,20);
+    localStorage.setItem('dir_historial',JSON.stringify(dirHistorial));
+    renderDirHistorial();
+    toast(`${DIR_EMOJI[dirRole]||''} Director ${dirRole} respondió`);
+  }catch(e){
+    resEl.textContent='❌ Error: '+e.message+'\n\nVerifica que la API esté activa en puerto 8000.';
+    resEl.style.color='#f85149';
+    toast('Error al contactar Director',true);
+  }
+  btn.disabled=false;btnText.textContent='Enviar al Director';spinner.style.display='none';
+}
+
+function limpiarDirector(){
+  document.getElementById('dir-resultado-box').style.display='none';
+  document.getElementById('dir-tarea').value='';
+}
+
+function initDirector(){renderDirHistorial();}
+
+function renderDirHistorial(){
+  const lista=document.getElementById('dir-hist-lista');
+  if(!dirHistorial.length){
+    lista.innerHTML='<div style="color:#8b949e;text-align:center;padding:20px;font-size:.82rem">Sin consultas aún. Envía tu primera tarea arriba.</div>';
+    return;
+  }
+  lista.innerHTML=dirHistorial.map((h,i)=>`
+    <div class="tarea-entry" style="cursor:pointer" onclick="cargarHistDir(${i})">
+      <div class="tarea-meta">
+        <span><b style="color:#58a6ff">${esc((DIR_EMOJI[h.rol]||''))} ${esc(h.rol.toUpperCase())}</b></span>
+        <span style="color:#8b949e">${esc(h.ts)}</span>
+      </div>
+      <div style="color:#e6edf3;margin-bottom:4px">${esc((h.tarea||'').length>100?h.tarea.slice(0,100)+'...':h.tarea)}</div>
+      ${h.resultado?'<div style="color:#8b949e;font-size:.73rem">'+esc((h.resultado||'').slice(0,120))+'...</div>':''}
+    </div>
+  `).join('');
+}
+
+function cargarHistDir(idx){
+  const h=dirHistorial[idx];if(!h)return;
+  document.getElementById('dir-tarea').value=h.tarea;
+  dirRole=h.rol;
+  document.querySelectorAll('.dir-role').forEach(b=>{b.classList.toggle('active',b.dataset.role===h.rol);});
+  document.getElementById('dir-role-desc').textContent=DIR_ROLES_DESC[h.rol]||'';
+  document.getElementById('dir-resultado-box').style.display='block';
+  document.getElementById('dir-resultado-titulo').textContent=`${DIR_EMOJI[h.rol]||'🎯'} Respuesta del ${h.rol.toUpperCase()} Director`;
+  document.getElementById('dir-resultado').textContent=h.resultado||'';
+  document.getElementById('dir-resultado').style.color='#e6edf3';
+  document.getElementById('dir-meta').innerHTML=`<span style="color:#8b949e">Historial: ${esc(h.ts)}</span>`;
 }
 
 // == Init ==

@@ -62,6 +62,7 @@ config.json
 *.sqlite3
 vector_db/
 agency_data.db
+data/alert_config.json
 
 # Reportes y logs generados
 reporte_*.txt
@@ -94,3 +95,11 @@ frontend/dist/
 frontend/.env
 frontend/.env.local
 frontend/.env.production
+
+# Data directories and backup artifacts
+data/
+*.backup
+*.backup.*
+*.old
+*.bak_*
+reportes/due_diligence_*.json

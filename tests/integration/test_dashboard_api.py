@@ -1,5 +1,6 @@
 """Integration tests for the Dashboard V2 FastAPI backend."""
 
+import json
 import os
 import sys
 import tempfile
@@ -104,6 +105,30 @@ def test_cancel_completed_task(client, task_store):
     task_store.update(task)
     resp = client.post(f"/api/v2/dashboard/tasks/{task_id}/cancel")
     assert resp.status_code == 400
+
+
+# ---- PATCH (update) ----
+
+
+def test_update_task_status(client):
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Patchable"})
+    task_id = create_resp.json()["id"]
+    resp = client.patch(f"/api/v2/dashboard/tasks/{task_id}", json={"status": "running"})
+    assert resp.status_code == 200
+    assert resp.json()["status"] == "running"
+
+
+def test_update_task_name(client):
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Old"})
+    task_id = create_resp.json()["id"]
+    resp = client.patch(f"/api/v2/dashboard/tasks/{task_id}", json={"name": "New"})
+    assert resp.status_code == 200
+    assert resp.json()["name"] == "New"
+
+
+def test_update_task_not_found(client):
+    resp = client.patch("/api/v2/dashboard/tasks/nope", json={"name": "X"})
+    assert resp.status_code == 404
 
 
 # ---- Logs ----

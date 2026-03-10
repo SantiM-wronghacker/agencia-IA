@@ -7,6 +7,38 @@ interface WsEvent {
   data?: unknown;
 }
 
+/**
+ * Normalize an incoming WebSocket message into a WsEvent.
+ *
+ * The backend sends the unified envelope ``{ event, ts, payload }``.
+ * For backward compatibility we also accept ``{ type, ... }``.
+ */
+function toWsEvent(msg: unknown): WsEvent {
+  if (typeof msg === 'object' && msg !== null) {
+    const obj = msg as Record<string, unknown>;
+
+    // Unified contract: { event, ts, payload }
+    if (typeof obj.event === 'string') {
+      return {
+        type: obj.event,
+        timestamp: (typeof obj.ts === 'string' ? obj.ts : new Date().toISOString()),
+        data: obj.payload ?? obj,
+      };
+    }
+
+    // Legacy / backward compat: { type, ... }
+    if (typeof obj.type === 'string') {
+      return {
+        type: obj.type,
+        timestamp: (typeof obj.timestamp === 'string' ? obj.timestamp : new Date().toISOString()),
+        data: obj,
+      };
+    }
+  }
+
+  return { type: 'message', timestamp: new Date().toISOString(), data: msg };
+}
+
 const RealtimeUpdates: React.FC = () => {
   const { lastMessage, isConnected } = useWebSocket();
   const [events, setEvents] = useState<WsEvent[]>([]);

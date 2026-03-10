@@ -8,10 +8,11 @@ import os
 import time
 import uuid
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect, status
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 from .models import (
     DashboardMetrics,
@@ -51,6 +52,32 @@ app.add_middleware(
 _start_time: float = time.time()
 _task_store = TaskStore()
 manager = ConnectionManager()
+
+
+# --- Helpers -----------------------------------------------------------------
+
+
+def _event_envelope(event: str, payload: Any = None) -> dict[str, Any]:
+    """Build a unified WebSocket event envelope.
+
+    Contract: ``{ "event": str, "ts": str, "payload": ... }``
+    """
+    return {
+        "event": event,
+        "ts": datetime.now(timezone.utc).isoformat(),
+        "payload": payload,
+    }
+
+
+# --- PATCH body model -------------------------------------------------------
+
+
+class TaskUpdate(BaseModel):
+    """Campos opcionales para actualizar una tarea vía PATCH."""
+    name: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[TaskStatus] = None
+
 
 # --- Endpoints --------------------------------------------------------------
 
@@ -135,16 +162,38 @@ async def list_tasks(
 @app.get("/api/v2/dashboard/tasks/{task_id}", response_model=TaskSchema)
 async def get_task(task_id: str) -> TaskSchema:
     """Obtiene una tarea por su ID."""
-    task = _task_store.get(task_id)
+    task = repo.get(task_id)
     if task is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
+    return task
+
+
+@app.patch("/api/v2/dashboard/tasks/{task_id}", response_model=TaskSchema)
+async def update_task(task_id: str, body: TaskUpdate) -> TaskSchema:
+    """Actualiza campos de una tarea existente (PATCH)."""
+    task = repo.get(task_id)
+    if task is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
+
+    update_data = body.model_dump(exclude_unset=True)
+    if not update_data:
+        return task
+
+    for field, value in update_data.items():
+        setattr(task, field, value)
+    task.updated_at = datetime.now(timezone.utc)
+    repo.update(task)
+
+    await manager.broadcast(
+        _event_envelope("task_updated", task.model_dump(mode="json"))
+    )
     return task
 
 
 @app.post("/api/v2/dashboard/tasks/{task_id}/cancel", response_model=TaskSchema)
 async def cancel_task(task_id: str) -> TaskSchema:
     """Cancela una tarea si está en estado PENDING o RUNNING."""
-    task = _task_store.get(task_id)
+    task = repo.get(task_id)
     if task is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
 
@@ -169,7 +218,7 @@ async def cancel_task(task_id: str) -> TaskSchema:
 @app.get("/api/v2/dashboard/tasks/{task_id}/logs", response_model=list[str])
 async def get_task_logs(task_id: str) -> list[str]:
     """Devuelve los logs de una tarea."""
-    task = _task_store.get(task_id)
+    task = repo.get(task_id)
     if task is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tarea no encontrada")
     return task.logs
@@ -182,7 +231,9 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
     try:
         while True:
             data = await websocket.receive_text()
-            await manager.send_personal_message({"event": "echo", "data": data}, websocket)
+            await manager.send_personal_message(
+                _event_envelope("echo", data), websocket
+            )
     except WebSocketDisconnect:
         manager.disconnect(websocket)
 

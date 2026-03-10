@@ -60,6 +60,7 @@ desktop.ini
 vector_db/
 agency_data.db
 data/dashboard.db
+data/
 
 # Reportes y logs generados
 reporte_*.txt
@@ -92,3 +93,11 @@ frontend/dist/
 frontend/.env
 frontend/.env.local
 frontend/.env.production
+
+# Data directories and backup artifacts
+data/
+*.backup
+*.backup.*
+*.old
+*.bak_*
+reportes/due_diligence_*.json

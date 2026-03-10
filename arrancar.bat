@@ -35,7 +35,8 @@ REM Paso 5: Verificar que API respondea y abrir dashboard
 echo  [5/5] Verificando accesibilidad de API y dashboard...
 set "contador=0"
 :esperar_api
-curl -s http://localhost:8000/docs >nul 2>&1
+echo  Intento !contador!/60 - esperando API...
+curl -s http://localhost:8000/ >nul 2>&1
 if !errorlevel! equ 0 (
     echo.
     echo  [OK] Sistema listo. Abriendo dashboard en navegador...
@@ -47,7 +48,7 @@ if !errorlevel! equ 0 (
     echo  ║                                                   ║
     echo  ║  Dashboard:  http://localhost:8080                ║
     echo  ║  API:        http://localhost:8000                ║
-    echo  ║  API Docs:   http://localhost:8000/docs           ║
+    echo  ║  API Status: http://localhost:8000/status         ║
     echo  ║                                                   ║
     echo  ║  Sistema ejecutandose en segundo plano.           ║
     echo  ║  Para ver logs, abre: sistema_maestro.log         ║
@@ -57,16 +58,16 @@ if !errorlevel! equ 0 (
     exit /b 0
 )
 
-REM Si no responde, reintentar hasta 30 segundos
+REM Si no responde, reintentar hasta 60 segundos
 set /a contador=!contador!+1
-if !contador! lss 30 (
+if !contador! lss 60 (
     timeout /t 1 /nobreak >nul
     goto esperar_api
 )
 
-REM Si API no responde después de 30 segundos
+REM Si API no responde después de 60 segundos
 echo.
-echo  [ERROR] El API no respondio dentro de 30 segundos.
+echo  [ERROR] El API no respondio dentro de 60 segundos.
 echo  Verifica el log: sistema_maestro.log
 echo.
 pause

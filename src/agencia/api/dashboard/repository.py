@@ -1,82 +1,148 @@
-"""SQLite-backed task repository for the Dashboard API."""
-
+"""
+SQLite-backed task repository for persistent storage.
+"""
 from __future__ import annotations
 
 import json
+import logging
 import os
 import sqlite3
-import threading
-from datetime import datetime
-from pathlib import Path
+from datetime import datetime, timezone
+from typing import Optional
 
 from .models import TaskSchema, TaskStatus
 
-_DEFAULT_DB_PATH = "./data/dashboard.db"
+logger = logging.getLogger(__name__)
+
+_DB_PATH = os.environ.get("DASHBOARD_DB_PATH", os.path.join("data", "tasks.db"))
+
+
+def _ensure_dir(path: str) -> None:
+    """Create parent directory for the database file if it doesn't exist."""
+    parent = os.path.dirname(path)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
+
+
+def _get_db_path() -> str:
+    """Return the resolved database path."""
+    return _DB_PATH
+
+
+def set_db_path(path: str) -> None:
+    """Override the database path (useful for testing)."""
+    global _DB_PATH
+    _DB_PATH = path
 
 
 class TaskRepository:
-    """Thread-safe SQLite repository for tasks."""
+    """SQLite-backed task storage with auto-create table."""
 
-    def __init__(self, db_path: str | None = None) -> None:
-        self._db_path = db_path or os.getenv("DASHBOARD_DB_PATH", _DEFAULT_DB_PATH)
-        Path(self._db_path).parent.mkdir(parents=True, exist_ok=True)
-        self._lock = threading.Lock()
-        self._conn = sqlite3.connect(self._db_path, check_same_thread=False)
-        self._conn.row_factory = sqlite3.Row
-        self._init_table()
+    def __init__(self, db_path: Optional[str] = None) -> None:
+        self.db_path = db_path or _get_db_path()
+        _ensure_dir(self.db_path)
+        self._init_db()
 
-    def _init_table(self) -> None:
-        self._conn.execute(
-            """
-            CREATE TABLE IF NOT EXISTS tasks (
-                id TEXT PRIMARY KEY,
-                name TEXT NOT NULL,
-                description TEXT,
-                status TEXT NOT NULL,
-                created_at TEXT NOT NULL,
-                updated_at TEXT NOT NULL,
-                result TEXT,
-                logs TEXT
-            )
-            """
-        )
-        self._conn.commit()
+    def _get_conn(self) -> sqlite3.Connection:
+        conn = sqlite3.connect(self.db_path)
+        conn.row_factory = sqlite3.Row
+        # WAL mode improves concurrent read performance and reduces lock contention
+        conn.execute("PRAGMA journal_mode=WAL")
+        return conn
 
-    # -- helpers ----------------------------------------------------------
-
-    @staticmethod
-    def _row_to_task(row: sqlite3.Row) -> TaskSchema:
-        return TaskSchema(
-            id=row["id"],
-            name=row["name"],
-            description=row["description"],
-            status=TaskStatus(row["status"]),
-            created_at=datetime.fromisoformat(row["created_at"]),
-            updated_at=datetime.fromisoformat(row["updated_at"]),
-            result=json.loads(row["result"]) if row["result"] is not None else None,
-            logs=json.loads(row["logs"]) if row["logs"] is not None else [],
-        )
-
-    # -- public API -------------------------------------------------------
+    def _init_db(self) -> None:
+        """Create the tasks table if it doesn't exist."""
+        conn = self._get_conn()
+        try:
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS tasks (
+                    id TEXT PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    status TEXT NOT NULL DEFAULT 'pending',
+                    description TEXT,
+                    created_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL,
+                    result TEXT,
+                    logs TEXT NOT NULL DEFAULT '[]'
+                )
+            """)
+            conn.commit()
+            logger.info("SQLite task repository initialized at %s", self.db_path)
+        finally:
+            conn.close()
 
     def create(self, task: TaskSchema) -> TaskSchema:
-        with self._lock:
-            self._conn.execute(
-                """
-                INSERT INTO tasks (id, name, description, status, created_at, updated_at, result, logs)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                """,
+        """Insert a new task."""
+        conn = self._get_conn()
+        try:
+            conn.execute(
+                """INSERT INTO tasks (id, name, status, description, created_at, updated_at, result, logs)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
                 (
                     task.id,
                     task.name,
-                    task.description,
                     task.status.value,
+                    task.description,
                     task.created_at.isoformat(),
                     task.updated_at.isoformat(),
                     json.dumps(task.result) if task.result is not None else None,
                     json.dumps(task.logs),
                 ),
             )
+            conn.commit()
+            return task
+        finally:
+            conn.close()
+
+    def get(self, task_id: str) -> Optional[TaskSchema]:
+        """Get a task by ID."""
+        conn = self._get_conn()
+        try:
+            row = conn.execute("SELECT * FROM tasks WHERE id = ?", (task_id,)).fetchone()
+            if row is None:
+                return None
+            return self._row_to_task(row)
+        finally:
+            conn.close()
+
+    def list_tasks(
+        self,
+        status_filter: Optional[TaskStatus] = None,
+        search: Optional[str] = None,
+    ) -> list[TaskSchema]:
+        """List tasks with optional filters."""
+        conn = self._get_conn()
+        try:
+            query = "SELECT * FROM tasks WHERE 1=1"
+            params: list[str] = []
+
+            if status_filter is not None:
+                query += " AND status = ?"
+                params.append(status_filter.value)
+
+            if search:
+                query += " AND (LOWER(name) LIKE ? OR LOWER(COALESCE(description, '')) LIKE ?)"
+                like = f"%{search.lower()}%"
+                params.extend([like, like])
+
+            query += " ORDER BY created_at DESC"
+
+            rows = conn.execute(query, params).fetchall()
+            return [self._row_to_task(r) for r in rows]
+        finally:
+            conn.close()
+
+    def update(self, task: TaskSchema) -> TaskSchema:
+        """Update an existing task."""
+        conn = self._get_conn()
+        try:
+            conn.execute(
+                """UPDATE tasks SET name=?, status=?, description=?, updated_at=?, result=?, logs=?
+                   WHERE id=?""",
+                (
+                    task.name,
+                    task.status.value,
+                    task.description,
             self._conn.commit()
         return task
 
@@ -133,42 +199,54 @@ class TaskRepository:
                     task.id,
                 ),
             )
-            self._conn.commit()
-        return task
+            conn.commit()
+            return task
+        finally:
+            conn.close()
 
-    def delete(self, task_id: str) -> bool:
-        with self._lock:
-            cur = self._conn.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
-            self._conn.commit()
-        return cur.rowcount > 0
+    def count_by_status(self) -> dict[str, int]:
+        """Get task counts grouped by status."""
+        conn = self._get_conn()
+        try:
+            rows = conn.execute(
+                "SELECT status, COUNT(*) as cnt FROM tasks GROUP BY status"
+            ).fetchall()
+            return {row["status"]: row["cnt"] for row in rows}
+        finally:
+            conn.close()
 
-    def metrics(self) -> dict:
-        with self._lock:
-            cur = self._conn.execute(
-                """
-                SELECT
-                    COUNT(*)                                        AS total_tasks,
-                    SUM(CASE WHEN status = ? THEN 1 ELSE 0 END)    AS completed,
-                    SUM(CASE WHEN status = ? THEN 1 ELSE 0 END)    AS failed,
-                    SUM(CASE WHEN status = ? THEN 1 ELSE 0 END)    AS pending,
-                    SUM(CASE WHEN status = ? THEN 1 ELSE 0 END)    AS running
-                FROM tasks
-                """,
-                (
-                    TaskStatus.COMPLETED.value,
-                    TaskStatus.FAILED.value,
-                    TaskStatus.PENDING.value,
-                    TaskStatus.RUNNING.value,
-                ),
-            )
-            row = cur.fetchone()
-        total = row["total_tasks"] or 0
-        completed = row["completed"] or 0
-        return {
-            "total_tasks": total,
-            "completed": completed,
-            "failed": row["failed"] or 0,
-            "pending": row["pending"] or 0,
-            "running": row["running"] or 0,
-            "success_rate": round((completed / total) * 100.0, 2) if total else 0.0,
-        }
+    def total_count(self) -> int:
+        """Get total number of tasks."""
+        conn = self._get_conn()
+        try:
+            row = conn.execute("SELECT COUNT(*) as cnt FROM tasks").fetchone()
+            return row["cnt"] if row else 0
+        finally:
+            conn.close()
+
+    def clear(self) -> None:
+        """Delete all tasks (for testing)."""
+        conn = self._get_conn()
+        try:
+            conn.execute("DELETE FROM tasks")
+            conn.commit()
+        finally:
+            conn.close()
+
+    @staticmethod
+    def _row_to_task(row: sqlite3.Row) -> TaskSchema:
+        """Convert a database row to a TaskSchema."""
+        result_raw = row["result"]
+        result = json.loads(result_raw) if result_raw is not None else None
+        logs = json.loads(row["logs"]) if row["logs"] else []
+
+        return TaskSchema(
+            id=row["id"],
+            name=row["name"],
+            status=TaskStatus(row["status"]),
+            description=row["description"],
+            created_at=datetime.fromisoformat(row["created_at"]),
+            updated_at=datetime.fromisoformat(row["updated_at"]),
+            result=result,
+            logs=logs,
+        )

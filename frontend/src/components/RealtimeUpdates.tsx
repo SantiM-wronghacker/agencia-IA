@@ -44,6 +44,18 @@ const RealtimeUpdates: React.FC = () => {
   const [events, setEvents] = useState<WsEvent[]>([]);
 
   const processMessage = useCallback((msg: unknown) => {
+    let event: WsEvent;
+    if (typeof msg === 'object' && msg !== null) {
+      const obj = msg as Record<string, unknown>;
+      // Backend sends 'event' field, map to 'type' for display
+      const eventType = (obj.event as string) || (obj.type as string) || 'message';
+      event = {
+        type: eventType,
+        timestamp: (obj.timestamp as string) || new Date().toISOString(),
+        data: obj.task || obj.data || obj,
+      };
+    } else {
+      event = { type: 'message', timestamp: new Date().toISOString(), data: msg };
     if (typeof msg !== 'object' || msg === null) {
       setEvents((prev) =>
         [{ type: 'message', timestamp: new Date().toISOString(), data: msg }, ...prev].slice(0, 10),

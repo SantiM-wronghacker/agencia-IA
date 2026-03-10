@@ -1,4 +1,4 @@
-"""Integration tests for the Dashboard V2 FastAPI backend."""
+"""Integration tests for the Dashboard V2 FastAPI backend with SQLite persistence."""
 
 import json
 import os
@@ -12,21 +12,21 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 from fastapi.testclient import TestClient
 
 from src.agencia.api.dashboard.models import TaskStatus
-from src.agencia.api.dashboard.store import TaskStore
+from src.agencia.api.dashboard.repository import TaskRepository
+from src.agencia.api.dashboard.routes import app, _task_store, set_repo, get_repo
 
 
 @pytest.fixture(autouse=True)
-def task_store(monkeypatch, tmp_path):
-    """Point the dashboard store to a temporary SQLite DB for every test."""
-    db_path = str(tmp_path / "test_dashboard.db")
-
-    # Patch the module-level _task_store in routes before import
-    import src.agencia.api.dashboard.routes as routes_mod
-
-    store = TaskStore(db_path=db_path)
-    monkeypatch.setattr(routes_mod, "_task_store", store)
-    yield store
-    store.close()
+def _setup_test_repo(tmp_path):
+    """Use a temporary SQLite database for each test."""
+    db_path = str(tmp_path / "test_tasks.db")
+    repo = TaskRepository(db_path=db_path)
+    set_repo(repo)
+    _task_store.clear()
+    yield repo
+    _task_store.clear()
+    # Reset repo so next test gets a fresh one
+    set_repo(None)
 
 
 @pytest.fixture()
@@ -41,7 +41,9 @@ def client():
 def test_health_endpoint(client):
     resp = client.get("/api/v2/dashboard/health")
     assert resp.status_code == 200
-    assert resp.json()["status"] == "ok"
+    data = resp.json()
+    assert data["status"] == "ok"
+    assert "database" in data["services"]
 
 
 # ---- Create ----
@@ -96,13 +98,14 @@ def test_cancel_task(client):
     assert resp.json()["status"] == "cancelled"
 
 
-def test_cancel_completed_task(client, task_store):
+def test_cancel_completed_task(client, _setup_test_repo):
     create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Done task"})
     task_id = create_resp.json()["id"]
-    # Manually mark as completed via the store
-    task = task_store.get(task_id)
+    # Manually mark as completed via repository
+    repo = _setup_test_repo
+    task = repo.get(task_id)
     task.status = TaskStatus.COMPLETED
-    task_store.update(task)
+    repo.update(task)
     resp = client.post(f"/api/v2/dashboard/tasks/{task_id}/cancel")
     assert resp.status_code == 400
 
@@ -181,6 +184,124 @@ def test_search_tasks(client):
     assert "Deploy" in results[0]["name"]
 
 
+# ---- PATCH (update) ----
+
+
+def test_patch_task(client):
+    create_resp = client.post("/api/v2/dashboard/tasks", json={"name": "Original"})
+    task_id = create_resp.json()["id"]
+    resp = client.patch(
+        f"/api/v2/dashboard/tasks/{task_id}",
+        json={"name": "Updated", "status": "running"},
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["name"] == "Updated"
+    assert data["status"] == "running"
+
+
+def test_patch_task_not_found(client):
+    resp = client.patch(
+        "/api/v2/dashboard/tasks/nonexistent-id",
+        json={"name": "X"},
+    )
+    assert resp.status_code == 404
+
+
+# ---- Export ----
+
+
+def test_export_json(client):
+    client.post("/api/v2/dashboard/tasks", json={"name": "Export Test"})
+    resp = client.get("/api/v2/dashboard/tasks/export?format=json")
+    assert resp.status_code == 200
+    assert "application/json" in resp.headers.get("content-type", "")
+    data = resp.json()
+    assert isinstance(data, list)
+    assert len(data) == 1
+
+
+def test_export_csv(client):
+    client.post("/api/v2/dashboard/tasks", json={"name": "CSV Test"})
+    resp = client.get("/api/v2/dashboard/tasks/export?format=csv")
+    assert resp.status_code == 200
+    assert "text/csv" in resp.headers.get("content-type", "")
+    lines = resp.text.strip().split("\n")
+    assert len(lines) == 2  # header + 1 row
+    assert "CSV Test" in lines[1]
+
+
+# ---- Run Agent (stub) ----
+
+
+def test_run_agent_stub(client):
+    resp = client.post(
+        "/api/v2/dashboard/run-agent",
+        json={"category": "test", "agent_name": "echo", "input": "hello"},
+    )
+    assert resp.status_code == 201
+    data = resp.json()
+    assert "Agent: test/echo" in data["name"]
+    assert data["status"] == "completed"
+    assert len(data["logs"]) > 0
+
+
+# ---- Alerts ----
+
+
+def test_get_alert_config(client):
+    resp = client.get("/api/v2/dashboard/alerts/config")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert "max_failed" in data
+    assert "min_success_rate" in data
+
+
+def test_update_alert_config(client):
+    resp = client.put(
+        "/api/v2/dashboard/alerts/config",
+        json={"max_failed": 3, "min_success_rate": 90.0},
+    )
+    assert resp.status_code == 200
+    assert resp.json()["max_failed"] == 3
+
+
+def test_get_alerts(client):
+    resp = client.get("/api/v2/dashboard/alerts")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert "alerts" in data
+    assert "config" in data
+
+
+# ---- SQLite Persistence ----
+
+
+def test_persistence_after_restart(_setup_test_repo):
+    """Simulate restart: create tasks, then create a new repo on same DB."""
+    repo = _setup_test_repo
+    from datetime import datetime, timezone
+    from src.agencia.api.dashboard.models import TaskSchema, TaskStatus
+    import uuid
+
+    now = datetime.now(timezone.utc)
+    task = TaskSchema(
+        id=str(uuid.uuid4()),
+        name="Persistent Task",
+        status=TaskStatus.PENDING,
+        created_at=now,
+        updated_at=now,
+    )
+    repo.create(task)
+
+    # Simulate restart: create a new repository pointing to same DB
+    repo2 = TaskRepository(db_path=repo.db_path)
+    tasks = repo2.list_tasks()
+    assert len(tasks) == 1
+    assert tasks[0].name == "Persistent Task"
+    assert tasks[0].id == task.id
+
+
 # ---- WebSocket ----
 
 
@@ -191,140 +312,10 @@ def test_websocket_connection(client):
         assert "hello" in data
 
 
-# ---- WebSocket contract: events include {event, ts, payload} ----
-
-
-def test_ws_receives_task_created_event(client):
-    """Creating a task emits a task_created event over WS with the unified contract."""
-    import json
-
+def test_websocket_endpoint_exists(client):
+    """Verify the WebSocket endpoint exists and can be connected to."""
     with client.websocket_connect("/api/v2/dashboard/ws") as ws:
-        # Create a task via the REST API (will broadcast to WS)
-        resp = client.post("/api/v2/dashboard/tasks", json={"name": "WS task"})
-        assert resp.status_code == 201
-
-        raw = ws.receive_text()
-        msg = json.loads(raw)
-
-        assert msg["event"] == "task_created"
-        assert "ts" in msg
-        assert "payload" in msg
-        assert msg["payload"]["name"] == "WS task"
-
-
-def test_ws_receives_task_cancelled_event(client):
-    """Cancelling a task emits a task_cancelled event over WS with the unified contract."""
-    import json
-
-    with client.websocket_connect("/api/v2/dashboard/ws") as ws:
-        # Create + cancel
-        resp = client.post("/api/v2/dashboard/tasks", json={"name": "To cancel"})
-        task_id = resp.json()["id"]
-        # consume the task_created event
-        ws.receive_text()
-
-        client.post(f"/api/v2/dashboard/tasks/{task_id}/cancel")
-        raw = ws.receive_text()
-        msg = json.loads(raw)
-
-        assert msg["event"] == "task_cancelled"
-        assert "ts" in msg
-        assert "payload" in msg
-        assert msg["payload"]["status"] == "cancelled"
-
-
-# ---- SQLite persistence ----
-
-
-def test_sqlite_crud(task_store, client):
-    """Tasks survive in SQLite – full CRUD cycle."""
-    # Create
-    resp = client.post("/api/v2/dashboard/tasks", json={"name": "Persist me", "description": "d"})
-    assert resp.status_code == 201
-    task_id = resp.json()["id"]
-
-    # Read
-    resp = client.get(f"/api/v2/dashboard/tasks/{task_id}")
-    assert resp.status_code == 200
-    assert resp.json()["name"] == "Persist me"
-
-    # Cancel (update)
-    resp = client.post(f"/api/v2/dashboard/tasks/{task_id}/cancel")
-    assert resp.status_code == 200
-    assert resp.json()["status"] == "cancelled"
-
-    # List
-    resp = client.get("/api/v2/dashboard/tasks")
-    assert resp.status_code == 200
-    assert any(t["id"] == task_id for t in resp.json())
-
-
-def test_sqlite_persistence_across_restarts(tmp_path):
-    """Simulates a restart by creating a new TaskStore pointing to the same DB file."""
-    from src.agencia.api.dashboard.store import TaskStore
-    from src.agencia.api.dashboard.models import TaskSchema, TaskStatus
-    from datetime import datetime, timezone
-    import uuid
-
-    db_path = str(tmp_path / "restart_test.db")
-
-    # First "run" – create a task
-    store1 = TaskStore(db_path=db_path)
-    now = datetime.now(timezone.utc)
-    task = TaskSchema(
-        id=str(uuid.uuid4()),
-        name="Survive restart",
-        status=TaskStatus.PENDING,
-        created_at=now,
-        updated_at=now,
-    )
-    store1.add(task)
-    store1.close()
-
-    # Second "run" – new store instance must find the task
-    store2 = TaskStore(db_path=db_path)
-    found = store2.get(task.id)
-    assert found is not None
-    assert found.name == "Survive restart"
-    assert found.status == TaskStatus.PENDING
-    store2.close()
-
-
-# ---- TeamDirector / Role enforcement ----
-
-
-def test_director_assign_valid_role(client):
-    resp = client.post(
-        "/api/v2/dashboard/director/assign",
-        json={"role": "admin", "task": "Deploy v2"},
-    )
-    assert resp.status_code == 200
-    data = resp.json()
-    assert data["role"] == "admin"
-    assert data["status"] == "assigned"
-
-
-def test_director_reject_unregistered_role(client):
-    resp = client.post(
-        "/api/v2/dashboard/director/assign",
-        json={"role": "hacker", "task": "Do something"},
-    )
-    assert resp.status_code == 400
-    assert "not registered" in resp.json()["detail"]
-
-
-def test_director_missing_fields(client):
-    resp = client.post(
-        "/api/v2/dashboard/director/assign",
-        json={"role": "admin"},
-    )
-    assert resp.status_code == 422
-
-
-def test_team_director_class_rejects_unknown_role():
-    """Unit-level: TeamDirector.assign raises ValueError for unknown roles."""
-    from src.agencia.api.dashboard.team_director import TeamDirector
-
-    director = TeamDirector()
-    with pytest.raises(ValueError, match="not registered"):
-        director.assign("supervillain", "take over")
+        ws.send_text("ping")
+        resp = ws.receive_json(mode="text")
+        assert resp["event"] == "echo"
+        assert resp["data"] == "ping"

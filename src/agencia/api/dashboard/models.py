@@ -32,6 +32,27 @@ class TaskCreate(BaseModel):
     description: Optional[str] = None
 
 
+class TaskUpdate(BaseModel):
+    """Esquema para actualizar una tarea (PATCH)."""
+    name: Optional[str] = None
+    status: Optional[TaskStatus] = None
+    description: Optional[str] = None
+    result: Optional[Any] = None
+
+
+class RunAgentRequest(BaseModel):
+    """Esquema para ejecutar un agente."""
+    category: str
+    agent_name: str
+    input: str
+
+
+class AlertConfig(BaseModel):
+    """Configuración de alertas del dashboard."""
+    max_failed: int = 5
+    min_success_rate: float = 80.0
+
+
 class TaskSchema(BaseModel):
     """Esquema completo de una tarea."""
     id: str

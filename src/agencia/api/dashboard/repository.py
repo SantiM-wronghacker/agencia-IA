@@ -143,6 +143,56 @@ class TaskRepository:
                     task.name,
                     task.status.value,
                     task.description,
+            self._conn.commit()
+        return task
+
+    def get(self, task_id: str) -> TaskSchema | None:
+        with self._lock:
+            cur = self._conn.execute("SELECT * FROM tasks WHERE id = ?", (task_id,))
+            row = cur.fetchone()
+        if row is None:
+            return None
+        return self._row_to_task(row)
+
+    def list_all(
+        self,
+        status_filter: str | None = None,
+        search: str | None = None,
+    ) -> list[TaskSchema]:
+        query = "SELECT * FROM tasks"
+        params: list[str] = []
+        clauses: list[str] = []
+
+        if status_filter:
+            clauses.append("status = ?")
+            params.append(status_filter)
+        if search:
+            clauses.append("(name LIKE ? OR description LIKE ?)")
+            params.extend([f"%{search}%", f"%{search}%"])
+
+        if clauses:
+            query += " WHERE " + " AND ".join(clauses)
+
+        query += " ORDER BY created_at DESC"
+
+        with self._lock:
+            cur = self._conn.execute(query, params)
+            rows = cur.fetchall()
+        return [self._row_to_task(row) for row in rows]
+
+    def update(self, task: TaskSchema) -> TaskSchema:
+        with self._lock:
+            self._conn.execute(
+                """
+                UPDATE tasks
+                   SET name = ?, description = ?, status = ?,
+                       updated_at = ?, result = ?, logs = ?
+                 WHERE id = ?
+                """,
+                (
+                    task.name,
+                    task.description,
+                    task.status.value,
                     task.updated_at.isoformat(),
                     json.dumps(task.result) if task.result is not None else None,
                     json.dumps(task.logs),

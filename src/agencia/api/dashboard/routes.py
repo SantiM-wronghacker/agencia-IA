@@ -12,7 +12,7 @@ import time
 import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -64,7 +64,7 @@ app.add_middleware(
 # --- Estado -----------------------------------------------------------------
 
 _start_time: float = time.time()
-_task_store: dict[str, TaskSchema] = {}
+_task_store = TaskStore()
 manager = ConnectionManager()
 
 # SQLite repository (lazy-init to allow test override)
@@ -260,6 +260,7 @@ async def cancel_task(task_id: str) -> TaskSchema:
             detail=f"No se puede cancelar una tarea con estado {task.status.value}",
         )
 
+    now = datetime.now(timezone.utc)
     task.status = TaskStatus.CANCELLED
     task.updated_at = datetime.now(timezone.utc)
     repo.update(task)
@@ -371,6 +372,26 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
     try:
         while True:
             data = await websocket.receive_text()
-            await manager.send_personal_message({"event": "echo", "data": data}, websocket)
+            await manager.send_personal_message(
+                _event_envelope("echo", data), websocket
+            )
     except WebSocketDisconnect:
         manager.disconnect(websocket)
+
+
+# --- TeamDirector dev endpoint ----------------------------------------------
+
+_director = TeamDirector()
+
+
+@app.post("/api/v2/dashboard/director/assign", response_model=DirectorAssignResponse)
+async def director_assign(body: DirectorAssignRequest) -> DirectorAssignResponse:
+    """Assign a task via the TeamDirector (dev endpoint).
+
+    Returns 400 if the role is not registered.
+    """
+    try:
+        result = _director.assign(body.role, body.task)
+    except ValueError as exc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc))
+    return DirectorAssignResponse(**result)

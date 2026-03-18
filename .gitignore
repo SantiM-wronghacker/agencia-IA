@@ -18,7 +18,10 @@ build/
 # Backups generados por el sistema
 *.bak
 *.bak.*
+*.bak_*
 *.bak.mejora_*
+*.backup*
+*.old
 misiones.txt.bak*
 
 # Archivos de runtime
@@ -31,6 +34,9 @@ registro_fabrica.txt
 # Archivos temporales de fabrica
 lote_temporal/
 *.tmp
+
+# Datos generados
+data/
 
 # Datos de proyectos y memoria
 memory_db/

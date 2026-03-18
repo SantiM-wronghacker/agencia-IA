@@ -18,7 +18,11 @@ build/
 # Backups generados por el sistema
 *.bak
 *.bak.*
+*.bak_*
 *.bak.mejora_*
+*.backup
+*.backup.*
+*.old
 misiones.txt.bak*
 
 # Archivos de runtime
@@ -33,6 +37,7 @@ lote_temporal/
 *.tmp
 
 # Datos de proyectos y memoria
+data/
 memory_db/
 runs/
 *.sqlite3
@@ -70,6 +75,7 @@ reporte_*.csv
 resumen_diario_*.txt
 registro_*.txt
 bus_mensajes.json
+reportes/due_diligence_*.json
 
 # Backups binarios
 *.zip

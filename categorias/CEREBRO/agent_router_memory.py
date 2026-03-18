@@ -1,7 +1,7 @@
 """
 ÁREA: CEREBRO
 DESCRIPCIÓN: Agente de router con memoria que clasifica intenciones y responde según el contexto.
-TECNOLOGÍA: Python, LLaMA, json, pathlib
+TECNOLOGÍA: Python, Ollama, json, pathlib
 """
 
 import json
